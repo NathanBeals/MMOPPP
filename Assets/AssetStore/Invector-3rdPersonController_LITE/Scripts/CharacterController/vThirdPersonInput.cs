@@ -5,17 +5,8 @@ namespace Invector.vCharacterController
     public class vThirdPersonInput : MonoBehaviour
     {
         #region Variables       
-
-        [Header("Controller Input")]
-        public string horizontalInput = "Horizontal";
-        public string verticallInput = "Vertical";
-        public KeyCode jumpInput = KeyCode.Space;
-        public KeyCode strafeInput = KeyCode.Tab;
-        public KeyCode sprintInput = KeyCode.LeftShift;
-
-        [Header("Camera Input")]
-        public string rotateCameraXInput = "Mouse X";
-        public string rotateCameraYInput = "Mouse Y";
+        // Related Components
+        Character mCharacter;
 
         [HideInInspector] public vThirdPersonController cc;
         [HideInInspector] public vThirdPersonCamera tpCamera;
@@ -33,6 +24,7 @@ namespace Invector.vCharacterController
         private void Awake()
         {
             Cursor.lockState = CursorLockMode.Locked;
+            mCharacter = GetComponent<Character>();
 
             inputActions = new PlayerInputActions2();
             inputActions.PlayerControls.Jump.performed += ctx => JumpInput();
@@ -42,14 +34,13 @@ namespace Invector.vCharacterController
             inputActions.PlayerControls.Sprint.canceled += ctx => { mSprint = false; };
             inputActions.PlayerControls.Move.performed += ctx => { mMovementInput = ctx.ReadValue<Vector2>(); };
             inputActions.PlayerControls.Rotate.performed += ctx => { mMouseInput = ctx.ReadValue<Vector2>(); };
-
-            //mCharacter = GetComponent<Character>();
         }
 
         protected virtual void Start()
         {
             InitilizeController();
-            InitializeTpCamera();
+            if (mCharacter.Local)
+                InitializeTpCamera();
         }
 
         protected virtual void FixedUpdate()
@@ -97,11 +88,12 @@ namespace Invector.vCharacterController
 
         protected virtual void InputHandle()
         {
+            if (!mCharacter.Local)
+                return; //TODO: Add non main character movements (from server updates)
             MoveInput();
             CameraInput();
             SprintInput();
             StrafeInput();
-           // JumpInput();
         }
 
         public virtual void MoveInput()
@@ -131,11 +123,7 @@ namespace Invector.vCharacterController
             if (tpCamera == null)
                 return;
 
-            // var Y = Input.GetAxis(rotateCameraYInput);
-            // var X = Input.GetAxis(rotateCameraXInput);
-
             tpCamera.RotateCamera(mMouseInput.x, mMouseInput.y);
-            //tpCamera.RotateCamera(100, 100);
         }
 
         protected virtual void StrafeInput()
@@ -169,6 +157,7 @@ namespace Invector.vCharacterController
 
         #endregion
 
+        // Also needed for inputs
         private void OnEnable()
         {
             inputActions.Enable();

@@ -25,11 +25,6 @@ public class CharacterSpawner : MonoBehaviour
         // Set new character values
         newCharacterScript.Name = Name;
         newCharacterScript.Local = Player;
-        if (!Player)
-        {
-            newCharacterScript.GetComponentInChildren<Camera>().enabled = false;
-            newCharacterScript.GetComponentInChildren<AudioListener>().enabled = false;
-        }
 
         mCharacters.Add(newCharacterScript);
     }
