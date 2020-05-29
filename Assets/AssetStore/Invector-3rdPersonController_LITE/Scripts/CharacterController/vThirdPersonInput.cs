@@ -89,7 +89,14 @@ namespace Invector.vCharacterController
         protected virtual void InputHandle()
         {
             if (!mCharacter.Local)
+            {
+                //Special move
+                cc.input.x = 0;
+                cc.input.z = 1;
+                cc.UpdateMoveDirection(gameObject.transform);
                 return; //TODO: Add non main character movements (from server updates)
+            }
+
             MoveInput();
             CameraInput();
             SprintInput();
@@ -151,7 +158,7 @@ namespace Invector.vCharacterController
         /// </summary>
         protected virtual void JumpInput()
         {
-            if (JumpConditions())
+            if (mCharacter.Local && JumpConditions())
                 cc.Jump();
         }
 
