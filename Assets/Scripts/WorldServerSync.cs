@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class WorldServerSync : MonoBehaviour
 {
-    CharacterManager manager;
-
     static void AddCharacter()
     {
 

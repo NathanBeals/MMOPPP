@@ -5,20 +5,28 @@ using UnityEngine;
 
 public class CharacterSpawner : MonoBehaviour
 {
-    [SerializeField] GameObject CharacterPrefab;
+    public static CharacterSpawner s_Instance;
 
-    private void Awake()
+    [SerializeField] GameObject m_CharacterPrefab;
+
+    public void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        if (s_Instance == null)
+        {
+            s_Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (s_Instance != this)
+            Destroy(gameObject);
     }
 
-    public void SpawnCharacter(string Name = "Default", bool Player = false, Vector3 Position = new Vector3(), Vector3 Rotation = new Vector3())
+    static public void SpawnCharacter(string Name = "Default", bool Player = false, Vector3 Position = new Vector3(), Vector3 Rotation = new Vector3())
     {
         if (CharacterManager.GetCharacters().Exists(character => character.Name == Name))
             throw new System.ArgumentException("Duplicate Character Name");
 
         // Init new character
-        var newCharacter = Instantiate(CharacterPrefab, Position, Quaternion.Euler(Rotation));
+        var newCharacter = Instantiate(s_Instance.m_CharacterPrefab, Position, Quaternion.Euler(Rotation));
         var newCharacterScript = newCharacter.GetComponent<Character>();
 
         // Set new character values
@@ -28,12 +36,10 @@ public class CharacterSpawner : MonoBehaviour
         CharacterManager.AddCharacter(newCharacterScript);
     }
 
-    public void DespawnCharacter(string Name)
+    static public void DespawnCharacter(string Name)
     {
         var foundCharacter = CharacterManager.GetCharacters().Find(character => character.Name == Name);
         CharacterManager.RemoveCharacter(foundCharacter);
         Destroy(foundCharacter.gameObject);
     }
-
-    
 }

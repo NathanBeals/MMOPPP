@@ -8,12 +8,10 @@ using System.Linq;
 
 public class DebugKeys : MonoBehaviour
 {
-    // Settables
     [SerializeField] int TestSpawnCount = 1;
 
     // Inputs
     PlayerInputActions inputActions;
-    float mQuit;
 
     void Awake()
     {
@@ -35,12 +33,10 @@ public class DebugKeys : MonoBehaviour
 
     void SpawnRandomCharacter()
     {
-        var spawner = UnityEngine.Object.FindObjectOfType<CharacterSpawner>(); //TODO: slow
-
         System.Random random = new System.Random();
 
         foreach (var index in Enumerable.Range(1, TestSpawnCount))
-            spawner.SpawnCharacter(random.Next(1, 100000).ToString(), false, new Vector3(random.Next(-50, 50), 1.5f, random.Next(-50, 50)));
+            CharacterSpawner.SpawnCharacter(random.Next(1, 100000).ToString(), false, new Vector3(random.Next(-50, 50), 1.5f, random.Next(-50, 50)));
     }
 
     private void OnEnable()
