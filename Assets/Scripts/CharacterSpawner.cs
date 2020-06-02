@@ -6,7 +6,6 @@ using UnityEngine;
 public class CharacterSpawner : MonoBehaviour
 {
     [SerializeField] GameObject CharacterPrefab;
-    List<Character> mCharacters = new List<Character>(); // Change to hashmap (or the c# equivalent)
 
     private void Awake()
     {
@@ -15,7 +14,7 @@ public class CharacterSpawner : MonoBehaviour
 
     public void SpawnCharacter(string Name = "Default", bool Player = false, Vector3 Position = new Vector3(), Vector3 Rotation = new Vector3())
     {
-        if (mCharacters.Exists(character => character.Name == Name))
+        if (CharacterManager.GetCharacters().Exists(character => character.Name == Name))
             throw new System.ArgumentException("Duplicate Character Name");
 
         // Init new character
@@ -26,13 +25,13 @@ public class CharacterSpawner : MonoBehaviour
         newCharacterScript.Name = Name;
         newCharacterScript.Local = Player;
 
-        mCharacters.Add(newCharacterScript);
+        CharacterManager.AddCharacter(newCharacterScript);
     }
 
     public void DespawnCharacter(string Name)
     {
-        var foundCharacter = mCharacters.Find(character => character.Name == Name);
-        mCharacters.Remove(foundCharacter);
+        var foundCharacter = CharacterManager.GetCharacters().Find(character => character.Name == Name);
+        CharacterManager.RemoveCharacter(foundCharacter);
         Destroy(foundCharacter.gameObject);
     }
 
