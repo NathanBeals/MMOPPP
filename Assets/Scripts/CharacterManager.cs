@@ -7,7 +7,7 @@ using UnityEngine;
 public class CharacterManager : MonoBehaviour
 {
     public static CharacterManager s_Instance;
-    [SerializeField] List<Character> m_Characters;
+    [SerializeField] Dictionary<string, Character> m_Characters = new Dictionary<string, Character>();
 
     public void Awake()
     {
@@ -24,18 +24,24 @@ public class CharacterManager : MonoBehaviour
     public void OnLevelWasLoaded(int level)
     {
         s_Instance.m_Characters.Clear();
-        s_Instance.m_Characters.AddRange(FindObjectsOfType<Character>());
+        foreach (var character in FindObjectsOfType<Character>())
+            m_Characters.Add(character.Name, character);
     }
 
-    public static List<Character> GetCharacters() { return s_Instance.m_Characters; }
+    public static Dictionary<string, Character> GetCharacters() { return s_Instance.m_Characters; }
 
     public static void AddCharacter(Character character)
     {
-        s_Instance.m_Characters.Add(character);
+        s_Instance.m_Characters.Add(character.Name, character);
     }
 
     public static void RemoveCharacter(Character character)
     {
-        s_Instance.m_Characters.Remove(character);
+        s_Instance.m_Characters.Remove(character.Name);
+    }
+
+    public static void RemoveCharacter(string Name)
+    {
+        s_Instance.m_Characters.Remove(Name);
     }
 }

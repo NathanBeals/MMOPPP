@@ -22,7 +22,7 @@ public class CharacterSpawner : MonoBehaviour
 
     static public void SpawnCharacter(string Name = "Default", bool Player = false, Vector3 Position = new Vector3(), Vector3 Rotation = new Vector3())
     {
-        if (CharacterManager.GetCharacters().Exists(character => character.Name == Name))
+        if (CharacterManager.GetCharacters().ContainsKey(Name))
             throw new System.ArgumentException("Duplicate Character Name");
 
         // Init new character
@@ -38,8 +38,13 @@ public class CharacterSpawner : MonoBehaviour
 
     static public void DespawnCharacter(string Name)
     {
-        var foundCharacter = CharacterManager.GetCharacters().Find(character => character.Name == Name);
-        CharacterManager.RemoveCharacter(foundCharacter);
-        Destroy(foundCharacter.gameObject);
+        Character character;
+        CharacterManager.GetCharacters().TryGetValue(Name, out character);
+
+        if (character != null)
+        {
+            CharacterManager.RemoveCharacter(character);
+            Destroy(character.gameObject);
+        }
     }
 }
