@@ -39,9 +39,4 @@ public class CharacterManager : MonoBehaviour
     {
         s_Instance.m_Characters.Remove(character.Name);
     }
-
-    public static void RemoveCharacter(string Name)
-    {
-        s_Instance.m_Characters.Remove(Name);
-    }
 }
