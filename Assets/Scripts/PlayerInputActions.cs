@@ -41,22 +41,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
-                },
-                {
-                    ""name"": ""ExitGame"",
-                    ""type"": ""Button"",
-                    ""id"": ""6aacc0b3-d6df-4d80-99fc-84f9fcbb129a"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""SpawnRandomCharacter"",
-                    ""type"": ""Button"",
-                    ""id"": ""42d8f8ec-4c3e-4528-9dfb-4681006b267f"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -158,28 +142,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""0e65d13e-24eb-4c0b-ab72-b5dc5487050b"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ExitGame"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""869d50f8-14b5-4871-911c-a4f84bd1e28f"",
-                    ""path"": ""<Keyboard>/numpad9"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SpawnRandomCharacter"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -191,8 +153,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         m_PlayerControls_Move = m_PlayerControls.FindAction("Move", throwIfNotFound: true);
         m_PlayerControls_Rotate = m_PlayerControls.FindAction("Rotate", throwIfNotFound: true);
         m_PlayerControls_Interact = m_PlayerControls.FindAction("Interact", throwIfNotFound: true);
-        m_PlayerControls_ExitGame = m_PlayerControls.FindAction("ExitGame", throwIfNotFound: true);
-        m_PlayerControls_SpawnRandomCharacter = m_PlayerControls.FindAction("SpawnRandomCharacter", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -245,8 +205,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerControls_Move;
     private readonly InputAction m_PlayerControls_Rotate;
     private readonly InputAction m_PlayerControls_Interact;
-    private readonly InputAction m_PlayerControls_ExitGame;
-    private readonly InputAction m_PlayerControls_SpawnRandomCharacter;
     public struct PlayerControlsActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -254,8 +212,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_PlayerControls_Move;
         public InputAction @Rotate => m_Wrapper.m_PlayerControls_Rotate;
         public InputAction @Interact => m_Wrapper.m_PlayerControls_Interact;
-        public InputAction @ExitGame => m_Wrapper.m_PlayerControls_ExitGame;
-        public InputAction @SpawnRandomCharacter => m_Wrapper.m_PlayerControls_SpawnRandomCharacter;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -274,12 +230,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Interact.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnInteract;
-                @ExitGame.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnExitGame;
-                @ExitGame.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnExitGame;
-                @ExitGame.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnExitGame;
-                @SpawnRandomCharacter.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSpawnRandomCharacter;
-                @SpawnRandomCharacter.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSpawnRandomCharacter;
-                @SpawnRandomCharacter.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSpawnRandomCharacter;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -293,12 +243,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
-                @ExitGame.started += instance.OnExitGame;
-                @ExitGame.performed += instance.OnExitGame;
-                @ExitGame.canceled += instance.OnExitGame;
-                @SpawnRandomCharacter.started += instance.OnSpawnRandomCharacter;
-                @SpawnRandomCharacter.performed += instance.OnSpawnRandomCharacter;
-                @SpawnRandomCharacter.canceled += instance.OnSpawnRandomCharacter;
             }
         }
     }
@@ -308,7 +252,5 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnRotate(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnExitGame(InputAction.CallbackContext context);
-        void OnSpawnRandomCharacter(InputAction.CallbackContext context);
     }
 }

@@ -8,18 +8,21 @@ using System.Linq;
 
 public class DebugKeys : MonoBehaviour
 {
-    [SerializeField] int TestSpawnCount = 1;
+    [SerializeField] int m_TestSpawnCount = 1;
+    [SerializeField] List<WorldServerSync.CharacterDownlinkData> m_CharacterData = new List<WorldServerSync.CharacterDownlinkData>();
 
     // Inputs
-    PlayerInputActions inputActions;
+    PlayerInputActions2 inputActions;
 
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
 
-        inputActions = new PlayerInputActions();
-        inputActions.PlayerControls.ExitGame.performed += ctx => ExitGame();
-        inputActions.PlayerControls.SpawnRandomCharacter.performed += ctx => SpawnRandomCharacter();
+        inputActions = new PlayerInputActions2();
+        inputActions.DebugControls.ExitGame.performed += ctx => ExitGame();
+        inputActions.DebugControls.SpawnRandomCharacter.performed += ctx => SpawnRandomCharacter();
+        inputActions.DebugControls.SaveWorldState.performed += ctx => SaveWorldState();
+        inputActions.DebugControls.LoadWorldState.performed += ctx => LoadWorldState();
     }
 
     void ExitGame()
@@ -27,7 +30,7 @@ public class DebugKeys : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-         Application.Quit();
+        Application.Quit();
 #endif
     }
 
@@ -35,8 +38,30 @@ public class DebugKeys : MonoBehaviour
     {
         System.Random random = new System.Random();
 
-        foreach (var index in Enumerable.Range(1, TestSpawnCount))
+        foreach (var index in Enumerable.Range(1, m_TestSpawnCount))
             CharacterSpawner.SpawnCharacter(random.Next(1, 100000).ToString(), false, new Vector3(random.Next(-50, 50), 1.5f, random.Next(-50, 50)));
+    }
+
+    void SaveWorldState()
+    {
+        m_CharacterData.Clear();
+
+        foreach (var character in CharacterManager.GetCharacters())
+        {
+            if (character.Value == null)
+                continue;
+
+            var saveData = new WorldServerSync.CharacterDownlinkData();
+            saveData.Name = character.Value.Name;
+            saveData.Location = character.Value.gameObject.transform.position;
+            saveData.Rotation = character.Value.gameObject.transform.rotation.eulerAngles;
+            m_CharacterData.Add(saveData);
+        }
+    }
+
+    void LoadWorldState()
+    {
+        WorldServerSync.QueueNewUpdateData(m_CharacterData);
     }
 
     private void OnEnable()

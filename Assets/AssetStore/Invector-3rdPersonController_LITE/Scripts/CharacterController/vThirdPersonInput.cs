@@ -107,7 +107,6 @@ namespace Invector.vCharacterController
         {
             cc.input.x = mMovementInput.x;
             cc.input.z = mMovementInput.y;
-            Debug.Log(mMovementInput);
         }
 
         protected virtual void CameraInput()

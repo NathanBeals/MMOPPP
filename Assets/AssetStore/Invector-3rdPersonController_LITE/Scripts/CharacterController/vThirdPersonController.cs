@@ -8,7 +8,7 @@ namespace Invector.vCharacterController
         {
             if (!this.enabled) return;
 
-            if (inputSmooth == Vector3.zero)
+            if (inputSmooth == Vector3.zero && animator != null)
             {
                 transform.position = animator.rootPosition;
                 transform.rotation = animator.rootRotation;

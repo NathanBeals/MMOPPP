@@ -20,12 +20,15 @@ public class CharacterManager : MonoBehaviour
             Destroy(gameObject);
     }
 
+    public void Start()
+    {
+        ResetCharacterList();
+    }
+
     // On level loaded recalculate the list of characters
     public void OnLevelWasLoaded(int level)
     {
-        s_Instance.m_Characters.Clear();
-        foreach (var character in FindObjectsOfType<Character>())
-            m_Characters.Add(character.Name, character);
+        ResetCharacterList();
     }
 
     public static Dictionary<string, Character> GetCharacters() { return s_Instance.m_Characters; }
@@ -38,5 +41,12 @@ public class CharacterManager : MonoBehaviour
     public static void RemoveCharacter(Character character)
     {
         s_Instance.m_Characters.Remove(character.Name);
+    }
+
+    void ResetCharacterList()
+    {
+        s_Instance.m_Characters.Clear();
+        foreach (var character in FindObjectsOfType<Character>())
+            m_Characters.Add(character.Name, character);
     }
 }

@@ -147,6 +147,90 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "DebugControls",
+            "id": "6907a8da-2d0d-455f-97b4-8d94ed170fa6",
+            "actions": [
+                {
+                    "name": "SaveWorldState",
+                    "type": "Button",
+                    "id": "0f5dbe1b-d0fb-4e17-9107-fd82df370fb2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "LoadWorldState",
+                    "type": "Button",
+                    "id": "ccf1f8c3-6c15-43bc-b727-ac732afcb02d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SpawnRandomCharacter",
+                    "type": "Button",
+                    "id": "9c3d5722-7324-4d65-a515-c00ed8ed6a46",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ExitGame",
+                    "type": "Button",
+                    "id": "218e4afc-37e7-49f2-a9ce-f55b656ab01d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1b554468-590e-40bc-9a44-94c4dd90c93f",
+                    "path": "<Keyboard>/numpad7",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SaveWorldState",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bdaf8695-a35c-468d-a0e2-ac4c3cd12c25",
+                    "path": "<Keyboard>/numpad8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LoadWorldState",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6cfee56e-0d97-4d73-8808-9d65aab2a02d",
+                    "path": "<Keyboard>/numpad9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpawnRandomCharacter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7a8b4f93-ff73-4ecb-bb7a-b3b5db1e219b",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ExitGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

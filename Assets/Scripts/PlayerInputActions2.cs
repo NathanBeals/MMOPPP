@@ -160,6 +160,90 @@ public class @PlayerInputActions2 : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""DebugControls"",
+            ""id"": ""6907a8da-2d0d-455f-97b4-8d94ed170fa6"",
+            ""actions"": [
+                {
+                    ""name"": ""SaveWorldState"",
+                    ""type"": ""Button"",
+                    ""id"": ""0f5dbe1b-d0fb-4e17-9107-fd82df370fb2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""LoadWorldState"",
+                    ""type"": ""Button"",
+                    ""id"": ""ccf1f8c3-6c15-43bc-b727-ac732afcb02d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SpawnRandomCharacter"",
+                    ""type"": ""Button"",
+                    ""id"": ""9c3d5722-7324-4d65-a515-c00ed8ed6a46"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ExitGame"",
+                    ""type"": ""Button"",
+                    ""id"": ""218e4afc-37e7-49f2-a9ce-f55b656ab01d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""1b554468-590e-40bc-9a44-94c4dd90c93f"",
+                    ""path"": ""<Keyboard>/numpad7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SaveWorldState"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bdaf8695-a35c-468d-a0e2-ac4c3cd12c25"",
+                    ""path"": ""<Keyboard>/numpad8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LoadWorldState"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6cfee56e-0d97-4d73-8808-9d65aab2a02d"",
+                    ""path"": ""<Keyboard>/numpad9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpawnRandomCharacter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7a8b4f93-ff73-4ecb-bb7a-b3b5db1e219b"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ExitGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -171,6 +255,12 @@ public class @PlayerInputActions2 : IInputActionCollection, IDisposable
         m_PlayerControls_Jump = m_PlayerControls.FindAction("Jump", throwIfNotFound: true);
         m_PlayerControls_Strafe = m_PlayerControls.FindAction("Strafe", throwIfNotFound: true);
         m_PlayerControls_Sprint = m_PlayerControls.FindAction("Sprint", throwIfNotFound: true);
+        // DebugControls
+        m_DebugControls = asset.FindActionMap("DebugControls", throwIfNotFound: true);
+        m_DebugControls_SaveWorldState = m_DebugControls.FindAction("SaveWorldState", throwIfNotFound: true);
+        m_DebugControls_LoadWorldState = m_DebugControls.FindAction("LoadWorldState", throwIfNotFound: true);
+        m_DebugControls_SpawnRandomCharacter = m_DebugControls.FindAction("SpawnRandomCharacter", throwIfNotFound: true);
+        m_DebugControls_ExitGame = m_DebugControls.FindAction("ExitGame", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -281,6 +371,63 @@ public class @PlayerInputActions2 : IInputActionCollection, IDisposable
         }
     }
     public PlayerControlsActions @PlayerControls => new PlayerControlsActions(this);
+
+    // DebugControls
+    private readonly InputActionMap m_DebugControls;
+    private IDebugControlsActions m_DebugControlsActionsCallbackInterface;
+    private readonly InputAction m_DebugControls_SaveWorldState;
+    private readonly InputAction m_DebugControls_LoadWorldState;
+    private readonly InputAction m_DebugControls_SpawnRandomCharacter;
+    private readonly InputAction m_DebugControls_ExitGame;
+    public struct DebugControlsActions
+    {
+        private @PlayerInputActions2 m_Wrapper;
+        public DebugControlsActions(@PlayerInputActions2 wrapper) { m_Wrapper = wrapper; }
+        public InputAction @SaveWorldState => m_Wrapper.m_DebugControls_SaveWorldState;
+        public InputAction @LoadWorldState => m_Wrapper.m_DebugControls_LoadWorldState;
+        public InputAction @SpawnRandomCharacter => m_Wrapper.m_DebugControls_SpawnRandomCharacter;
+        public InputAction @ExitGame => m_Wrapper.m_DebugControls_ExitGame;
+        public InputActionMap Get() { return m_Wrapper.m_DebugControls; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DebugControlsActions set) { return set.Get(); }
+        public void SetCallbacks(IDebugControlsActions instance)
+        {
+            if (m_Wrapper.m_DebugControlsActionsCallbackInterface != null)
+            {
+                @SaveWorldState.started -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnSaveWorldState;
+                @SaveWorldState.performed -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnSaveWorldState;
+                @SaveWorldState.canceled -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnSaveWorldState;
+                @LoadWorldState.started -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnLoadWorldState;
+                @LoadWorldState.performed -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnLoadWorldState;
+                @LoadWorldState.canceled -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnLoadWorldState;
+                @SpawnRandomCharacter.started -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnSpawnRandomCharacter;
+                @SpawnRandomCharacter.performed -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnSpawnRandomCharacter;
+                @SpawnRandomCharacter.canceled -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnSpawnRandomCharacter;
+                @ExitGame.started -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnExitGame;
+                @ExitGame.performed -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnExitGame;
+                @ExitGame.canceled -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnExitGame;
+            }
+            m_Wrapper.m_DebugControlsActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @SaveWorldState.started += instance.OnSaveWorldState;
+                @SaveWorldState.performed += instance.OnSaveWorldState;
+                @SaveWorldState.canceled += instance.OnSaveWorldState;
+                @LoadWorldState.started += instance.OnLoadWorldState;
+                @LoadWorldState.performed += instance.OnLoadWorldState;
+                @LoadWorldState.canceled += instance.OnLoadWorldState;
+                @SpawnRandomCharacter.started += instance.OnSpawnRandomCharacter;
+                @SpawnRandomCharacter.performed += instance.OnSpawnRandomCharacter;
+                @SpawnRandomCharacter.canceled += instance.OnSpawnRandomCharacter;
+                @ExitGame.started += instance.OnExitGame;
+                @ExitGame.performed += instance.OnExitGame;
+                @ExitGame.canceled += instance.OnExitGame;
+            }
+        }
+    }
+    public DebugControlsActions @DebugControls => new DebugControlsActions(this);
     public interface IPlayerControlsActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -288,5 +435,12 @@ public class @PlayerInputActions2 : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnStrafe(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+    }
+    public interface IDebugControlsActions
+    {
+        void OnSaveWorldState(InputAction.CallbackContext context);
+        void OnLoadWorldState(InputAction.CallbackContext context);
+        void OnSpawnRandomCharacter(InputAction.CallbackContext context);
+        void OnExitGame(InputAction.CallbackContext context);
     }
 }
