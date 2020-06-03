@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "X3ziuMRtV18zOQLXxfIk0JTO8cmwi4rjQKCLmvzkewwIIxhlehQ/80pjzrHI9PJYklA4QP4iVCMp8Eebrb/jHQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\beals_000\\Documents\\MMOPPP\\MMOPPPServer\\MMOPPPServer\\MMOPPPServer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\beals_000\\.nuget\\packages\\google.protobuf\\3.12.2\\google.protobuf.3.12.2.nupkg.sha512",
+    "C:\\Users\\beals_000\\.nuget\\packages\\system.memory\\4.5.2\\system.memory.4.5.2.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,52 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "MMOPPPServer/1.0.0": {
+        "dependencies": {
+          "Google.Protobuf": "3.12.2"
+        },
+        "runtime": {
+          "MMOPPPServer.dll": {}
+        }
+      },
+      "Google.Protobuf/3.12.2": {
+        "dependencies": {
+          "System.Memory": "4.5.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Protobuf.dll": {
+            "assemblyVersion": "3.12.2.0",
+            "fileVersion": "3.12.2.0"
+          }
+        }
+      },
+      "System.Memory/4.5.2": {}
+    }
+  },
+  "libraries": {
+    "MMOPPPServer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Google.Protobuf/3.12.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8JZLQ9UGwBltiGF6EfFaHa2NG1IlNzadyi4d+9rCjGa8/M+beummP4BRY1vFl1i4Wm8kicEC22Shm8ecQmjaYQ==",
+      "path": "google.protobuf/3.12.2",
+      "hashPath": "google.protobuf.3.12.2.nupkg.sha512"
+    },
+    "System.Memory/4.5.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fvq1GNmUFwbKv+aLVYYdgu/+gc8Nu9oFujOxIjPrsf+meis9JBzTPDL6aP/eeGOz9yPj6rRLUbOjKMpsMEWpNg==",
+      "path": "system.memory/4.5.2",
+      "hashPath": "system.memory.4.5.2.nupkg.sha512"
+    }
+  }
+}
