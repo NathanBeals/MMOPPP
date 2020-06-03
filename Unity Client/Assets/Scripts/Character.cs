@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    [SerializeField] public bool Local = false;
-    [SerializeField] public string Name;
+    [SerializeField] public bool m_Local = false;
+    [SerializeField] public string m_ID;
 
     private void Awake()
     {
-        if (Local)
-            Name = PlayerPrefs.GetString(MMOPPPConstants.CharacterKey);
+        if (m_Local)
+            m_ID = PlayerPrefs.GetString(MMOPPPConstants.s_CharacterKey);
     }
 }

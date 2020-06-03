@@ -9,17 +9,6 @@ public class CharacterSpawner : MonoBehaviour
 
     [SerializeField] GameObject m_CharacterPrefab;
 
-    public void Awake()
-    {
-        if (s_Instance == null)
-        {
-            s_Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (s_Instance != this)
-            Destroy(gameObject);
-    }
-
     static public void SpawnCharacter(string Name = "Default", bool Player = false, Vector3 Position = new Vector3(), Vector3 Rotation = new Vector3())
     {
         if (CharacterManager.GetCharacters().ContainsKey(Name))
@@ -30,8 +19,8 @@ public class CharacterSpawner : MonoBehaviour
         var newCharacterScript = newCharacter.GetComponent<Character>();
 
         // Set new character values
-        newCharacterScript.Name = Name;
-        newCharacterScript.Local = Player;
+        newCharacterScript.m_ID = Name;
+        newCharacterScript.m_Local = Player;
 
         CharacterManager.AddCharacter(newCharacterScript);
     }
@@ -46,5 +35,16 @@ public class CharacterSpawner : MonoBehaviour
             CharacterManager.RemoveCharacter(character);
             Destroy(character.gameObject);
         }
+    }
+
+    public void Awake()
+    {
+        if (s_Instance == null)
+        {
+            s_Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (s_Instance != this)
+            Destroy(gameObject);
     }
 }

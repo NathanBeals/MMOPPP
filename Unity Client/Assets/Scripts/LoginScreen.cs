@@ -8,18 +8,18 @@ using UnityEngine.UIElements;
 
 public class LoginScreen : MonoBehaviour
 {
-    [SerializeField] TMPro.TMP_InputField UserNameField;
-    [SerializeField] UnityEngine.UI.Button LoginButton;
+    [SerializeField] TMPro.TMP_InputField m_UserNameField;
+    [SerializeField] UnityEngine.UI.Button m_LoginButton;
 
     public void AttemptLogin()
     {
-        if (UserNameField.text.Length < MMOPPPConstants.MinNameLength || UserNameField.text.Length > MMOPPPConstants.MaxNameLength)
+        if (m_UserNameField.text.Length < MMOPPPConstants.s_MinNameLength || m_UserNameField.text.Length > MMOPPPConstants.s_MaxNameLength)
             return;
 
         // Username passed validation
-        PlayerPrefs.SetString(MMOPPPConstants.CharacterKey, UserNameField.text);
+        PlayerPrefs.SetString(MMOPPPConstants.s_CharacterKey, m_UserNameField.text);
 
         // Load main scene
-        SceneManager.LoadScene(MMOPPPConstants.DefaultLevel);
+        SceneManager.LoadScene(MMOPPPConstants.s_DefaultLevel);
     }
 }

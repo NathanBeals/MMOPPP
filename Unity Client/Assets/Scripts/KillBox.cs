@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class KillBox : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider Other)
     {
-        Destroy(other.gameObject);
+        Destroy(Other.gameObject);
     }
 }

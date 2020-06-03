@@ -14,17 +14,6 @@ public class DebugKeys : MonoBehaviour
     // Inputs
     PlayerInputActions2 inputActions;
 
-    void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-
-        inputActions = new PlayerInputActions2();
-        inputActions.DebugControls.ExitGame.performed += ctx => ExitGame();
-        inputActions.DebugControls.SpawnRandomCharacter.performed += ctx => SpawnRandomCharacter();
-        inputActions.DebugControls.SaveWorldState.performed += ctx => SaveWorldState();
-        inputActions.DebugControls.LoadWorldState.performed += ctx => LoadWorldState();
-    }
-
     void ExitGame()
     {
 #if UNITY_EDITOR
@@ -52,9 +41,9 @@ public class DebugKeys : MonoBehaviour
                 continue;
 
             var saveData = new WorldServerSync.CharacterDownlinkData();
-            saveData.Name = character.Value.Name;
-            saveData.Location = character.Value.gameObject.transform.position;
-            saveData.Rotation = character.Value.gameObject.transform.rotation.eulerAngles;
+            saveData.m_Name = character.Value.m_ID;
+            saveData.m_Location = character.Value.gameObject.transform.position;
+            saveData.m_Rotation = character.Value.gameObject.transform.rotation.eulerAngles;
             m_CharacterData.Add(saveData);
         }
     }
@@ -62,6 +51,17 @@ public class DebugKeys : MonoBehaviour
     void LoadWorldState()
     {
         WorldServerSync.QueueNewUpdateData(m_CharacterData);
+    }
+
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+
+        inputActions = new PlayerInputActions2();
+        inputActions.DebugControls.ExitGame.performed += ctx => ExitGame();
+        inputActions.DebugControls.SpawnRandomCharacter.performed += ctx => SpawnRandomCharacter();
+        inputActions.DebugControls.SaveWorldState.performed += ctx => SaveWorldState();
+        inputActions.DebugControls.LoadWorldState.performed += ctx => LoadWorldState();
     }
 
     private void OnEnable()

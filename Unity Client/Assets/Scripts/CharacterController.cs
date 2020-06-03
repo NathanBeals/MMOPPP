@@ -6,57 +6,57 @@ using UnityEngine.Video;
 public class CharacterController : MonoBehaviour
 {
     // Related Components
-    Character mCharacter;
+    Character m_Character;
 
     // Inputs
-    PlayerInputActions inputActions;
-    Vector2 mMovementInput;
-    float mRotationInput;
+    PlayerInputActions m_InputActions;
+    Vector2 m_MovementInput;
+    float m_RotationInput;
 
     // Scaling
-    [SerializeField] float MaxVelocity = 10.0f;
-    [SerializeField] float RotationRate = 10.0f;
+    [SerializeField] float m_MaxVelocity = 10.0f;
+    [SerializeField] float m_RotationRate = 10.0f;
 
     void Awake()
     {
-        inputActions = new PlayerInputActions();
-        inputActions.PlayerControls.Move.performed += ctx => mMovementInput = ctx.ReadValue<UnityEngine.Vector2>();
-        inputActions.PlayerControls.Rotate.performed += ctx => mRotationInput = ctx.ReadValue<float>();
-        mCharacter = GetComponent<Character>();
+        m_InputActions = new PlayerInputActions();
+        m_InputActions.PlayerControls.Move.performed += ctx => m_MovementInput = ctx.ReadValue<UnityEngine.Vector2>();
+        m_InputActions.PlayerControls.Rotate.performed += ctx => m_RotationInput = ctx.ReadValue<float>();
+        m_Character = GetComponent<Character>();
     }
 
     void FixedUpdate()
     {
-        if (!mCharacter.Local)
+        if (!m_Character.m_Local)
         {
             //TODO: test ai insertion point
             //TODO: remove
             gameObject.transform.position =
                 gameObject.transform.position
-                + gameObject.transform.forward * .1f * Time.deltaTime * MaxVelocity
-                + gameObject.transform.right * .1f * Time.deltaTime * MaxVelocity;
+                + gameObject.transform.forward * .1f * Time.deltaTime * m_MaxVelocity
+                + gameObject.transform.right * .1f * Time.deltaTime * m_MaxVelocity;
 
             return;
         }
 
         // Standard movement
-        var velocity = Time.deltaTime * MaxVelocity;
+        var velocity = Time.deltaTime * m_MaxVelocity;
         gameObject.transform.position = 
             gameObject.transform.position 
-            + gameObject.transform.forward * mMovementInput.normalized.y * velocity
-            + gameObject.transform.right * mMovementInput.normalized.x * velocity;
+            + gameObject.transform.forward * m_MovementInput.normalized.y * velocity
+            + gameObject.transform.right * m_MovementInput.normalized.x * velocity;
 
         // Turning
-        gameObject.transform.Rotate(new Vector3(0, mRotationInput * RotationRate * Time.deltaTime, 0));
+        gameObject.transform.Rotate(new Vector3(0, m_RotationInput * m_RotationRate * Time.deltaTime, 0));
     }
 
     private void OnEnable()
     {
-        inputActions.Enable();
+        m_InputActions.Enable();
     }
 
     private void OnDisable()
     {
-        inputActions.Disable();
+        m_InputActions.Disable();
     }
 }

@@ -6,40 +6,40 @@ namespace Invector.vCharacterController
     {
         #region Variables       
         // Related Components
-        Character mCharacter;
+        Character m_Character;
 
         [HideInInspector] public vThirdPersonController cc;
         [HideInInspector] public vThirdPersonCamera tpCamera;
         [HideInInspector] public Camera cameraMain;
 
         // Inputs
-        PlayerInputActions2 inputActions;
-        bool mStrafe = false;
-        bool mSprint = false;
-        Vector2 mMovementInput;
-        Vector2 mMouseInput;
+        PlayerInputActions2 m_InputActions;
+        bool m_Strafe = false;
+        bool m_Sprint = false;
+        Vector2 m_MovementInput;
+        Vector2 m_MouseInput;
 
         #endregion
 
         private void Awake()
         {
             Cursor.lockState = CursorLockMode.Locked;
-            mCharacter = GetComponent<Character>();
+            m_Character = GetComponent<Character>();
 
-            inputActions = new PlayerInputActions2();
-            inputActions.PlayerControls.Jump.performed += ctx => JumpInput();
-            inputActions.PlayerControls.Strafe.started += ctx => { mStrafe = true; };
-            inputActions.PlayerControls.Strafe.canceled += ctx => { mStrafe = false; };
-            inputActions.PlayerControls.Sprint.started += ctx => { mSprint = true; };
-            inputActions.PlayerControls.Sprint.canceled += ctx => { mSprint = false; };
-            inputActions.PlayerControls.Move.performed += ctx => { mMovementInput = ctx.ReadValue<Vector2>(); };
-            inputActions.PlayerControls.Rotate.performed += ctx => { mMouseInput = ctx.ReadValue<Vector2>(); };
+            m_InputActions = new PlayerInputActions2();
+            m_InputActions.PlayerControls.Jump.performed += ctx => JumpInput();
+            m_InputActions.PlayerControls.Strafe.started += ctx => { m_Strafe = true; };
+            m_InputActions.PlayerControls.Strafe.canceled += ctx => { m_Strafe = false; };
+            m_InputActions.PlayerControls.Sprint.started += ctx => { m_Sprint = true; };
+            m_InputActions.PlayerControls.Sprint.canceled += ctx => { m_Sprint = false; };
+            m_InputActions.PlayerControls.Move.performed += ctx => { m_MovementInput = ctx.ReadValue<Vector2>(); };
+            m_InputActions.PlayerControls.Rotate.performed += ctx => { m_MouseInput = ctx.ReadValue<Vector2>(); };
         }
 
         protected virtual void Start()
         {
             InitilizeController();
-            if (mCharacter.Local)
+            if (m_Character.m_Local)
                 InitializeTpCamera();
         }
 
@@ -88,7 +88,7 @@ namespace Invector.vCharacterController
 
         protected virtual void InputHandle()
         {
-            if (!mCharacter.Local)
+            if (!m_Character.m_Local)
             {
                 //Special move
                 cc.input.x = 0;
@@ -105,8 +105,8 @@ namespace Invector.vCharacterController
 
         public virtual void MoveInput()
         {
-            cc.input.x = mMovementInput.x;
-            cc.input.z = mMovementInput.y;
+            cc.input.x = m_MovementInput.x;
+            cc.input.z = m_MovementInput.y;
         }
 
         protected virtual void CameraInput()
@@ -129,18 +129,18 @@ namespace Invector.vCharacterController
             if (tpCamera == null)
                 return;
 
-            tpCamera.RotateCamera(mMouseInput.x, mMouseInput.y);
+            tpCamera.RotateCamera(m_MouseInput.x, m_MouseInput.y);
         }
 
         protected virtual void StrafeInput()
         {
-            if (mStrafe)
+            if (m_Strafe)
                 cc.Strafe();
         }
 
         protected virtual void SprintInput()
         {
-            cc.Sprint(mSprint);
+            cc.Sprint(m_Sprint);
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace Invector.vCharacterController
         /// </summary>
         protected virtual void JumpInput()
         {
-            if (mCharacter.Local && JumpConditions())
+            if (m_Character.m_Local && JumpConditions())
                 cc.Jump();
         }
 
@@ -166,12 +166,12 @@ namespace Invector.vCharacterController
         // Also needed for inputs
         private void OnEnable()
         {
-            inputActions.Enable();
+            m_InputActions.Enable();
         }
 
         private void OnDisable()
         {
-            inputActions.Disable();
+            m_InputActions.Disable();
         }
     }
 }
