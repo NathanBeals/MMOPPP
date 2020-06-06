@@ -1,0 +1,52 @@
+syntax = "proto3";
+package MMOPPP;
+
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "Google.Protobuf.MMOPPP.Messages"; // Changes the namespace for c# generated code
+
+// -- Helper Messages --
+message Vector3
+{
+    float x = 1; // Forward
+    float y = 2; // Right
+    float z = 3; // Up
+}
+
+message Identifier 
+{
+    string name = 1;
+    string tags = 2;
+}
+
+message EntityInput
+{
+    Vector3 direction_inputs = 3;
+    Vector3 euler_rotation = 4;
+    bool strafe = 5;
+    bool sprint = 6;
+}
+
+// -- Full Messages --
+
+// From Server
+message EntityUpdate 
+{
+    Identifier id = 1;
+    EntityInput predictive_inputs = 2;
+    Vector3 position = 3;
+}
+
+message WorldUpdate
+{
+    repeated EntityUpdate updates = 1;
+}
+
+// To Server
+message PlayerInput
+{
+    Identifier id = 1;
+    EntityInput move_input = 2;
+
+    google.protobuf.Timestamp sent_time = 15;
+}
