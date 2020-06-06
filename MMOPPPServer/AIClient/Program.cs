@@ -7,6 +7,8 @@ using Google.Protobuf.MMOPPP.Messages;
 using Google.Protobuf.WellKnownTypes;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.VisualBasic;
 
 namespace AIClient
 {
@@ -36,9 +38,40 @@ namespace AIClient
         {
             Debug.PrintSizeCalc();
 
+            var client = new MMOPPPCLient();
+
+            client.Connect
+
+            while (true)
+            {
+
+            }
+
 //            Packet<PlayerInput> mypacket = new Packet<PlayerInput> { m_Size = testInput.CalculateSize(), m_Message = testInput };
         }
     }
+
+
+    class MMOPPPCLient
+    {
+        public void Connect(string ServerAddress = MMOPPPShared.Constants.s_ServerAddress, Int32 Port = MMOPPPShared.Constants.s_ServerUpPort) //TODO: const
+        {
+            try
+            {
+
+
+                Int32 port = 13000; //TODO: const
+                TcpClient client = new TcpClient(server, port);
+
+                NetworkStream stream = client.GetStream();
+
+
+
+            }
+
+        }
+    }
+
 
     //TODO: might be able to rename this just packet
     public class Packet<T> where T : Google.Protobuf.IMessage<T>
