@@ -42,7 +42,17 @@ namespace AIClient
                 }
             };
 
-        Console.WriteLine("I am an AI {0}", input.CalculateSize());
+            PlayerInput input2 = new PlayerInput();
+            input2.Id = new Identifier { Name = "Wilbur", Tags = ""};
+            input2.MoveInput = new EntityInput { 
+                Strafe = false, 
+                Sprint = false, 
+                EulerRotation = new Vector3 { X = 0.0f, Y = 0.0f, Z = 0.0f }, 
+                DirectionInputs = new Vector3 { X = 0.0f, Y = 0.0f, Z = 0.0f } };
+            input2.SentTime = new Timestamp { Seconds = DateTime.Now.Second, Nanos = DateTime.Now.Millisecond / 1000000 };
+
+            Console.WriteLine("I am an AI1 {0}", input.CalculateSize());
+            Console.WriteLine("I am an AI2 {0}", input2.CalculateSize());
         }
     }
 
