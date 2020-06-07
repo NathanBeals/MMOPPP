@@ -10,6 +10,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Addressbook.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MMOPPPMessages.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Packet.cs" />
   </ItemGroup>
 </Project>
