@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using Google.Protobuf;
-using Google.Protobuf.Examples.AddressBook;
+
 using Google.Protobuf.MMOPPP.Messages;
 using Google.Protobuf.WellKnownTypes;
 using System.Linq;

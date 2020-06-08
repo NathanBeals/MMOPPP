@@ -8,7 +8,7 @@ namespace MMOPPPShared
     {
         public static readonly bool MessageIsLittleEndian = true; // Little Endian
         public static readonly bool SystemIsLittleEndian = BitConverter.IsLittleEndian;
-        public const string ServerAddress = "127.0.0.1";
+        public const string ServerAddress = "192.168.0.107";
         public const Int32 ServerUpPort = 6000;
         public const Int32 ServerDownPort = 6001;
     }

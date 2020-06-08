@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Net;
 using Google.Protobuf;
 using System.Linq.Expressions;
-using Google.Protobuf.Examples.AddressBook;
+
 using Google.Protobuf.MMOPPP.Messages;
 using Google.Protobuf.WellKnownTypes;
 using Google.Protobuf.Reflection;
@@ -14,32 +14,21 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
-// going to be sending udp packets and accepting packet loss as a reality
-// maybe also recieve a tcp connection?
-
-// Need a connection thread 
-namespace MMOPPP
+namespace MMOPPPServer
 {
-    class Server
+    class ClientInputWorker
     {
-        List<Thread> m_WorkerThreads;
+        Thread m_WorkerThread;
 
-        List<Byte> m_BytesToParse; // TODO: move
-
-        static void Main(string[] args)
+        public ClientInputWorker()
         {
-            Thread thread = new Thread(Server.BackgroundWork);
-            thread.Start();
+            m_WorkerThread = new Thread(BackgroundWork);
+            m_WorkerThread.Start();
+        }
 
-            //TODO: remove this whole section it's bad
-            int x = 0;
-            while(true)
-            {
-                Thread.Sleep(1000);
-                Console.WriteLine("Main wait");
-            }
-
-            thread.Abort();
+        ~ClientInputWorker()
+        {
+            m_WorkerThread.Abort(); //TODO: there's a better way to handle this
         }
 
         enum ERecievingState
@@ -54,8 +43,6 @@ namespace MMOPPP
 
             TcpListener connectionServer = new TcpListener(IPAddress.Parse(Constants.ServerAddress), Constants.ServerUpPort);
             connectionServer.Start();
-
-            EntityInput message;
 
             try
             {
@@ -72,7 +59,7 @@ namespace MMOPPP
                     byte[] buffer = new byte[256];
                     byte[] lengthData = new byte[4];
 
-                    switch(recievingState)
+                    switch (recievingState)
                     {
                         case ERecievingState.Frame:
                             {
@@ -92,7 +79,7 @@ namespace MMOPPP
                                         data.RemoveRange(messageSize, data.Count - messageSize);
 
                                         //message
-                                        PlayerInput testInput = PlayerInput.Parser.ParseFrom(data.ToArray());
+                                        PlayerInput testInput = PlayerInput.Parser.ParseFrom(data.ToArray()); // Currently just throws away the message, not ideal
                                         break;
                                     }
                                 }
