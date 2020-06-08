@@ -38,8 +38,11 @@ namespace MMOPPP
                 server.WorldUpdate(deltaTime / 10000.0f); // Expensive? 
 
 #if SERVERHEAD
+                Console.Write("\r");
                 // \r resets the cursor position so the messages overwrite the same line
-                Console.Write("\r{0}       ", deltaTime / 10000.0f);
+                //Console.Write("\r{0}       ", deltaTime / 10000.0f);
+                server.PrintInputs();
+                Thread.Sleep(1000);
 #endif
                 stopWatch.Stop();
             }

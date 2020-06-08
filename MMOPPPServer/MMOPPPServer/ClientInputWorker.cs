@@ -23,7 +23,6 @@ namespace MMOPPPServer
         Thread m_ConnectionHandlingThread;
 
         List<TcpClient> m_Clients = new List<TcpClient>(); //TODO: mutex guard
-
         List<PlayerInput> m_Inputs = new List<PlayerInput>(); //TODO: mutex guard
 
         public ClientInputWorker()
@@ -38,6 +37,22 @@ namespace MMOPPPServer
         ~ClientInputWorker()
         {
             m_MessageHandlingThread.Abort(); //TODO: there's a better way to handle this
+        }
+
+        public List<PlayerInput> GetInputs()
+        {
+            Monitor.Enter(m_Inputs);
+            var InputsCopy = new List<PlayerInput>(m_Inputs);
+            Monitor.Exit(m_Inputs);
+
+            return InputsCopy;
+        }
+
+        public void ClearInputs()
+        {
+            Monitor.Enter(m_Inputs);
+            m_Inputs.Clear();
+            Monitor.Exit(m_Inputs);
         }
 
         enum ERecievingState
@@ -57,7 +72,7 @@ namespace MMOPPPServer
                 {
                     TcpClient client = connectionServer.AcceptTcpClient();
 
-                    Monitor.Enter(m_Clients);
+                    Monitor.Enter(m_Clients); // it's failing here
                     m_Clients.Add(client);
                     Monitor.Exit(m_Clients);
 

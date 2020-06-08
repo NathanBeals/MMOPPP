@@ -8,6 +8,7 @@ using Google.Protobuf.WellKnownTypes;
 using System.Linq;
 using System.Net.NetworkInformation;
 using MMOPPPShared;
+using System.IO;
 
 namespace AIClient
 {

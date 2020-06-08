@@ -40,5 +40,12 @@ namespace MMOPPPServer
         {
             // Not implemented
         }
+
+        // for headed server debugging
+        public void PrintInputs()
+        {
+            foreach (var input in m_ClientInputWorkers[0].GetInputs())
+                Console.WriteLine(input.ToString());
+        }
     }
 }
