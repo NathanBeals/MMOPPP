@@ -12,6 +12,7 @@ using Google.Protobuf.Reflection;
 using MMOPPPShared;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 // going to be sending udp packets and accepting packet loss as a reality
 // maybe also recieve a tcp connection?
@@ -80,10 +81,12 @@ namespace MMOPPP
                                     if (buffer.Length > 4) //TODO: make constant
                                     {
                                         Array.Copy(buffer, lengthData, 4);
+                                        if (Constants.SystemIsLittleEndian != Constants.MessageIsLittleEndian)
+                                            lengthData.Reverse();
                                         messageSize = BitConverter.ToInt32(lengthData);
-                                        Array.Copy(buffer, 4, buffer, 0, buffer.Length - 4);// buffer(buffer, 4); // Move the head by 4
+                                        Array.Copy(buffer, 4, buffer, 0, buffer.Length - 4); // Remove Header
 
-                                        //message //TODO: more effecient way to do this
+                                        //TODO: more efecient way to do this
                                         List<byte> data = new List<byte>();
                                         data.AddRange(buffer);
                                         data.RemoveRange(messageSize, data.Count - messageSize);

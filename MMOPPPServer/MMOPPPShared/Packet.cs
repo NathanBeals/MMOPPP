@@ -17,10 +17,14 @@ namespace MMOPPPShared
 
         private Int32 m_Length;
 
-        // TODO: there are more efficient ways to do this, I opted for simplicity
+        // TODO: efficiency
         Byte[] ToByteArray()
         {
             byte[] sizeInBytes = BitConverter.GetBytes(m_Size);
+            // INFO: protobuf handles the endianess of it's messages, only the size needs to be swapped.
+            if (Constants.MessageIsLittleEndian != Constants.SystemIsLittleEndian)
+                sizeInBytes.Reverse();
+
             byte[] messageInBytes = m_Message.ToByteArray();
 
             byte[] packetInBytes = new byte[sizeInBytes.Length + messageInBytes.Length];
