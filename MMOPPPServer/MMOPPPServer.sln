@@ -5,15 +5,15 @@ VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MMOPPPServer", "MMOPPPServer\MMOPPPServer.csproj", "{3376B079-4623-4AB7-A093-CB985E04CAA7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MMOPPPCLient", "AIClient\MMOPPPCLient.csproj", "{AA521561-EC1E-488A-A580-4D27D24DA11B}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "MMOPPPShared", "MMOPPPShared\MMOPPPShared.shproj", "{70C63361-3CDB-4965-89E7-531DFECC3B61}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MMOPPPCLient", "MMOPPPClient\MMOPPPCLient.csproj", "{5BE7A8FF-A602-4A95-B6C7-9C651784EA84}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		MMOPPPShared\MMOPPPShared.projitems*{3376b079-4623-4ab7-a093-cb985e04caa7}*SharedItemsImports = 5
+		MMOPPPShared\MMOPPPShared.projitems*{5be7a8ff-a602-4a95-b6c7-9c651784ea84}*SharedItemsImports = 5
 		MMOPPPShared\MMOPPPShared.projitems*{70c63361-3cdb-4965-89e7-531dfecc3b61}*SharedItemsImports = 13
-		MMOPPPShared\MMOPPPShared.projitems*{aa521561-ec1e-488a-a580-4d27d24da11b}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,10 +24,10 @@ Global
 		{3376B079-4623-4AB7-A093-CB985E04CAA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3376B079-4623-4AB7-A093-CB985E04CAA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3376B079-4623-4AB7-A093-CB985E04CAA7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA521561-EC1E-488A-A580-4D27D24DA11B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA521561-EC1E-488A-A580-4D27D24DA11B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA521561-EC1E-488A-A580-4D27D24DA11B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA521561-EC1E-488A-A580-4D27D24DA11B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BE7A8FF-A602-4A95-B6C7-9C651784EA84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BE7A8FF-A602-4A95-B6C7-9C651784EA84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BE7A8FF-A602-4A95-B6C7-9C651784EA84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BE7A8FF-A602-4A95-B6C7-9C651784EA84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

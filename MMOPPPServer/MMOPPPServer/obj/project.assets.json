@@ -74,23 +74,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\nbeals\\.nuget\\packages\\": {},
+    "C:\\Users\\beals_000\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nbeals\\Documents\\MMOPPP\\MMOPPPServer\\MMOPPPServer\\MMOPPPServer.csproj",
+      "projectUniqueName": "C:\\Users\\beals_000\\Documents\\MMOPPP\\MMOPPPServer\\MMOPPPServer\\MMOPPPServer.csproj",
       "projectName": "MMOPPPServer",
-      "projectPath": "C:\\Users\\nbeals\\Documents\\MMOPPP\\MMOPPPServer\\MMOPPPServer\\MMOPPPServer.csproj",
-      "packagesPath": "C:\\Users\\nbeals\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nbeals\\Documents\\MMOPPP\\MMOPPPServer\\MMOPPPServer\\obj\\",
+      "projectPath": "C:\\Users\\beals_000\\Documents\\MMOPPP\\MMOPPPServer\\MMOPPPServer\\MMOPPPServer.csproj",
+      "packagesPath": "C:\\Users\\beals_000\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\beals_000\\Documents\\MMOPPP\\MMOPPPServer\\MMOPPPServer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\nbeals\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\beals_000\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -134,7 +134,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

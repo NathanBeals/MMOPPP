@@ -5,10 +5,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <Import Project="..\MMOPPPShared\MMOPPPShared.projitems" Label="Shared" />
+
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.12.2" />
   </ItemGroup>
-
-  <Import Project="..\MMOPPPShared\MMOPPPShared.projitems" Label="Shared" />
 
 </Project>
