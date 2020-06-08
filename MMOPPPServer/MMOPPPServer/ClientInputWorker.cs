@@ -41,18 +41,21 @@ namespace MMOPPPServer
 
         public List<PlayerInput> GetInputs()
         {
-            Monitor.Enter(m_Inputs);
-            var InputsCopy = new List<PlayerInput>(m_Inputs);
-            Monitor.Exit(m_Inputs);
+            List<PlayerInput> InputsCopy;
+            lock (m_Inputs)
+            {
+                InputsCopy = new List<PlayerInput>(m_Inputs);
+            }
 
             return InputsCopy;
         }
 
         public void ClearInputs()
         {
-            Monitor.Enter(m_Inputs);
-            m_Inputs.Clear();
-            Monitor.Exit(m_Inputs);
+            lock (m_Inputs)
+            {
+                m_Inputs.Clear();
+            }
         }
 
         enum ERecievingState
@@ -72,9 +75,10 @@ namespace MMOPPPServer
                 {
                     TcpClient client = connectionServer.AcceptTcpClient();
 
-                    Monitor.Enter(m_Clients); // it's failing here
-                    m_Clients.Add(client);
-                    Monitor.Exit(m_Clients);
+                    lock (m_Inputs)
+                    {
+                        m_Clients.Add(client);
+                    }
 
                     Console.WriteLine("Connected!");
                 }
@@ -93,30 +97,30 @@ namespace MMOPPPServer
         {
             while (true)
             {
-                Monitor.Enter(m_Clients);
-
-                foreach (var client in m_Clients)
-                    HandleMessage(client);
-
-                Monitor.Exit(m_Clients);
+                lock (m_Inputs)
+                {
+                    foreach (var client in m_Clients)
+                        HandleMessage(client);
+                }
             }
         }
 
         //TODO: I'm still worried about the spliting packets problem
         public void HandleMessage(TcpClient Client)
         {
-                ERecievingState recievingState = ERecievingState.Frame;
-                NetworkStream stream = Client.GetStream();
+            ERecievingState recievingState = ERecievingState.Frame;
+            NetworkStream stream = Client.GetStream();
 
-                Int32 messageSize = 0;
-                byte[] buffer = new byte[Constants.TCPBufferSize];
-                byte[] lengthData = new byte[Constants.HeaderSize];
+            Int32 messageSize = 0;
+            byte[] buffer = new byte[Constants.TCPBufferSize];
+            byte[] lengthData = new byte[Constants.HeaderSize];
 
-                int i;
-                while ((i = stream.Read(buffer, 0, Constants.TCPBufferSize)) != 0) { };
+            int i;
+            while ((i = stream.Read(buffer, 0, Constants.TCPBufferSize)) != 0) { };
 
-                var remainingBufferToParse = Constants.TCPBufferSize;
-            while (remainingBufferToParse > 0)
+            bool earlyExit = false;
+            var remainingBufferToParse = Constants.TCPBufferSize;
+            while (remainingBufferToParse > 0 && !earlyExit)
             {
                 switch (recievingState)
                 {
@@ -132,7 +136,10 @@ namespace MMOPPPServer
 
                                 // No more messages signal, early exit
                                 if (messageSize == 0)
+                                {
+                                    earlyExit = true;
                                     break;
+                                }
 
                                 // Remove header from buffer
                                 Array.Copy(buffer, Constants.HeaderSize, buffer, 0, buffer.Length - Constants.HeaderSize);
