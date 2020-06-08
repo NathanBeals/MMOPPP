@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Net.Sockets;
 using System.Net;
+using Google.Protobuf;
 using System.Linq.Expressions;
 using Google.Protobuf.Examples.AddressBook;
 using Google.Protobuf.MMOPPP.Messages;
+using Google.Protobuf.WellKnownTypes;
+using Google.Protobuf.Reflection;
 using MMOPPPShared;
 using System.Diagnostics;
 using System.IO;
@@ -51,6 +54,8 @@ namespace MMOPPP
             TcpListener connectionServer = new TcpListener(IPAddress.Parse(Constants.ServerAddress), Constants.ServerUpPort);
             connectionServer.Start();
 
+            EntityInput message;
+
             try
             {
                 while (true)
@@ -76,8 +81,15 @@ namespace MMOPPP
                                     {
                                         Array.Copy(buffer, lengthData, 4);
                                         messageSize = BitConverter.ToInt32(lengthData);
-                                        buffer.CopyTo(buffer, 4); // Move the head by 4
+                                        Array.Copy(buffer, 4, buffer, 0, buffer.Length - 4);// buffer(buffer, 4); // Move the head by 4
 
+                                        //message //TODO: more effecient way to do this
+                                        List<byte> data = new List<byte>();
+                                        data.AddRange(buffer);
+                                        data.RemoveRange(messageSize, data.Count - messageSize);
+
+                                        //message
+                                        PlayerInput testInput = PlayerInput.Parser.ParseFrom(data.ToArray());
                                         break;
                                     }
                                 }

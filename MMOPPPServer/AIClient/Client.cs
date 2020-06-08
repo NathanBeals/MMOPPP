@@ -62,7 +62,7 @@ namespace AIClient
         public PlayerInput CreatePlayerInput(string Name)
         {
             PlayerInput testInput = new PlayerInput();
-            testInput.Id = new Identifier { Name = Name, Tags = "" };
+            testInput.Id = new Identifier { Name = Name, Tags = "Default" };
             testInput.MoveInput = new EntityInput
             {
                 Strafe = false,
