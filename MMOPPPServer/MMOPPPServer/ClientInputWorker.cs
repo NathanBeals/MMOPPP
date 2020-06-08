@@ -22,7 +22,7 @@ namespace MMOPPPServer
 
         public ClientInputWorker()
         {
-            m_WorkerThread = new Thread(BackgroundWork);
+            m_WorkerThread = new Thread(AcceptClients);
             m_WorkerThread.Start();
         }
 
@@ -37,7 +37,7 @@ namespace MMOPPPServer
             Message
         }
 
-        public static void BackgroundWork()
+        public static void AcceptClients() //TODO: the connections and the processing of the messages needs to be separated
         {
             ERecievingState recievingState = ERecievingState.Frame;
 
@@ -55,45 +55,39 @@ namespace MMOPPPServer
 
                     int i;
                     Int32 messageSize = 0;
-                    //PlayerInput message;
-                    byte[] buffer = new byte[256];
-                    byte[] lengthData = new byte[4];
+                    byte[] buffer = new byte[Constants.TCPBufferSize];
+                    byte[] lengthData = new byte[Constants.HeaderSize];
+
+                    while ((i = stream.Read(buffer, 0, Constants.TCPBufferSize)) != 0) { };
 
                     switch (recievingState)
                     {
                         case ERecievingState.Frame:
                             {
-                                while ((i = stream.Read(buffer, 0, 256)) != 0)
+                                if (buffer.Length > Constants.HeaderSize)
                                 {
-                                    if (buffer.Length > 4) //TODO: make constant
-                                    {
-                                        Array.Copy(buffer, lengthData, 4);
-                                        if (Constants.SystemIsLittleEndian != Constants.MessageIsLittleEndian)
-                                            lengthData.Reverse();
-                                        messageSize = BitConverter.ToInt32(lengthData);
-                                        Array.Copy(buffer, 4, buffer, 0, buffer.Length - 4); // Remove Header
+                                    Array.Copy(buffer, lengthData, Constants.HeaderSize);
+                                    if (Constants.SystemIsLittleEndian != Constants.MessageIsLittleEndian)
+                                        lengthData.Reverse();
+                                    messageSize = BitConverter.ToInt32(lengthData);
+                                    Array.Copy(buffer, Constants.HeaderSize, buffer, 0, buffer.Length - Constants.HeaderSize); // Remove Header
 
-                                        //TODO: more efficient way to do this
-                                        List<byte> data = new List<byte>();
-                                        data.AddRange(buffer);
-                                        data.RemoveRange(messageSize, data.Count - messageSize);
+                                    //TODO: more efficient way to do this
+                                    List<byte> data = new List<byte>();
+                                    data.AddRange(buffer);
+                                    data.RemoveRange(messageSize, data.Count - messageSize);
 
-                                        //message
-                                        PlayerInput testInput = PlayerInput.Parser.ParseFrom(data.ToArray()); // Currently just throws away the message, not ideal
-                                        break;
-                                    }
+                                    //message
+                                    PlayerInput testInput = PlayerInput.Parser.ParseFrom(data.ToArray()); // Currently just throws away the message, not ideal
+
+                                    recievingState = ERecievingState.Message;
                                 }
                             }
                             break;
 
                         case ERecievingState.Message:
                             {
-                                while ((i = stream.Read(buffer, 0, buffer.Length)) != 0)
-                                {
 
-
-
-                                }
                             }
                             break;
                     }
