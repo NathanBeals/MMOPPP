@@ -13,22 +13,31 @@ using MMOPPPShared;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 
 namespace MMOPPPServer
 {
     class ClientInputWorker
     {
-        Thread m_WorkerThread;
+        Thread m_MessageHandlingThread;
+        Thread m_ConnectionHandlingThread;
+
+        List<TcpClient> m_Clients = new List<TcpClient>(); //TODO: mutex guard
+
+        List<PlayerInput> m_Inputs = new List<PlayerInput>(); //TODO: mutex guard
 
         public ClientInputWorker()
         {
-            m_WorkerThread = new Thread(AcceptClients);
-            m_WorkerThread.Start();
+            m_ConnectionHandlingThread = new Thread(HandleConnections);
+            m_ConnectionHandlingThread.Start();
+
+            m_MessageHandlingThread = new Thread(HandleMessages);
+            m_MessageHandlingThread.Start();
         }
 
         ~ClientInputWorker()
         {
-            m_WorkerThread.Abort(); //TODO: there's a better way to handle this
+            m_MessageHandlingThread.Abort(); //TODO: there's a better way to handle this
         }
 
         enum ERecievingState
@@ -36,11 +45,9 @@ namespace MMOPPPServer
             Frame,
             Message
         }
-
-        public static void AcceptClients() //TODO: the connections and the processing of the messages needs to be separated
+        
+        public void HandleConnections()
         {
-            ERecievingState recievingState = ERecievingState.Frame;
-
             TcpListener connectionServer = new TcpListener(IPAddress.Parse(Constants.ServerAddress), Constants.ServerUpPort);
             connectionServer.Start();
 
@@ -48,49 +55,13 @@ namespace MMOPPPServer
             {
                 while (true)
                 {
-                    Console.Write("Waiting for a connection... ");
                     TcpClient client = connectionServer.AcceptTcpClient();
+
+                    Monitor.Enter(m_Clients);
+                    m_Clients.Add(client);
+                    Monitor.Exit(m_Clients);
+
                     Console.WriteLine("Connected!");
-                    NetworkStream stream = client.GetStream();
-
-                    int i;
-                    Int32 messageSize = 0;
-                    byte[] buffer = new byte[Constants.TCPBufferSize];
-                    byte[] lengthData = new byte[Constants.HeaderSize];
-
-                    while ((i = stream.Read(buffer, 0, Constants.TCPBufferSize)) != 0) { };
-
-                    switch (recievingState)
-                    {
-                        case ERecievingState.Frame:
-                            {
-                                if (buffer.Length > Constants.HeaderSize)
-                                {
-                                    Array.Copy(buffer, lengthData, Constants.HeaderSize);
-                                    if (Constants.SystemIsLittleEndian != Constants.MessageIsLittleEndian)
-                                        lengthData.Reverse();
-                                    messageSize = BitConverter.ToInt32(lengthData);
-                                    Array.Copy(buffer, Constants.HeaderSize, buffer, 0, buffer.Length - Constants.HeaderSize); // Remove Header
-
-                                    //TODO: more efficient way to do this
-                                    List<byte> data = new List<byte>();
-                                    data.AddRange(buffer);
-                                    data.RemoveRange(messageSize, data.Count - messageSize);
-
-                                    //message
-                                    PlayerInput testInput = PlayerInput.Parser.ParseFrom(data.ToArray()); // Currently just throws away the message, not ideal
-
-                                    recievingState = ERecievingState.Message;
-                                }
-                            }
-                            break;
-
-                        case ERecievingState.Message:
-                            {
-
-                            }
-                            break;
-                    }
                 }
             }
             catch (SocketException e)
@@ -101,8 +72,84 @@ namespace MMOPPPServer
             {
                 connectionServer.Stop();
             }
+        }
 
-            Console.WriteLine("Server End");
+        public void HandleMessages() 
+        {
+            while (true)
+            {
+                Monitor.Enter(m_Clients);
+
+                foreach (var client in m_Clients)
+                    HandleMessage(client);
+
+                Monitor.Exit(m_Clients);
+            }
+        }
+
+        //TODO: I'm still worried about the spliting packets problem
+        public void HandleMessage(TcpClient Client)
+        {
+                ERecievingState recievingState = ERecievingState.Frame;
+                NetworkStream stream = Client.GetStream();
+
+                Int32 messageSize = 0;
+                byte[] buffer = new byte[Constants.TCPBufferSize];
+                byte[] lengthData = new byte[Constants.HeaderSize];
+
+                int i;
+                while ((i = stream.Read(buffer, 0, Constants.TCPBufferSize)) != 0) { };
+
+                var remainingBufferToParse = Constants.TCPBufferSize;
+            while (remainingBufferToParse > 0)
+            {
+                switch (recievingState)
+                {
+                    case ERecievingState.Frame:
+                        {
+                            if (buffer.Length > Constants.HeaderSize)
+                            {
+                                // Get size of message from header
+                                Array.Copy(buffer, lengthData, Constants.HeaderSize);
+                                if (Constants.SystemIsLittleEndian != Constants.MessageIsLittleEndian)
+                                    lengthData.Reverse();
+                                messageSize = BitConverter.ToInt32(lengthData);
+
+                                // No more messages signal, early exit
+                                if (messageSize == 0)
+                                    break;
+
+                                // Remove header from buffer
+                                Array.Copy(buffer, Constants.HeaderSize, buffer, 0, buffer.Length - Constants.HeaderSize);
+
+                                remainingBufferToParse -= Constants.HeaderSize;
+                                recievingState = ERecievingState.Message;
+                            }
+                        }
+                        break;
+
+                    case ERecievingState.Message:
+                        {
+                            // Put the message bytes into a data object
+                            List<byte> data = new List<byte>();
+                            data.AddRange(buffer);
+                            data.RemoveRange(messageSize, buffer.Length - messageSize);
+
+                            // Parse the message bytes and add it to the inputs list
+                            Monitor.Enter(m_Inputs);
+                            m_Inputs.Add(PlayerInput.Parser.ParseFrom(data.ToArray()));
+                            Monitor.Exit(m_Inputs);
+
+                            // Remove message from buffer
+                            Array.Copy(buffer, messageSize, buffer, 0, buffer.Length - messageSize);
+
+                            remainingBufferToParse -= messageSize;
+                            messageSize = 0;
+                            recievingState = ERecievingState.Frame;
+                        }
+                        break;
+                }
+            }
         }
     }
 }
