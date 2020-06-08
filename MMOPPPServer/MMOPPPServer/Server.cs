@@ -86,7 +86,7 @@ namespace MMOPPP
                                         messageSize = BitConverter.ToInt32(lengthData);
                                         Array.Copy(buffer, 4, buffer, 0, buffer.Length - 4); // Remove Header
 
-                                        //TODO: more efecient way to do this
+                                        //TODO: more efficient way to do this
                                         List<byte> data = new List<byte>();
                                         data.AddRange(buffer);
                                         data.RemoveRange(messageSize, data.Count - messageSize);
