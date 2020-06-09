@@ -17,7 +17,7 @@ using System.Net.Http;
 
 namespace MMOPPPServer
 {
-    class ClientInputWorker
+    class ClientInputWorker //TODO: this will also control the downlinks so... bad name again
     {
         Thread m_MessageHandlingThread;
         Thread m_ConnectionHandlingThread;
@@ -29,6 +29,9 @@ namespace MMOPPPServer
         {
             m_ConnectionHandlingThread = new Thread(HandleConnections);
             m_ConnectionHandlingThread.Start();
+
+            m_MessageHandlingThread = new Thread(HandleMessages);
+            m_MessageHandlingThread.Start();
 
             m_MessageHandlingThread = new Thread(HandleMessages);
             m_MessageHandlingThread.Start();
