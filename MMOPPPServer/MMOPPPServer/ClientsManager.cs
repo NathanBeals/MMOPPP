@@ -14,19 +14,26 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 
 namespace MMOPPPServer
 {
-    class ClientInputWorker //TODO: this will also control the downlinks so... bad name again
+    class ClientsManager //TODO: this will also control the downlinks so... bad name again
     {
         Thread m_MessageHandlingThread;
         Thread m_ConnectionHandlingThread;
+        Thread m_BroadcastHandlingThread;
 
         List<TcpClient> m_Clients = new List<TcpClient>(); //TODO: mutex guard
         List<List<Byte>> m_QueuedData = new List<List<byte>>();
         List<PlayerInput> m_Inputs = new List<PlayerInput>(); //TODO: mutex guard
 
-        public ClientInputWorker()
+        
+
+        bool mWorldUpdateQueued = false;
+
+
+        public ClientsManager()
         {
             m_ConnectionHandlingThread = new Thread(HandleConnections);
             m_ConnectionHandlingThread.Start();
@@ -34,11 +41,11 @@ namespace MMOPPPServer
             m_MessageHandlingThread = new Thread(HandleMessages);
             m_MessageHandlingThread.Start();
 
-            m_MessageHandlingThread = new Thread(HandleMessages);
-            m_MessageHandlingThread.Start();
+            m_BroadcastHandlingThread = new Thread(BroadcastUpdate);
+            m_BroadcastHandlingThread.Start();
         }
 
-        ~ClientInputWorker()
+        ~ClientsManager()
         {
             m_MessageHandlingThread.Abort(); //TODO: there's a better way to handle this
         }
@@ -115,8 +122,6 @@ namespace MMOPPPServer
         }
 
         //TODO: consider adding locks to inputs and clients inside this function, it's private so it can be handled easy enough for now, but hmmm... granularity
-        //TODO: I'm still worried about the spliting packets problem
-        //TODO: dangit, I'm still confused... bunching up packets if fine, splitting them is hard
         void HandleMessage(int ClientIndex)
         {
             var client = m_Clients[ClientIndex];
@@ -126,6 +131,7 @@ namespace MMOPPPServer
             byte[] buffer = new byte[Constants.TCPBufferSize];
             byte[] lengthData = new byte[Constants.HeaderSize];
             buffer = queuedData.ToArray();
+            queuedData.Clear();
             ERecievingState recievingState = ERecievingState.Frame;
             int dataAvailable = 0;
 
@@ -148,7 +154,7 @@ namespace MMOPPPServer
 
                 switch (recievingState)
                 {
-                    case ERecievingState.Frame: // TODO: split these into methods for readability
+                    case ERecievingState.Frame:
                         {
                             if (dataAvailable > Constants.HeaderSize)
                             {
@@ -166,7 +172,7 @@ namespace MMOPPPServer
                             }
                             else // If the remaining data is smaller than the header size, push it onto the data to be parsed later
                             {
-                                queuedData = buffer.ToList(); // TODO: investigate the impact of the array to list conversions on performance... and just usage in general (not sure how to use)
+                                m_QueuedData[ClientIndex] = buffer.ToList(); // TODO: investigate the impact of the array to list conversions on performance... and just usage in general (not sure how to use)
                             }
                         }
                         break;
@@ -195,11 +201,19 @@ namespace MMOPPPServer
                             }
                             else // If the remaining data is smaller than the message size, push it onto the data to be parsed later
                             {
-                                queuedData = buffer.ToList();
+                                m_QueuedData[ClientIndex] = buffer.ToList();
                             }
                         }
                         break;
                 }
+            }
+        }
+    
+        void BroadcastUpdate()
+        {
+            if (mWorldUpdateQueued == true)
+            {
+
             }
         }
     }
