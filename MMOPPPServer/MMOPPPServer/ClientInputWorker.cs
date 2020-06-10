@@ -23,6 +23,7 @@ namespace MMOPPPServer
         Thread m_ConnectionHandlingThread;
 
         List<TcpClient> m_Clients = new List<TcpClient>(); //TODO: mutex guard
+        List<List<Byte>> m_QueuedData = new List<List<byte>>();
         List<PlayerInput> m_Inputs = new List<PlayerInput>(); //TODO: mutex guard
 
         public ClientInputWorker()
@@ -78,9 +79,10 @@ namespace MMOPPPServer
                 {
                     TcpClient client = connectionServer.AcceptTcpClient();
 
-                    lock (m_Inputs)
+                    lock (m_Clients)
                     {
                         m_Clients.Add(client);
+                        m_QueuedData.Add(new List<byte>());
                     }
 
                     Console.WriteLine("Connected!");
@@ -100,36 +102,55 @@ namespace MMOPPPServer
         {
             while (true)
             {
-                lock (m_Inputs)
+                lock (m_Clients)
                 {
-                    foreach (var client in m_Clients)
-                        HandleMessage(client);
+                    for (int i = 0; i < m_Clients.Count; ++i)
+                    {
+                        if (!m_Clients[i].Connected) //TODO: remove disconnected from the list
+                            continue;
+                        HandleMessage(i);
+                    }
                 }
             }
         }
 
+        //TODO: consider adding locks to inputs and clients inside this function, it's private so it can be handled easy enough for now, but hmmm... granularity
         //TODO: I'm still worried about the spliting packets problem
-        public void HandleMessage(TcpClient Client)
+        //TODO: dangit, I'm still confused... bunching up packets if fine, splitting them is hard
+        void HandleMessage(int ClientIndex)
         {
-            ERecievingState recievingState = ERecievingState.Frame;
-            NetworkStream stream = Client.GetStream();
+            var client = m_Clients[ClientIndex];
+            var queuedData = m_QueuedData[ClientIndex];
 
             Int32 messageSize = 0;
             byte[] buffer = new byte[Constants.TCPBufferSize];
             byte[] lengthData = new byte[Constants.HeaderSize];
+            buffer = queuedData.ToArray();
+            ERecievingState recievingState = ERecievingState.Frame;
+            int dataAvailable = 0;
 
-            int i;
-            while ((i = stream.Read(buffer, 0, Constants.TCPBufferSize)) != 0) { };
-
-            bool earlyExit = false;
-            var remainingBufferToParse = Constants.TCPBufferSize;
-            while (remainingBufferToParse > 0 && !earlyExit)
+            try
             {
+                NetworkStream stream = client.GetStream();
+                dataAvailable = client.Available;
+                stream.Read(buffer, buffer.Length, dataAvailable);
+            }
+            catch(Exception ex) //TODO: look up client dc error
+            {
+                return;
+            }
+
+            while (true)
+            {
+                //Normal Exit, data source exhausted
+                if (dataAvailable == 0)
+                    break;
+
                 switch (recievingState)
                 {
-                    case ERecievingState.Frame:
+                    case ERecievingState.Frame: // TODO: split these into methods for readability
                         {
-                            if (buffer.Length > Constants.HeaderSize)
+                            if (dataAvailable > Constants.HeaderSize)
                             {
                                 // Get size of message from header
                                 Array.Copy(buffer, lengthData, Constants.HeaderSize);
@@ -137,40 +158,45 @@ namespace MMOPPPServer
                                     lengthData.Reverse();
                                 messageSize = BitConverter.ToInt32(lengthData);
 
-                                // No more messages signal, early exit
-                                if (messageSize == 0)
-                                {
-                                    earlyExit = true;
-                                    break;
-                                }
-
                                 // Remove header from buffer
                                 Array.Copy(buffer, Constants.HeaderSize, buffer, 0, buffer.Length - Constants.HeaderSize);
 
-                                remainingBufferToParse -= Constants.HeaderSize;
                                 recievingState = ERecievingState.Message;
+                                dataAvailable -= Constants.HeaderSize;
+                            }
+                            else // If the remaining data is smaller than the header size, push it onto the data to be parsed later
+                            {
+                                queuedData = buffer.ToList(); // TODO: investigate the impact of the array to list conversions on performance... and just usage in general (not sure how to use)
                             }
                         }
                         break;
 
                     case ERecievingState.Message:
                         {
-                            // Put the message bytes into a data object
-                            List<byte> data = new List<byte>();
-                            data.AddRange(buffer);
-                            data.RemoveRange(messageSize, buffer.Length - messageSize);
+                            if (dataAvailable >= messageSize)
+                            {
+                                // Put the message bytes into a data object
+                                List<byte> data = new List<byte>();
+                                data.AddRange(buffer);
+                                data.RemoveRange(messageSize, buffer.Length - messageSize);
 
-                            // Parse the message bytes and add it to the inputs list
-                            Monitor.Enter(m_Inputs);
-                            m_Inputs.Add(PlayerInput.Parser.ParseFrom(data.ToArray()));
-                            Monitor.Exit(m_Inputs);
+                                // Parse the message bytes and add it to the inputs list
+                                lock (m_Inputs)
+                                {
+                                    m_Inputs.Add(PlayerInput.Parser.ParseFrom(data.ToArray()));
+                                }
 
-                            // Remove message from buffer
-                            Array.Copy(buffer, messageSize, buffer, 0, buffer.Length - messageSize);
+                                // Remove message from buffer
+                                Array.Copy(buffer, messageSize, buffer, 0, buffer.Length - messageSize);
 
-                            remainingBufferToParse -= messageSize;
-                            messageSize = 0;
-                            recievingState = ERecievingState.Frame;
+                                dataAvailable -= messageSize;
+                                messageSize = 0;
+                                recievingState = ERecievingState.Frame;
+                            }
+                            else // If the remaining data is smaller than the message size, push it onto the data to be parsed later
+                            {
+                                queuedData = buffer.ToList();
+                            }
                         }
                         break;
                 }

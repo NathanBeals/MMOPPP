@@ -32,6 +32,9 @@ namespace AIClient
 
                 SendQueuedPackets(stream);
 
+                Console.WriteLine("Press enter to exit");
+                Console.ReadLine();
+
                 stream.Close(); // TODO: shouldn't close here, after one message, this whole block should loop and wait for input
                 client.Close();
             }
