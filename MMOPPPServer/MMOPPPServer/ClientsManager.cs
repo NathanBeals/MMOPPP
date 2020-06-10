@@ -136,6 +136,8 @@ namespace MMOPPPServer
         {
             var client = m_Clients[ClientIndex];
             var queuedData = m_QueuedData[ClientIndex];
+            if (client.Available == 0)
+                return;
 
             Int32 messageSize = 0;
             byte[] buffer = new byte[Constants.TCPBufferSize];
