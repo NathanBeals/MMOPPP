@@ -121,7 +121,7 @@ namespace MMOPPPServer
                 {
                     for (int i = 0; i < m_Clients.Count; ++i)
                     {
-                        if (!m_Clients[i].Connected && m_Clients[i].Available != 0)
+                        if (m_Clients[i].Connected && m_Clients[i].Available != 0)
                             HandleMessage(i);
                     }
 
