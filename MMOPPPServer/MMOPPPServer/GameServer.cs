@@ -21,7 +21,7 @@ namespace MMOPPPServer
         List<PlayerInput> m_Inputs = new List<PlayerInput>();
         List<Character> m_Characters = new List<Character>();
 
-        float m_ServerTickRate = 100; //Miliseconds
+        float m_ServerTickRate = 1000; //Miliseconds
         float m_TimeSinceLastTick = 0;
 
 
@@ -42,6 +42,8 @@ namespace MMOPPPServer
                 m_ClientManager.ClearInputs(); // Also a blocking Call //TODO: combine in one function so there's no chance of dropping inputs
 
                 PhysicsUpdate();
+
+                Console.WriteLine("Tick");
             }
         }
 
@@ -50,10 +52,13 @@ namespace MMOPPPServer
         {
             foreach (var input in m_Inputs)
             {
+                //Debug Line
+                Console.WriteLine(input.ToString());
                 //TODO: add characters if they aren't in the scene (attempt to read database for existing characters)
                 //TODO: remove characters that have disconected clients
                 //TODO: move the characters
             }
+            m_Inputs.Clear();
 
             BroadcastWorldUpdate();
         }
@@ -66,12 +71,6 @@ namespace MMOPPPServer
                 worldUpdate.Updates.Add(character.ToEnityUpdate());
 
             m_ClientManager.QueueWorldUpdate(worldUpdate);
-        }
-
-        // for headed server debugging
-        public void PrintInputs()
-        {
-            m_ClientManager.GetInputs();
         }
     }
 }

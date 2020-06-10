@@ -140,21 +140,22 @@ namespace MMOPPPServer
             Int32 messageSize = 0;
             byte[] buffer = new byte[Constants.TCPBufferSize];
             byte[] lengthData = new byte[Constants.HeaderSize];
-            buffer = queuedData.ToArray();
-            queuedData.Clear();
+            Array.Copy(queuedData.ToArray(), buffer, queuedData.Count);
             ERecievingState recievingState = ERecievingState.Frame;
             int dataAvailable = 0;
 
-            try
+            try // Make sure to catch if the client is DCed in here
             {
                 NetworkStream stream = client.GetStream();
                 dataAvailable = client.Available;
-                stream.Read(buffer, buffer.Length, dataAvailable);
+                stream.Read(buffer, queuedData.Count, dataAvailable);
             }
-            catch //TODO: look up client dc error
+            catch(System.IO.IOException) //TODO: look up client dc error
             {
                 return;
             }
+            queuedData.Clear();
+
 
             while (true)
             {

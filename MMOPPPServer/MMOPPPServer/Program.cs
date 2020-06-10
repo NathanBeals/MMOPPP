@@ -1,13 +1,10 @@
-﻿#define SERVERHEAD
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Net.Sockets;
 using System.Net;
 using Google.Protobuf;
 using System.Linq.Expressions;
-
 using Google.Protobuf.MMOPPP.Messages;
 using Google.Protobuf.WellKnownTypes;
 using Google.Protobuf.Reflection;
@@ -37,11 +34,6 @@ namespace MMOPPP
                 
                 server.WorldUpdate(deltaTime / 10000.0f); // Expensive? 
 
-#if SERVERHEAD
-                Console.Write("\r");
-                server.PrintInputs();
-                Thread.Sleep(1000);
-#endif
                 stopWatch.Stop();
             }
         }
