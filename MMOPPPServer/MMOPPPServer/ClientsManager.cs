@@ -121,9 +121,8 @@ namespace MMOPPPServer
                 {
                     for (int i = 0; i < m_Clients.Count; ++i)
                     {
-                        if (!m_Clients[i].Connected) //TODO: remove disconnected from the list
-                            continue;
-                        HandleMessage(i);
+                        if (!m_Clients[i].Connected && m_Clients[i].Available != 0)
+                            HandleMessage(i);
                     }
 
                     m_Clients.RemoveAll(x => !x.Connected); // Clean the list of dead connections
