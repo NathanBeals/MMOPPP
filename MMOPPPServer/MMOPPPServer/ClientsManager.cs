@@ -28,10 +28,8 @@ namespace MMOPPPServer
         List<List<Byte>> m_QueuedData = new List<List<byte>>();
         List<PlayerInput> m_Inputs = new List<PlayerInput>(); //TODO: mutex guard
 
-        
-
-        bool mWorldUpdateQueued = false;
-
+        object WorldUpdateLock = new object();
+        WorldUpdate m_QueuedWorldUpdate = null;
 
         public ClientsManager()
         {
@@ -41,13 +39,23 @@ namespace MMOPPPServer
             m_MessageHandlingThread = new Thread(HandleMessages);
             m_MessageHandlingThread.Start();
 
-            m_BroadcastHandlingThread = new Thread(BroadcastUpdate);
+            m_BroadcastHandlingThread = new Thread(BroadcastWorldUpdate);
             m_BroadcastHandlingThread.Start();
         }
 
         ~ClientsManager()
         {
-            m_MessageHandlingThread.Abort(); //TODO: there's a better way to handle this
+            lock (m_Clients)
+            {
+                foreach (var client in m_Clients)
+                    client.Close();
+                m_Clients.Clear();
+            }
+
+            //TODO: there's a better way to handle this
+            m_ConnectionHandlingThread.Abort();
+            m_MessageHandlingThread.Abort();
+            m_BroadcastHandlingThread.Abort();
         }
 
         public List<PlayerInput> GetInputs()
@@ -117,6 +125,8 @@ namespace MMOPPPServer
                             continue;
                         HandleMessage(i);
                     }
+
+                    m_Clients.RemoveAll(x => !x.Connected); // Clean the list of dead connections
                 }
             }
         }
@@ -141,7 +151,7 @@ namespace MMOPPPServer
                 dataAvailable = client.Available;
                 stream.Read(buffer, buffer.Length, dataAvailable);
             }
-            catch(Exception ex) //TODO: look up client dc error
+            catch //TODO: look up client dc error
             {
                 return;
             }
@@ -209,11 +219,37 @@ namespace MMOPPPServer
             }
         }
     
-        void BroadcastUpdate()
+        public void QueueWorldUpdate(WorldUpdate Update)
         {
-            if (mWorldUpdateQueued == true)
+            lock(WorldUpdateLock)
             {
+                m_QueuedWorldUpdate = Update;
+            }
+        }
 
+        void BroadcastWorldUpdate()
+        {
+            while(true)
+            {
+                lock(WorldUpdateLock)
+                {
+                    if (m_QueuedWorldUpdate != null)
+                    {
+                        lock(m_Clients)
+                        {
+                            foreach (var client in m_Clients)
+                            {
+                                Packet<WorldUpdate> packet = new Packet<WorldUpdate>(m_QueuedWorldUpdate);
+                                try
+                                {
+                                    packet.SendPacket(client.GetStream());
+                                }
+                                catch { }
+                            }
+                        }
+                        m_QueuedWorldUpdate = null;
+                    }
+                }
             }
         }
     }

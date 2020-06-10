@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Numerics;
 using System.Runtime.CompilerServices;
+using System.Dynamic;
 
 namespace MMOPPPServer
 {
@@ -12,15 +13,15 @@ namespace MMOPPPServer
 
     class Character
     {
-        string m_Name;
-        string m_Tags;
-        V3 m_Location;
-        V3 m_MoveInputs;
-        V3 m_Rotation;
-        bool m_strafe = false;
-        bool m_sprint = false;
+        public string m_Name = "";
+        public string m_Tags = "";
+        public V3 m_Location = V3.Zero;
+        public V3 m_MoveInputs = V3.Zero;
+        public V3 m_Rotation = V3.Zero;
+        public bool m_strafe = false;
+        public bool m_sprint = false;
 
-        EntityUpdate MakeEnityUpdate()
+        public EntityUpdate ToEnityUpdate()
         {
             EntityUpdate update = new EntityUpdate();
             update.Id = new Identifier { Name = m_Name, Tags = m_Tags };

@@ -52,12 +52,7 @@ namespace AIClient
         {
             //Debug code, making a packet
             PlayerInput testInput = CreatePlayerInput("Nate");
-            Packet<PlayerInput> packet = new Packet<PlayerInput>
-            {
-                m_Size = testInput.CalculateSize(),
-                m_Message = testInput
-            };
-
+            Packet<PlayerInput> packet = new Packet<PlayerInput>(testInput);
             Console.WriteLine("Packet is this size: {0}", testInput.CalculateSize()); //TODO: remove
 
             packet.SendPacket(stream);
