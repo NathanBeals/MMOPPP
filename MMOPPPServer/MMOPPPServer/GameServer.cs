@@ -24,31 +24,40 @@ namespace MMOPPPServer
         float m_ServerTickRate = 1000; //Miliseconds
         float m_TimeSinceLastTick = 0;
 
+        bool m_ServerRunning = false;
 
-        public void InitWorld()
+        ~GameServer()
+        {
+            Stop();
+        }
+
+        void Initialize()
         {
             m_ClientManager = new ClientsManager();
         }
 
         public void WorldUpdate(float DeltaTime)
         {
-            m_TimeSinceLastTick += DeltaTime;
-            if (m_TimeSinceLastTick > m_ServerTickRate)
+            if (m_ServerRunning)
             {
-                m_TimeSinceLastTick -= m_ServerTickRate;
+                m_TimeSinceLastTick += DeltaTime;
+                if (m_TimeSinceLastTick > m_ServerTickRate)
+                {
+                    m_TimeSinceLastTick -= m_ServerTickRate;
 
-                // Take inputs from the client manager
-                m_Inputs = m_ClientManager.GetInputs(); // Blocking Call
-                m_ClientManager.ClearInputs(); // Also a blocking Call //TODO: combine in one function so there's no chance of dropping inputs
+                    // Take inputs from the client manager
+                    m_Inputs = m_ClientManager.GetInputs(); // Blocking Call
+                    m_ClientManager.ClearInputs(); // Also a blocking Call //TODO: combine in one function so there's no chance of dropping inputs
 
-                PhysicsUpdate();
+                    PhysicsUpdate();
 
-                Console.WriteLine("Tick");
+                    Console.WriteLine("Tick");
+                }
             }
         }
 
 
-        public void PhysicsUpdate()
+        void PhysicsUpdate()
         {
             foreach (var input in m_Inputs)
             {
@@ -64,13 +73,32 @@ namespace MMOPPPServer
         }
 
         // Sends a world update to all connected clients
-        public void BroadcastWorldUpdate()
+        void BroadcastWorldUpdate()
         {
             WorldUpdate worldUpdate = new WorldUpdate();
             foreach (var character in m_Characters)
                 worldUpdate.Updates.Add(character.ToEnityUpdate());
 
             m_ClientManager.QueueWorldUpdate(worldUpdate);
+        }
+
+        public void Start()
+        {
+            if (!m_ServerRunning)
+            {
+                Initialize();
+                m_ClientManager.Start();
+                m_ServerRunning = true;
+            }
+        }
+
+        public void Stop()
+        {
+            if (m_ServerRunning)
+            {
+                m_ClientManager.Stop();
+                m_ServerRunning = false;
+            }
         }
     }
 }

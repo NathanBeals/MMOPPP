@@ -8,7 +8,9 @@
     ".NETCoreApp,Version=v3.1": {
       "MMOPPPServer/1.0.0": {
         "dependencies": {
-          "Google.Protobuf": "3.12.2"
+          "Google.Protobuf": "3.12.2",
+          "WindowsBase": "4.6.1055",
+          "SQLite": "3.13.0"
         },
         "runtime": {
           "MMOPPPServer.dll": {}
@@ -25,7 +27,32 @@
           }
         }
       },
-      "System.Memory/4.5.2": {}
+      "SQLite/3.13.0": {
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/libsqlite3.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/libsqlite3.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win7-x64/native/sqlite3.dll": {
+            "rid": "win7-x64",
+            "assetType": "native",
+            "fileVersion": "3.13.0.0"
+          },
+          "runtimes/win7-x86/native/sqlite3.dll": {
+            "rid": "win7-x86",
+            "assetType": "native",
+            "fileVersion": "3.13.0.0"
+          }
+        }
+      },
+      "System.Memory/4.5.2": {},
+      "WindowsBase/4.6.1055": {}
     }
   },
   "libraries": {
@@ -41,12 +68,26 @@
       "path": "google.protobuf/3.12.2",
       "hashPath": "google.protobuf.3.12.2.nupkg.sha512"
     },
+    "SQLite/3.13.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MJfRiz2p6aMVOxrxGMdVzhpzI0oxTgZSwC8eVuOpV8L7yYaFUu8q/OFYwv9P0/aZ/pdEu24O6gma6wZJMTun9A==",
+      "path": "sqlite/3.13.0",
+      "hashPath": "sqlite.3.13.0.nupkg.sha512"
+    },
     "System.Memory/4.5.2": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-fvq1GNmUFwbKv+aLVYYdgu/+gc8Nu9oFujOxIjPrsf+meis9JBzTPDL6aP/eeGOz9yPj6rRLUbOjKMpsMEWpNg==",
       "path": "system.memory/4.5.2",
       "hashPath": "system.memory.4.5.2.nupkg.sha512"
+    },
+    "WindowsBase/4.6.1055": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1NKRZTcRus8Q1ZPZz9QAucHYHLHmQ3G+MMaFFZyPTDRpEfmIFLo9mtSyO8TZkEJFXaNXvnhenPod4ltd8EOHkg==",
+      "path": "windowsbase/4.6.1055",
+      "hashPath": "windowsbase.4.6.1055.nupkg.sha512"
     }
   }
 }

@@ -23,39 +23,25 @@ namespace MMOPPPServer
         Thread m_MessageHandlingThread;
         Thread m_ConnectionHandlingThread;
         Thread m_BroadcastHandlingThread;
+        //object m_ThreadsShouldExitLock = new object();
+        bool m_ThreadsShouldExit = false;
 
         List<TcpClient> m_Clients = new List<TcpClient>(); //TODO: mutex guard
         List<List<Byte>> m_QueuedData = new List<List<byte>>();
         List<PlayerInput> m_Inputs = new List<PlayerInput>(); //TODO: mutex guard
+
+        TcpListener m_TCPListener = null;
 
         object WorldUpdateLock = new object();
         WorldUpdate m_QueuedWorldUpdate = null;
 
         public ClientsManager()
         {
-            m_ConnectionHandlingThread = new Thread(HandleConnections);
-            m_ConnectionHandlingThread.Start();
-
-            m_MessageHandlingThread = new Thread(HandleMessages);
-            m_MessageHandlingThread.Start();
-
-            m_BroadcastHandlingThread = new Thread(BroadcastWorldUpdate);
-            m_BroadcastHandlingThread.Start();
         }
 
         ~ClientsManager()
         {
-            lock (m_Clients)
-            {
-                foreach (var client in m_Clients)
-                    client.Close();
-                m_Clients.Clear();
-            }
-
-            //TODO: there's a better way to handle this
-            m_ConnectionHandlingThread.Abort();
-            m_MessageHandlingThread.Abort();
-            m_BroadcastHandlingThread.Abort();
+            Stop();
         }
 
         public List<PlayerInput> GetInputs()
@@ -85,14 +71,14 @@ namespace MMOPPPServer
         
         public void HandleConnections()
         {
-            TcpListener connectionServer = new TcpListener(IPAddress.Parse(Constants.ServerAddress), Constants.ServerUpPort);
-            connectionServer.Start();
+            m_TCPListener = new TcpListener(IPAddress.Parse(Constants.ServerAddress), Constants.ServerUpPort);
+            m_TCPListener.Start();
 
             try
             {
-                while (true)
+                while (!m_ThreadsShouldExit)
                 {
-                    TcpClient client = connectionServer.AcceptTcpClient();
+                    TcpClient client = m_TCPListener.AcceptTcpClient();
 
                     lock (m_Clients)
                     {
@@ -105,17 +91,23 @@ namespace MMOPPPServer
             }
             catch (SocketException e)
             {
-                Console.WriteLine("SocketException: {0}", e);
+                if (e.SocketErrorCode == SocketError.Interrupted)
+                {
+                    // Normal escape on server close
+                }
+                else
+                    Console.WriteLine("SocketException: {0}", e);
             }
             finally
             {
-                connectionServer.Stop();
+                if (m_TCPListener != null)
+                    m_TCPListener.Stop();
             }
         }
 
         public void HandleMessages() 
         {
-            while (true)
+            while (!m_ThreadsShouldExit)
             {
                 lock (m_Clients)
                 {
@@ -158,7 +150,7 @@ namespace MMOPPPServer
             queuedData.Clear();
 
 
-            while (true)
+            while (!m_ThreadsShouldExit)
             {
                 //Normal Exit, data source exhausted
                 if (dataAvailable == 0)
@@ -253,6 +245,38 @@ namespace MMOPPPServer
                     }
                 }
             }
+        }
+
+        public void Start()
+        {
+            m_ThreadsShouldExit = false;
+
+            m_ConnectionHandlingThread = new Thread(HandleConnections);
+            m_ConnectionHandlingThread.Start();
+
+            m_MessageHandlingThread = new Thread(HandleMessages);
+            m_MessageHandlingThread.Start();
+
+            m_BroadcastHandlingThread = new Thread(BroadcastWorldUpdate);
+            m_BroadcastHandlingThread.Start();
+        }
+
+        public void Stop()
+        {
+            lock (m_Clients)
+            {
+                foreach (var client in m_Clients)
+                    client.Close();
+                m_Clients.Clear();
+            }
+
+            if (m_TCPListener != null)
+            {
+                m_TCPListener.Stop();
+                m_TCPListener = null;
+            }
+
+            m_ThreadsShouldExit = true;
         }
     }
 }

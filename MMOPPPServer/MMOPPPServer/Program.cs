@@ -13,7 +13,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using MMOPPPServer;
-using System.Runtime.CompilerServices;
 
 namespace MMOPPP
 {
@@ -23,19 +22,32 @@ namespace MMOPPP
         {
             var stopWatch = new Stopwatch();
             GameServer server = new GameServer();
-
-            server.InitWorld();
+            bool bExit = false;
+            server.Start();
 
             long deltaTime;
-            while (true)
+            while (!bExit)
             {
                 deltaTime = stopWatch.ElapsedTicks;
                 stopWatch.Restart();
-                
+
+                if (Console.KeyAvailable) // HACK: these don't work consistently
+                {
+                    if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+                        bExit = true;
+                    if (Console.ReadKey(true).Key == ConsoleKey.S)
+                        server.Start();
+                    if (Console.ReadKey(true).Key == ConsoleKey.H)
+                        server.Stop();
+                }
+
                 server.WorldUpdate(deltaTime / 10000.0f); // Expensive? 
 
                 stopWatch.Stop();
             }
+
+            server.Stop();
+            
         }
     }
 }

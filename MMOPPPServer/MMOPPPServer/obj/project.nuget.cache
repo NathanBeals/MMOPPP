@@ -1,11 +1,24 @@
 {
   "version": 2,
-  "dgSpecHash": "qz83vhshOX032d+l01f/UH5PBmuITDoOXjXATud8DreW3zIDu39cL5kLeYgn/bG6kG5omLi4btP/+UCCyR/tZg==",
+  "dgSpecHash": "Tr7RNwKp0PyAZTRrWfTW7vWanDa4RQXAFB7FGmc4PwRayt0OmOMJqWfo5Rw4Buxf+3HrSelmbYz0Wf1B4iALDg==",
   "success": true,
   "projectFilePath": "C:\\Users\\beals_000\\Documents\\MMOPPP\\MMOPPPServer\\MMOPPPServer\\MMOPPPServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\beals_000\\.nuget\\packages\\google.protobuf\\3.12.2\\google.protobuf.3.12.2.nupkg.sha512",
-    "C:\\Users\\beals_000\\.nuget\\packages\\system.memory\\4.5.2\\system.memory.4.5.2.nupkg.sha512"
+    "C:\\Users\\beals_000\\.nuget\\packages\\sqlite\\3.13.0\\sqlite.3.13.0.nupkg.sha512",
+    "C:\\Users\\beals_000\\.nuget\\packages\\system.memory\\4.5.2\\system.memory.4.5.2.nupkg.sha512",
+    "C:\\Users\\beals_000\\.nuget\\packages\\windowsbase\\4.6.1055\\windowsbase.4.6.1055.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'WindowsBase 4.6.1055' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "WindowsBase",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }
