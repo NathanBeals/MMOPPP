@@ -17,7 +17,7 @@ namespace MMOPPPServer
 {
     class GameServer
     {
-        ClientsManager m_ClientManager = null;
+        ClientManager m_ClientManager = null;
         List<PlayerInput> m_Inputs = new List<PlayerInput>();
         List<Character> m_Characters = new List<Character>();
 
@@ -33,7 +33,7 @@ namespace MMOPPPServer
 
         void Initialize()
         {
-            m_ClientManager = new ClientsManager();
+            m_ClientManager = new ClientManager();
         }
 
         public void WorldUpdate(float DeltaTime)

@@ -18,28 +18,27 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace MMOPPPServer
 {
-    class ClientsManager //TODO: this will also control the downlinks so... bad name again
+    class ClientManager
     {
         Thread m_MessageHandlingThread;
         Thread m_ConnectionHandlingThread;
         Thread m_BroadcastHandlingThread;
-        //object m_ThreadsShouldExitLock = new object();
         bool m_ThreadsShouldExit = false;
 
-        List<TcpClient> m_Clients = new List<TcpClient>(); //TODO: mutex guard
+        List<TcpClient> m_Clients = new List<TcpClient>();
         List<List<Byte>> m_QueuedData = new List<List<byte>>();
-        List<PlayerInput> m_Inputs = new List<PlayerInput>(); //TODO: mutex guard
+        List<PlayerInput> m_Inputs = new List<PlayerInput>();
 
         TcpListener m_TCPListener = null;
 
         object WorldUpdateLock = new object();
         WorldUpdate m_QueuedWorldUpdate = null;
 
-        public ClientsManager()
+        public ClientManager()
         {
         }
 
-        ~ClientsManager()
+        ~ClientManager()
         {
             Stop();
         }
