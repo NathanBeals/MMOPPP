@@ -117,7 +117,10 @@ namespace MMOPPPServer
                             HandleMessage(i);
                     }
 
+                    var count = m_Clients.Count();
                     m_Clients.RemoveAll(x => !x.Connected); // Clean the list of dead connections
+                    for (int i = 0; i < count - m_Clients.Count; ++i)
+                        Console.WriteLine("Disconnected");
                 }
             }
         }
