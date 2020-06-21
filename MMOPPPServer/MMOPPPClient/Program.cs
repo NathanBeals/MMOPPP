@@ -68,8 +68,9 @@ namespace AIClient
                 Sprint = false,
                 EulerRotation = new Vector3 { X = 0.0f, Y = 0.0f, Z = 0.0f },
                 DirectionInputs = new Vector3 { X = 0.0f, Y = 0.0f, Z = 0.0f }
-            }; 
-            testInput.SentTime = Timestamp.FromDateTime(DateTime.UtcNow);
+            };
+            DateTimeOffset now = DateTime.UtcNow;
+            testInput.SentTime = new Timestamp { Seconds = (now.Ticks / 10000000) - 11644473600L, Nanos = (int)(now.Ticks % 10000000) * 100};
 
             return testInput;
         }

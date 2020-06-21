@@ -110,20 +110,20 @@ namespace MMOPPPServer
                 var character = m_Characters[input.Id.Name];
                 if (character.m_TimeOfLastUpdate == 0) //first update sent
                 {
-                    character.m_TimeOfLastUpdate = input.SentTime.Nanos / 1000000.0f; //TODO: move to constants, also swap out the timestamp class for just raw miliseconds since epoc 
+                    character.m_TimeOfLastUpdate = input.SentTime.Nanos / 1000000; //TODO: move to constants, also swap out the timestamp class for just raw miliseconds since epoc 
                     character.m_TimeSinceLastUpdate = 0;
                     continue;
                 }
                 else
                 {
-                    clientDeltaTime = input.SentTime.Nanos / 1000000.0f - character.m_TimeOfLastUpdate;
-                    character.m_TimeOfLastUpdate = input.SentTime.Nanos / 1000000.0f; //TODO: effeciency
+                    clientDeltaTime = input.SentTime.Nanos / 1000000 - character.m_TimeOfLastUpdate;
+                    character.m_TimeOfLastUpdate = input.SentTime.Nanos / 1000000; //TODO: effeciency
                     character.m_TimeSinceLastUpdate = 0;
                     character.Update(input, clientDeltaTime);
                 }
 
                 //Debug Line
-                //Console.WriteLine(input.ToString());
+                Console.WriteLine(input.ToString());
             }
 
             BroadcastWorldUpdate();

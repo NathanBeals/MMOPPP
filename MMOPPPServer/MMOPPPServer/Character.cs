@@ -56,7 +56,7 @@ namespace MMOPPPServer
         {
             if (Input.MoveInput.DirectionInputs.X > 0.0f)
             {
-                var test = m_Location.X + Constants.CharacterMoveSpeed * DeltaTime;
+                var test = m_Location.X + Constants.CharacterMoveSpeed * DeltaTime; //HACK: only for testings, remove later
                 m_Location.X = test;// m_Location.X * 6 * DeltaTime; //HACK: only for testings
                 Console.WriteLine($"{Input.Id.Name} is now at {m_Location}");
             }

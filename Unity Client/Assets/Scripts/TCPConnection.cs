@@ -111,22 +111,6 @@ public class TCPConnection : MonoBehaviour
             }
         }
 
-        public static PlayerInput CreateTestInput(string Name)
-        {
-            PlayerInput testInput = new PlayerInput();
-            testInput.Id = new Identifier { Name = Name, Tags = "Default" };
-            testInput.MoveInput = new EntityInput
-            {
-                Strafe = false,
-                Sprint = false,
-                EulerRotation = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = 0.0f, Y = 0.0f, Z = 0.0f },
-                DirectionInputs = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = 0.0f, Y = 0.0f, Z = 0.0f }
-            };
-            testInput.SentTime = new Timestamp { Seconds = DateTime.Now.Second, Nanos = DateTime.Now.Millisecond / 1000000 };
-
-            return testInput;
-        }
-
         public static PlayerInput PackInput(Character Character, Vector2 MoveInput, Vector2 MouseInput, bool Strafe, bool Spring)
         {
             PlayerInput input = new PlayerInput();
@@ -138,7 +122,8 @@ public class TCPConnection : MonoBehaviour
                 EulerRotation = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = MouseInput.x, Y = MouseInput.y, Z = 0.0f },
                 DirectionInputs = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = MoveInput.x, Y = MoveInput.y, Z = 0.0f }
             };
-            input.SentTime = Timestamp.FromDateTime(DateTime.UtcNow);
+            DateTimeOffset now = DateTime.UtcNow;
+            input.SentTime = new Timestamp { Seconds = (now.Ticks / 10000000) - 11644473600L, Nanos = (int)(now.Ticks % 10000000) * 100 };
 
             return input;
         }
