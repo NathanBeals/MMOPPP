@@ -40,7 +40,7 @@ namespace MMOPPPServer
         {
             EntityUpdate update = new EntityUpdate();
             update.Id = new Identifier { Name = m_Name, Tags = m_Tags };
-            update.Position = Vector3ToGVector3(m_MoveInputs);
+            update.Position = Vector3ToGVector3(m_Location);
             update.PredictiveInputs = new EntityInput
             {
                 Strafe = false,
@@ -54,6 +54,9 @@ namespace MMOPPPServer
 
         public void Update(PlayerInput Input, float DeltaTime)
         {
+            if (DeltaTime < 0) //HACK: this should never be possible
+                return; 
+
             if (Input.MoveInput.DirectionInputs.X > 0.0f)
             {
                 var test = m_Location.X + Constants.CharacterMoveSpeed * DeltaTime; //HACK: only for testings, remove later

@@ -101,6 +101,7 @@ namespace MMOPPPServer
         // as of now I'm doing it, they said forward, move forward for the time since the last message, which is just wrong, but I have other things I have to get done before fixing this.
         void PhysicsUpdate(float DeltaTime)
         {
+            var lastframe = new Timestamp { };
             foreach (var input in m_Inputs)
             {
                 TryAddCharacterFromInput(input);
@@ -108,22 +109,23 @@ namespace MMOPPPServer
                 float clientDeltaTime = 0.0f;
 
                 var character = m_Characters[input.Id.Name];
-                if (character.m_TimeOfLastUpdate == 0) //first update sent
+                if (character.m_TimeOfLastUpdate == -1) //first update sent
                 {
-                    character.m_TimeOfLastUpdate = input.SentTime.Nanos / 1000000; //TODO: move to constants, also swap out the timestamp class for just raw miliseconds since epoc 
+                    character.m_TimeOfLastUpdate = input.SentTime.Nanos; //TODO: move to constants, also swap out the timestamp class for just raw miliseconds since epoc 
                     character.m_TimeSinceLastUpdate = 0;
                     continue;
                 }
                 else
                 {
-                    clientDeltaTime = input.SentTime.Nanos / 1000000 - character.m_TimeOfLastUpdate;
-                    character.m_TimeOfLastUpdate = input.SentTime.Nanos / 1000000; //TODO: effeciency
+                    clientDeltaTime = (input.SentTime.Nanos - character.m_TimeOfLastUpdate) / 1000000;
+                    lastframe = input.SentTime;
+                    character.m_TimeOfLastUpdate = input.SentTime.Nanos; //TODO: effeciency
                     character.m_TimeSinceLastUpdate = 0;
                     character.Update(input, clientDeltaTime);
                 }
 
                 //Debug Line
-                Console.WriteLine(input.ToString());
+                //Console.WriteLine(input.ToString());
             }
 
             BroadcastWorldUpdate();

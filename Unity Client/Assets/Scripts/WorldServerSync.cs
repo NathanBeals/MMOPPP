@@ -9,10 +9,13 @@ using UnityEngine.PlayerLoop;
 
 using V3 = UnityEngine.Vector3;
 using GV3 = Google.Protobuf.MMOPPP.Messages.Vector3;
+using UnityEditor;
 
 public class WorldServerSync : MonoBehaviour
 {
     public static WorldServerSync s_Instance;
+
+    public GameObject PlayerPlaceholder;
 
     WorldUpdate m_QueuedWorldUpdate = null;
     Queue<List<CharacterDownlinkData>> m_DataFromServer = new Queue<List<CharacterDownlinkData>>();
@@ -72,6 +75,26 @@ public class WorldServerSync : MonoBehaviour
 
         cGameObjTrans.position = Data.m_Location;
         cGameObjTrans.rotation = Quaternion.Euler(Data.m_Rotation);
+    }
+
+    private void Update()
+    {
+        if (m_QueuedWorldUpdate != null)
+        {
+            foreach (var entity in m_QueuedWorldUpdate.Updates)
+            {
+                if (entity.Id.Name == "Player") //HACK: replace with client character name
+                {
+
+                }
+                else
+                {
+                    Instantiate(PlayerPlaceholder, new V3 (entity.Position.X, entity.Position.Y, entity.Position.Z), new Quaternion { });
+                }
+            }
+
+            m_QueuedWorldUpdate = null;
+        }
     }
 
     public void Awake()
