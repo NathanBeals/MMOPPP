@@ -10,7 +10,6 @@
         "dependencies": {
           "Google.Protobuf": "3.12.3",
           "MMOPPPLibrary": "1.0.0",
-          "WindowsBase": "4.6.1055",
           "SQLite": "3.13.0"
         },
         "runtime": {
@@ -53,7 +52,6 @@
         }
       },
       "System.Memory/4.5.2": {},
-      "WindowsBase/4.6.1055": {},
       "MMOPPPLibrary/1.0.0": {
         "dependencies": {
           "Google.Protobuf": "3.12.3"
@@ -90,13 +88,6 @@
       "sha512": "sha512-fvq1GNmUFwbKv+aLVYYdgu/+gc8Nu9oFujOxIjPrsf+meis9JBzTPDL6aP/eeGOz9yPj6rRLUbOjKMpsMEWpNg==",
       "path": "system.memory/4.5.2",
       "hashPath": "system.memory.4.5.2.nupkg.sha512"
-    },
-    "WindowsBase/4.6.1055": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-1NKRZTcRus8Q1ZPZz9QAucHYHLHmQ3G+MMaFFZyPTDRpEfmIFLo9mtSyO8TZkEJFXaNXvnhenPod4ltd8EOHkg==",
-      "path": "windowsbase/4.6.1055",
-      "hashPath": "windowsbase.4.6.1055.nupkg.sha512"
     },
     "MMOPPPLibrary/1.0.0": {
       "type": "project",
