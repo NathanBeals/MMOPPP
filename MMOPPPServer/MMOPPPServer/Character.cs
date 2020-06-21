@@ -21,7 +21,21 @@ namespace MMOPPPServer
         public bool m_strafe = false;
         public bool m_sprint = false;
 
-        public EntityUpdate ToEnityUpdate()
+        public float m_TimeOfLastUpdate = -1; // Miliseconds since UTC Epoc
+        public float m_TimeSinceLastUpdate = 0; // Miliseconds
+
+        public Character(string Name, V3 Location = new V3(), V3 MoveInputs = new V3(), V3 Rotation = new V3(), bool Strafing = false, bool Sprinting = false)
+        {
+            m_Name = Name;
+            m_Tags = "";
+            m_Location = Location;
+            m_Rotation = Rotation;
+            m_MoveInputs = MoveInputs;
+            m_strafe = Strafing;
+            m_sprint = Sprinting;
+        }
+
+        public EntityUpdate ToEntityUpdate()
         {
             EntityUpdate update = new EntityUpdate();
             update.Id = new Identifier { Name = m_Name, Tags = m_Tags };
@@ -41,6 +55,11 @@ namespace MMOPPPServer
         public static GV3 Vector3ToGVector3(V3 VInput)
         {
             return new GV3 { X = VInput.X, Y = VInput.Y, Z = VInput.Z };
+        }
+
+        public static V3 GVector3ToVector3(GV3 VInput)
+        {
+            return new V3 { X = VInput.X, Y = VInput.Y, Z = VInput.Z };
         }
     }
 }
