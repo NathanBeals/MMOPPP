@@ -368,7 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73fbf3aa05f6be24780438449f505aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useRootMotion: 0
+  useRootMotion: 1
   rotateByWorld: 0
   useContinuousSprint: 1
   sprintOnlyFree: 1
@@ -396,7 +396,7 @@ MonoBehaviour:
   jumpTimer: 0.3
   jumpHeight: 4
   airSpeed: 5
-  airSmooth: 6
+  airSmooth: 0
   extraGravity: -10
   limitFallVelocity: -15
   groundLayer:
@@ -462,8 +462,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dd38a4b50c650b44882b4fd27238792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Local: 0
-  Name: default danny
+  m_Local: 0
+  m_ID: dilbert
 --- !u!1 &1840471326531610991
 GameObject:
   m_ObjectHideFlags: 0

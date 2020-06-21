@@ -123,9 +123,6 @@ namespace MMOPPPServer
                     character.m_TimeSinceLastUpdate = 0;
                     character.Update(input, clientDeltaTime);
                 }
-
-                //Debug Line
-                //Console.WriteLine(input.ToString());
             }
 
             BroadcastWorldUpdate();
