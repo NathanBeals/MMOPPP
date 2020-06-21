@@ -5,15 +5,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
-  <Import Project="..\MMOPPPShared\MMOPPPShared.projitems" Label="Shared" />
-
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.12.2" />
+    <PackageReference Include="Google.Protobuf" Version="3.12.3" />
     <PackageReference Include="sqlite" Version="3.13.0" />
     <PackageReference Include="WindowsBase" Version="4.6.1055" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MMOPPPLibrary\MMOPPPLibrary.csproj" />
   </ItemGroup>
 
 </Project>

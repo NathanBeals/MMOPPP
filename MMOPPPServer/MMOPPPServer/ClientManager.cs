@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 using Google.Protobuf.MMOPPP.Messages;
 using Google.Protobuf.WellKnownTypes;
 using Google.Protobuf.Reflection;
-using MMOPPPShared;
+using MMOPPPLibrary;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;

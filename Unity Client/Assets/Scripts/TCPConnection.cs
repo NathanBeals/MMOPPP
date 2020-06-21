@@ -12,7 +12,7 @@ using Google.Protobuf.WellKnownTypes;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.IO;
-using MMOPPPShared;
+using MMOPPPLibrary;
 using System.Threading;
 
 public class TCPConnection : MonoBehaviour
@@ -65,7 +65,7 @@ public class TCPConnection : MonoBehaviour
         public bool m_ThreadShouldExit = false;
         public List<Packet<PlayerInput>> m_QueuedPackets = new List<Packet<PlayerInput>>();
 
-        public void Connect(string ServerAddress = MMOPPPShared.Constants.ServerAddress, Int32 Port = MMOPPPShared.Constants.ServerUpPort)
+        public void Connect(string ServerAddress = MMOPPPLibrary.Constants.ServerAddress, Int32 Port = MMOPPPLibrary.Constants.ServerUpPort)
         {
             try
             { 

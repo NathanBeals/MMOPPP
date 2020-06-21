@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Tr7RNwKp0PyAZTRrWfTW7vWanDa4RQXAFB7FGmc4PwRayt0OmOMJqWfo5Rw4Buxf+3HrSelmbYz0Wf1B4iALDg==",
+  "dgSpecHash": "JB5q6otM56vTFiLEG4ppK50t/lR7dbwyYcE7u8CKUaZjlb3gvLGMsgaH3aOf0emp0Bj/2EKnfpTzfMnPn+TPlg==",
   "success": true,
   "projectFilePath": "C:\\Users\\beals_000\\Documents\\MMOPPP\\MMOPPPServer\\MMOPPPServer\\MMOPPPServer.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\beals_000\\.nuget\\packages\\google.protobuf\\3.12.2\\google.protobuf.3.12.2.nupkg.sha512",
+    "C:\\Users\\beals_000\\.nuget\\packages\\google.protobuf\\3.12.3\\google.protobuf.3.12.3.nupkg.sha512",
     "C:\\Users\\beals_000\\.nuget\\packages\\sqlite\\3.13.0\\sqlite.3.13.0.nupkg.sha512",
     "C:\\Users\\beals_000\\.nuget\\packages\\system.memory\\4.5.2\\system.memory.4.5.2.nupkg.sha512",
     "C:\\Users\\beals_000\\.nuget\\packages\\windowsbase\\4.6.1055\\windowsbase.4.6.1055.nupkg.sha512"

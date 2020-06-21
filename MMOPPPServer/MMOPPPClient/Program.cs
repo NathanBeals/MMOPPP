@@ -7,7 +7,7 @@ using Google.Protobuf.MMOPPP.Messages;
 using Google.Protobuf.WellKnownTypes;
 using System.Linq;
 using System.Net.NetworkInformation;
-using MMOPPPShared;
+using MMOPPPLibrary;
 using System.IO;
 
 namespace AIClient
@@ -23,7 +23,7 @@ namespace AIClient
 
     class MMOPPPClient
     {
-        public void Connect(string ServerAddress = MMOPPPShared.Constants.ServerAddress, Int32 Port = MMOPPPShared.Constants.ServerUpPort)
+        public void Connect(string ServerAddress = MMOPPPLibrary.Constants.ServerAddress, Int32 Port = MMOPPPLibrary.Constants.ServerUpPort)
         {
             try
             {
@@ -68,8 +68,8 @@ namespace AIClient
                 Sprint = false,
                 EulerRotation = new Vector3 { X = 0.0f, Y = 0.0f, Z = 0.0f },
                 DirectionInputs = new Vector3 { X = 0.0f, Y = 0.0f, Z = 0.0f }
-            };
-            testInput.SentTime = new Timestamp { Seconds = DateTime.Now.Second, Nanos = DateTime.Now.Millisecond / 1000000 };
+            }; //UTC UTC.Now
+            testInput.SentTime = new Timestamp { Seconds = DateTime.UtcNow.ToBinary(),  Nanos = DateTime.Now.Millisecond / 1000000 }; // TODO: this is not what you think it is
 
             return testInput;
         }

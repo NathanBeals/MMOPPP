@@ -8,7 +8,7 @@ using Google.Protobuf.WellKnownTypes;
 using System.Linq;
 using System.Net.NetworkInformation;
 
-namespace MMOPPPShared
+namespace MMOPPPLibrary
 {
     public class Packet<T> where T : Google.Protobuf.IMessage<T>
     {

@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v3.1": {
       "MMOPPPServer/1.0.0": {
         "dependencies": {
-          "Google.Protobuf": "3.12.2",
+          "Google.Protobuf": "3.12.3",
+          "MMOPPPLibrary": "1.0.0",
           "WindowsBase": "4.6.1055",
           "SQLite": "3.13.0"
         },
@@ -16,14 +17,14 @@
           "MMOPPPServer.dll": {}
         }
       },
-      "Google.Protobuf/3.12.2": {
+      "Google.Protobuf/3.12.3": {
         "dependencies": {
           "System.Memory": "4.5.2"
         },
         "runtime": {
           "lib/netstandard2.0/Google.Protobuf.dll": {
-            "assemblyVersion": "3.12.2.0",
-            "fileVersion": "3.12.2.0"
+            "assemblyVersion": "3.12.3.0",
+            "fileVersion": "3.12.3.0"
           }
         }
       },
@@ -52,7 +53,15 @@
         }
       },
       "System.Memory/4.5.2": {},
-      "WindowsBase/4.6.1055": {}
+      "WindowsBase/4.6.1055": {},
+      "MMOPPPLibrary/1.0.0": {
+        "dependencies": {
+          "Google.Protobuf": "3.12.3"
+        },
+        "runtime": {
+          "MMOPPPLibrary.dll": {}
+        }
+      }
     }
   },
   "libraries": {
@@ -61,12 +70,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Google.Protobuf/3.12.2": {
+    "Google.Protobuf/3.12.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-8JZLQ9UGwBltiGF6EfFaHa2NG1IlNzadyi4d+9rCjGa8/M+beummP4BRY1vFl1i4Wm8kicEC22Shm8ecQmjaYQ==",
-      "path": "google.protobuf/3.12.2",
-      "hashPath": "google.protobuf.3.12.2.nupkg.sha512"
+      "sha512": "sha512-k+Dj0bdOy6/xhIZOthvDS2Ux9y5q6dWw+36n3SBVHYl520+tvcqLOpx6YsgQVy12cuzZbF+r73RZ0fxmpJ8c6A==",
+      "path": "google.protobuf/3.12.3",
+      "hashPath": "google.protobuf.3.12.3.nupkg.sha512"
     },
     "SQLite/3.13.0": {
       "type": "package",
@@ -88,6 +97,11 @@
       "sha512": "sha512-1NKRZTcRus8Q1ZPZz9QAucHYHLHmQ3G+MMaFFZyPTDRpEfmIFLo9mtSyO8TZkEJFXaNXvnhenPod4ltd8EOHkg==",
       "path": "windowsbase/4.6.1055",
       "hashPath": "windowsbase.4.6.1055.nupkg.sha512"
+    },
+    "MMOPPPLibrary/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

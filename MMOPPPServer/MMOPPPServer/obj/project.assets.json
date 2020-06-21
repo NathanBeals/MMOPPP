@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "Google.Protobuf/3.12.2": {
+      "Google.Protobuf/3.12.3": {
         "type": "package",
         "dependencies": {
           "System.Memory": "4.5.2"
@@ -58,18 +58,31 @@
         "runtime": {
           "lib/WindowsBase.dll": {}
         }
+      },
+      "MMOPPPLibrary/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Google.Protobuf": "3.12.2"
+        },
+        "compile": {
+          "bin/placeholder/MMOPPPLibrary.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MMOPPPLibrary.dll": {}
+        }
       }
     }
   },
   "libraries": {
-    "Google.Protobuf/3.12.2": {
-      "sha512": "8JZLQ9UGwBltiGF6EfFaHa2NG1IlNzadyi4d+9rCjGa8/M+beummP4BRY1vFl1i4Wm8kicEC22Shm8ecQmjaYQ==",
+    "Google.Protobuf/3.12.3": {
+      "sha512": "k+Dj0bdOy6/xhIZOthvDS2Ux9y5q6dWw+36n3SBVHYl520+tvcqLOpx6YsgQVy12cuzZbF+r73RZ0fxmpJ8c6A==",
       "type": "package",
-      "path": "google.protobuf/3.12.2",
+      "path": "google.protobuf/3.12.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "google.protobuf.3.12.2.nupkg.sha512",
+        "google.protobuf.3.12.3.nupkg.sha512",
         "google.protobuf.nuspec",
         "lib/net45/Google.Protobuf.dll",
         "lib/net45/Google.Protobuf.pdb",
@@ -135,11 +148,17 @@
         "windowsbase.4.6.1055.nupkg.sha512",
         "windowsbase.nuspec"
       ]
+    },
+    "MMOPPPLibrary/1.0.0": {
+      "type": "project",
+      "path": "../MMOPPPLibrary/MMOPPPLibrary.csproj",
+      "msbuildProject": "../MMOPPPLibrary/MMOPPPLibrary.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "Google.Protobuf >= 3.12.2",
+      "Google.Protobuf >= 3.12.3",
+      "MMOPPPLibrary >= 1.0.0",
       "WindowsBase >= 4.6.1055",
       "sqlite >= 3.13.0"
     ]
@@ -173,7 +192,11 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\beals_000\\Documents\\MMOPPP\\MMOPPPServer\\MMOPPPLibrary\\MMOPPPLibrary.csproj": {
+              "projectPath": "C:\\Users\\beals_000\\Documents\\MMOPPP\\MMOPPPServer\\MMOPPPLibrary\\MMOPPPLibrary.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -187,7 +210,7 @@
         "dependencies": {
           "Google.Protobuf": {
             "target": "Package",
-            "version": "[3.12.2, )"
+            "version": "[3.12.3, )"
           },
           "WindowsBase": {
             "target": "Package",
