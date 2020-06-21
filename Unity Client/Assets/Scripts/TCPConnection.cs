@@ -18,6 +18,7 @@ using System.Threading;
 public class TCPConnection : MonoBehaviour
 {
     Thread m_SendingInputsThread;
+    Thread m_RecievingInputsThread;
     MMOPPPClient m_TestClient;
 
     #region Variables       
@@ -58,29 +59,36 @@ public class TCPConnection : MonoBehaviour
     public void Update()
     {
          m_TestClient.QueueInput(MMOPPPClient.PackInput(m_Character, m_MovementInput, m_MouseInput, m_Strafe, m_Sprint));
+
+        var wUpdate = m_TestClient.PopWorldUpdate();
+        if (wUpdate != null)
+            WorldServerSync.s_Instance.QueueNewUpdate(wUpdate);
     }
 
     class MMOPPPClient
     {
-        public bool m_ThreadShouldExit = false;
+        public bool m_ThreadsShouldExit = false;
         public List<Packet<PlayerInput>> m_QueuedPackets = new List<Packet<PlayerInput>>();
+        TcpClient m_ServerConnection = new TcpClient();
+        List<Byte> m_QueuedData = new List<Byte>();
+        List<WorldUpdate> m_WorldUpdates = new List<WorldUpdate>();
 
         public void Connect(string ServerAddress = MMOPPPLibrary.Constants.ServerAddress, Int32 Port = MMOPPPLibrary.Constants.ServerUpPort)
         {
             try
-            { 
-                TcpClient client = new TcpClient(ServerAddress, Port);
-                NetworkStream stream = client.GetStream();
+            {
+                m_ServerConnection = new TcpClient(ServerAddress, Port);
+                NetworkStream stream = m_ServerConnection.GetStream();
 
-                while (!m_ThreadShouldExit)
+                while (!m_ThreadsShouldExit)
                 {
                     SendQueuedPackets(stream);
                     Debug.Log("I'm Alive");
                     Thread.Sleep(1000);
                 }
 
-                stream.Close(); // TODO: shouldn't close here, after one message, this whole block should loop and wait for input
-                client.Close();
+                stream.Close();
+                m_ServerConnection.Close();
             }
             catch (ArgumentNullException e)
             {
@@ -127,22 +135,142 @@ public class TCPConnection : MonoBehaviour
 
             return input;
         }
+
+        enum ERecievingState
+        {
+            Frame,
+            Message
+        }
+
+        public void HandleMessages()
+        {
+            while (!m_ThreadsShouldExit)
+            {
+                HandleMessage(m_ServerConnection);
+            }
+        }
+
+        public void HandleMessage(TcpClient Client)
+        {
+            var client = Client;
+            var queuedData = m_QueuedData;
+            if (client.Available == 0)
+                return;
+
+            Int32 messageSize = 0;
+            byte[] buffer = new byte[Constants.TCPBufferSize];
+            byte[] lengthData = new byte[Constants.HeaderSize];
+            Array.Copy(queuedData.ToArray(), buffer, queuedData.Count);
+            ERecievingState recievingState = ERecievingState.Frame;
+            int dataAvailable = 0;
+
+            try // Make sure to catch if the client is DCed in here
+            {
+                NetworkStream stream = client.GetStream();
+                dataAvailable = client.Available;
+                stream.Read(buffer, queuedData.Count, dataAvailable);
+            }
+            catch (System.IO.IOException) //TODO: look up client dc error
+            {
+                return;
+            }
+            queuedData.Clear();
+
+            while (!m_ThreadsShouldExit)
+            {
+                //Normal Exit, data source exhausted
+                if (dataAvailable == 0)
+                    break;
+
+                switch (recievingState)
+                {
+                    case ERecievingState.Frame:
+                        {
+                            if (dataAvailable > Constants.HeaderSize)
+                            {
+                                // Get size of message from header
+                                Array.Copy(buffer, lengthData, Constants.HeaderSize);
+                                if (Constants.SystemIsLittleEndian != Constants.MessageIsLittleEndian)
+                                    lengthData.Reverse();
+                                messageSize = BitConverter.ToInt32(lengthData, 0);
+
+                                // Remove header from buffer
+                                Array.Copy(buffer, Constants.HeaderSize, buffer, 0, buffer.Length - Constants.HeaderSize);
+
+                                recievingState = ERecievingState.Message;
+                                dataAvailable -= Constants.HeaderSize;
+                            }
+                            else // If the remaining data is smaller than the header size, push it onto the data to be parsed later
+                            {
+                                m_QueuedData = buffer.ToList(); // TODO: investigate the impact of the array to list conversions on performance... and just usage in general (not sure how to use)
+                            }
+                        }
+                        break;
+
+                    case ERecievingState.Message:
+                        {
+                            if (dataAvailable >= messageSize)
+                            {
+                                // Put the message bytes into a data object
+                                List<byte> data = new List<byte>();
+                                data.AddRange(buffer);
+                                data.RemoveRange(messageSize, buffer.Length - messageSize);
+
+                                //// Parse the message bytes and add it to the inputs list
+                                lock (m_WorldUpdates)
+                                    m_WorldUpdates.Add(WorldUpdate.Parser.ParseFrom(data.ToArray()));
+
+                                // Remove message from buffer
+                                Array.Copy(buffer, messageSize, buffer, 0, buffer.Length - messageSize);
+
+                                dataAvailable -= messageSize;
+                                messageSize = 0;
+                                recievingState = ERecievingState.Frame;
+
+                                //Debbuging
+                                Console.WriteLine($"World Updated {WorldUpdate.Parser.ParseFrom(data.ToArray()).ToString()}");
+                            }
+                            else // If the remaining data is smaller than the message size, push it onto the data to be parsed later
+                            {
+                                m_QueuedData = buffer.ToList();
+                            }
+                        }
+                        break;
+                }
+            }
+        }
+
+        public WorldUpdate PopWorldUpdate()
+        {
+            WorldUpdate frontUpdate = null;
+            lock (m_WorldUpdates)
+            {
+                if (m_WorldUpdates.Count != 0)
+                {
+                    frontUpdate = m_WorldUpdates[0];
+                    m_WorldUpdates.RemoveAt(0);
+                }
+            }
+            return frontUpdate;
+        }
     }
 
     public void OnEnable()
     {
         if (m_TestClient == null)
             m_TestClient = new MMOPPPClient();
-        m_TestClient.m_ThreadShouldExit = false;
+        m_TestClient.m_ThreadsShouldExit = false;
         m_SendingInputsThread = new Thread(() => m_TestClient.Connect());
         m_SendingInputsThread.Start();
+        m_RecievingInputsThread = new Thread(() => m_TestClient.HandleMessages());
+        m_RecievingInputsThread.Start();
 
         m_InputActions.Enable();
     }
 
     public void OnDisable()
     {
-        m_TestClient.m_ThreadShouldExit = true;
+        m_TestClient.m_ThreadsShouldExit = true;
 
         m_InputActions.Disable();
     }

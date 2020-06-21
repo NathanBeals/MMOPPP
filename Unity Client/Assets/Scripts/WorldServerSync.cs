@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Google.Protobuf.MMOPPP.Messages;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,22 +7,32 @@ using UnityEngine.Assertions.Must;
 using UnityEngine.Events;
 using UnityEngine.PlayerLoop;
 
+using V3 = UnityEngine.Vector3;
+using GV3 = Google.Protobuf.MMOPPP.Messages.Vector3;
+
 public class WorldServerSync : MonoBehaviour
 {
     public static WorldServerSync s_Instance;
 
+    WorldUpdate m_QueuedWorldUpdate = null;
     Queue<List<CharacterDownlinkData>> m_DataFromServer = new Queue<List<CharacterDownlinkData>>();
+
+    public void QueueNewUpdate(WorldUpdate Update)
+    {
+        m_QueuedWorldUpdate = Update;
+        Debug.Log(Update.ToString());
+    }
 
     // What will store the results from the server, TODO: likely to be replaced by the constructed Json stuff
     public struct CharacterDownlinkData
     {
         public string m_Name; // TODO: consider replacing with ID instead of name
-        public Vector3 m_Location; // Location in worldspace
-        public Vector3 m_Rotation; // Direction of the body
+        public V3 m_Location; // Location in worldspace
+        public V3 m_Rotation; // Direction of the body
 
         // TODO: use these for client side interpolation
-        public Vector2 m_MovementInput;
-        public Vector3 m_CameraRotation; // Direction of the body
+        public V3 m_MovementInput;
+        public V3 m_CameraRotation; // Direction of the body
     }
 
     public static void QueueNewUpdateData(List<CharacterDownlinkData> Data)
@@ -79,6 +90,4 @@ public class WorldServerSync : MonoBehaviour
         //TODO: convert to an attempt to sync, axing on a try lock
         SyncTransformData();
     }
-
-
 }
