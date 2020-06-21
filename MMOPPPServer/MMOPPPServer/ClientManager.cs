@@ -124,7 +124,6 @@ namespace MMOPPPServer
             }
         }
 
-        //TODO: consider adding locks to inputs and clients inside this function, it's private so it can be handled easy enough for now, but hmmm... granularity
         void HandleMessage(int ClientIndex)
         {
             var client = m_Clients[ClientIndex];

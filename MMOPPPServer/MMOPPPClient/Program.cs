@@ -68,8 +68,8 @@ namespace AIClient
                 Sprint = false,
                 EulerRotation = new Vector3 { X = 0.0f, Y = 0.0f, Z = 0.0f },
                 DirectionInputs = new Vector3 { X = 0.0f, Y = 0.0f, Z = 0.0f }
-            }; //UTC UTC.Now
-            testInput.SentTime = new Timestamp { Seconds = DateTime.UtcNow.ToBinary(),  Nanos = DateTime.Now.Millisecond / 1000000 }; // TODO: this is not what you think it is
+            }; 
+            testInput.SentTime = Timestamp.FromDateTime(DateTime.UtcNow);
 
             return testInput;
         }
