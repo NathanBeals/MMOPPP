@@ -14,12 +14,18 @@ using System.IO;
 using System.Linq;
 using MMOPPPServer;
 
+
 namespace MMOPPP
 {
     class Program
     {
         static void Main(string[] args)
         {
+            SQLDB database = new SQLDB();
+            database.Initialize();
+
+            Debug.Assert(database.GetCharacterExists("Test"));
+
             var stopWatch = new Stopwatch();
             GameServer server = new GameServer();
             bool bExit = false;

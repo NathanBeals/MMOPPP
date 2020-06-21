@@ -1,12 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "R2zvQuHL0tpLQvj+5ztpe2Tyqzj2/ekfZ6C98uCDdoqbLNwqcP9zXId3DHIJa+xmRqxSQSsCTfpJaOjTUE90Dg==",
+  "dgSpecHash": "bOn3fRvR6eW9iMJcKghWdvBcOJT0vj+7bQmWER7ku82F7hxnjmJ45AyiA1M63yqjENsIRRHth5z0NgL+QlqprA==",
   "success": true,
   "projectFilePath": "C:\\Users\\beals_000\\Documents\\MMOPPP\\MMOPPPServer\\MMOPPPServer\\MMOPPPServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\beals_000\\.nuget\\packages\\google.protobuf\\3.12.3\\google.protobuf.3.12.3.nupkg.sha512",
-    "C:\\Users\\beals_000\\.nuget\\packages\\sqlite\\3.13.0\\sqlite.3.13.0.nupkg.sha512",
-    "C:\\Users\\beals_000\\.nuget\\packages\\system.memory\\4.5.2\\system.memory.4.5.2.nupkg.sha512"
+    "C:\\Users\\beals_000\\.nuget\\packages\\microsoft.data.sqlite\\3.1.5\\microsoft.data.sqlite.3.1.5.nupkg.sha512",
+    "C:\\Users\\beals_000\\.nuget\\packages\\microsoft.data.sqlite.core\\3.1.5\\microsoft.data.sqlite.core.3.1.5.nupkg.sha512",
+    "C:\\Users\\beals_000\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.0.2\\sqlitepclraw.bundle_e_sqlite3.2.0.2.nupkg.sha512",
+    "C:\\Users\\beals_000\\.nuget\\packages\\sqlitepclraw.core\\2.0.2\\sqlitepclraw.core.2.0.2.nupkg.sha512",
+    "C:\\Users\\beals_000\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.0.2\\sqlitepclraw.lib.e_sqlite3.2.0.2.nupkg.sha512",
+    "C:\\Users\\beals_000\\.nuget\\packages\\sqlitepclraw.provider.dynamic_cdecl\\2.0.2\\sqlitepclraw.provider.dynamic_cdecl.2.0.2.nupkg.sha512",
+    "C:\\Users\\beals_000\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
   ],
   "logs": []
 }
