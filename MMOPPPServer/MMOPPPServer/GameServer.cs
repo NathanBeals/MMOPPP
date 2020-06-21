@@ -58,8 +58,12 @@ namespace MMOPPPServer
 
                 foreach (var input in m_Inputs)
                 {
-                    m_Database.SaveCharacterData(input.Id.Name, input.MoveInput.DirectionInputs, input.MoveInput.EulerRotation, true); // TODO: on disconnect, only set online to false
+                    m_Database.SaveCharacterData(input.Id.Name, input.MoveInput.DirectionInputs, input.MoveInput.EulerRotation); // TODO: on disconnect, only set online to false
                 }
+
+                Vector3 loc;
+                Vector3 rot;
+                m_Database.LoadCharacterData("gerald", out loc, out rot);
 
                 m_Inputs.Clear();
             }

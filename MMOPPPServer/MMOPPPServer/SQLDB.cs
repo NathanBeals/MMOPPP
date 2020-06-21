@@ -51,7 +51,7 @@ namespace MMOPPPServer
             return false;
         }
 
-        public void SaveCharacterData(string Name, V3 Location, V3 Rotation, bool Online)
+        public void SaveCharacterData(string Name, V3 Location, V3 Rotation)
         {
             if (!GetCharacterExists(Name))
             {
@@ -65,7 +65,6 @@ namespace MMOPPPServer
                 var command = connection.CreateCommand();
                 command.CommandText = @$"
                 UPDATE CharacterData SET 
-                Online = {Online},
                 LocationX = {Location.X}, 
                 LocationY = {Location.Y},
                 LocationZ = {Location.Z},
@@ -75,6 +74,34 @@ namespace MMOPPPServer
                 WHERE Name = $Name";
                 command.Parameters.AddWithValue("$Name", Name);
                 command.ExecuteNonQuery();
+            }
+        }
+
+        public void LoadCharacterData(string Name, out V3 Location, out V3 Rotation)
+        {
+            Location = new V3 { };
+            Rotation = new V3 { };
+
+            if (!GetCharacterExists(Name))
+                return;
+
+            var command = connection.CreateCommand();
+            command.CommandText = @$"
+            SELECT * FROM CharacterData WHERE Name = $Name";
+            command.Parameters.AddWithValue("$Name", Name);
+
+            using (var reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    Location.X = reader.GetFloat(1); //TODO: constants
+                    Location.Y = reader.GetFloat(2);
+                    Location.Z = reader.GetFloat(3);
+
+                    Rotation.X = reader.GetFloat(4);
+                    Rotation.Y = reader.GetFloat(5);
+                    Rotation.Z = reader.GetFloat(6);
+                }
             }
         }
 
