@@ -40,13 +40,13 @@ namespace MMOPPPServer
         {
             EntityUpdate update = new EntityUpdate();
             update.Id = new Identifier { Name = m_Name, Tags = m_Tags };
-            update.Position = Vector3ToGVector3(m_Location);
+            update.Position = V3ToGV3(m_Location);
             update.PredictiveInputs = new EntityInput
             {
                 Strafe = false,
                 Sprint = false,
-                EulerRotation = Vector3ToGVector3(m_Rotation),
-                DirectionInputs = Vector3ToGVector3(m_MoveInputs)
+                EulerRotation = V3ToGV3(m_Rotation),
+                DirectionInputs = V3ToGV3(m_MoveInputs)
             };
 
             return update;
@@ -55,23 +55,24 @@ namespace MMOPPPServer
         public void Update(PlayerInput Input, float DeltaTime)
         {
             if (DeltaTime < 0) //HACK: this should never be possible
-                return; 
+                return;
 
-            if (Input.MoveInput.DirectionInputs.X > 0.0f)
-            {
-                var test = m_Location.X + Constants.CharacterMoveSpeed * DeltaTime; //HACK: only for testings, remove later
-                m_Location.X = test;// m_Location.X * 6 * DeltaTime; //HACK: only for testings
-                Console.WriteLine($"{Input.Id.Name} is now at {m_Location}");
-            }
+            var moveInput = GV3ToV3(Input.MoveInput.DirectionInputs);
+            var rotationInput = GV3ToV3(Input.MoveInput.DirectionInputs);
+
+            moveInput = V3.Multiply(moveInput, Constants.CharacterMoveSpeed * DeltaTime);
+            m_Location = m_Location + moveInput;
+
+            Console.WriteLine($"{Input.Id.Name} is now at {m_Location}");
         }
 
         // Helper
-        public static GV3 Vector3ToGVector3(V3 VInput)
+        public static GV3 V3ToGV3(V3 VInput)
         {
             return new GV3 { X = VInput.X, Y = VInput.Y, Z = VInput.Z };
         }
 
-        public static V3 GVector3ToVector3(GV3 VInput)
+        public static V3 GV3ToV3(GV3 VInput)
         {
             return new V3 { X = VInput.X, Y = VInput.Y, Z = VInput.Z };
         }

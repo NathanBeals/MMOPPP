@@ -77,7 +77,7 @@ namespace MMOPPPServer
         void SaveCharacters()
         {
             foreach (var pair in m_Characters)
-                m_Database.SaveCharacterData(pair.Value.m_Name, Character.Vector3ToGVector3(pair.Value.m_Location), Character.Vector3ToGVector3(pair.Value.m_Rotation));
+                m_Database.SaveCharacterData(pair.Value.m_Name, Character.V3ToGV3(pair.Value.m_Location), Character.V3ToGV3(pair.Value.m_Rotation));
         }
 
         // The first time an input is found for a new character, load that characters position
@@ -89,8 +89,8 @@ namespace MMOPPPServer
                 m_Characters[Input.Id.Name] = character;
                 GV3 loc, rot;
                 m_Database.LoadCharacterData(Input.Id.Name, out loc, out rot);
-                character.m_Location = Character.GVector3ToVector3(loc);
-                character.m_Rotation = Character.GVector3ToVector3(rot);
+                character.m_Location = Character.GV3ToV3(loc);
+                character.m_Rotation = Character.GV3ToV3(rot);
             }
         }
 

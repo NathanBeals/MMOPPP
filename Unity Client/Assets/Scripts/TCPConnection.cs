@@ -128,7 +128,7 @@ public class TCPConnection : MonoBehaviour
                 Strafe = Strafe,
                 Sprint = Spring,
                 EulerRotation = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = MouseInput.x, Y = MouseInput.y, Z = 0.0f },
-                DirectionInputs = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = MoveInput.x, Y = MoveInput.y, Z = 0.0f }
+                DirectionInputs = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = MoveInput.x, Y = 0.0f, Z = MoveInput.y }
             };
             DateTimeOffset now = DateTime.UtcNow;
             input.SentTime = new Timestamp { Seconds = (now.Ticks / 10000000) - 11644473600L, Nanos = (int)(now.Ticks % 10000000) * 100 };
