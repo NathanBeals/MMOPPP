@@ -5,6 +5,7 @@ using System.Text;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Dynamic;
+using MMOPPPLibrary;
 
 namespace MMOPPPServer
 {
@@ -49,6 +50,16 @@ namespace MMOPPPServer
             };
 
             return update;
+        }
+
+        public void Update(PlayerInput Input, float DeltaTime)
+        {
+            if (Input.MoveInput.DirectionInputs.X > 0.0f)
+            {
+                var test = m_Location.X + Constants.CharacterMoveSpeed * DeltaTime;
+                m_Location.X = test;// m_Location.X * 6 * DeltaTime; //HACK: only for testings
+                Console.WriteLine($"{Input.Id.Name} is now at {m_Location}");
+            }
         }
 
         // Helper

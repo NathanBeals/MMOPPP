@@ -94,16 +94,36 @@ namespace MMOPPPServer
             }
         }
 
+
+        //TODO: I'm going to avoid this for now, but there is a functional issue with this code,
+        // I am interpretting events 1 past how they should be interpreted.
+        // aka I should handle messages like, last update said they were moving forward, this update says they are stopping, move forward for the time difference.
+        // as of now I'm doing it, they said forward, move forward for the time since the last message, which is just wrong, but I have other things I have to get done before fixing this.
         void PhysicsUpdate(float DeltaTime)
         {
             foreach (var input in m_Inputs)
             {
                 TryAddCharacterFromInput(input);
 
+                float clientDeltaTime = 0.0f;
 
+                var character = m_Characters[input.Id.Name];
+                if (character.m_TimeOfLastUpdate == 0) //first update sent
+                {
+                    character.m_TimeOfLastUpdate = input.SentTime.Nanos / 1000000.0f; //TODO: move to constants, also swap out the timestamp class for just raw miliseconds since epoc 
+                    character.m_TimeSinceLastUpdate = 0;
+                    continue;
+                }
+                else
+                {
+                    clientDeltaTime = input.SentTime.Nanos / 1000000.0f - character.m_TimeOfLastUpdate;
+                    character.m_TimeOfLastUpdate = input.SentTime.Nanos / 1000000.0f; //TODO: effeciency
+                    character.m_TimeSinceLastUpdate = 0;
+                    character.Update(input, clientDeltaTime);
+                }
 
                 //Debug Line
-                Console.WriteLine(input.ToString());
+                //Console.WriteLine(input.ToString());
             }
 
             BroadcastWorldUpdate();
@@ -114,7 +134,7 @@ namespace MMOPPPServer
         {
             WorldUpdate worldUpdate = new WorldUpdate();
             foreach (var character in m_Characters)
-                worldUpdate.Updates.Add(character.ToEntityUpdate());
+                worldUpdate.Updates.Add(character.Value.ToEntityUpdate());
 
             m_ClientManager.QueueWorldUpdate(worldUpdate);
         }

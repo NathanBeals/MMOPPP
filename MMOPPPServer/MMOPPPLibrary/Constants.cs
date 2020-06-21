@@ -14,5 +14,7 @@ namespace MMOPPPLibrary
         public static readonly Int32 HeaderSize = 4;
         public static Int32 TCPBufferSize = 65536;
         public const float TimeToDC = 2000.0f; // Miliseconds
+
+        public const float CharacterMoveSpeed = 6.0f / 1000;
     }
 }
