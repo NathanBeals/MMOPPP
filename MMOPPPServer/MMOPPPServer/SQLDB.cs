@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
+using Google.Protobuf.MMOPPP.Messages;
 using Microsoft.Data.Sqlite;
 
 namespace MMOPPPServer
 {
+    using V3 = Google.Protobuf.MMOPPP.Messages.Vector3;
+
     class SQLDB
     {
         SqliteConnection connection = new SqliteConnection("Data Source=Characters.db");
@@ -12,6 +16,11 @@ namespace MMOPPPServer
         public SQLDB()
         {
             connection.Open();
+        }
+
+        ~SQLDB()
+        {
+            connection.Close();
         }
 
         public void Initialize()
@@ -42,68 +51,49 @@ namespace MMOPPPServer
             return false;
         }
 
-        public void SaveCharacterData(string Name)
+        public void SaveCharacterData(string Name, V3 Location, V3 Rotation, bool Online)
         {
             if (!GetCharacterExists(Name))
-            { 
-            
+            {
+                var command = connection.CreateCommand();
+                command.CommandText = @"INSERT INTO CharacterData(Name) VALUES($Name);";
+                command.Parameters.AddWithValue("$Name", Name);
+                command.ExecuteNonQuery();
             }
 
-
-        }
-
-        ~SQLDB()
-        {
-            connection.Close();
+            {
+                var command = connection.CreateCommand();
+                command.CommandText = @$"
+                UPDATE CharacterData SET 
+                Online = {Online},
+                LocationX = {Location.X}, 
+                LocationY = {Location.Y},
+                LocationZ = {Location.Z},
+                RotationX = {Rotation.X}, 
+                RotationY = {Rotation.Y},
+                RotationZ = {Rotation.Z}
+                WHERE Name = $Name";
+                command.Parameters.AddWithValue("$Name", Name);
+                command.ExecuteNonQuery();
+            }
         }
 
         void TryCreateCharacterTable()
         {
-            // Create the character table if it doesn't exist already
-            try
-            {
-                var command = connection.CreateCommand();
-                command.CommandText =
-                    @"
-                        CREATE TABLE CharacterData(
-                        Name  TEXT NOT NULL UNIQUE,
-                        LocationX REAL,
-                        LocationY REAL,
-                        LocationZ REAL,
-                        RotationX REAL,
-                        RotationY REAL,
-                        RotationZ REAL,
-                        PRIMARY KEY(Name)
-                    );";
-                command.ExecuteReader();
-            }
-            catch (SqliteException e)
-            {
-                if (!e.Message.Contains("already exists")) // Ignore table already exists errors
-                    Console.WriteLine($"{e}");
-            }
-        }
-
-        void test()
-        {
             var command = connection.CreateCommand();
-
             command.CommandText =
-            @"
-                SELECT LocationX
-                FROM CharacterData
-                WHERE Name = $Name
-                ";
-            command.Parameters.AddWithValue("$Name", "Test");
-
-            using (var reader = command.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    var name = reader.GetFloat(0);
-                    Console.WriteLine($"Hello, {name}!");
-                }
-            }
+                @"
+                CREATE TABLE if not exists CharacterData(
+                Name  TEXT NOT NULL UNIQUE,
+                LocationX REAL,
+                LocationY REAL,
+                LocationZ REAL,
+                RotationX REAL,
+                RotationY REAL,
+                RotationZ REAL,
+                PRIMARY KEY(Name)
+                );";
+            command.ExecuteReader();
         }
     }
 

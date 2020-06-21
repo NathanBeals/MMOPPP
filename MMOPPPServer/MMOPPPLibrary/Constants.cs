@@ -12,6 +12,6 @@ namespace MMOPPPLibrary
         public const Int32 ServerUpPort = 6000;
         public const Int32 ServerDownPort = 6001;
         public static readonly Int32 HeaderSize = 4;
-        public static Int32 TCPBufferSize = 65535;
+        public static Int32 TCPBufferSize = 65536;
     }
 }

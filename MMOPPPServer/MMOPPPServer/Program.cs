@@ -21,11 +21,6 @@ namespace MMOPPP
     {
         static void Main(string[] args)
         {
-            SQLDB database = new SQLDB();
-            database.Initialize();
-
-            Debug.Assert(database.GetCharacterExists("Test"));
-
             var stopWatch = new Stopwatch();
             GameServer server = new GameServer();
             bool bExit = false;

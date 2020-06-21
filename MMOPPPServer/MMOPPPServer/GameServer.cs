@@ -17,6 +17,7 @@ namespace MMOPPPServer
 {
     class GameServer
     {
+        SQLDB m_Database = new SQLDB();
         ClientManager m_ClientManager = null;
         List<PlayerInput> m_Inputs = new List<PlayerInput>();
         List<Character> m_Characters = new List<Character>();
@@ -34,6 +35,7 @@ namespace MMOPPPServer
         void Initialize()
         {
             m_ClientManager = new ClientManager();
+            m_Database.Initialize();
         }
 
         public void WorldUpdate(float DeltaTime)
@@ -45,7 +47,7 @@ namespace MMOPPPServer
                 {
                     m_TimeSinceLastTick -= m_ServerTickRate;
 
-                    // Take inputs from the client manager
+                    // Take inputs fro the client manager
                     m_Inputs = m_ClientManager.GetInputs(); // Blocking Call
                     m_ClientManager.ClearInputs(); // Also a blocking Call //TODO: combine in one function so there's no chance of dropping inputs
 
@@ -53,6 +55,13 @@ namespace MMOPPPServer
 
                     Console.WriteLine("Tick");
                 }
+
+                foreach (var input in m_Inputs)
+                {
+                    m_Database.SaveCharacterData(input.Id.Name, input.MoveInput.DirectionInputs, input.MoveInput.EulerRotation, true); // TODO: on disconnect, only set online to false
+                }
+
+                m_Inputs.Clear();
             }
         }
 
@@ -67,7 +76,6 @@ namespace MMOPPPServer
                 //TODO: remove characters that have disconected clients
                 //TODO: move the characters
             }
-            m_Inputs.Clear();
 
             BroadcastWorldUpdate();
         }
