@@ -43,7 +43,7 @@
           "dependencies": {
             "Google.Protobuf": {
               "target": "Package",
-              "version": "[3.12.2, )"
+              "version": "[3.10.0, )"
             },
             "NETStandard.Library": {
               "suppressParent": "All",
@@ -110,10 +110,6 @@
             "Google.Protobuf": {
               "target": "Package",
               "version": "[3.12.3, )"
-            },
-            "WindowsBase": {
-              "target": "Package",
-              "version": "[4.6.1055, )"
             },
             "sqlite": {
               "target": "Package",

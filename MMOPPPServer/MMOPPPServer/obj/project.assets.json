@@ -50,20 +50,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "WindowsBase/4.6.1055": {
-        "type": "package",
-        "compile": {
-          "lib/WindowsBase.dll": {}
-        },
-        "runtime": {
-          "lib/WindowsBase.dll": {}
-        }
-      },
       "MMOPPPLibrary/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Google.Protobuf": "3.12.2"
+          "Google.Protobuf": "3.10.0"
         },
         "compile": {
           "bin/placeholder/MMOPPPLibrary.dll": {}
@@ -137,18 +128,6 @@
         "version.txt"
       ]
     },
-    "WindowsBase/4.6.1055": {
-      "sha512": "1NKRZTcRus8Q1ZPZz9QAucHYHLHmQ3G+MMaFFZyPTDRpEfmIFLo9mtSyO8TZkEJFXaNXvnhenPod4ltd8EOHkg==",
-      "type": "package",
-      "path": "windowsbase/4.6.1055",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/WindowsBase.dll",
-        "windowsbase.4.6.1055.nupkg.sha512",
-        "windowsbase.nuspec"
-      ]
-    },
     "MMOPPPLibrary/1.0.0": {
       "type": "project",
       "path": "../MMOPPPLibrary/MMOPPPLibrary.csproj",
@@ -159,7 +138,6 @@
     ".NETCoreApp,Version=v3.1": [
       "Google.Protobuf >= 3.12.3",
       "MMOPPPLibrary >= 1.0.0",
-      "WindowsBase >= 4.6.1055",
       "sqlite >= 3.13.0"
     ]
   },
@@ -212,10 +190,6 @@
             "target": "Package",
             "version": "[3.12.3, )"
           },
-          "WindowsBase": {
-            "target": "Package",
-            "version": "[4.6.1055, )"
-          },
           "sqlite": {
             "target": "Package",
             "version": "[3.13.0, )"
@@ -239,17 +213,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'WindowsBase 4.6.1055' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
-      "libraryId": "WindowsBase",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.1"
-      ]
-    }
-  ]
+  }
 }
