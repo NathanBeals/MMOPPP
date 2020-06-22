@@ -6,6 +6,7 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Dynamic;
 using MMOPPPLibrary;
+using System.ComponentModel.DataAnnotations;
 
 namespace MMOPPPServer
 {
@@ -61,6 +62,14 @@ namespace MMOPPPServer
       var rotationInput = GV3ToV3(Input.MoveInput.EulerRotation);
 
       m_Rotation = rotationInput; //m_Rotation.Y + rotationInput.X * DeltaTime * 1; //TODO: rotation rate
+
+      //forward * rotation * move input
+      var forward = moveInput.Z;
+      var right = moveInput.X;
+      moveInput.Z = MathF.Cos(m_Rotation.Y * (float)Math.PI / 180.0f) * forward;
+      moveInput.X = MathF.Sin(m_Rotation.Y * (float)Math.PI / 180.0f) * forward;
+      moveInput.Z += MathF.Cos((m_Rotation.Y + 90) * (float)Math.PI / 180.0f) * right;
+      moveInput.X += MathF.Sin((m_Rotation.Y + 90) * (float)Math.PI / 180.0f) * right;
 
       moveInput = V3.Multiply(moveInput, Constants.CharacterMoveSpeed * DeltaTime);
       m_Location = m_Location + moveInput;
