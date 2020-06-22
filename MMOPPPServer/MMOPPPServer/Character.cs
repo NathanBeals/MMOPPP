@@ -63,7 +63,7 @@ namespace MMOPPPServer
             moveInput = V3.Multiply(moveInput, Constants.CharacterMoveSpeed * DeltaTime);
             m_Location = m_Location + moveInput;
 
-            Console.WriteLine($"{Input.Id.Name} is now at {m_Location}");
+            //Console.WriteLine($"{Input.Id.Name} is now at {m_Location}");
         }
 
         // Helper

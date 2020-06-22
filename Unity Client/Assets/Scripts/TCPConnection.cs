@@ -142,12 +142,11 @@ public class TCPConnection : MonoBehaviour
             Message
         }
 
-        public void HandleMessages()
+        public void HandleMessages(int StartDelay)
         {
+            Thread.Sleep(StartDelay);
             while (!m_ThreadsShouldExit)
-            {
                 HandleMessage(m_ServerConnection);
-            }
         }
 
         public void HandleMessage(TcpClient Client)
@@ -194,16 +193,10 @@ public class TCPConnection : MonoBehaviour
                                     lengthData.Reverse();
                                 messageSize = BitConverter.ToInt32(lengthData, 0);
 
-                                // Remove header from buffer
-                                Array.Copy(buffer, Constants.HeaderSize, buffer, 0, buffer.Length - Constants.HeaderSize);
-
                                 recievingState = ERecievingState.Message;
-                                dataAvailable -= Constants.HeaderSize;
                             }
                             else // If the remaining data is smaller than the header size, push it onto the data to be parsed later
-                            {
                                 m_QueuedData = buffer.ToList(); // TODO: investigate the impact of the array to list conversions on performance... and just usage in general (not sure how to use)
-                            }
                         }
                         break;
 
@@ -211,6 +204,10 @@ public class TCPConnection : MonoBehaviour
                         {
                             if (dataAvailable >= messageSize)
                             {
+                                // Remove header from buffer
+                                Array.Copy(buffer, Constants.HeaderSize, buffer, 0, buffer.Length - Constants.HeaderSize);
+                                dataAvailable -= Constants.HeaderSize;
+
                                 // Put the message bytes into a data object
                                 List<byte> data = new List<byte>();
                                 data.AddRange(buffer);
@@ -231,9 +228,7 @@ public class TCPConnection : MonoBehaviour
                                 Console.WriteLine($"World Updated {WorldUpdate.Parser.ParseFrom(data.ToArray()).ToString()}");
                             }
                             else // If the remaining data is smaller than the message size, push it onto the data to be parsed later
-                            {
                                 m_QueuedData = buffer.ToList();
-                            }
                         }
                         break;
                 }
@@ -262,7 +257,7 @@ public class TCPConnection : MonoBehaviour
         m_TestClient.m_ThreadsShouldExit = false;
         m_SendingInputsThread = new Thread(() => m_TestClient.Connect());
         m_SendingInputsThread.Start();
-        m_RecievingInputsThread = new Thread(() => m_TestClient.HandleMessages());
+        m_RecievingInputsThread = new Thread(() => m_TestClient.HandleMessages(2000)); // HACK: fixes single player lag bug
         m_RecievingInputsThread.Start();
 
         m_InputActions.Enable();

@@ -53,8 +53,8 @@ namespace MMOPPPServer
                     m_Inputs = m_ClientManager.GetInputs(); // Blocking Call
                     m_ClientManager.ClearInputs(); // Also a blocking Call //TODO: combine in one function so there's no chance of dropping inputs
 
-                    UpdateDisconnects(DeltaTime);
-                    PhysicsUpdate(DeltaTime);
+                    UpdateDisconnects(m_ServerTickRate);
+                    PhysicsUpdate(m_ServerTickRate);
                     SaveCharacters();
 
                     Console.WriteLine("Tick");
@@ -124,6 +124,11 @@ namespace MMOPPPServer
                     character.Update(input, clientDeltaTime);
                 }
             }
+
+            if (m_Characters.Count > 0)
+                Console.WriteLine("Online:");
+            foreach (var character in m_Characters)
+                Console.WriteLine($"{character.Value.m_Name}");
 
             BroadcastWorldUpdate();
         }

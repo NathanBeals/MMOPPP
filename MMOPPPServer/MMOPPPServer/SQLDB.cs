@@ -77,6 +77,7 @@ namespace MMOPPPServer
             }
         }
 
+        //TODO: possible bug when characters are disconnected
         public void LoadCharacterData(string Name, out V3 Location, out V3 Rotation)
         {
             Location = new V3 { };
