@@ -24,6 +24,7 @@ public class TCPConnection : MonoBehaviour
   #region Variables       
   // Related Components
   Character m_Character;
+  Camera m_Camera;
 
   // Inputs
   PlayerInputActions2 m_InputActions;
@@ -54,11 +55,19 @@ public class TCPConnection : MonoBehaviour
     m_Character = GameObject.FindObjectOfType<Character>();
     if (m_Character == null)
       Debug.Log("No character in scene");
+
+    m_Camera = GameObject.FindObjectOfType<Camera>();
+    if (m_Camera == null)
+      Debug.Log("No camera in scene");
   }
 
   public void Update()
   {
-    m_TestClient.QueueInput(MMOPPPClient.PackInput(m_Character, m_MovementInput, m_MouseInput, m_Strafe, m_Sprint));
+    m_TestClient.QueueInput(MMOPPPClient.PackInput(m_Character,
+      m_MovementInput, 
+      m_Camera.gameObject.transform.rotation.eulerAngles, // HACK: allowing client to be authoritative on input
+      m_Strafe, 
+      m_Sprint));
 
     var wUpdate = m_TestClient.PopWorldUpdate();
     if (wUpdate != null)
@@ -119,7 +128,7 @@ public class TCPConnection : MonoBehaviour
       }
     }
 
-    public static PlayerInput PackInput(Character Character, Vector2 MoveInput, Vector2 MouseInput, bool Strafe, bool Spring)
+    public static PlayerInput PackInput(Character Character, Vector2 MoveInput, UnityEngine.Vector3 Rotation, bool Strafe, bool Spring)
     {
       PlayerInput input = new PlayerInput();
       input.Id = new Identifier { Name = Character.m_ID, Tags = "Default" };
@@ -127,7 +136,7 @@ public class TCPConnection : MonoBehaviour
       {
         Strafe = Strafe,
         Sprint = Spring,
-        EulerRotation = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = MouseInput.x, Y = 0.0f, Z = 0.0f },
+        EulerRotation = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = Rotation.x, Y = Rotation.y, Z = Rotation.z},
         DirectionInputs = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = MoveInput.x, Y = 0.0f, Z = MoveInput.y }
       };
       DateTimeOffset now = DateTime.UtcNow;

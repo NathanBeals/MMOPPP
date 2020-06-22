@@ -60,7 +60,7 @@ namespace MMOPPPServer
       var moveInput = GV3ToV3(Input.MoveInput.DirectionInputs);
       var rotationInput = GV3ToV3(Input.MoveInput.EulerRotation);
 
-      m_Rotation.Y = m_Rotation.Y + rotationInput.X * DeltaTime * 1; //TODO: rotation rate
+      m_Rotation = rotationInput; //m_Rotation.Y + rotationInput.X * DeltaTime * 1; //TODO: rotation rate
 
       moveInput = V3.Multiply(moveInput, Constants.CharacterMoveSpeed * DeltaTime);
       m_Location = m_Location + moveInput;
