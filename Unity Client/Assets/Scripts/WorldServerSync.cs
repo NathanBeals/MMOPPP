@@ -10,6 +10,7 @@ using UnityEngine.PlayerLoop;
 using V3 = UnityEngine.Vector3;
 using GV3 = Google.Protobuf.MMOPPP.Messages.Vector3;
 using UnityEditor;
+using TMPro;
 
 public class WorldServerSync : MonoBehaviour
 {
@@ -88,10 +89,15 @@ public class WorldServerSync : MonoBehaviour
 
         }
         else
-          Destroy(Instantiate(PlayerPlaceholder,
+        {
+          var newSphere = Instantiate(PlayerPlaceholder,
             new V3(entity.Position.X, entity.Position.Y, entity.Position.Z),
-            Quaternion.Euler(0.0f, entity.PredictiveInputs.EulerRotation.Y, 0.0f)),
-            5);
+            Quaternion.Euler(0.0f, entity.PredictiveInputs.EulerRotation.Y, 0.0f));
+
+          newSphere.GetComponentInChildren<TextMeshPro>()?.SetText(entity.Id.Name);
+
+          Destroy(newSphere, 5);
+        }
       }
 
       m_QueuedWorldUpdate = null;
