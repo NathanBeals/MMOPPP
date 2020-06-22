@@ -18,266 +18,269 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace MMOPPPServer
 {
-    class ClientManager
+  class ClientManager
+  {
+    Thread m_MessageHandlingThread;
+    Thread m_ConnectionHandlingThread;
+    Thread m_BroadcastHandlingThread;
+    bool m_ThreadsShouldExit = false;
+
+    List<TcpClient> m_Clients = new List<TcpClient>();
+    List<List<Byte>> m_QueuedData = new List<List<byte>>();
+    List<PlayerInput> m_Inputs = new List<PlayerInput>();
+
+    TcpListener m_TCPListener = null;
+
+    object WorldUpdateLock = new object();
+    WorldUpdate m_QueuedWorldUpdate = null;
+
+    public ClientManager()
     {
-        Thread m_MessageHandlingThread;
-        Thread m_ConnectionHandlingThread;
-        Thread m_BroadcastHandlingThread;
-        bool m_ThreadsShouldExit = false;
+    }
 
-        List<TcpClient> m_Clients = new List<TcpClient>();
-        List<List<Byte>> m_QueuedData = new List<List<byte>>();
-        List<PlayerInput> m_Inputs = new List<PlayerInput>();
+    ~ClientManager()
+    {
+      Stop();
+    }
 
-        TcpListener m_TCPListener = null;
+    public List<PlayerInput> GetInputs()
+    {
+      List<PlayerInput> InputsCopy;
+      lock (m_Inputs)
+      {
+        InputsCopy = new List<PlayerInput>(m_Inputs);
+      }
 
-        object WorldUpdateLock = new object();
-        WorldUpdate m_QueuedWorldUpdate = null;
+      return InputsCopy;
+    }
 
-        public ClientManager()
+    public void ClearInputs()
+    {
+      lock (m_Inputs)
+      {
+        m_Inputs.Clear();
+      }
+    }
+
+    enum ERecievingState
+    {
+      Frame,
+      Message
+    }
+
+    public void HandleConnections()
+    {
+      m_TCPListener = new TcpListener(IPAddress.Parse(Constants.ServerAddress), Constants.ServerUpPort);
+      m_TCPListener.Start();
+
+      try
+      {
+        while (!m_ThreadsShouldExit)
         {
+          TcpClient client = m_TCPListener.AcceptTcpClient();
+
+          lock (m_Clients)
+          {
+            m_Clients.Add(client);
+            m_QueuedData.Add(new List<byte>());
+          }
+
+          Console.WriteLine("Connected!");
         }
-
-        ~ClientManager()
+      }
+      catch (SocketException e)
+      {
+        if (e.SocketErrorCode == SocketError.Interrupted)
         {
-            Stop();
+          // Normal escape on server close
         }
+        else
+          Console.WriteLine("SocketException: {0}", e);
+      }
+      finally
+      {
+        if (m_TCPListener != null)
+          m_TCPListener.Stop();
+      }
+    }
 
-        public List<PlayerInput> GetInputs()
+    public void HandleMessages()
+    {
+      while (!m_ThreadsShouldExit)
+      {
+        lock (m_Clients)
         {
-            List<PlayerInput> InputsCopy;
-            lock (m_Inputs)
-            {
-                InputsCopy = new List<PlayerInput>(m_Inputs);
-            }
+          for (int i = 0; i < m_Clients.Count; ++i)
+          {
+            if (m_Clients[i].Connected && m_Clients[i].Available != 0)
+              HandleMessage(i);
+          }
 
-            return InputsCopy;
+          var count = m_Clients.Count();
+          m_Clients.RemoveAll(x => !x.Connected); // Clean the list of dead connections
+          for (int i = 0; i < count - m_Clients.Count; ++i)
+            Console.WriteLine("Disconnected");
         }
+      }
+    }
 
-        public void ClearInputs()
+    void HandleMessage(int ClientIndex)
+    {
+      var client = m_Clients[ClientIndex];
+      var queuedData = m_QueuedData[ClientIndex];
+      if (client.Available == 0)
+        return;
+
+      Int32 messageSize = 0;
+      byte[] buffer = new byte[Constants.TCPBufferSize];
+      byte[] testBuffer = new byte[Constants.TCPBufferSize]; // TODO: remove after testing
+      byte[] lengthData = new byte[Constants.HeaderSize];
+      Array.Copy(queuedData.ToArray(), buffer, queuedData.Count);
+      ERecievingState recievingState = ERecievingState.Frame;
+      int dataAvailable = 0;
+
+      try // Make sure to catch if the client is DCed in here
+      {
+        NetworkStream stream = client.GetStream();
+        dataAvailable = client.Available;
+        stream.Read(buffer, queuedData.Count, dataAvailable);
+      }
+      catch (System.IO.IOException) //TODO: look up client dc error
+      {
+        return;
+      }
+      queuedData.Clear();
+
+      Array.Copy(buffer, testBuffer, buffer.Length); //TODO: remove after testing
+
+      bool dataNotComplete = false;
+      while (!m_ThreadsShouldExit && !dataNotComplete)
+      {
+        //Normal Exit, data source exhausted
+        if (dataAvailable == 0)
+          break;
+
+        switch (recievingState)
         {
-            lock (m_Inputs)
+          case ERecievingState.Frame:
             {
-                m_Inputs.Clear();
+              if (dataAvailable > Constants.HeaderSize)
+              {
+                // Get size of message from header
+                Array.Copy(buffer, lengthData, Constants.HeaderSize);
+                if (Constants.SystemIsLittleEndian != Constants.MessageIsLittleEndian)
+                  lengthData.Reverse();
+                messageSize = BitConverter.ToInt32(lengthData);
+
+                recievingState = ERecievingState.Message;
+              }
+              else // If the remaining data is smaller than the header size, push it onto the data to be parsed later
+              {
+                m_QueuedData[ClientIndex].AddRange(buffer.SubArray(0, dataAvailable));
+                dataNotComplete = true;
+              }
             }
+            break;
+
+          case ERecievingState.Message:
+            {
+              if (dataAvailable >= messageSize + Constants.HeaderSize)
+              {
+                // Remove header from buffer
+                Array.Copy(buffer, Constants.HeaderSize, buffer, 0, buffer.Length - Constants.HeaderSize);
+                dataAvailable -= Constants.HeaderSize;
+
+                // Put the message bytes into a data object
+                List<byte> data = new List<byte>();
+                data.AddRange(buffer);
+                data.RemoveRange(messageSize, buffer.Length - messageSize);
+
+                // Parse the message bytes and add it to the inputs list
+                lock (m_Inputs)
+                  m_Inputs.Add(PlayerInput.Parser.ParseFrom(data.ToArray()));
+
+                // Remove message from buffer
+                Array.Copy(buffer, messageSize, buffer, 0, buffer.Length - messageSize);
+
+                dataAvailable -= messageSize;
+                messageSize = 0;
+                recievingState = ERecievingState.Frame;
+              }
+              else // If the remaining data is smaller than the message size, push it onto the data to be parsed later
+              {
+                m_QueuedData[ClientIndex].AddRange(buffer.SubArray(0, dataAvailable));
+                dataNotComplete = true;
+              }
+            }
+            break;
         }
+      }
+    }
 
-        enum ERecievingState
+    public void QueueWorldUpdate(WorldUpdate Update)
+    {
+      lock (WorldUpdateLock)
+      {
+        m_QueuedWorldUpdate = Update;
+      }
+    }
+
+    void BroadcastWorldUpdate()
+    {
+      while (true)
+      {
+        lock (WorldUpdateLock)
         {
-            Frame,
-            Message
-        }
-        
-        public void HandleConnections()
-        {
-            m_TCPListener = new TcpListener(IPAddress.Parse(Constants.ServerAddress), Constants.ServerUpPort);
-            m_TCPListener.Start();
-
-            try
-            {
-                while (!m_ThreadsShouldExit)
-                {
-                    TcpClient client = m_TCPListener.AcceptTcpClient();
-
-                    lock (m_Clients)
-                    {
-                        m_Clients.Add(client);
-                        m_QueuedData.Add(new List<byte>());
-                    }
-
-                    Console.WriteLine("Connected!");
-                }
-            }
-            catch (SocketException e)
-            {
-                if (e.SocketErrorCode == SocketError.Interrupted)
-                {
-                    // Normal escape on server close
-                }
-                else
-                    Console.WriteLine("SocketException: {0}", e);
-            }
-            finally
-            {
-                if (m_TCPListener != null)
-                    m_TCPListener.Stop();
-            }
-        }
-
-        public void HandleMessages() 
-        {
-            while (!m_ThreadsShouldExit)
-            {
-                lock (m_Clients)
-                {
-                    for (int i = 0; i < m_Clients.Count; ++i)
-                    {
-                        if (m_Clients[i].Connected && m_Clients[i].Available != 0)
-                            HandleMessage(i);
-                    }
-
-                    var count = m_Clients.Count();
-                    m_Clients.RemoveAll(x => !x.Connected); // Clean the list of dead connections
-                    for (int i = 0; i < count - m_Clients.Count; ++i)
-                        Console.WriteLine("Disconnected");
-                }
-            }
-        }
-
-        void HandleMessage(int ClientIndex)
-        {
-            var client = m_Clients[ClientIndex];
-            var queuedData = m_QueuedData[ClientIndex];
-            if (client.Available == 0)
-                return;
-
-            Int32 messageSize = 0;
-            byte[] buffer = new byte[Constants.TCPBufferSize];
-            byte[] lengthData = new byte[Constants.HeaderSize];
-            Array.Copy(queuedData.ToArray(), buffer, queuedData.Count);
-            ERecievingState recievingState = ERecievingState.Frame;
-            int dataAvailable = 0;
-
-            try // Make sure to catch if the client is DCed in here
-            {
-                NetworkStream stream = client.GetStream();
-                dataAvailable = client.Available;
-                stream.Read(buffer, queuedData.Count, dataAvailable);
-            }
-            catch(System.IO.IOException) //TODO: look up client dc error
-            {
-                return;
-            }
-            queuedData.Clear();
-
-
-            while (!m_ThreadsShouldExit)
-            {
-                //Normal Exit, data source exhausted
-                if (dataAvailable == 0)
-                    break;
-
-                switch (recievingState)
-                {
-                    case ERecievingState.Frame:
-                        {
-                            if (dataAvailable > Constants.HeaderSize)
-                            {
-                                // Get size of message from header
-                                Array.Copy(buffer, lengthData, Constants.HeaderSize);
-                                if (Constants.SystemIsLittleEndian != Constants.MessageIsLittleEndian)
-                                    lengthData.Reverse();
-                                messageSize = BitConverter.ToInt32(lengthData);
-
-                                // Remove header from buffer
-                                Array.Copy(buffer, Constants.HeaderSize, buffer, 0, buffer.Length - Constants.HeaderSize);
-
-                                recievingState = ERecievingState.Message;
-                                dataAvailable -= Constants.HeaderSize;
-                            }
-                            else // If the remaining data is smaller than the header size, push it onto the data to be parsed later
-                            {
-                                m_QueuedData[ClientIndex] = buffer.ToList(); // TODO: investigate the impact of the array to list conversions on performance... and just usage in general (not sure how to use)
-                            }
-                        }
-                        break;
-
-                    case ERecievingState.Message:
-                        {
-                            if (dataAvailable >= messageSize)
-                            {
-                                // Put the message bytes into a data object
-                                List<byte> data = new List<byte>();
-                                data.AddRange(buffer);
-                                data.RemoveRange(messageSize, buffer.Length - messageSize);
-
-                                // Parse the message bytes and add it to the inputs list
-                                lock (m_Inputs)
-                                {
-                                    m_Inputs.Add(PlayerInput.Parser.ParseFrom(data.ToArray()));
-                                }
-
-                                // Remove message from buffer
-                                Array.Copy(buffer, messageSize, buffer, 0, buffer.Length - messageSize);
-
-                                dataAvailable -= messageSize;
-                                messageSize = 0;
-                                recievingState = ERecievingState.Frame;
-                            }
-                            else // If the remaining data is smaller than the message size, push it onto the data to be parsed later
-                            {
-                                m_QueuedData[ClientIndex] = buffer.ToList();
-                            }
-                        }
-                        break;
-                }
-            }
-        }
-    
-        public void QueueWorldUpdate(WorldUpdate Update)
-        {
-            lock(WorldUpdateLock)
-            {
-                m_QueuedWorldUpdate = Update;
-            }
-        }
-
-        void BroadcastWorldUpdate()
-        {
-            while(true)
-            {
-                lock(WorldUpdateLock)
-                {
-                    if (m_QueuedWorldUpdate != null)
-                    {
-                        lock(m_Clients)
-                        {
-                            foreach (var client in m_Clients)
-                            {
-                                Packet<WorldUpdate> packet = new Packet<WorldUpdate>(m_QueuedWorldUpdate);
-                                try
-                                {
-                                    packet.SendPacket(client.GetStream());
-                                }
-                                catch { }
-                            }
-                        }
-                        m_QueuedWorldUpdate = null;
-                    }
-                }
-            }
-        }
-
-        public void Start()
-        {
-            m_ThreadsShouldExit = false;
-
-            m_ConnectionHandlingThread = new Thread(HandleConnections);
-            m_ConnectionHandlingThread.Start();
-
-            m_MessageHandlingThread = new Thread(HandleMessages);
-            m_MessageHandlingThread.Start();
-
-            m_BroadcastHandlingThread = new Thread(BroadcastWorldUpdate);
-            m_BroadcastHandlingThread.Start();
-        }
-
-        public void Stop()
-        {
+          if (m_QueuedWorldUpdate != null)
+          {
             lock (m_Clients)
             {
-                foreach (var client in m_Clients)
-                    client.Close();
-                m_Clients.Clear();
+              foreach (var client in m_Clients)
+              {
+                Packet<WorldUpdate> packet = new Packet<WorldUpdate>(m_QueuedWorldUpdate);
+                try
+                {
+                  packet.SendPacket(client.GetStream());
+                }
+                catch { }
+              }
             }
-
-            if (m_TCPListener != null)
-            {
-                m_TCPListener.Stop();
-                m_TCPListener = null;
-            }
-
-            m_ThreadsShouldExit = true;
+            m_QueuedWorldUpdate = null;
+          }
         }
+      }
     }
+
+    public void Start()
+    {
+      m_ThreadsShouldExit = false;
+
+      m_ConnectionHandlingThread = new Thread(HandleConnections);
+      m_ConnectionHandlingThread.Start();
+
+      m_MessageHandlingThread = new Thread(HandleMessages);
+      m_MessageHandlingThread.Start();
+
+      m_BroadcastHandlingThread = new Thread(BroadcastWorldUpdate);
+      m_BroadcastHandlingThread.Start();
+    }
+
+    public void Stop()
+    {
+      lock (m_Clients)
+      {
+        foreach (var client in m_Clients)
+          client.Close();
+        m_Clients.Clear();
+      }
+
+      if (m_TCPListener != null)
+      {
+        m_TCPListener.Stop();
+        m_TCPListener = null;
+      }
+
+      m_ThreadsShouldExit = true;
+    }
+  }
 }

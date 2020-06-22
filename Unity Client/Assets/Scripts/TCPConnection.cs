@@ -64,9 +64,9 @@ public class TCPConnection : MonoBehaviour
   public void Update()
   {
     m_TestClient.QueueInput(MMOPPPClient.PackInput(m_Character,
-      m_MovementInput, 
+      m_MovementInput,
       m_Camera.gameObject.transform.rotation.eulerAngles, // HACK: allowing client to be authoritative on input
-      m_Strafe, 
+      m_Strafe,
       m_Sprint));
 
     var wUpdate = m_TestClient.PopWorldUpdate();
@@ -136,7 +136,7 @@ public class TCPConnection : MonoBehaviour
       {
         Strafe = Strafe,
         Sprint = Spring,
-        EulerRotation = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = Rotation.x, Y = Rotation.y, Z = Rotation.z},
+        EulerRotation = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = Rotation.x, Y = Rotation.y, Z = Rotation.z },
         DirectionInputs = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = MoveInput.x, Y = 0.0f, Z = MoveInput.y }
       };
       DateTimeOffset now = DateTime.UtcNow;
@@ -158,7 +158,7 @@ public class TCPConnection : MonoBehaviour
         HandleMessage(m_ServerConnection);
     }
 
-    public void HandleMessage(TcpClient Client)
+    public void HandleMessage(TcpClient Client) // HACK: duplicated code, see client manager in server code
     {
       var client = Client;
       var queuedData = m_QueuedData;
@@ -184,7 +184,8 @@ public class TCPConnection : MonoBehaviour
       }
       queuedData.Clear();
 
-      while (!m_ThreadsShouldExit)
+      bool dataNotComplete = false;
+      while (!m_ThreadsShouldExit && !dataNotComplete)
       {
         //Normal Exit, data source exhausted
         if (dataAvailable == 0)
@@ -204,14 +205,17 @@ public class TCPConnection : MonoBehaviour
 
                 recievingState = ERecievingState.Message;
               }
-              else // If the remaining data is smaller than the header size, push it onto the data to be parsed later
-                m_QueuedData = buffer.ToList(); // TODO: investigate the impact of the array to list conversions on performance... and just usage in general (not sure how to use)
+              else
+              {
+                m_QueuedData.AddRange(buffer.SubArray(0, dataAvailable));
+                dataNotComplete = true;
+              }
             }
             break;
 
           case ERecievingState.Message:
             {
-              if (dataAvailable >= messageSize)
+              if (dataAvailable + Constants.HeaderSize >= messageSize)
               {
                 // Remove header from buffer
                 Array.Copy(buffer, Constants.HeaderSize, buffer, 0, buffer.Length - Constants.HeaderSize);
@@ -222,7 +226,7 @@ public class TCPConnection : MonoBehaviour
                 data.AddRange(buffer);
                 data.RemoveRange(messageSize, buffer.Length - messageSize);
 
-                //// Parse the message bytes and add it to the inputs list
+                // Parse the message bytes and add it to the inputs list
                 lock (m_WorldUpdates)
                   m_WorldUpdates.Add(WorldUpdate.Parser.ParseFrom(data.ToArray()));
 
@@ -237,7 +241,10 @@ public class TCPConnection : MonoBehaviour
                 Console.WriteLine($"World Updated {WorldUpdate.Parser.ParseFrom(data.ToArray()).ToString()}");
               }
               else // If the remaining data is smaller than the message size, push it onto the data to be parsed later
-                m_QueuedData = buffer.ToList();
+              {
+                m_QueuedData.AddRange(buffer.SubArray(0, dataAvailable));
+                dataNotComplete = true;
+              }
             }
             break;
         }
