@@ -88,7 +88,10 @@ public class WorldServerSync : MonoBehaviour
 
         }
         else
-          Destroy(Instantiate(PlayerPlaceholder, new V3(entity.Position.X, entity.Position.Y, entity.Position.Z), new Quaternion { }), 5);
+          Destroy(Instantiate(PlayerPlaceholder,
+            new V3(entity.Position.X, entity.Position.Y, entity.Position.Z),
+            Quaternion.Euler(0.0f, entity.PredictiveInputs.EulerRotation.Y, 0.0f)),
+            5);
       }
 
       m_QueuedWorldUpdate = null;

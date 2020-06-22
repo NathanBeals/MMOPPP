@@ -125,6 +125,11 @@ namespace MMOPPPServer
         }
       }
 
+      foreach (var input in m_Inputs)
+      {
+        Console.WriteLine(input);
+      }
+
       if (m_Characters.Count > 0)
         Console.WriteLine("Online:");
       foreach (var character in m_Characters)
