@@ -143,7 +143,7 @@ namespace MMOPPPServer
       {
         NetworkStream stream = client.GetStream();
         dataAvailable = client.Available;
-        stream.Read(buffer, queuedData.Count, dataAvailable);
+        stream.Read(buffer, queuedData.Count, Math.Min(dataAvailable, Constants.TCPBufferSize - queuedData.Count));
       }
       catch (System.IO.IOException) //TODO: look up client dc error
       {

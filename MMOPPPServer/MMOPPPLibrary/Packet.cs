@@ -10,7 +10,7 @@ using System.Net.NetworkInformation;
 
 namespace MMOPPPLibrary
 {
-    public class Packet<T> where T : Google.Protobuf.IMessage<T>
+    public class Packet<T> where T : Google.Protobuf.IMessage<T>, new()
     {
         T m_Message;
         Int32 m_MessageSize;
@@ -18,7 +18,8 @@ namespace MMOPPPLibrary
 
         public Packet(T Message)
         {
-            m_Message = Message;
+            m_Message = new T();
+            m_Message = Message; //HACK: I'm not sure if this is copying or not
             m_MessageSize = Message.CalculateSize();
         }
 
