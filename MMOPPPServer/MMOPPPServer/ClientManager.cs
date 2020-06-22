@@ -197,7 +197,25 @@ namespace MMOPPPServer
 
                 // Parse the message bytes and add it to the inputs list
                 lock (m_Inputs)
-                  m_Inputs.Add(PlayerInput.Parser.ParseFrom(data.ToArray()));
+                {
+                  //HACK: only for testing, needs to be resolved
+                  try
+                  {
+                    m_Inputs.Add(PlayerInput.Parser.ParseFrom(data.ToArray()));
+                  }
+                  catch(Exception e) // If the input fails just clear the entire stream
+                  {
+                    // Data failed to parse, clear client
+                    var tempbuffer = new byte[Constants.TCPBufferSize];
+                    while (m_Clients[ClientIndex].GetStream().DataAvailable)
+                      m_Clients[ClientIndex].GetStream().Read(tempbuffer, 0, tempbuffer.Length);
+                    dataAvailable = 0;
+
+                    Console.WriteLine("Critical Failure, Steam Dump Performed");
+
+                    break;
+                  }
+                }
 
                 // Remove message from buffer
                 Array.Copy(buffer, messageSize, buffer, 0, buffer.Length - messageSize);
