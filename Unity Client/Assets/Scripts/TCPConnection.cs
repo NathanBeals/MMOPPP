@@ -110,7 +110,7 @@ public class TCPConnection : MonoBehaviour
       }
     }
 
-    public void QueueInput(PlayerInput Input)
+    public void QueueInput(PlayerInput Input) 
     {
       lock (m_QueuedPackets)
       {
@@ -226,8 +226,7 @@ public class TCPConnection : MonoBehaviour
 
                 // Put the message bytes into a data object
                 List<byte> data = new List<byte>();
-                data.AddRange(buffer);
-                data.RemoveRange(messageSize, buffer.Length - messageSize);
+                data.AddRange(buffer.SubArray(0, messageSize));
 
                 // Parse the message bytes and add it to the inputs list
                 lock (m_WorldUpdates)

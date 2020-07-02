@@ -187,13 +187,12 @@ namespace MMOPPPServer
               if (dataAvailable >= messageSize + Constants.HeaderSize)
               {
                 // Remove header from buffer
-                Array.Copy(buffer, Constants.HeaderSize, buffer, 0, buffer.Length - Constants.HeaderSize);
+                Array.Copy(buffer, Constants.HeaderSize, buffer, 0, buffer.Length - Constants.HeaderSize); //TODO: this is also really slow
                 dataAvailable -= Constants.HeaderSize;
 
                 // Put the message bytes into a data object
                 List<byte> data = new List<byte>();
-                data.AddRange(buffer);
-                data.RemoveRange(messageSize, buffer.Length - messageSize);
+                data.AddRange(buffer.SubArray(0, messageSize));
 
                 // Parse the message bytes and add it to the inputs list
                 lock (m_Inputs)
