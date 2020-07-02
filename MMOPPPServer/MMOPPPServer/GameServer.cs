@@ -25,7 +25,7 @@ namespace MMOPPPServer
     List<PlayerInput> m_Inputs = new List<PlayerInput>();
     Dictionary<string, Character> m_Characters = new Dictionary<string, Character>();
 
-    float m_ServerTickRate = 1000; //Miliseconds
+    float m_ServerTickRate = 100; //Miliseconds
     float m_TimeSinceLastTick = 0;
 
     bool m_ServerRunning = false;

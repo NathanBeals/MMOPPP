@@ -17,11 +17,12 @@ using System.Threading;
 
 public class TCPConnection : MonoBehaviour
 {
+  // Threads
   Thread m_SendingInputsThread;
   Thread m_RecievingInputsThread;
   MMOPPPClient m_TestClient;
+  static int m_UpdateTickRateMS = 100;
 
-  #region Variables       
   // Related Components
   Character m_Character;
   Camera m_Camera;
@@ -32,8 +33,6 @@ public class TCPConnection : MonoBehaviour
   bool m_Sprint = false;
   Vector2 m_MovementInput;
   Vector2 m_MouseInput;
-
-  #endregion
 
   private void Awake()
   {
@@ -94,7 +93,7 @@ public class TCPConnection : MonoBehaviour
         {
           SendQueuedPackets(stream);
           Debug.Log("I'm Alive");
-          Thread.Sleep(1000);
+          Thread.Sleep(m_UpdateTickRateMS);
         }
 
         stream.Close();
@@ -218,7 +217,7 @@ public class TCPConnection : MonoBehaviour
 
           case ERecievingState.Message:
             {
-              if (dataAvailable + Constants.HeaderSize >= messageSize)
+              if (dataAvailable >= messageSize + Constants.HeaderSize)
               {
                 // Remove header from buffer
                 Array.Copy(buffer, Constants.HeaderSize, buffer, 0, buffer.Length - Constants.HeaderSize);
