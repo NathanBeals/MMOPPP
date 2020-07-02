@@ -70,7 +70,7 @@ namespace MMOPPPServer
 
     public void HandleConnections()
     {
-      m_TCPListener = new TcpListener(IPAddress.Parse(Constants.ServerAddress), Constants.ServerUpPort);
+      m_TCPListener = new TcpListener(IPAddress.Parse(Constants.ServerLocalAddress), Constants.ServerPort);
       m_TCPListener.Start();
 
       try
@@ -78,6 +78,7 @@ namespace MMOPPPServer
         while (!m_ThreadsShouldExit)
         {
           TcpClient client = m_TCPListener.AcceptTcpClient();
+          client.ReceiveBufferSize = Constants.TCPBufferSize;
 
           lock (m_Clients)
           {
@@ -103,6 +104,7 @@ namespace MMOPPPServer
           m_TCPListener.Stop();
       }
     }
+    static int handledmessages = 0;
 
     public void HandleMessages()
     {
@@ -128,14 +130,11 @@ namespace MMOPPPServer
     {
       var client = m_Clients[ClientIndex];
       var queuedData = m_QueuedData[ClientIndex];
-      if (client.Available == 0)
-        return;
 
       Int32 messageSize = 0;
       byte[] buffer = new byte[Constants.TCPBufferSize];
       byte[] testBuffer = new byte[Constants.TCPBufferSize]; // TODO: remove after testing
       byte[] lengthData = new byte[Constants.HeaderSize];
-      Array.Copy(queuedData.ToArray(), buffer, queuedData.Count);
       ERecievingState recievingState = ERecievingState.Frame;
       int dataAvailable = 0;
 
@@ -149,6 +148,7 @@ namespace MMOPPPServer
       {
         return;
       }
+      Array.Copy(queuedData.ToArray(), buffer, queuedData.Count);
       queuedData.Clear();
 
       Array.Copy(buffer, testBuffer, buffer.Length); //TODO: remove after testing
@@ -223,6 +223,8 @@ namespace MMOPPPServer
                 dataAvailable -= messageSize;
                 messageSize = 0;
                 recievingState = ERecievingState.Frame;
+                handledmessages++;
+                Console.WriteLine(handledmessages);
               }
               else // If the remaining data is smaller than the message size, push it onto the data to be parsed later
               {

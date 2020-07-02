@@ -10,11 +10,11 @@ namespace MMOPPPLibrary
   {
     public static readonly bool MessageIsLittleEndian = true; // Little Endian
     public static readonly bool SystemIsLittleEndian = BitConverter.IsLittleEndian;
-    public const string ServerAddress = "192.168.0.105";
-    public const Int32 ServerUpPort = 6000;
-    public const Int32 ServerDownPort = 6001;
+    public const string ServerLocalAddress = "0.0.0.0";
+    public const string ServerPublicAddress = "50.89.242.145"; // I cannot make it
+    public const Int32 ServerPort = 6969;
     public static readonly Int32 HeaderSize = 4;
-    public static Int32 TCPBufferSize = 65536;
+    public static Int32 TCPBufferSize = 1000000;
     public const float TimeToDC = 2000.0f; // Miliseconds
     public const float CharacterMoveSpeed = 8.0f / 1000;
   }

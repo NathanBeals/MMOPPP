@@ -82,12 +82,13 @@ public class TCPConnection : MonoBehaviour
     List<Byte> m_QueuedData = new List<Byte>();
     List<WorldUpdate> m_WorldUpdates = new List<WorldUpdate>();
 
-    public void Connect(string ServerAddress = MMOPPPLibrary.Constants.ServerAddress, Int32 Port = MMOPPPLibrary.Constants.ServerUpPort)
+    public void Connect(string ServerAddress = MMOPPPLibrary.Constants.ServerPublicAddress, Int32 Port = MMOPPPLibrary.Constants.ServerPort)
     {
       try
       {
         m_ServerConnection = new TcpClient(ServerAddress, Port);
         NetworkStream stream = m_ServerConnection.GetStream();
+        m_ServerConnection.ReceiveBufferSize = Constants.TCPBufferSize;
 
         while (!m_ThreadsShouldExit)
         {
