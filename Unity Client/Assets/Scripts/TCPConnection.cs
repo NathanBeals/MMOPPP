@@ -123,7 +123,9 @@ public class TCPConnection : MonoBehaviour
       lock (m_QueuedPackets)
       {
         foreach (var packet in m_QueuedPackets)
+        {
           packet.SendPacket(Stream);
+        }
 
         m_QueuedPackets.Clear();
       }
@@ -169,7 +171,6 @@ public class TCPConnection : MonoBehaviour
       Int32 messageSize = 0;
       byte[] buffer = new byte[Constants.TCPBufferSize];
       byte[] lengthData = new byte[Constants.HeaderSize];
-      Array.Copy(queuedData.ToArray(), buffer, queuedData.Count);
       ERecievingState recievingState = ERecievingState.Frame;
       int dataAvailable = 0;
 
@@ -177,12 +178,13 @@ public class TCPConnection : MonoBehaviour
       {
         NetworkStream stream = client.GetStream();
         dataAvailable = client.Available;
-        stream.Read(buffer, queuedData.Count, dataAvailable);
+        stream.Read(buffer, queuedData.Count, Math.Min(dataAvailable, Constants.TCPBufferSize - queuedData.Count));
       }
       catch (System.IO.IOException) //TODO: look up client dc error
       {
         return;
       }
+      Array.Copy(queuedData.ToArray(), buffer, queuedData.Count);
       queuedData.Clear();
 
       bool dataNotComplete = false;
@@ -229,7 +231,17 @@ public class TCPConnection : MonoBehaviour
 
                 // Parse the message bytes and add it to the inputs list
                 lock (m_WorldUpdates)
-                  m_WorldUpdates.Add(WorldUpdate.Parser.ParseFrom(data.ToArray()));
+                {
+                  try
+                  {
+                    m_WorldUpdates.Add(WorldUpdate.Parser.ParseFrom(data.ToArray()));
+                  }
+                  catch (Exception e) // If the input fails just clear the entire stream
+                  {
+                    Console.WriteLine("Malformed world update message.");
+                    break;
+                  }
+                }
 
                 // Remove message from buffer
                 Array.Copy(buffer, messageSize, buffer, 0, buffer.Length - messageSize);

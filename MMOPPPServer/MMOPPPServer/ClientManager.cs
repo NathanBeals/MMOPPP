@@ -211,8 +211,7 @@ namespace MMOPPPServer
                       m_Clients[ClientIndex].GetStream().Read(tempbuffer, 0, tempbuffer.Length);
                     dataAvailable = 0;
 
-                    Console.WriteLine("Critical Failure, Steam Dump Performed");
-
+                    Console.WriteLine("Malformed input message.");
                     break;
                   }
                 }
@@ -224,7 +223,7 @@ namespace MMOPPPServer
                 messageSize = 0;
                 recievingState = ERecievingState.Frame;
                 handledmessages++;
-                Console.WriteLine(handledmessages);
+                //Console.WriteLine(handledmessages); //TODO : remove after testing
               }
               else // If the remaining data is smaller than the message size, push it onto the data to be parsed later
               {
@@ -262,7 +261,9 @@ namespace MMOPPPServer
                 {
                   packet.SendPacket(client.GetStream());
                 }
-                catch { }
+                catch(Exception e) {
+                  Console.WriteLine("Server Update Refused");
+                }
               }
             }
             m_QueuedWorldUpdate = null;
