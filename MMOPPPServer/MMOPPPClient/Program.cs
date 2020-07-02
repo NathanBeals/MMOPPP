@@ -142,7 +142,11 @@ namespace AIClient
     {
       try
       {
-        m_ServerConnection = new TcpClient(ServerAddress, Port);
+        IPAddress[] addresslist = Dns.GetHostAddresses(MMOPPPLibrary.Constants.ServerPublicAddress);
+        if (addresslist.Length == 0)
+          throw new SocketException();
+
+        m_ServerConnection = new TcpClient(addresslist[0].ToString(), Port);
         m_ServerConnection.ReceiveBufferSize = Constants.TCPBufferSize;
         NetworkStream stream = m_ServerConnection.GetStream();
 

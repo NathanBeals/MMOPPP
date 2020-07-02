@@ -64,7 +64,7 @@ public class TCPConnection : MonoBehaviour
   {
     m_TestClient.QueueInput(MMOPPPClient.PackInput(m_Character,
       m_MovementInput,
-      m_Camera.gameObject.transform.rotation.eulerAngles, // HACK: allowing client to be authoritative on input
+      m_Camera.gameObject.transform.rotation.eulerAngles,
       m_Strafe,
       m_Sprint));
 
@@ -85,7 +85,11 @@ public class TCPConnection : MonoBehaviour
     {
       try
       {
-        m_ServerConnection = new TcpClient(ServerAddress, Port);
+        IPAddress[] addresslist = Dns.GetHostAddresses(MMOPPPLibrary.Constants.ServerPublicAddress);
+        if (addresslist.Length == 0)
+          throw new SocketException();
+
+        m_ServerConnection = new TcpClient(addresslist[0].ToString(), Port);
         NetworkStream stream = m_ServerConnection.GetStream();
         m_ServerConnection.ReceiveBufferSize = Constants.TCPBufferSize;
 

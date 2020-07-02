@@ -104,7 +104,6 @@ namespace MMOPPPServer
           m_TCPListener.Stop();
       }
     }
-    static int handledmessages = 0;
 
     public void HandleMessages()
     {
@@ -221,7 +220,6 @@ namespace MMOPPPServer
                 dataAvailable -= messageSize;
                 messageSize = 0;
                 recievingState = ERecievingState.Frame;
-                handledmessages++;
                 //Console.WriteLine(handledmessages); //TODO : remove after testing
               }
               else // If the remaining data is smaller than the message size, push it onto the data to be parsed later

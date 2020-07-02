@@ -16,7 +16,8 @@ public class WorldServerSync : MonoBehaviour
 {
   public static WorldServerSync s_Instance;
 
-  public GameObject PlayerPlaceholder;
+  public GameObject m_PlayerPlaceholder;
+  public bool m_DisplayLocalPlayerStamps = false;
 
   WorldUpdate m_QueuedWorldUpdate = null;
   Queue<List<CharacterDownlinkData>> m_DataFromServer = new Queue<List<CharacterDownlinkData>>();
@@ -84,19 +85,17 @@ public class WorldServerSync : MonoBehaviour
     {
       foreach (var entity in m_QueuedWorldUpdate.Updates)
       {
-        if (entity.Id.Name == "Player") //HACK: replace with client character name
+        var localCharacter = CharacterManager.GetLocalCharacter();
+        if (entity.Id.Name == localCharacter.m_ID)
         {
-
+          localCharacter.gameObject.transform.position = new V3(entity.Position.X, entity.Position.Y + localCharacter.m_CharacterHalfHeight, entity.Position.Z);
+          //TODO: smoothing
+          if (m_DisplayLocalPlayerStamps)
+            CreatePlayerStamp(entity);
         }
         else
         {
-          var newSphere = Instantiate(PlayerPlaceholder,
-            new V3(entity.Position.X, entity.Position.Y, entity.Position.Z),
-            Quaternion.Euler(0.0f, entity.PredictiveInputs.EulerRotation.Y, 0.0f));
-
-          newSphere.GetComponentInChildren<TextMeshPro>()?.SetText(entity.Id.Name);
-
-          Destroy(newSphere, 5);
+          CreatePlayerStamp(entity);
         }
       }
 
@@ -119,5 +118,16 @@ public class WorldServerSync : MonoBehaviour
   {
     //TODO: convert to an attempt to sync, axing on a try lock
     SyncTransformData();
+  }
+
+  public void CreatePlayerStamp(EntityUpdate Update)
+  {
+    var newStamp = Instantiate(m_PlayerPlaceholder,
+    new V3(Update.Position.X, Update.Position.Y, Update.Position.Z),
+    Quaternion.Euler(0.0f, Update.PredictiveInputs.EulerRotation.Y, 0.0f));
+
+    newStamp.GetComponentInChildren<TextMeshPro>()?.SetText(Update.Id.Name);
+
+    Destroy(newStamp, 1);
   }
 }
