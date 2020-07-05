@@ -26,28 +26,27 @@ namespace Google.Protobuf.MMOPPP.Messages {
           string.Concat(
             "ChRNTU9QUFBNZXNzYWdlcy5wcm90bxIGTU1PUFBQGh9nb29nbGUvcHJvdG9i",
             "dWYvdGltZXN0YW1wLnByb3RvIioKB1ZlY3RvcjMSCQoBeBgBIAEoAhIJCgF5",
-            "GAIgASgCEgkKAXoYAyABKAIiKAoKSWRlbnRpZmllchIMCgRuYW1lGAEgASgJ",
-            "EgwKBHRhZ3MYAiABKAkigQEKC0VudGl0eUlucHV0EikKEGRpcmVjdGlvbl9p",
-            "bnB1dHMYAyABKAsyDy5NTU9QUFAuVmVjdG9yMxInCg5ldWxlcl9yb3RhdGlv",
-            "bhgEIAEoCzIPLk1NT1BQUC5WZWN0b3IzEg4KBnN0cmFmZRgFIAEoCBIOCgZz",
-            "cHJpbnQYBiABKAgigQEKDEVudGl0eVVwZGF0ZRIeCgJpZBgBIAEoCzISLk1N",
-            "T1BQUC5JZGVudGlmaWVyEi4KEXByZWRpY3RpdmVfaW5wdXRzGAIgASgLMhMu",
-            "TU1PUFBQLkVudGl0eUlucHV0EiEKCHBvc2l0aW9uGAMgASgLMg8uTU1PUFBQ",
-            "LlZlY3RvcjMiNAoLV29ybGRVcGRhdGUSJQoHdXBkYXRlcxgBIAMoCzIULk1N",
-            "T1BQUC5FbnRpdHlVcGRhdGUihQEKC1BsYXllcklucHV0Eh4KAmlkGAEgASgL",
-            "MhIuTU1PUFBQLklkZW50aWZpZXISJwoKbW92ZV9pbnB1dBgCIAEoCzITLk1N",
-            "T1BQUC5FbnRpdHlJbnB1dBItCglzZW50X3RpbWUYDyABKAsyGi5nb29nbGUu",
-            "cHJvdG9idWYuVGltZXN0YW1wQiKqAh9Hb29nbGUuUHJvdG9idWYuTU1PUFBQ",
-            "Lk1lc3NhZ2VzYgZwcm90bzM="));
+            "GAIgASgCEgkKAXoYAyABKAIisgEKBUlucHV0EisKEnBsYXllcl9tb3ZlX2lu",
+            "cHV0cxgDIAEoCzIPLk1NT1BQUC5WZWN0b3IzEiwKE2V1bGVyX2JvZHlfcm90",
+            "YXRpb24YBCABKAsyDy5NTU9QUFAuVmVjdG9yMxIuChVldWxlcl9jYW1lcmFf",
+            "cm90YXRpb24YBSABKAsyDy5NTU9QUFAuVmVjdG9yMxIOCgZzdHJhZmUYBiAB",
+            "KAgSDgoGc3ByaW50GAcgASgIIosBCgxTZXJ2ZXJVcGRhdGUSDAoEbmFtZRgB",
+            "IAEoCRIiCgtwYXN0X2lucHV0cxgCIAMoCzINLk1NT1BQUC5JbnB1dBIhCghs",
+            "b2NhdGlvbhgDIAEoCzIPLk1NT1BQUC5WZWN0b3IzEiYKDWJvZHlfcm90YXRp",
+            "b24YBCABKAsyDy5NTU9QUFAuVmVjdG9yMyI2Cg1TZXJ2ZXJVcGRhdGVzEiUK",
+            "B3VwZGF0ZXMYASADKAsyFC5NTU9QUFAuU2VydmVyVXBkYXRlImkKC0NsaWVu",
+            "dElucHV0EgwKBG5hbWUYASABKAkSHQoGaW5wdXRzGAIgASgLMg0uTU1PUFBQ",
+            "LklucHV0Ei0KCXNlbnRfdGltZRgPIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5U",
+            "aW1lc3RhbXBCIqoCH0dvb2dsZS5Qcm90b2J1Zi5NTU9QUFAuTWVzc2FnZXNi",
+            "BnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.MMOPPP.Messages.Vector3), global::Google.Protobuf.MMOPPP.Messages.Vector3.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.MMOPPP.Messages.Identifier), global::Google.Protobuf.MMOPPP.Messages.Identifier.Parser, new[]{ "Name", "Tags" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.MMOPPP.Messages.EntityInput), global::Google.Protobuf.MMOPPP.Messages.EntityInput.Parser, new[]{ "DirectionInputs", "EulerRotation", "Strafe", "Sprint" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.MMOPPP.Messages.EntityUpdate), global::Google.Protobuf.MMOPPP.Messages.EntityUpdate.Parser, new[]{ "Id", "PredictiveInputs", "Position" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.MMOPPP.Messages.WorldUpdate), global::Google.Protobuf.MMOPPP.Messages.WorldUpdate.Parser, new[]{ "Updates" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.MMOPPP.Messages.PlayerInput), global::Google.Protobuf.MMOPPP.Messages.PlayerInput.Parser, new[]{ "Id", "MoveInput", "SentTime" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.MMOPPP.Messages.Input), global::Google.Protobuf.MMOPPP.Messages.Input.Parser, new[]{ "PlayerMoveInputs", "EulerBodyRotation", "EulerCameraRotation", "Strafe", "Sprint" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.MMOPPP.Messages.ServerUpdate), global::Google.Protobuf.MMOPPP.Messages.ServerUpdate.Parser, new[]{ "Name", "PastInputs", "Location", "BodyRotation" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.MMOPPP.Messages.ServerUpdates), global::Google.Protobuf.MMOPPP.Messages.ServerUpdates.Parser, new[]{ "Updates" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.MMOPPP.Messages.ClientInput), global::Google.Protobuf.MMOPPP.Messages.ClientInput.Parser, new[]{ "Name", "Inputs", "SentTime" }, null, null, null, null)
           }));
     }
     #endregion
@@ -251,11 +250,11 @@ namespace Google.Protobuf.MMOPPP.Messages {
 
   }
 
-  public sealed partial class Identifier : pb::IMessage<Identifier> {
-    private static readonly pb::MessageParser<Identifier> _parser = new pb::MessageParser<Identifier>(() => new Identifier());
+  public sealed partial class Input : pb::IMessage<Input> {
+    private static readonly pb::MessageParser<Input> _parser = new pb::MessageParser<Input>(() => new Input());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<Identifier> Parser { get { return _parser; } }
+    public static pb::MessageParser<Input> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -268,207 +267,62 @@ namespace Google.Protobuf.MMOPPP.Messages {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Identifier() {
+    public Input() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Identifier(Identifier other) : this() {
-      name_ = other.name_;
-      tags_ = other.tags_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Identifier Clone() {
-      return new Identifier(this);
-    }
-
-    /// <summary>Field number for the "name" field.</summary>
-    public const int NameFieldNumber = 1;
-    private string name_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Name {
-      get { return name_; }
-      set {
-        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "tags" field.</summary>
-    public const int TagsFieldNumber = 2;
-    private string tags_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Tags {
-      get { return tags_; }
-      set {
-        tags_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as Identifier);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(Identifier other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (Name != other.Name) return false;
-      if (Tags != other.Tags) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (Name.Length != 0) hash ^= Name.GetHashCode();
-      if (Tags.Length != 0) hash ^= Tags.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (Name.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Name);
-      }
-      if (Tags.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(Tags);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (Name.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
-      }
-      if (Tags.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Tags);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(Identifier other) {
-      if (other == null) {
-        return;
-      }
-      if (other.Name.Length != 0) {
-        Name = other.Name;
-      }
-      if (other.Tags.Length != 0) {
-        Tags = other.Tags;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            Name = input.ReadString();
-            break;
-          }
-          case 18: {
-            Tags = input.ReadString();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class EntityInput : pb::IMessage<EntityInput> {
-    private static readonly pb::MessageParser<EntityInput> _parser = new pb::MessageParser<EntityInput>(() => new EntityInput());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<EntityInput> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Google.Protobuf.MMOPPP.Messages.MMOPPPMessagesReflection.Descriptor.MessageTypes[2]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public EntityInput() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public EntityInput(EntityInput other) : this() {
-      directionInputs_ = other.directionInputs_ != null ? other.directionInputs_.Clone() : null;
-      eulerRotation_ = other.eulerRotation_ != null ? other.eulerRotation_.Clone() : null;
+    public Input(Input other) : this() {
+      playerMoveInputs_ = other.playerMoveInputs_ != null ? other.playerMoveInputs_.Clone() : null;
+      eulerBodyRotation_ = other.eulerBodyRotation_ != null ? other.eulerBodyRotation_.Clone() : null;
+      eulerCameraRotation_ = other.eulerCameraRotation_ != null ? other.eulerCameraRotation_.Clone() : null;
       strafe_ = other.strafe_;
       sprint_ = other.sprint_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public EntityInput Clone() {
-      return new EntityInput(this);
+    public Input Clone() {
+      return new Input(this);
     }
 
-    /// <summary>Field number for the "direction_inputs" field.</summary>
-    public const int DirectionInputsFieldNumber = 3;
-    private global::Google.Protobuf.MMOPPP.Messages.Vector3 directionInputs_;
+    /// <summary>Field number for the "player_move_inputs" field.</summary>
+    public const int PlayerMoveInputsFieldNumber = 3;
+    private global::Google.Protobuf.MMOPPP.Messages.Vector3 playerMoveInputs_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Google.Protobuf.MMOPPP.Messages.Vector3 DirectionInputs {
-      get { return directionInputs_; }
+    public global::Google.Protobuf.MMOPPP.Messages.Vector3 PlayerMoveInputs {
+      get { return playerMoveInputs_; }
       set {
-        directionInputs_ = value;
+        playerMoveInputs_ = value;
       }
     }
 
-    /// <summary>Field number for the "euler_rotation" field.</summary>
-    public const int EulerRotationFieldNumber = 4;
-    private global::Google.Protobuf.MMOPPP.Messages.Vector3 eulerRotation_;
+    /// <summary>Field number for the "euler_body_rotation" field.</summary>
+    public const int EulerBodyRotationFieldNumber = 4;
+    private global::Google.Protobuf.MMOPPP.Messages.Vector3 eulerBodyRotation_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Google.Protobuf.MMOPPP.Messages.Vector3 EulerRotation {
-      get { return eulerRotation_; }
+    public global::Google.Protobuf.MMOPPP.Messages.Vector3 EulerBodyRotation {
+      get { return eulerBodyRotation_; }
       set {
-        eulerRotation_ = value;
+        eulerBodyRotation_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "euler_camera_rotation" field.</summary>
+    public const int EulerCameraRotationFieldNumber = 5;
+    private global::Google.Protobuf.MMOPPP.Messages.Vector3 eulerCameraRotation_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Google.Protobuf.MMOPPP.Messages.Vector3 EulerCameraRotation {
+      get { return eulerCameraRotation_; }
+      set {
+        eulerCameraRotation_ = value;
       }
     }
 
     /// <summary>Field number for the "strafe" field.</summary>
-    public const int StrafeFieldNumber = 5;
+    public const int StrafeFieldNumber = 6;
     private bool strafe_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Strafe {
@@ -479,7 +333,7 @@ namespace Google.Protobuf.MMOPPP.Messages {
     }
 
     /// <summary>Field number for the "sprint" field.</summary>
-    public const int SprintFieldNumber = 6;
+    public const int SprintFieldNumber = 7;
     private bool sprint_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Sprint {
@@ -491,19 +345,20 @@ namespace Google.Protobuf.MMOPPP.Messages {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as EntityInput);
+      return Equals(other as Input);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(EntityInput other) {
+    public bool Equals(Input other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (!object.Equals(DirectionInputs, other.DirectionInputs)) return false;
-      if (!object.Equals(EulerRotation, other.EulerRotation)) return false;
+      if (!object.Equals(PlayerMoveInputs, other.PlayerMoveInputs)) return false;
+      if (!object.Equals(EulerBodyRotation, other.EulerBodyRotation)) return false;
+      if (!object.Equals(EulerCameraRotation, other.EulerCameraRotation)) return false;
       if (Strafe != other.Strafe) return false;
       if (Sprint != other.Sprint) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -512,8 +367,9 @@ namespace Google.Protobuf.MMOPPP.Messages {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (directionInputs_ != null) hash ^= DirectionInputs.GetHashCode();
-      if (eulerRotation_ != null) hash ^= EulerRotation.GetHashCode();
+      if (playerMoveInputs_ != null) hash ^= PlayerMoveInputs.GetHashCode();
+      if (eulerBodyRotation_ != null) hash ^= EulerBodyRotation.GetHashCode();
+      if (eulerCameraRotation_ != null) hash ^= EulerCameraRotation.GetHashCode();
       if (Strafe != false) hash ^= Strafe.GetHashCode();
       if (Sprint != false) hash ^= Sprint.GetHashCode();
       if (_unknownFields != null) {
@@ -529,20 +385,24 @@ namespace Google.Protobuf.MMOPPP.Messages {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (directionInputs_ != null) {
+      if (playerMoveInputs_ != null) {
         output.WriteRawTag(26);
-        output.WriteMessage(DirectionInputs);
+        output.WriteMessage(PlayerMoveInputs);
       }
-      if (eulerRotation_ != null) {
+      if (eulerBodyRotation_ != null) {
         output.WriteRawTag(34);
-        output.WriteMessage(EulerRotation);
+        output.WriteMessage(EulerBodyRotation);
+      }
+      if (eulerCameraRotation_ != null) {
+        output.WriteRawTag(42);
+        output.WriteMessage(EulerCameraRotation);
       }
       if (Strafe != false) {
-        output.WriteRawTag(40);
+        output.WriteRawTag(48);
         output.WriteBool(Strafe);
       }
       if (Sprint != false) {
-        output.WriteRawTag(48);
+        output.WriteRawTag(56);
         output.WriteBool(Sprint);
       }
       if (_unknownFields != null) {
@@ -553,11 +413,14 @@ namespace Google.Protobuf.MMOPPP.Messages {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (directionInputs_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(DirectionInputs);
+      if (playerMoveInputs_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayerMoveInputs);
       }
-      if (eulerRotation_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(EulerRotation);
+      if (eulerBodyRotation_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(EulerBodyRotation);
+      }
+      if (eulerCameraRotation_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(EulerCameraRotation);
       }
       if (Strafe != false) {
         size += 1 + 1;
@@ -572,21 +435,27 @@ namespace Google.Protobuf.MMOPPP.Messages {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(EntityInput other) {
+    public void MergeFrom(Input other) {
       if (other == null) {
         return;
       }
-      if (other.directionInputs_ != null) {
-        if (directionInputs_ == null) {
-          DirectionInputs = new global::Google.Protobuf.MMOPPP.Messages.Vector3();
+      if (other.playerMoveInputs_ != null) {
+        if (playerMoveInputs_ == null) {
+          PlayerMoveInputs = new global::Google.Protobuf.MMOPPP.Messages.Vector3();
         }
-        DirectionInputs.MergeFrom(other.DirectionInputs);
+        PlayerMoveInputs.MergeFrom(other.PlayerMoveInputs);
       }
-      if (other.eulerRotation_ != null) {
-        if (eulerRotation_ == null) {
-          EulerRotation = new global::Google.Protobuf.MMOPPP.Messages.Vector3();
+      if (other.eulerBodyRotation_ != null) {
+        if (eulerBodyRotation_ == null) {
+          EulerBodyRotation = new global::Google.Protobuf.MMOPPP.Messages.Vector3();
         }
-        EulerRotation.MergeFrom(other.EulerRotation);
+        EulerBodyRotation.MergeFrom(other.EulerBodyRotation);
+      }
+      if (other.eulerCameraRotation_ != null) {
+        if (eulerCameraRotation_ == null) {
+          EulerCameraRotation = new global::Google.Protobuf.MMOPPP.Messages.Vector3();
+        }
+        EulerCameraRotation.MergeFrom(other.EulerCameraRotation);
       }
       if (other.Strafe != false) {
         Strafe = other.Strafe;
@@ -606,24 +475,31 @@ namespace Google.Protobuf.MMOPPP.Messages {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 26: {
-            if (directionInputs_ == null) {
-              DirectionInputs = new global::Google.Protobuf.MMOPPP.Messages.Vector3();
+            if (playerMoveInputs_ == null) {
+              PlayerMoveInputs = new global::Google.Protobuf.MMOPPP.Messages.Vector3();
             }
-            input.ReadMessage(DirectionInputs);
+            input.ReadMessage(PlayerMoveInputs);
             break;
           }
           case 34: {
-            if (eulerRotation_ == null) {
-              EulerRotation = new global::Google.Protobuf.MMOPPP.Messages.Vector3();
+            if (eulerBodyRotation_ == null) {
+              EulerBodyRotation = new global::Google.Protobuf.MMOPPP.Messages.Vector3();
             }
-            input.ReadMessage(EulerRotation);
+            input.ReadMessage(EulerBodyRotation);
             break;
           }
-          case 40: {
-            Strafe = input.ReadBool();
+          case 42: {
+            if (eulerCameraRotation_ == null) {
+              EulerCameraRotation = new global::Google.Protobuf.MMOPPP.Messages.Vector3();
+            }
+            input.ReadMessage(EulerCameraRotation);
             break;
           }
           case 48: {
+            Strafe = input.ReadBool();
+            break;
+          }
+          case 56: {
             Sprint = input.ReadBool();
             break;
           }
@@ -636,15 +512,15 @@ namespace Google.Protobuf.MMOPPP.Messages {
   /// <summary>
   /// From Server
   /// </summary>
-  public sealed partial class EntityUpdate : pb::IMessage<EntityUpdate> {
-    private static readonly pb::MessageParser<EntityUpdate> _parser = new pb::MessageParser<EntityUpdate>(() => new EntityUpdate());
+  public sealed partial class ServerUpdate : pb::IMessage<ServerUpdate> {
+    private static readonly pb::MessageParser<ServerUpdate> _parser = new pb::MessageParser<ServerUpdate>(() => new ServerUpdate());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<EntityUpdate> Parser { get { return _parser; } }
+    public static pb::MessageParser<ServerUpdate> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Google.Protobuf.MMOPPP.Messages.MMOPPPMessagesReflection.Descriptor.MessageTypes[3]; }
+      get { return global::Google.Protobuf.MMOPPP.Messages.MMOPPPMessagesReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -653,83 +529,96 @@ namespace Google.Protobuf.MMOPPP.Messages {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public EntityUpdate() {
+    public ServerUpdate() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public EntityUpdate(EntityUpdate other) : this() {
-      id_ = other.id_ != null ? other.id_.Clone() : null;
-      predictiveInputs_ = other.predictiveInputs_ != null ? other.predictiveInputs_.Clone() : null;
-      position_ = other.position_ != null ? other.position_.Clone() : null;
+    public ServerUpdate(ServerUpdate other) : this() {
+      name_ = other.name_;
+      pastInputs_ = other.pastInputs_.Clone();
+      location_ = other.location_ != null ? other.location_.Clone() : null;
+      bodyRotation_ = other.bodyRotation_ != null ? other.bodyRotation_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public EntityUpdate Clone() {
-      return new EntityUpdate(this);
+    public ServerUpdate Clone() {
+      return new ServerUpdate(this);
     }
 
-    /// <summary>Field number for the "id" field.</summary>
-    public const int IdFieldNumber = 1;
-    private global::Google.Protobuf.MMOPPP.Messages.Identifier id_;
+    /// <summary>Field number for the "name" field.</summary>
+    public const int NameFieldNumber = 1;
+    private string name_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Google.Protobuf.MMOPPP.Messages.Identifier Id {
-      get { return id_; }
+    public string Name {
+      get { return name_; }
       set {
-        id_ = value;
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
-    /// <summary>Field number for the "predictive_inputs" field.</summary>
-    public const int PredictiveInputsFieldNumber = 2;
-    private global::Google.Protobuf.MMOPPP.Messages.EntityInput predictiveInputs_;
+    /// <summary>Field number for the "past_inputs" field.</summary>
+    public const int PastInputsFieldNumber = 2;
+    private static readonly pb::FieldCodec<global::Google.Protobuf.MMOPPP.Messages.Input> _repeated_pastInputs_codec
+        = pb::FieldCodec.ForMessage(18, global::Google.Protobuf.MMOPPP.Messages.Input.Parser);
+    private readonly pbc::RepeatedField<global::Google.Protobuf.MMOPPP.Messages.Input> pastInputs_ = new pbc::RepeatedField<global::Google.Protobuf.MMOPPP.Messages.Input>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Google.Protobuf.MMOPPP.Messages.EntityInput PredictiveInputs {
-      get { return predictiveInputs_; }
+    public pbc::RepeatedField<global::Google.Protobuf.MMOPPP.Messages.Input> PastInputs {
+      get { return pastInputs_; }
+    }
+
+    /// <summary>Field number for the "location" field.</summary>
+    public const int LocationFieldNumber = 3;
+    private global::Google.Protobuf.MMOPPP.Messages.Vector3 location_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Google.Protobuf.MMOPPP.Messages.Vector3 Location {
+      get { return location_; }
       set {
-        predictiveInputs_ = value;
+        location_ = value;
       }
     }
 
-    /// <summary>Field number for the "position" field.</summary>
-    public const int PositionFieldNumber = 3;
-    private global::Google.Protobuf.MMOPPP.Messages.Vector3 position_;
+    /// <summary>Field number for the "body_rotation" field.</summary>
+    public const int BodyRotationFieldNumber = 4;
+    private global::Google.Protobuf.MMOPPP.Messages.Vector3 bodyRotation_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Google.Protobuf.MMOPPP.Messages.Vector3 Position {
-      get { return position_; }
+    public global::Google.Protobuf.MMOPPP.Messages.Vector3 BodyRotation {
+      get { return bodyRotation_; }
       set {
-        position_ = value;
+        bodyRotation_ = value;
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as EntityUpdate);
+      return Equals(other as ServerUpdate);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(EntityUpdate other) {
+    public bool Equals(ServerUpdate other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (!object.Equals(Id, other.Id)) return false;
-      if (!object.Equals(PredictiveInputs, other.PredictiveInputs)) return false;
-      if (!object.Equals(Position, other.Position)) return false;
+      if (Name != other.Name) return false;
+      if(!pastInputs_.Equals(other.pastInputs_)) return false;
+      if (!object.Equals(Location, other.Location)) return false;
+      if (!object.Equals(BodyRotation, other.BodyRotation)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (id_ != null) hash ^= Id.GetHashCode();
-      if (predictiveInputs_ != null) hash ^= PredictiveInputs.GetHashCode();
-      if (position_ != null) hash ^= Position.GetHashCode();
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
+      hash ^= pastInputs_.GetHashCode();
+      if (location_ != null) hash ^= Location.GetHashCode();
+      if (bodyRotation_ != null) hash ^= BodyRotation.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -743,17 +632,18 @@ namespace Google.Protobuf.MMOPPP.Messages {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (id_ != null) {
+      if (Name.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteMessage(Id);
+        output.WriteString(Name);
       }
-      if (predictiveInputs_ != null) {
-        output.WriteRawTag(18);
-        output.WriteMessage(PredictiveInputs);
-      }
-      if (position_ != null) {
+      pastInputs_.WriteTo(output, _repeated_pastInputs_codec);
+      if (location_ != null) {
         output.WriteRawTag(26);
-        output.WriteMessage(Position);
+        output.WriteMessage(Location);
+      }
+      if (bodyRotation_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(BodyRotation);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -763,14 +653,15 @@ namespace Google.Protobuf.MMOPPP.Messages {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (id_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Id);
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
       }
-      if (predictiveInputs_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(PredictiveInputs);
+      size += pastInputs_.CalculateSize(_repeated_pastInputs_codec);
+      if (location_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Location);
       }
-      if (position_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
+      if (bodyRotation_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(BodyRotation);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -779,27 +670,25 @@ namespace Google.Protobuf.MMOPPP.Messages {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(EntityUpdate other) {
+    public void MergeFrom(ServerUpdate other) {
       if (other == null) {
         return;
       }
-      if (other.id_ != null) {
-        if (id_ == null) {
-          Id = new global::Google.Protobuf.MMOPPP.Messages.Identifier();
-        }
-        Id.MergeFrom(other.Id);
+      if (other.Name.Length != 0) {
+        Name = other.Name;
       }
-      if (other.predictiveInputs_ != null) {
-        if (predictiveInputs_ == null) {
-          PredictiveInputs = new global::Google.Protobuf.MMOPPP.Messages.EntityInput();
+      pastInputs_.Add(other.pastInputs_);
+      if (other.location_ != null) {
+        if (location_ == null) {
+          Location = new global::Google.Protobuf.MMOPPP.Messages.Vector3();
         }
-        PredictiveInputs.MergeFrom(other.PredictiveInputs);
+        Location.MergeFrom(other.Location);
       }
-      if (other.position_ != null) {
-        if (position_ == null) {
-          Position = new global::Google.Protobuf.MMOPPP.Messages.Vector3();
+      if (other.bodyRotation_ != null) {
+        if (bodyRotation_ == null) {
+          BodyRotation = new global::Google.Protobuf.MMOPPP.Messages.Vector3();
         }
-        Position.MergeFrom(other.Position);
+        BodyRotation.MergeFrom(other.BodyRotation);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -813,24 +702,25 @@ namespace Google.Protobuf.MMOPPP.Messages {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            if (id_ == null) {
-              Id = new global::Google.Protobuf.MMOPPP.Messages.Identifier();
-            }
-            input.ReadMessage(Id);
+            Name = input.ReadString();
             break;
           }
           case 18: {
-            if (predictiveInputs_ == null) {
-              PredictiveInputs = new global::Google.Protobuf.MMOPPP.Messages.EntityInput();
-            }
-            input.ReadMessage(PredictiveInputs);
+            pastInputs_.AddEntriesFrom(input, _repeated_pastInputs_codec);
             break;
           }
           case 26: {
-            if (position_ == null) {
-              Position = new global::Google.Protobuf.MMOPPP.Messages.Vector3();
+            if (location_ == null) {
+              Location = new global::Google.Protobuf.MMOPPP.Messages.Vector3();
             }
-            input.ReadMessage(Position);
+            input.ReadMessage(Location);
+            break;
+          }
+          case 34: {
+            if (bodyRotation_ == null) {
+              BodyRotation = new global::Google.Protobuf.MMOPPP.Messages.Vector3();
+            }
+            input.ReadMessage(BodyRotation);
             break;
           }
         }
@@ -839,15 +729,15 @@ namespace Google.Protobuf.MMOPPP.Messages {
 
   }
 
-  public sealed partial class WorldUpdate : pb::IMessage<WorldUpdate> {
-    private static readonly pb::MessageParser<WorldUpdate> _parser = new pb::MessageParser<WorldUpdate>(() => new WorldUpdate());
+  public sealed partial class ServerUpdates : pb::IMessage<ServerUpdates> {
+    private static readonly pb::MessageParser<ServerUpdates> _parser = new pb::MessageParser<ServerUpdates>(() => new ServerUpdates());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<WorldUpdate> Parser { get { return _parser; } }
+    public static pb::MessageParser<ServerUpdates> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Google.Protobuf.MMOPPP.Messages.MMOPPPMessagesReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Google.Protobuf.MMOPPP.Messages.MMOPPPMessagesReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -856,40 +746,40 @@ namespace Google.Protobuf.MMOPPP.Messages {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public WorldUpdate() {
+    public ServerUpdates() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public WorldUpdate(WorldUpdate other) : this() {
+    public ServerUpdates(ServerUpdates other) : this() {
       updates_ = other.updates_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public WorldUpdate Clone() {
-      return new WorldUpdate(this);
+    public ServerUpdates Clone() {
+      return new ServerUpdates(this);
     }
 
     /// <summary>Field number for the "updates" field.</summary>
     public const int UpdatesFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::Google.Protobuf.MMOPPP.Messages.EntityUpdate> _repeated_updates_codec
-        = pb::FieldCodec.ForMessage(10, global::Google.Protobuf.MMOPPP.Messages.EntityUpdate.Parser);
-    private readonly pbc::RepeatedField<global::Google.Protobuf.MMOPPP.Messages.EntityUpdate> updates_ = new pbc::RepeatedField<global::Google.Protobuf.MMOPPP.Messages.EntityUpdate>();
+    private static readonly pb::FieldCodec<global::Google.Protobuf.MMOPPP.Messages.ServerUpdate> _repeated_updates_codec
+        = pb::FieldCodec.ForMessage(10, global::Google.Protobuf.MMOPPP.Messages.ServerUpdate.Parser);
+    private readonly pbc::RepeatedField<global::Google.Protobuf.MMOPPP.Messages.ServerUpdate> updates_ = new pbc::RepeatedField<global::Google.Protobuf.MMOPPP.Messages.ServerUpdate>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::Google.Protobuf.MMOPPP.Messages.EntityUpdate> Updates {
+    public pbc::RepeatedField<global::Google.Protobuf.MMOPPP.Messages.ServerUpdate> Updates {
       get { return updates_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as WorldUpdate);
+      return Equals(other as ServerUpdates);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(WorldUpdate other) {
+    public bool Equals(ServerUpdates other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -934,7 +824,7 @@ namespace Google.Protobuf.MMOPPP.Messages {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(WorldUpdate other) {
+    public void MergeFrom(ServerUpdates other) {
       if (other == null) {
         return;
       }
@@ -963,15 +853,15 @@ namespace Google.Protobuf.MMOPPP.Messages {
   /// <summary>
   /// To Server
   /// </summary>
-  public sealed partial class PlayerInput : pb::IMessage<PlayerInput> {
-    private static readonly pb::MessageParser<PlayerInput> _parser = new pb::MessageParser<PlayerInput>(() => new PlayerInput());
+  public sealed partial class ClientInput : pb::IMessage<ClientInput> {
+    private static readonly pb::MessageParser<ClientInput> _parser = new pb::MessageParser<ClientInput>(() => new ClientInput());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<PlayerInput> Parser { get { return _parser; } }
+    public static pb::MessageParser<ClientInput> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Google.Protobuf.MMOPPP.Messages.MMOPPPMessagesReflection.Descriptor.MessageTypes[5]; }
+      get { return global::Google.Protobuf.MMOPPP.Messages.MMOPPPMessagesReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -980,44 +870,44 @@ namespace Google.Protobuf.MMOPPP.Messages {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public PlayerInput() {
+    public ClientInput() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public PlayerInput(PlayerInput other) : this() {
-      id_ = other.id_ != null ? other.id_.Clone() : null;
-      moveInput_ = other.moveInput_ != null ? other.moveInput_.Clone() : null;
+    public ClientInput(ClientInput other) : this() {
+      name_ = other.name_;
+      inputs_ = other.inputs_ != null ? other.inputs_.Clone() : null;
       sentTime_ = other.sentTime_ != null ? other.sentTime_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public PlayerInput Clone() {
-      return new PlayerInput(this);
+    public ClientInput Clone() {
+      return new ClientInput(this);
     }
 
-    /// <summary>Field number for the "id" field.</summary>
-    public const int IdFieldNumber = 1;
-    private global::Google.Protobuf.MMOPPP.Messages.Identifier id_;
+    /// <summary>Field number for the "name" field.</summary>
+    public const int NameFieldNumber = 1;
+    private string name_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Google.Protobuf.MMOPPP.Messages.Identifier Id {
-      get { return id_; }
+    public string Name {
+      get { return name_; }
       set {
-        id_ = value;
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
-    /// <summary>Field number for the "move_input" field.</summary>
-    public const int MoveInputFieldNumber = 2;
-    private global::Google.Protobuf.MMOPPP.Messages.EntityInput moveInput_;
+    /// <summary>Field number for the "inputs" field.</summary>
+    public const int InputsFieldNumber = 2;
+    private global::Google.Protobuf.MMOPPP.Messages.Input inputs_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Google.Protobuf.MMOPPP.Messages.EntityInput MoveInput {
-      get { return moveInput_; }
+    public global::Google.Protobuf.MMOPPP.Messages.Input Inputs {
+      get { return inputs_; }
       set {
-        moveInput_ = value;
+        inputs_ = value;
       }
     }
 
@@ -1034,19 +924,19 @@ namespace Google.Protobuf.MMOPPP.Messages {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as PlayerInput);
+      return Equals(other as ClientInput);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(PlayerInput other) {
+    public bool Equals(ClientInput other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (!object.Equals(Id, other.Id)) return false;
-      if (!object.Equals(MoveInput, other.MoveInput)) return false;
+      if (Name != other.Name) return false;
+      if (!object.Equals(Inputs, other.Inputs)) return false;
       if (!object.Equals(SentTime, other.SentTime)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -1054,8 +944,8 @@ namespace Google.Protobuf.MMOPPP.Messages {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (id_ != null) hash ^= Id.GetHashCode();
-      if (moveInput_ != null) hash ^= MoveInput.GetHashCode();
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
+      if (inputs_ != null) hash ^= Inputs.GetHashCode();
       if (sentTime_ != null) hash ^= SentTime.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -1070,13 +960,13 @@ namespace Google.Protobuf.MMOPPP.Messages {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (id_ != null) {
+      if (Name.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteMessage(Id);
+        output.WriteString(Name);
       }
-      if (moveInput_ != null) {
+      if (inputs_ != null) {
         output.WriteRawTag(18);
-        output.WriteMessage(MoveInput);
+        output.WriteMessage(Inputs);
       }
       if (sentTime_ != null) {
         output.WriteRawTag(122);
@@ -1090,11 +980,11 @@ namespace Google.Protobuf.MMOPPP.Messages {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (id_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Id);
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
       }
-      if (moveInput_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MoveInput);
+      if (inputs_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Inputs);
       }
       if (sentTime_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(SentTime);
@@ -1106,21 +996,18 @@ namespace Google.Protobuf.MMOPPP.Messages {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(PlayerInput other) {
+    public void MergeFrom(ClientInput other) {
       if (other == null) {
         return;
       }
-      if (other.id_ != null) {
-        if (id_ == null) {
-          Id = new global::Google.Protobuf.MMOPPP.Messages.Identifier();
-        }
-        Id.MergeFrom(other.Id);
+      if (other.Name.Length != 0) {
+        Name = other.Name;
       }
-      if (other.moveInput_ != null) {
-        if (moveInput_ == null) {
-          MoveInput = new global::Google.Protobuf.MMOPPP.Messages.EntityInput();
+      if (other.inputs_ != null) {
+        if (inputs_ == null) {
+          Inputs = new global::Google.Protobuf.MMOPPP.Messages.Input();
         }
-        MoveInput.MergeFrom(other.MoveInput);
+        Inputs.MergeFrom(other.Inputs);
       }
       if (other.sentTime_ != null) {
         if (sentTime_ == null) {
@@ -1140,17 +1027,14 @@ namespace Google.Protobuf.MMOPPP.Messages {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            if (id_ == null) {
-              Id = new global::Google.Protobuf.MMOPPP.Messages.Identifier();
-            }
-            input.ReadMessage(Id);
+            Name = input.ReadString();
             break;
           }
           case 18: {
-            if (moveInput_ == null) {
-              MoveInput = new global::Google.Protobuf.MMOPPP.Messages.EntityInput();
+            if (inputs_ == null) {
+              Inputs = new global::Google.Protobuf.MMOPPP.Messages.Input();
             }
-            input.ReadMessage(MoveInput);
+            input.ReadMessage(Inputs);
             break;
           }
           case 122: {

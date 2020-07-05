@@ -27,12 +27,12 @@ namespace MMOPPPServer
 
     List<TcpClient> m_Clients = new List<TcpClient>();
     List<List<Byte>> m_QueuedData = new List<List<byte>>();
-    List<PlayerInput> m_Inputs = new List<PlayerInput>();
+    List<ClientInput> m_Inputs = new List<ClientInput>();
 
     TcpListener m_TCPListener = null;
 
     object WorldUpdateLock = new object();
-    WorldUpdate m_QueuedWorldUpdate = null;
+    ServerUpdates m_QueuedServerUpdates = null;
 
     public ClientManager()
     {
@@ -43,12 +43,12 @@ namespace MMOPPPServer
       Stop();
     }
 
-    public List<PlayerInput> GetInputs()
+    public List<ClientInput> GetInputs()
     {
-      List<PlayerInput> InputsCopy;
+      List<ClientInput> InputsCopy;
       lock (m_Inputs)
       {
-        InputsCopy = new List<PlayerInput>(m_Inputs);
+        InputsCopy = new List<ClientInput>(m_Inputs);
       }
 
       return InputsCopy;
@@ -199,7 +199,7 @@ namespace MMOPPPServer
                   //HACK: only for testing, needs to be resolved
                   try
                   {
-                    m_Inputs.Add(PlayerInput.Parser.ParseFrom(data.ToArray()));
+                    m_Inputs.Add(ClientInput.Parser.ParseFrom(data.ToArray()));
                   }
                   catch(Exception e) // If the input fails just clear the entire stream
                   {
@@ -233,11 +233,11 @@ namespace MMOPPPServer
       }
     }
 
-    public void QueueWorldUpdate(WorldUpdate Update)
+    public void QueueWorldUpdate(ServerUpdates Update)
     {
       lock (WorldUpdateLock)
       {
-        m_QueuedWorldUpdate = Update;
+        m_QueuedServerUpdates = Update;
       }
     }
 
@@ -247,13 +247,13 @@ namespace MMOPPPServer
       {
         lock (WorldUpdateLock)
         {
-          if (m_QueuedWorldUpdate != null)
+          if (m_QueuedServerUpdates != null)
           {
             lock (m_Clients)
             {
               foreach (var client in m_Clients)
               {
-                Packet<WorldUpdate> packet = new Packet<WorldUpdate>(m_QueuedWorldUpdate);
+                Packet<ServerUpdates> packet = new Packet<ServerUpdates>(m_QueuedServerUpdates);
                 try
                 {
                   packet.SendPacket(client.GetStream());
@@ -263,7 +263,7 @@ namespace MMOPPPServer
                 }
               }
             }
-            m_QueuedWorldUpdate = null;
+            m_QueuedServerUpdates = null;
           }
         }
       }

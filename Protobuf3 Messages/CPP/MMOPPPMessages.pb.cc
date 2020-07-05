@@ -14,9 +14,8 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
-extern PROTOBUF_INTERNAL_EXPORT_MMOPPPMessages_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_EntityInput_MMOPPPMessages_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_MMOPPPMessages_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<3> scc_info_EntityUpdate_MMOPPPMessages_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_MMOPPPMessages_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Identifier_MMOPPPMessages_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_MMOPPPMessages_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_Input_MMOPPPMessages_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_MMOPPPMessages_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_ServerUpdate_MMOPPPMessages_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_MMOPPPMessages_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Vector3_MMOPPPMessages_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_google_2fprotobuf_2ftimestamp_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Timestamp_google_2fprotobuf_2ftimestamp_2eproto;
 namespace MMOPPP {
@@ -24,89 +23,84 @@ class Vector3DefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Vector3> _instance;
 } _Vector3_default_instance_;
-class IdentifierDefaultTypeInternal {
+class InputDefaultTypeInternal {
  public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Identifier> _instance;
-} _Identifier_default_instance_;
-class EntityInputDefaultTypeInternal {
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Input> _instance;
+} _Input_default_instance_;
+class ServerUpdateDefaultTypeInternal {
  public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<EntityInput> _instance;
-} _EntityInput_default_instance_;
-class EntityUpdateDefaultTypeInternal {
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ServerUpdate> _instance;
+} _ServerUpdate_default_instance_;
+class ServerUpdatesDefaultTypeInternal {
  public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<EntityUpdate> _instance;
-} _EntityUpdate_default_instance_;
-class WorldUpdateDefaultTypeInternal {
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ServerUpdates> _instance;
+} _ServerUpdates_default_instance_;
+class ClientInputDefaultTypeInternal {
  public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<WorldUpdate> _instance;
-} _WorldUpdate_default_instance_;
-class PlayerInputDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<PlayerInput> _instance;
-} _PlayerInput_default_instance_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ClientInput> _instance;
+} _ClientInput_default_instance_;
 }  // namespace MMOPPP
-static void InitDefaultsscc_info_EntityInput_MMOPPPMessages_2eproto() {
+static void InitDefaultsscc_info_ClientInput_MMOPPPMessages_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::MMOPPP::_EntityInput_default_instance_;
-    new (ptr) ::MMOPPP::EntityInput();
+    void* ptr = &::MMOPPP::_ClientInput_default_instance_;
+    new (ptr) ::MMOPPP::ClientInput();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::MMOPPP::EntityInput::InitAsDefaultInstance();
+  ::MMOPPP::ClientInput::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_EntityInput_MMOPPPMessages_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_EntityInput_MMOPPPMessages_2eproto}, {
-      &scc_info_Vector3_MMOPPPMessages_2eproto.base,}};
-
-static void InitDefaultsscc_info_EntityUpdate_MMOPPPMessages_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::MMOPPP::_EntityUpdate_default_instance_;
-    new (ptr) ::MMOPPP::EntityUpdate();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::MMOPPP::EntityUpdate::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<3> scc_info_EntityUpdate_MMOPPPMessages_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 3, 0, InitDefaultsscc_info_EntityUpdate_MMOPPPMessages_2eproto}, {
-      &scc_info_Identifier_MMOPPPMessages_2eproto.base,
-      &scc_info_EntityInput_MMOPPPMessages_2eproto.base,
-      &scc_info_Vector3_MMOPPPMessages_2eproto.base,}};
-
-static void InitDefaultsscc_info_Identifier_MMOPPPMessages_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::MMOPPP::_Identifier_default_instance_;
-    new (ptr) ::MMOPPP::Identifier();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::MMOPPP::Identifier::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Identifier_MMOPPPMessages_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Identifier_MMOPPPMessages_2eproto}, {}};
-
-static void InitDefaultsscc_info_PlayerInput_MMOPPPMessages_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::MMOPPP::_PlayerInput_default_instance_;
-    new (ptr) ::MMOPPP::PlayerInput();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::MMOPPP::PlayerInput::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<3> scc_info_PlayerInput_MMOPPPMessages_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 3, 0, InitDefaultsscc_info_PlayerInput_MMOPPPMessages_2eproto}, {
-      &scc_info_Identifier_MMOPPPMessages_2eproto.base,
-      &scc_info_EntityInput_MMOPPPMessages_2eproto.base,
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_ClientInput_MMOPPPMessages_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_ClientInput_MMOPPPMessages_2eproto}, {
+      &scc_info_Input_MMOPPPMessages_2eproto.base,
       &scc_info_Timestamp_google_2fprotobuf_2ftimestamp_2eproto.base,}};
+
+static void InitDefaultsscc_info_Input_MMOPPPMessages_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::MMOPPP::_Input_default_instance_;
+    new (ptr) ::MMOPPP::Input();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::MMOPPP::Input::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_Input_MMOPPPMessages_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_Input_MMOPPPMessages_2eproto}, {
+      &scc_info_Vector3_MMOPPPMessages_2eproto.base,}};
+
+static void InitDefaultsscc_info_ServerUpdate_MMOPPPMessages_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::MMOPPP::_ServerUpdate_default_instance_;
+    new (ptr) ::MMOPPP::ServerUpdate();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::MMOPPP::ServerUpdate::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_ServerUpdate_MMOPPPMessages_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_ServerUpdate_MMOPPPMessages_2eproto}, {
+      &scc_info_Input_MMOPPPMessages_2eproto.base,
+      &scc_info_Vector3_MMOPPPMessages_2eproto.base,}};
+
+static void InitDefaultsscc_info_ServerUpdates_MMOPPPMessages_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::MMOPPP::_ServerUpdates_default_instance_;
+    new (ptr) ::MMOPPP::ServerUpdates();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::MMOPPP::ServerUpdates::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_ServerUpdates_MMOPPPMessages_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_ServerUpdates_MMOPPPMessages_2eproto}, {
+      &scc_info_ServerUpdate_MMOPPPMessages_2eproto.base,}};
 
 static void InitDefaultsscc_info_Vector3_MMOPPPMessages_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -122,22 +116,7 @@ static void InitDefaultsscc_info_Vector3_MMOPPPMessages_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Vector3_MMOPPPMessages_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Vector3_MMOPPPMessages_2eproto}, {}};
 
-static void InitDefaultsscc_info_WorldUpdate_MMOPPPMessages_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::MMOPPP::_WorldUpdate_default_instance_;
-    new (ptr) ::MMOPPP::WorldUpdate();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::MMOPPP::WorldUpdate::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_WorldUpdate_MMOPPPMessages_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_WorldUpdate_MMOPPPMessages_2eproto}, {
-      &scc_info_EntityUpdate_MMOPPPMessages_2eproto.base,}};
-
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_MMOPPPMessages_2eproto[6];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_MMOPPPMessages_2eproto[5];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_MMOPPPMessages_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_MMOPPPMessages_2eproto = nullptr;
 
@@ -151,98 +130,89 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_MMOPPPMessages_2eproto::offset
   PROTOBUF_FIELD_OFFSET(::MMOPPP::Vector3, y_),
   PROTOBUF_FIELD_OFFSET(::MMOPPP::Vector3, z_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::MMOPPP::Identifier, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::MMOPPP::Input, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::MMOPPP::Identifier, name_),
-  PROTOBUF_FIELD_OFFSET(::MMOPPP::Identifier, tags_),
+  PROTOBUF_FIELD_OFFSET(::MMOPPP::Input, player_move_inputs_),
+  PROTOBUF_FIELD_OFFSET(::MMOPPP::Input, euler_body_rotation_),
+  PROTOBUF_FIELD_OFFSET(::MMOPPP::Input, euler_camera_rotation_),
+  PROTOBUF_FIELD_OFFSET(::MMOPPP::Input, strafe_),
+  PROTOBUF_FIELD_OFFSET(::MMOPPP::Input, sprint_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::MMOPPP::EntityInput, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::MMOPPP::ServerUpdate, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::MMOPPP::EntityInput, direction_inputs_),
-  PROTOBUF_FIELD_OFFSET(::MMOPPP::EntityInput, euler_rotation_),
-  PROTOBUF_FIELD_OFFSET(::MMOPPP::EntityInput, strafe_),
-  PROTOBUF_FIELD_OFFSET(::MMOPPP::EntityInput, sprint_),
+  PROTOBUF_FIELD_OFFSET(::MMOPPP::ServerUpdate, name_),
+  PROTOBUF_FIELD_OFFSET(::MMOPPP::ServerUpdate, past_inputs_),
+  PROTOBUF_FIELD_OFFSET(::MMOPPP::ServerUpdate, location_),
+  PROTOBUF_FIELD_OFFSET(::MMOPPP::ServerUpdate, body_rotation_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::MMOPPP::EntityUpdate, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::MMOPPP::ServerUpdates, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::MMOPPP::EntityUpdate, id_),
-  PROTOBUF_FIELD_OFFSET(::MMOPPP::EntityUpdate, predictive_inputs_),
-  PROTOBUF_FIELD_OFFSET(::MMOPPP::EntityUpdate, position_),
+  PROTOBUF_FIELD_OFFSET(::MMOPPP::ServerUpdates, updates_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::MMOPPP::WorldUpdate, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::MMOPPP::ClientInput, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::MMOPPP::WorldUpdate, updates_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::MMOPPP::PlayerInput, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::MMOPPP::PlayerInput, id_),
-  PROTOBUF_FIELD_OFFSET(::MMOPPP::PlayerInput, move_input_),
-  PROTOBUF_FIELD_OFFSET(::MMOPPP::PlayerInput, sent_time_),
+  PROTOBUF_FIELD_OFFSET(::MMOPPP::ClientInput, name_),
+  PROTOBUF_FIELD_OFFSET(::MMOPPP::ClientInput, inputs_),
+  PROTOBUF_FIELD_OFFSET(::MMOPPP::ClientInput, sent_time_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::MMOPPP::Vector3)},
-  { 8, -1, sizeof(::MMOPPP::Identifier)},
-  { 15, -1, sizeof(::MMOPPP::EntityInput)},
-  { 24, -1, sizeof(::MMOPPP::EntityUpdate)},
-  { 32, -1, sizeof(::MMOPPP::WorldUpdate)},
-  { 38, -1, sizeof(::MMOPPP::PlayerInput)},
+  { 8, -1, sizeof(::MMOPPP::Input)},
+  { 18, -1, sizeof(::MMOPPP::ServerUpdate)},
+  { 27, -1, sizeof(::MMOPPP::ServerUpdates)},
+  { 33, -1, sizeof(::MMOPPP::ClientInput)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::MMOPPP::_Vector3_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::MMOPPP::_Identifier_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::MMOPPP::_EntityInput_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::MMOPPP::_EntityUpdate_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::MMOPPP::_WorldUpdate_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::MMOPPP::_PlayerInput_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::MMOPPP::_Input_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::MMOPPP::_ServerUpdate_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::MMOPPP::_ServerUpdates_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::MMOPPP::_ClientInput_default_instance_),
 };
 
 const char descriptor_table_protodef_MMOPPPMessages_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\024MMOPPPMessages.proto\022\006MMOPPP\032\037google/p"
   "rotobuf/timestamp.proto\"*\n\007Vector3\022\t\n\001x\030"
-  "\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002\"(\n\nIdentifie"
-  "r\022\014\n\004name\030\001 \001(\t\022\014\n\004tags\030\002 \001(\t\"\201\001\n\013Entity"
-  "Input\022)\n\020direction_inputs\030\003 \001(\0132\017.MMOPPP"
-  ".Vector3\022\'\n\016euler_rotation\030\004 \001(\0132\017.MMOPP"
-  "P.Vector3\022\016\n\006strafe\030\005 \001(\010\022\016\n\006sprint\030\006 \001("
-  "\010\"\201\001\n\014EntityUpdate\022\036\n\002id\030\001 \001(\0132\022.MMOPPP."
-  "Identifier\022.\n\021predictive_inputs\030\002 \001(\0132\023."
-  "MMOPPP.EntityInput\022!\n\010position\030\003 \001(\0132\017.M"
-  "MOPPP.Vector3\"4\n\013WorldUpdate\022%\n\007updates\030"
-  "\001 \003(\0132\024.MMOPPP.EntityUpdate\"\205\001\n\013PlayerIn"
-  "put\022\036\n\002id\030\001 \001(\0132\022.MMOPPP.Identifier\022\'\n\nm"
-  "ove_input\030\002 \001(\0132\023.MMOPPP.EntityInput\022-\n\t"
-  "sent_time\030\017 \001(\0132\032.google.protobuf.Timest"
-  "ampB\"\252\002\037Google.Protobuf.MMOPPP.Messagesb"
-  "\006proto3"
+  "\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002\"\262\001\n\005Input\022+\n"
+  "\022player_move_inputs\030\003 \001(\0132\017.MMOPPP.Vecto"
+  "r3\022,\n\023euler_body_rotation\030\004 \001(\0132\017.MMOPPP"
+  ".Vector3\022.\n\025euler_camera_rotation\030\005 \001(\0132"
+  "\017.MMOPPP.Vector3\022\016\n\006strafe\030\006 \001(\010\022\016\n\006spri"
+  "nt\030\007 \001(\010\"\213\001\n\014ServerUpdate\022\014\n\004name\030\001 \001(\t\022"
+  "\"\n\013past_inputs\030\002 \003(\0132\r.MMOPPP.Input\022!\n\010l"
+  "ocation\030\003 \001(\0132\017.MMOPPP.Vector3\022&\n\rbody_r"
+  "otation\030\004 \001(\0132\017.MMOPPP.Vector3\"6\n\rServer"
+  "Updates\022%\n\007updates\030\001 \003(\0132\024.MMOPPP.Server"
+  "Update\"i\n\013ClientInput\022\014\n\004name\030\001 \001(\t\022\035\n\006i"
+  "nputs\030\002 \001(\0132\r.MMOPPP.Input\022-\n\tsent_time\030"
+  "\017 \001(\0132\032.google.protobuf.TimestampB\"\252\002\037Go"
+  "ogle.Protobuf.MMOPPP.Messagesb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_MMOPPPMessages_2eproto_deps[1] = {
   &::descriptor_table_google_2fprotobuf_2ftimestamp_2eproto,
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_MMOPPPMessages_2eproto_sccs[6] = {
-  &scc_info_EntityInput_MMOPPPMessages_2eproto.base,
-  &scc_info_EntityUpdate_MMOPPPMessages_2eproto.base,
-  &scc_info_Identifier_MMOPPPMessages_2eproto.base,
-  &scc_info_PlayerInput_MMOPPPMessages_2eproto.base,
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_MMOPPPMessages_2eproto_sccs[5] = {
+  &scc_info_ClientInput_MMOPPPMessages_2eproto.base,
+  &scc_info_Input_MMOPPPMessages_2eproto.base,
+  &scc_info_ServerUpdate_MMOPPPMessages_2eproto.base,
+  &scc_info_ServerUpdates_MMOPPPMessages_2eproto.base,
   &scc_info_Vector3_MMOPPPMessages_2eproto.base,
-  &scc_info_WorldUpdate_MMOPPPMessages_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_MMOPPPMessages_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_MMOPPPMessages_2eproto = {
-  false, false, descriptor_table_protodef_MMOPPPMessages_2eproto, "MMOPPPMessages.proto", 647,
-  &descriptor_table_MMOPPPMessages_2eproto_once, descriptor_table_MMOPPPMessages_2eproto_sccs, descriptor_table_MMOPPPMessages_2eproto_deps, 6, 1,
+  false, false, descriptor_table_protodef_MMOPPPMessages_2eproto, "MMOPPPMessages.proto", 637,
+  &descriptor_table_MMOPPPMessages_2eproto_once, descriptor_table_MMOPPPMessages_2eproto_sccs, descriptor_table_MMOPPPMessages_2eproto_deps, 5, 1,
   schemas, file_default_instances, TableStruct_MMOPPPMessages_2eproto::offsets,
-  file_level_metadata_MMOPPPMessages_2eproto, 6, file_level_enum_descriptors_MMOPPPMessages_2eproto, file_level_service_descriptors_MMOPPPMessages_2eproto,
+  file_level_metadata_MMOPPPMessages_2eproto, 5, file_level_enum_descriptors_MMOPPPMessages_2eproto, file_level_service_descriptors_MMOPPPMessages_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -499,353 +469,123 @@ void Vector3::InternalSwap(Vector3* other) {
 
 // ===================================================================
 
-void Identifier::InitAsDefaultInstance() {
-}
-class Identifier::_Internal {
- public:
-};
-
-Identifier::Identifier(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
-  SharedCtor();
-  RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:MMOPPP.Identifier)
-}
-Identifier::Identifier(const Identifier& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_name().empty()) {
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
-      GetArena());
-  }
-  tags_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_tags().empty()) {
-    tags_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_tags(),
-      GetArena());
-  }
-  // @@protoc_insertion_point(copy_constructor:MMOPPP.Identifier)
-}
-
-void Identifier::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Identifier_MMOPPPMessages_2eproto.base);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  tags_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-
-Identifier::~Identifier() {
-  // @@protoc_insertion_point(destructor:MMOPPP.Identifier)
-  SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-void Identifier::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  tags_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-
-void Identifier::ArenaDtor(void* object) {
-  Identifier* _this = reinterpret_cast< Identifier* >(object);
-  (void)_this;
-}
-void Identifier::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void Identifier::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-const Identifier& Identifier::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Identifier_MMOPPPMessages_2eproto.base);
-  return *internal_default_instance();
-}
-
-
-void Identifier::Clear() {
-// @@protoc_insertion_point(message_clear_start:MMOPPP.Identifier)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  tags_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* Identifier::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
-    switch (tag >> 3) {
-      // string name = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "MMOPPP.Identifier.name"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // string tags = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          auto str = _internal_mutable_tags();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "MMOPPP.Identifier.tags"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
-}
-
-::PROTOBUF_NAMESPACE_ID::uint8* Identifier::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:MMOPPP.Identifier)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // string name = 1;
-  if (this->name().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "MMOPPP.Identifier.name");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_name(), target);
-  }
-
-  // string tags = 2;
-  if (this->tags().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_tags().data(), static_cast<int>(this->_internal_tags().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "MMOPPP.Identifier.tags");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_tags(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:MMOPPP.Identifier)
-  return target;
-}
-
-size_t Identifier::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:MMOPPP.Identifier)
-  size_t total_size = 0;
-
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // string name = 1;
-  if (this->name().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
-  }
-
-  // string tags = 2;
-  if (this->tags().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_tags());
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void Identifier::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:MMOPPP.Identifier)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Identifier* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Identifier>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:MMOPPP.Identifier)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:MMOPPP.Identifier)
-    MergeFrom(*source);
-  }
-}
-
-void Identifier::MergeFrom(const Identifier& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:MMOPPP.Identifier)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from.name().size() > 0) {
-    _internal_set_name(from._internal_name());
-  }
-  if (from.tags().size() > 0) {
-    _internal_set_tags(from._internal_tags());
-  }
-}
-
-void Identifier::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:MMOPPP.Identifier)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void Identifier::CopyFrom(const Identifier& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:MMOPPP.Identifier)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool Identifier::IsInitialized() const {
-  return true;
-}
-
-void Identifier::InternalSwap(Identifier* other) {
-  using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  tags_.Swap(&other->tags_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata Identifier::GetMetadata() const {
-  return GetMetadataStatic();
-}
-
-
-// ===================================================================
-
-void EntityInput::InitAsDefaultInstance() {
-  ::MMOPPP::_EntityInput_default_instance_._instance.get_mutable()->direction_inputs_ = const_cast< ::MMOPPP::Vector3*>(
+void Input::InitAsDefaultInstance() {
+  ::MMOPPP::_Input_default_instance_._instance.get_mutable()->player_move_inputs_ = const_cast< ::MMOPPP::Vector3*>(
       ::MMOPPP::Vector3::internal_default_instance());
-  ::MMOPPP::_EntityInput_default_instance_._instance.get_mutable()->euler_rotation_ = const_cast< ::MMOPPP::Vector3*>(
+  ::MMOPPP::_Input_default_instance_._instance.get_mutable()->euler_body_rotation_ = const_cast< ::MMOPPP::Vector3*>(
+      ::MMOPPP::Vector3::internal_default_instance());
+  ::MMOPPP::_Input_default_instance_._instance.get_mutable()->euler_camera_rotation_ = const_cast< ::MMOPPP::Vector3*>(
       ::MMOPPP::Vector3::internal_default_instance());
 }
-class EntityInput::_Internal {
+class Input::_Internal {
  public:
-  static const ::MMOPPP::Vector3& direction_inputs(const EntityInput* msg);
-  static const ::MMOPPP::Vector3& euler_rotation(const EntityInput* msg);
+  static const ::MMOPPP::Vector3& player_move_inputs(const Input* msg);
+  static const ::MMOPPP::Vector3& euler_body_rotation(const Input* msg);
+  static const ::MMOPPP::Vector3& euler_camera_rotation(const Input* msg);
 };
 
 const ::MMOPPP::Vector3&
-EntityInput::_Internal::direction_inputs(const EntityInput* msg) {
-  return *msg->direction_inputs_;
+Input::_Internal::player_move_inputs(const Input* msg) {
+  return *msg->player_move_inputs_;
 }
 const ::MMOPPP::Vector3&
-EntityInput::_Internal::euler_rotation(const EntityInput* msg) {
-  return *msg->euler_rotation_;
+Input::_Internal::euler_body_rotation(const Input* msg) {
+  return *msg->euler_body_rotation_;
 }
-EntityInput::EntityInput(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+const ::MMOPPP::Vector3&
+Input::_Internal::euler_camera_rotation(const Input* msg) {
+  return *msg->euler_camera_rotation_;
+}
+Input::Input(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:MMOPPP.EntityInput)
+  // @@protoc_insertion_point(arena_constructor:MMOPPP.Input)
 }
-EntityInput::EntityInput(const EntityInput& from)
+Input::Input(const Input& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_direction_inputs()) {
-    direction_inputs_ = new ::MMOPPP::Vector3(*from.direction_inputs_);
+  if (from._internal_has_player_move_inputs()) {
+    player_move_inputs_ = new ::MMOPPP::Vector3(*from.player_move_inputs_);
   } else {
-    direction_inputs_ = nullptr;
+    player_move_inputs_ = nullptr;
   }
-  if (from._internal_has_euler_rotation()) {
-    euler_rotation_ = new ::MMOPPP::Vector3(*from.euler_rotation_);
+  if (from._internal_has_euler_body_rotation()) {
+    euler_body_rotation_ = new ::MMOPPP::Vector3(*from.euler_body_rotation_);
   } else {
-    euler_rotation_ = nullptr;
+    euler_body_rotation_ = nullptr;
+  }
+  if (from._internal_has_euler_camera_rotation()) {
+    euler_camera_rotation_ = new ::MMOPPP::Vector3(*from.euler_camera_rotation_);
+  } else {
+    euler_camera_rotation_ = nullptr;
   }
   ::memcpy(&strafe_, &from.strafe_,
     static_cast<size_t>(reinterpret_cast<char*>(&sprint_) -
     reinterpret_cast<char*>(&strafe_)) + sizeof(sprint_));
-  // @@protoc_insertion_point(copy_constructor:MMOPPP.EntityInput)
+  // @@protoc_insertion_point(copy_constructor:MMOPPP.Input)
 }
 
-void EntityInput::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_EntityInput_MMOPPPMessages_2eproto.base);
-  ::memset(&direction_inputs_, 0, static_cast<size_t>(
+void Input::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Input_MMOPPPMessages_2eproto.base);
+  ::memset(&player_move_inputs_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&sprint_) -
-      reinterpret_cast<char*>(&direction_inputs_)) + sizeof(sprint_));
+      reinterpret_cast<char*>(&player_move_inputs_)) + sizeof(sprint_));
 }
 
-EntityInput::~EntityInput() {
-  // @@protoc_insertion_point(destructor:MMOPPP.EntityInput)
+Input::~Input() {
+  // @@protoc_insertion_point(destructor:MMOPPP.Input)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void EntityInput::SharedDtor() {
+void Input::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
-  if (this != internal_default_instance()) delete direction_inputs_;
-  if (this != internal_default_instance()) delete euler_rotation_;
+  if (this != internal_default_instance()) delete player_move_inputs_;
+  if (this != internal_default_instance()) delete euler_body_rotation_;
+  if (this != internal_default_instance()) delete euler_camera_rotation_;
 }
 
-void EntityInput::ArenaDtor(void* object) {
-  EntityInput* _this = reinterpret_cast< EntityInput* >(object);
+void Input::ArenaDtor(void* object) {
+  Input* _this = reinterpret_cast< Input* >(object);
   (void)_this;
 }
-void EntityInput::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void Input::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void EntityInput::SetCachedSize(int size) const {
+void Input::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const EntityInput& EntityInput::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_EntityInput_MMOPPPMessages_2eproto.base);
+const Input& Input::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Input_MMOPPPMessages_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void EntityInput::Clear() {
-// @@protoc_insertion_point(message_clear_start:MMOPPP.EntityInput)
+void Input::Clear() {
+// @@protoc_insertion_point(message_clear_start:MMOPPP.Input)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArena() == nullptr && direction_inputs_ != nullptr) {
-    delete direction_inputs_;
+  if (GetArena() == nullptr && player_move_inputs_ != nullptr) {
+    delete player_move_inputs_;
   }
-  direction_inputs_ = nullptr;
-  if (GetArena() == nullptr && euler_rotation_ != nullptr) {
-    delete euler_rotation_;
+  player_move_inputs_ = nullptr;
+  if (GetArena() == nullptr && euler_body_rotation_ != nullptr) {
+    delete euler_body_rotation_;
   }
-  euler_rotation_ = nullptr;
+  euler_body_rotation_ = nullptr;
+  if (GetArena() == nullptr && euler_camera_rotation_ != nullptr) {
+    delete euler_camera_rotation_;
+  }
+  euler_camera_rotation_ = nullptr;
   ::memset(&strafe_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&sprint_) -
       reinterpret_cast<char*>(&strafe_)) + sizeof(sprint_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* EntityInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Input::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
@@ -853,30 +593,37 @@ const char* EntityInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // .MMOPPP.Vector3 direction_inputs = 3;
+      // .MMOPPP.Vector3 player_move_inputs = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_direction_inputs(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_player_move_inputs(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .MMOPPP.Vector3 euler_rotation = 4;
+      // .MMOPPP.Vector3 euler_body_rotation = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          ptr = ctx->ParseMessage(_internal_mutable_euler_rotation(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_euler_body_rotation(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // bool strafe = 5;
+      // .MMOPPP.Vector3 euler_camera_rotation = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
+          ptr = ctx->ParseMessage(_internal_mutable_euler_camera_rotation(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bool strafe = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
           strafe_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // bool sprint = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
+      // bool sprint = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
           sprint_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
@@ -903,76 +650,91 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* EntityInput::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* Input::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:MMOPPP.EntityInput)
+  // @@protoc_insertion_point(serialize_to_array_start:MMOPPP.Input)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .MMOPPP.Vector3 direction_inputs = 3;
-  if (this->has_direction_inputs()) {
+  // .MMOPPP.Vector3 player_move_inputs = 3;
+  if (this->has_player_move_inputs()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        3, _Internal::direction_inputs(this), target, stream);
+        3, _Internal::player_move_inputs(this), target, stream);
   }
 
-  // .MMOPPP.Vector3 euler_rotation = 4;
-  if (this->has_euler_rotation()) {
+  // .MMOPPP.Vector3 euler_body_rotation = 4;
+  if (this->has_euler_body_rotation()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        4, _Internal::euler_rotation(this), target, stream);
+        4, _Internal::euler_body_rotation(this), target, stream);
   }
 
-  // bool strafe = 5;
+  // .MMOPPP.Vector3 euler_camera_rotation = 5;
+  if (this->has_euler_camera_rotation()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        5, _Internal::euler_camera_rotation(this), target, stream);
+  }
+
+  // bool strafe = 6;
   if (this->strafe() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(5, this->_internal_strafe(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(6, this->_internal_strafe(), target);
   }
 
-  // bool sprint = 6;
+  // bool sprint = 7;
   if (this->sprint() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(6, this->_internal_sprint(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(7, this->_internal_sprint(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:MMOPPP.EntityInput)
+  // @@protoc_insertion_point(serialize_to_array_end:MMOPPP.Input)
   return target;
 }
 
-size_t EntityInput::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:MMOPPP.EntityInput)
+size_t Input::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:MMOPPP.Input)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .MMOPPP.Vector3 direction_inputs = 3;
-  if (this->has_direction_inputs()) {
+  // .MMOPPP.Vector3 player_move_inputs = 3;
+  if (this->has_player_move_inputs()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *direction_inputs_);
+        *player_move_inputs_);
   }
 
-  // .MMOPPP.Vector3 euler_rotation = 4;
-  if (this->has_euler_rotation()) {
+  // .MMOPPP.Vector3 euler_body_rotation = 4;
+  if (this->has_euler_body_rotation()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *euler_rotation_);
+        *euler_body_rotation_);
   }
 
-  // bool strafe = 5;
+  // .MMOPPP.Vector3 euler_camera_rotation = 5;
+  if (this->has_euler_camera_rotation()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *euler_camera_rotation_);
+  }
+
+  // bool strafe = 6;
   if (this->strafe() != 0) {
     total_size += 1 + 1;
   }
 
-  // bool sprint = 6;
+  // bool sprint = 7;
   if (this->sprint() != 0) {
     total_size += 1 + 1;
   }
@@ -986,33 +748,36 @@ size_t EntityInput::ByteSizeLong() const {
   return total_size;
 }
 
-void EntityInput::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:MMOPPP.EntityInput)
+void Input::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:MMOPPP.Input)
   GOOGLE_DCHECK_NE(&from, this);
-  const EntityInput* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<EntityInput>(
+  const Input* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Input>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:MMOPPP.EntityInput)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:MMOPPP.Input)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:MMOPPP.EntityInput)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:MMOPPP.Input)
     MergeFrom(*source);
   }
 }
 
-void EntityInput::MergeFrom(const EntityInput& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:MMOPPP.EntityInput)
+void Input::MergeFrom(const Input& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:MMOPPP.Input)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.has_direction_inputs()) {
-    _internal_mutable_direction_inputs()->::MMOPPP::Vector3::MergeFrom(from._internal_direction_inputs());
+  if (from.has_player_move_inputs()) {
+    _internal_mutable_player_move_inputs()->::MMOPPP::Vector3::MergeFrom(from._internal_player_move_inputs());
   }
-  if (from.has_euler_rotation()) {
-    _internal_mutable_euler_rotation()->::MMOPPP::Vector3::MergeFrom(from._internal_euler_rotation());
+  if (from.has_euler_body_rotation()) {
+    _internal_mutable_euler_body_rotation()->::MMOPPP::Vector3::MergeFrom(from._internal_euler_body_rotation());
+  }
+  if (from.has_euler_camera_rotation()) {
+    _internal_mutable_euler_camera_rotation()->::MMOPPP::Vector3::MergeFrom(from._internal_euler_camera_rotation());
   }
   if (from.strafe() != 0) {
     _internal_set_strafe(from._internal_strafe());
@@ -1022,153 +787,147 @@ void EntityInput::MergeFrom(const EntityInput& from) {
   }
 }
 
-void EntityInput::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:MMOPPP.EntityInput)
+void Input::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:MMOPPP.Input)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void EntityInput::CopyFrom(const EntityInput& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:MMOPPP.EntityInput)
+void Input::CopyFrom(const Input& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:MMOPPP.Input)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool EntityInput::IsInitialized() const {
+bool Input::IsInitialized() const {
   return true;
 }
 
-void EntityInput::InternalSwap(EntityInput* other) {
+void Input::InternalSwap(Input* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(EntityInput, sprint_)
-      + sizeof(EntityInput::sprint_)
-      - PROTOBUF_FIELD_OFFSET(EntityInput, direction_inputs_)>(
-          reinterpret_cast<char*>(&direction_inputs_),
-          reinterpret_cast<char*>(&other->direction_inputs_));
+      PROTOBUF_FIELD_OFFSET(Input, sprint_)
+      + sizeof(Input::sprint_)
+      - PROTOBUF_FIELD_OFFSET(Input, player_move_inputs_)>(
+          reinterpret_cast<char*>(&player_move_inputs_),
+          reinterpret_cast<char*>(&other->player_move_inputs_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata EntityInput::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata Input::GetMetadata() const {
   return GetMetadataStatic();
 }
 
 
 // ===================================================================
 
-void EntityUpdate::InitAsDefaultInstance() {
-  ::MMOPPP::_EntityUpdate_default_instance_._instance.get_mutable()->id_ = const_cast< ::MMOPPP::Identifier*>(
-      ::MMOPPP::Identifier::internal_default_instance());
-  ::MMOPPP::_EntityUpdate_default_instance_._instance.get_mutable()->predictive_inputs_ = const_cast< ::MMOPPP::EntityInput*>(
-      ::MMOPPP::EntityInput::internal_default_instance());
-  ::MMOPPP::_EntityUpdate_default_instance_._instance.get_mutable()->position_ = const_cast< ::MMOPPP::Vector3*>(
+void ServerUpdate::InitAsDefaultInstance() {
+  ::MMOPPP::_ServerUpdate_default_instance_._instance.get_mutable()->location_ = const_cast< ::MMOPPP::Vector3*>(
+      ::MMOPPP::Vector3::internal_default_instance());
+  ::MMOPPP::_ServerUpdate_default_instance_._instance.get_mutable()->body_rotation_ = const_cast< ::MMOPPP::Vector3*>(
       ::MMOPPP::Vector3::internal_default_instance());
 }
-class EntityUpdate::_Internal {
+class ServerUpdate::_Internal {
  public:
-  static const ::MMOPPP::Identifier& id(const EntityUpdate* msg);
-  static const ::MMOPPP::EntityInput& predictive_inputs(const EntityUpdate* msg);
-  static const ::MMOPPP::Vector3& position(const EntityUpdate* msg);
+  static const ::MMOPPP::Vector3& location(const ServerUpdate* msg);
+  static const ::MMOPPP::Vector3& body_rotation(const ServerUpdate* msg);
 };
 
-const ::MMOPPP::Identifier&
-EntityUpdate::_Internal::id(const EntityUpdate* msg) {
-  return *msg->id_;
-}
-const ::MMOPPP::EntityInput&
-EntityUpdate::_Internal::predictive_inputs(const EntityUpdate* msg) {
-  return *msg->predictive_inputs_;
+const ::MMOPPP::Vector3&
+ServerUpdate::_Internal::location(const ServerUpdate* msg) {
+  return *msg->location_;
 }
 const ::MMOPPP::Vector3&
-EntityUpdate::_Internal::position(const EntityUpdate* msg) {
-  return *msg->position_;
+ServerUpdate::_Internal::body_rotation(const ServerUpdate* msg) {
+  return *msg->body_rotation_;
 }
-EntityUpdate::EntityUpdate(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+ServerUpdate::ServerUpdate(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+  past_inputs_(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:MMOPPP.EntityUpdate)
+  // @@protoc_insertion_point(arena_constructor:MMOPPP.ServerUpdate)
 }
-EntityUpdate::EntityUpdate(const EntityUpdate& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
+ServerUpdate::ServerUpdate(const ServerUpdate& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      past_inputs_(from.past_inputs_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_id()) {
-    id_ = new ::MMOPPP::Identifier(*from.id_);
-  } else {
-    id_ = nullptr;
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_name().empty()) {
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
+      GetArena());
   }
-  if (from._internal_has_predictive_inputs()) {
-    predictive_inputs_ = new ::MMOPPP::EntityInput(*from.predictive_inputs_);
+  if (from._internal_has_location()) {
+    location_ = new ::MMOPPP::Vector3(*from.location_);
   } else {
-    predictive_inputs_ = nullptr;
+    location_ = nullptr;
   }
-  if (from._internal_has_position()) {
-    position_ = new ::MMOPPP::Vector3(*from.position_);
+  if (from._internal_has_body_rotation()) {
+    body_rotation_ = new ::MMOPPP::Vector3(*from.body_rotation_);
   } else {
-    position_ = nullptr;
+    body_rotation_ = nullptr;
   }
-  // @@protoc_insertion_point(copy_constructor:MMOPPP.EntityUpdate)
+  // @@protoc_insertion_point(copy_constructor:MMOPPP.ServerUpdate)
 }
 
-void EntityUpdate::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_EntityUpdate_MMOPPPMessages_2eproto.base);
-  ::memset(&id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&position_) -
-      reinterpret_cast<char*>(&id_)) + sizeof(position_));
+void ServerUpdate::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_ServerUpdate_MMOPPPMessages_2eproto.base);
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ::memset(&location_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&body_rotation_) -
+      reinterpret_cast<char*>(&location_)) + sizeof(body_rotation_));
 }
 
-EntityUpdate::~EntityUpdate() {
-  // @@protoc_insertion_point(destructor:MMOPPP.EntityUpdate)
+ServerUpdate::~ServerUpdate() {
+  // @@protoc_insertion_point(destructor:MMOPPP.ServerUpdate)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void EntityUpdate::SharedDtor() {
+void ServerUpdate::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
-  if (this != internal_default_instance()) delete id_;
-  if (this != internal_default_instance()) delete predictive_inputs_;
-  if (this != internal_default_instance()) delete position_;
+  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete location_;
+  if (this != internal_default_instance()) delete body_rotation_;
 }
 
-void EntityUpdate::ArenaDtor(void* object) {
-  EntityUpdate* _this = reinterpret_cast< EntityUpdate* >(object);
+void ServerUpdate::ArenaDtor(void* object) {
+  ServerUpdate* _this = reinterpret_cast< ServerUpdate* >(object);
   (void)_this;
 }
-void EntityUpdate::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void ServerUpdate::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void EntityUpdate::SetCachedSize(int size) const {
+void ServerUpdate::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const EntityUpdate& EntityUpdate::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_EntityUpdate_MMOPPPMessages_2eproto.base);
+const ServerUpdate& ServerUpdate::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_ServerUpdate_MMOPPPMessages_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void EntityUpdate::Clear() {
-// @@protoc_insertion_point(message_clear_start:MMOPPP.EntityUpdate)
+void ServerUpdate::Clear() {
+// @@protoc_insertion_point(message_clear_start:MMOPPP.ServerUpdate)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArena() == nullptr && id_ != nullptr) {
-    delete id_;
+  past_inputs_.Clear();
+  name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  if (GetArena() == nullptr && location_ != nullptr) {
+    delete location_;
   }
-  id_ = nullptr;
-  if (GetArena() == nullptr && predictive_inputs_ != nullptr) {
-    delete predictive_inputs_;
+  location_ = nullptr;
+  if (GetArena() == nullptr && body_rotation_ != nullptr) {
+    delete body_rotation_;
   }
-  predictive_inputs_ = nullptr;
-  if (GetArena() == nullptr && position_ != nullptr) {
-    delete position_;
-  }
-  position_ = nullptr;
+  body_rotation_ = nullptr;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* EntityUpdate::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ServerUpdate::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
@@ -1176,24 +935,38 @@ const char* EntityUpdate::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // .MMOPPP.Identifier id = 1;
+      // string name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_id(), ptr);
+          auto str = _internal_mutable_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "MMOPPP.ServerUpdate.name"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .MMOPPP.EntityInput predictive_inputs = 2;
+      // repeated .MMOPPP.Input past_inputs = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_predictive_inputs(), ptr);
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_past_inputs(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else goto handle_unusual;
+        continue;
+      // .MMOPPP.Vector3 location = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_location(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .MMOPPP.Vector3 position = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
+      // .MMOPPP.Vector3 body_rotation = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_body_rotation(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1219,71 +992,88 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* EntityUpdate::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* ServerUpdate::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:MMOPPP.EntityUpdate)
+  // @@protoc_insertion_point(serialize_to_array_start:MMOPPP.ServerUpdate)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .MMOPPP.Identifier id = 1;
-  if (this->has_id()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::id(this), target, stream);
+  // string name = 1;
+  if (this->name().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "MMOPPP.ServerUpdate.name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_name(), target);
   }
 
-  // .MMOPPP.EntityInput predictive_inputs = 2;
-  if (this->has_predictive_inputs()) {
+  // repeated .MMOPPP.Input past_inputs = 2;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_past_inputs_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::predictive_inputs(this), target, stream);
+      InternalWriteMessage(2, this->_internal_past_inputs(i), target, stream);
   }
 
-  // .MMOPPP.Vector3 position = 3;
-  if (this->has_position()) {
+  // .MMOPPP.Vector3 location = 3;
+  if (this->has_location()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        3, _Internal::position(this), target, stream);
+        3, _Internal::location(this), target, stream);
+  }
+
+  // .MMOPPP.Vector3 body_rotation = 4;
+  if (this->has_body_rotation()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        4, _Internal::body_rotation(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:MMOPPP.EntityUpdate)
+  // @@protoc_insertion_point(serialize_to_array_end:MMOPPP.ServerUpdate)
   return target;
 }
 
-size_t EntityUpdate::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:MMOPPP.EntityUpdate)
+size_t ServerUpdate::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:MMOPPP.ServerUpdate)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .MMOPPP.Identifier id = 1;
-  if (this->has_id()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *id_);
+  // repeated .MMOPPP.Input past_inputs = 2;
+  total_size += 1UL * this->_internal_past_inputs_size();
+  for (const auto& msg : this->past_inputs_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // .MMOPPP.EntityInput predictive_inputs = 2;
-  if (this->has_predictive_inputs()) {
+  // string name = 1;
+  if (this->name().size() > 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *predictive_inputs_);
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_name());
   }
 
-  // .MMOPPP.Vector3 position = 3;
-  if (this->has_position()) {
+  // .MMOPPP.Vector3 location = 3;
+  if (this->has_location()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *position_);
+        *location_);
+  }
+
+  // .MMOPPP.Vector3 body_rotation = 4;
+  if (this->has_body_rotation()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *body_rotation_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1295,126 +1085,129 @@ size_t EntityUpdate::ByteSizeLong() const {
   return total_size;
 }
 
-void EntityUpdate::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:MMOPPP.EntityUpdate)
+void ServerUpdate::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:MMOPPP.ServerUpdate)
   GOOGLE_DCHECK_NE(&from, this);
-  const EntityUpdate* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<EntityUpdate>(
+  const ServerUpdate* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ServerUpdate>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:MMOPPP.EntityUpdate)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:MMOPPP.ServerUpdate)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:MMOPPP.EntityUpdate)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:MMOPPP.ServerUpdate)
     MergeFrom(*source);
   }
 }
 
-void EntityUpdate::MergeFrom(const EntityUpdate& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:MMOPPP.EntityUpdate)
+void ServerUpdate::MergeFrom(const ServerUpdate& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:MMOPPP.ServerUpdate)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.has_id()) {
-    _internal_mutable_id()->::MMOPPP::Identifier::MergeFrom(from._internal_id());
+  past_inputs_.MergeFrom(from.past_inputs_);
+  if (from.name().size() > 0) {
+    _internal_set_name(from._internal_name());
   }
-  if (from.has_predictive_inputs()) {
-    _internal_mutable_predictive_inputs()->::MMOPPP::EntityInput::MergeFrom(from._internal_predictive_inputs());
+  if (from.has_location()) {
+    _internal_mutable_location()->::MMOPPP::Vector3::MergeFrom(from._internal_location());
   }
-  if (from.has_position()) {
-    _internal_mutable_position()->::MMOPPP::Vector3::MergeFrom(from._internal_position());
+  if (from.has_body_rotation()) {
+    _internal_mutable_body_rotation()->::MMOPPP::Vector3::MergeFrom(from._internal_body_rotation());
   }
 }
 
-void EntityUpdate::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:MMOPPP.EntityUpdate)
+void ServerUpdate::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:MMOPPP.ServerUpdate)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void EntityUpdate::CopyFrom(const EntityUpdate& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:MMOPPP.EntityUpdate)
+void ServerUpdate::CopyFrom(const ServerUpdate& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:MMOPPP.ServerUpdate)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool EntityUpdate::IsInitialized() const {
+bool ServerUpdate::IsInitialized() const {
   return true;
 }
 
-void EntityUpdate::InternalSwap(EntityUpdate* other) {
+void ServerUpdate::InternalSwap(ServerUpdate* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  past_inputs_.InternalSwap(&other->past_inputs_);
+  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(EntityUpdate, position_)
-      + sizeof(EntityUpdate::position_)
-      - PROTOBUF_FIELD_OFFSET(EntityUpdate, id_)>(
-          reinterpret_cast<char*>(&id_),
-          reinterpret_cast<char*>(&other->id_));
+      PROTOBUF_FIELD_OFFSET(ServerUpdate, body_rotation_)
+      + sizeof(ServerUpdate::body_rotation_)
+      - PROTOBUF_FIELD_OFFSET(ServerUpdate, location_)>(
+          reinterpret_cast<char*>(&location_),
+          reinterpret_cast<char*>(&other->location_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata EntityUpdate::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata ServerUpdate::GetMetadata() const {
   return GetMetadataStatic();
 }
 
 
 // ===================================================================
 
-void WorldUpdate::InitAsDefaultInstance() {
+void ServerUpdates::InitAsDefaultInstance() {
 }
-class WorldUpdate::_Internal {
+class ServerUpdates::_Internal {
  public:
 };
 
-WorldUpdate::WorldUpdate(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+ServerUpdates::ServerUpdates(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   updates_(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:MMOPPP.WorldUpdate)
+  // @@protoc_insertion_point(arena_constructor:MMOPPP.ServerUpdates)
 }
-WorldUpdate::WorldUpdate(const WorldUpdate& from)
+ServerUpdates::ServerUpdates(const ServerUpdates& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       updates_(from.updates_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:MMOPPP.WorldUpdate)
+  // @@protoc_insertion_point(copy_constructor:MMOPPP.ServerUpdates)
 }
 
-void WorldUpdate::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_WorldUpdate_MMOPPPMessages_2eproto.base);
+void ServerUpdates::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_ServerUpdates_MMOPPPMessages_2eproto.base);
 }
 
-WorldUpdate::~WorldUpdate() {
-  // @@protoc_insertion_point(destructor:MMOPPP.WorldUpdate)
+ServerUpdates::~ServerUpdates() {
+  // @@protoc_insertion_point(destructor:MMOPPP.ServerUpdates)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void WorldUpdate::SharedDtor() {
+void ServerUpdates::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
 }
 
-void WorldUpdate::ArenaDtor(void* object) {
-  WorldUpdate* _this = reinterpret_cast< WorldUpdate* >(object);
+void ServerUpdates::ArenaDtor(void* object) {
+  ServerUpdates* _this = reinterpret_cast< ServerUpdates* >(object);
   (void)_this;
 }
-void WorldUpdate::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void ServerUpdates::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void WorldUpdate::SetCachedSize(int size) const {
+void ServerUpdates::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const WorldUpdate& WorldUpdate::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_WorldUpdate_MMOPPPMessages_2eproto.base);
+const ServerUpdates& ServerUpdates::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_ServerUpdates_MMOPPPMessages_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void WorldUpdate::Clear() {
-// @@protoc_insertion_point(message_clear_start:MMOPPP.WorldUpdate)
+void ServerUpdates::Clear() {
+// @@protoc_insertion_point(message_clear_start:MMOPPP.ServerUpdates)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1423,7 +1216,7 @@ void WorldUpdate::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* WorldUpdate::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ServerUpdates::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
@@ -1431,7 +1224,7 @@ const char* WorldUpdate::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // repeated .MMOPPP.EntityUpdate updates = 1;
+      // repeated .MMOPPP.ServerUpdate updates = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           ptr -= 1;
@@ -1465,13 +1258,13 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* WorldUpdate::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* ServerUpdates::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:MMOPPP.WorldUpdate)
+  // @@protoc_insertion_point(serialize_to_array_start:MMOPPP.ServerUpdates)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated .MMOPPP.EntityUpdate updates = 1;
+  // repeated .MMOPPP.ServerUpdate updates = 1;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_updates_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
@@ -1483,19 +1276,19 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:MMOPPP.WorldUpdate)
+  // @@protoc_insertion_point(serialize_to_array_end:MMOPPP.ServerUpdates)
   return target;
 }
 
-size_t WorldUpdate::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:MMOPPP.WorldUpdate)
+size_t ServerUpdates::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:MMOPPP.ServerUpdates)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .MMOPPP.EntityUpdate updates = 1;
+  // repeated .MMOPPP.ServerUpdate updates = 1;
   total_size += 1UL * this->_internal_updates_size();
   for (const auto& msg : this->updates_) {
     total_size +=
@@ -1511,23 +1304,23 @@ size_t WorldUpdate::ByteSizeLong() const {
   return total_size;
 }
 
-void WorldUpdate::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:MMOPPP.WorldUpdate)
+void ServerUpdates::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:MMOPPP.ServerUpdates)
   GOOGLE_DCHECK_NE(&from, this);
-  const WorldUpdate* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<WorldUpdate>(
+  const ServerUpdates* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ServerUpdates>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:MMOPPP.WorldUpdate)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:MMOPPP.ServerUpdates)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:MMOPPP.WorldUpdate)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:MMOPPP.ServerUpdates)
     MergeFrom(*source);
   }
 }
 
-void WorldUpdate::MergeFrom(const WorldUpdate& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:MMOPPP.WorldUpdate)
+void ServerUpdates::MergeFrom(const ServerUpdates& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:MMOPPP.ServerUpdates)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1536,146 +1329,137 @@ void WorldUpdate::MergeFrom(const WorldUpdate& from) {
   updates_.MergeFrom(from.updates_);
 }
 
-void WorldUpdate::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:MMOPPP.WorldUpdate)
+void ServerUpdates::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:MMOPPP.ServerUpdates)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void WorldUpdate::CopyFrom(const WorldUpdate& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:MMOPPP.WorldUpdate)
+void ServerUpdates::CopyFrom(const ServerUpdates& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:MMOPPP.ServerUpdates)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool WorldUpdate::IsInitialized() const {
+bool ServerUpdates::IsInitialized() const {
   return true;
 }
 
-void WorldUpdate::InternalSwap(WorldUpdate* other) {
+void ServerUpdates::InternalSwap(ServerUpdates* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   updates_.InternalSwap(&other->updates_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata WorldUpdate::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata ServerUpdates::GetMetadata() const {
   return GetMetadataStatic();
 }
 
 
 // ===================================================================
 
-void PlayerInput::InitAsDefaultInstance() {
-  ::MMOPPP::_PlayerInput_default_instance_._instance.get_mutable()->id_ = const_cast< ::MMOPPP::Identifier*>(
-      ::MMOPPP::Identifier::internal_default_instance());
-  ::MMOPPP::_PlayerInput_default_instance_._instance.get_mutable()->move_input_ = const_cast< ::MMOPPP::EntityInput*>(
-      ::MMOPPP::EntityInput::internal_default_instance());
-  ::MMOPPP::_PlayerInput_default_instance_._instance.get_mutable()->sent_time_ = const_cast< PROTOBUF_NAMESPACE_ID::Timestamp*>(
+void ClientInput::InitAsDefaultInstance() {
+  ::MMOPPP::_ClientInput_default_instance_._instance.get_mutable()->inputs_ = const_cast< ::MMOPPP::Input*>(
+      ::MMOPPP::Input::internal_default_instance());
+  ::MMOPPP::_ClientInput_default_instance_._instance.get_mutable()->sent_time_ = const_cast< PROTOBUF_NAMESPACE_ID::Timestamp*>(
       PROTOBUF_NAMESPACE_ID::Timestamp::internal_default_instance());
 }
-class PlayerInput::_Internal {
+class ClientInput::_Internal {
  public:
-  static const ::MMOPPP::Identifier& id(const PlayerInput* msg);
-  static const ::MMOPPP::EntityInput& move_input(const PlayerInput* msg);
-  static const PROTOBUF_NAMESPACE_ID::Timestamp& sent_time(const PlayerInput* msg);
+  static const ::MMOPPP::Input& inputs(const ClientInput* msg);
+  static const PROTOBUF_NAMESPACE_ID::Timestamp& sent_time(const ClientInput* msg);
 };
 
-const ::MMOPPP::Identifier&
-PlayerInput::_Internal::id(const PlayerInput* msg) {
-  return *msg->id_;
-}
-const ::MMOPPP::EntityInput&
-PlayerInput::_Internal::move_input(const PlayerInput* msg) {
-  return *msg->move_input_;
+const ::MMOPPP::Input&
+ClientInput::_Internal::inputs(const ClientInput* msg) {
+  return *msg->inputs_;
 }
 const PROTOBUF_NAMESPACE_ID::Timestamp&
-PlayerInput::_Internal::sent_time(const PlayerInput* msg) {
+ClientInput::_Internal::sent_time(const ClientInput* msg) {
   return *msg->sent_time_;
 }
-void PlayerInput::clear_sent_time() {
+void ClientInput::clear_sent_time() {
   if (GetArena() == nullptr && sent_time_ != nullptr) {
     delete sent_time_;
   }
   sent_time_ = nullptr;
 }
-PlayerInput::PlayerInput(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+ClientInput::ClientInput(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:MMOPPP.PlayerInput)
+  // @@protoc_insertion_point(arena_constructor:MMOPPP.ClientInput)
 }
-PlayerInput::PlayerInput(const PlayerInput& from)
+ClientInput::ClientInput(const ClientInput& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_id()) {
-    id_ = new ::MMOPPP::Identifier(*from.id_);
-  } else {
-    id_ = nullptr;
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_name().empty()) {
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
+      GetArena());
   }
-  if (from._internal_has_move_input()) {
-    move_input_ = new ::MMOPPP::EntityInput(*from.move_input_);
+  if (from._internal_has_inputs()) {
+    inputs_ = new ::MMOPPP::Input(*from.inputs_);
   } else {
-    move_input_ = nullptr;
+    inputs_ = nullptr;
   }
   if (from._internal_has_sent_time()) {
     sent_time_ = new PROTOBUF_NAMESPACE_ID::Timestamp(*from.sent_time_);
   } else {
     sent_time_ = nullptr;
   }
-  // @@protoc_insertion_point(copy_constructor:MMOPPP.PlayerInput)
+  // @@protoc_insertion_point(copy_constructor:MMOPPP.ClientInput)
 }
 
-void PlayerInput::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_PlayerInput_MMOPPPMessages_2eproto.base);
-  ::memset(&id_, 0, static_cast<size_t>(
+void ClientInput::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_ClientInput_MMOPPPMessages_2eproto.base);
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ::memset(&inputs_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&sent_time_) -
-      reinterpret_cast<char*>(&id_)) + sizeof(sent_time_));
+      reinterpret_cast<char*>(&inputs_)) + sizeof(sent_time_));
 }
 
-PlayerInput::~PlayerInput() {
-  // @@protoc_insertion_point(destructor:MMOPPP.PlayerInput)
+ClientInput::~ClientInput() {
+  // @@protoc_insertion_point(destructor:MMOPPP.ClientInput)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void PlayerInput::SharedDtor() {
+void ClientInput::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
-  if (this != internal_default_instance()) delete id_;
-  if (this != internal_default_instance()) delete move_input_;
+  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete inputs_;
   if (this != internal_default_instance()) delete sent_time_;
 }
 
-void PlayerInput::ArenaDtor(void* object) {
-  PlayerInput* _this = reinterpret_cast< PlayerInput* >(object);
+void ClientInput::ArenaDtor(void* object) {
+  ClientInput* _this = reinterpret_cast< ClientInput* >(object);
   (void)_this;
 }
-void PlayerInput::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void ClientInput::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void PlayerInput::SetCachedSize(int size) const {
+void ClientInput::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const PlayerInput& PlayerInput::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_PlayerInput_MMOPPPMessages_2eproto.base);
+const ClientInput& ClientInput::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_ClientInput_MMOPPPMessages_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void PlayerInput::Clear() {
-// @@protoc_insertion_point(message_clear_start:MMOPPP.PlayerInput)
+void ClientInput::Clear() {
+// @@protoc_insertion_point(message_clear_start:MMOPPP.ClientInput)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArena() == nullptr && id_ != nullptr) {
-    delete id_;
+  name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  if (GetArena() == nullptr && inputs_ != nullptr) {
+    delete inputs_;
   }
-  id_ = nullptr;
-  if (GetArena() == nullptr && move_input_ != nullptr) {
-    delete move_input_;
-  }
-  move_input_ = nullptr;
+  inputs_ = nullptr;
   if (GetArena() == nullptr && sent_time_ != nullptr) {
     delete sent_time_;
   }
@@ -1683,7 +1467,7 @@ void PlayerInput::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* PlayerInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ClientInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
@@ -1691,17 +1475,19 @@ const char* PlayerInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // .MMOPPP.Identifier id = 1;
+      // string name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_id(), ptr);
+          auto str = _internal_mutable_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "MMOPPP.ClientInput.name"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .MMOPPP.EntityInput move_input = 2;
+      // .MMOPPP.Input inputs = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_move_input(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_inputs(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1734,26 +1520,28 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* PlayerInput::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* ClientInput::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:MMOPPP.PlayerInput)
+  // @@protoc_insertion_point(serialize_to_array_start:MMOPPP.ClientInput)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .MMOPPP.Identifier id = 1;
-  if (this->has_id()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::id(this), target, stream);
+  // string name = 1;
+  if (this->name().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "MMOPPP.ClientInput.name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_name(), target);
   }
 
-  // .MMOPPP.EntityInput move_input = 2;
-  if (this->has_move_input()) {
+  // .MMOPPP.Input inputs = 2;
+  if (this->has_inputs()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        2, _Internal::move_input(this), target, stream);
+        2, _Internal::inputs(this), target, stream);
   }
 
   // .google.protobuf.Timestamp sent_time = 15;
@@ -1768,30 +1556,30 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:MMOPPP.PlayerInput)
+  // @@protoc_insertion_point(serialize_to_array_end:MMOPPP.ClientInput)
   return target;
 }
 
-size_t PlayerInput::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:MMOPPP.PlayerInput)
+size_t ClientInput::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:MMOPPP.ClientInput)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .MMOPPP.Identifier id = 1;
-  if (this->has_id()) {
+  // string name = 1;
+  if (this->name().size() > 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *id_);
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_name());
   }
 
-  // .MMOPPP.EntityInput move_input = 2;
-  if (this->has_move_input()) {
+  // .MMOPPP.Input inputs = 2;
+  if (this->has_inputs()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *move_input_);
+        *inputs_);
   }
 
   // .google.protobuf.Timestamp sent_time = 15;
@@ -1810,69 +1598,70 @@ size_t PlayerInput::ByteSizeLong() const {
   return total_size;
 }
 
-void PlayerInput::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:MMOPPP.PlayerInput)
+void ClientInput::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:MMOPPP.ClientInput)
   GOOGLE_DCHECK_NE(&from, this);
-  const PlayerInput* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<PlayerInput>(
+  const ClientInput* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ClientInput>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:MMOPPP.PlayerInput)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:MMOPPP.ClientInput)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:MMOPPP.PlayerInput)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:MMOPPP.ClientInput)
     MergeFrom(*source);
   }
 }
 
-void PlayerInput::MergeFrom(const PlayerInput& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:MMOPPP.PlayerInput)
+void ClientInput::MergeFrom(const ClientInput& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:MMOPPP.ClientInput)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.has_id()) {
-    _internal_mutable_id()->::MMOPPP::Identifier::MergeFrom(from._internal_id());
+  if (from.name().size() > 0) {
+    _internal_set_name(from._internal_name());
   }
-  if (from.has_move_input()) {
-    _internal_mutable_move_input()->::MMOPPP::EntityInput::MergeFrom(from._internal_move_input());
+  if (from.has_inputs()) {
+    _internal_mutable_inputs()->::MMOPPP::Input::MergeFrom(from._internal_inputs());
   }
   if (from.has_sent_time()) {
     _internal_mutable_sent_time()->PROTOBUF_NAMESPACE_ID::Timestamp::MergeFrom(from._internal_sent_time());
   }
 }
 
-void PlayerInput::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:MMOPPP.PlayerInput)
+void ClientInput::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:MMOPPP.ClientInput)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void PlayerInput::CopyFrom(const PlayerInput& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:MMOPPP.PlayerInput)
+void ClientInput::CopyFrom(const ClientInput& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:MMOPPP.ClientInput)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool PlayerInput::IsInitialized() const {
+bool ClientInput::IsInitialized() const {
   return true;
 }
 
-void PlayerInput::InternalSwap(PlayerInput* other) {
+void ClientInput::InternalSwap(ClientInput* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PlayerInput, sent_time_)
-      + sizeof(PlayerInput::sent_time_)
-      - PROTOBUF_FIELD_OFFSET(PlayerInput, id_)>(
-          reinterpret_cast<char*>(&id_),
-          reinterpret_cast<char*>(&other->id_));
+      PROTOBUF_FIELD_OFFSET(ClientInput, sent_time_)
+      + sizeof(ClientInput::sent_time_)
+      - PROTOBUF_FIELD_OFFSET(ClientInput, inputs_)>(
+          reinterpret_cast<char*>(&inputs_),
+          reinterpret_cast<char*>(&other->inputs_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata PlayerInput::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata ClientInput::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -1883,20 +1672,17 @@ PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::MMOPPP::Vector3* Arena::CreateMaybeMessage< ::MMOPPP::Vector3 >(Arena* arena) {
   return Arena::CreateMessageInternal< ::MMOPPP::Vector3 >(arena);
 }
-template<> PROTOBUF_NOINLINE ::MMOPPP::Identifier* Arena::CreateMaybeMessage< ::MMOPPP::Identifier >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::MMOPPP::Identifier >(arena);
+template<> PROTOBUF_NOINLINE ::MMOPPP::Input* Arena::CreateMaybeMessage< ::MMOPPP::Input >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::MMOPPP::Input >(arena);
 }
-template<> PROTOBUF_NOINLINE ::MMOPPP::EntityInput* Arena::CreateMaybeMessage< ::MMOPPP::EntityInput >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::MMOPPP::EntityInput >(arena);
+template<> PROTOBUF_NOINLINE ::MMOPPP::ServerUpdate* Arena::CreateMaybeMessage< ::MMOPPP::ServerUpdate >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::MMOPPP::ServerUpdate >(arena);
 }
-template<> PROTOBUF_NOINLINE ::MMOPPP::EntityUpdate* Arena::CreateMaybeMessage< ::MMOPPP::EntityUpdate >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::MMOPPP::EntityUpdate >(arena);
+template<> PROTOBUF_NOINLINE ::MMOPPP::ServerUpdates* Arena::CreateMaybeMessage< ::MMOPPP::ServerUpdates >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::MMOPPP::ServerUpdates >(arena);
 }
-template<> PROTOBUF_NOINLINE ::MMOPPP::WorldUpdate* Arena::CreateMaybeMessage< ::MMOPPP::WorldUpdate >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::MMOPPP::WorldUpdate >(arena);
-}
-template<> PROTOBUF_NOINLINE ::MMOPPP::PlayerInput* Arena::CreateMaybeMessage< ::MMOPPP::PlayerInput >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::MMOPPP::PlayerInput >(arena);
+template<> PROTOBUF_NOINLINE ::MMOPPP::ClientInput* Arena::CreateMaybeMessage< ::MMOPPP::ClientInput >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::MMOPPP::ClientInput >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

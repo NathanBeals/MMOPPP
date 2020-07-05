@@ -22,7 +22,7 @@ namespace MMOPPPServer
   {
     SQLDB m_Database = new SQLDB();
     ClientManager m_ClientManager = null;
-    List<PlayerInput> m_Inputs = new List<PlayerInput>();
+    List<ClientInput> m_Inputs = new List<ClientInput>();
     Dictionary<string, Character> m_Characters = new Dictionary<string, Character>();
 
     float m_ServerTickRate = 100; //Miliseconds
@@ -77,71 +77,59 @@ namespace MMOPPPServer
     void SaveCharacters()
     {
       foreach (var pair in m_Characters)
-        m_Database.SaveCharacterData(pair.Value.m_Name, Character.V3ToGV3(pair.Value.m_Location), Character.V3ToGV3(pair.Value.m_Rotation));
+        m_Database.SaveCharacterData(pair.Value.m_Name, Character.V3ToGV3(pair.Value.m_Location), Character.V3ToGV3(pair.Value.m_CameraRotation));
     }
 
     // The first time an input is found for a new character, load that characters position
-    void TryAddCharacterFromInput(PlayerInput Input)
+    void TryAddCharacterFromInput(ClientInput Input)
     {
-      if (!m_Characters.ContainsKey(Input.Id.Name))
+      if (!m_Characters.ContainsKey(Input.Name))
       {
-        var character = new Character(Input.Id.Name);
-        m_Characters[Input.Id.Name] = character;
+        var character = new Character(Input.Name);
+        m_Characters[Input.Name] = character;
         GV3 loc, rot;
-        m_Database.LoadCharacterData(Input.Id.Name, out loc, out rot);
+        m_Database.LoadCharacterData(Input.Name, out loc, out rot);
         character.m_Location = Character.GV3ToV3(loc);
-        character.m_Rotation = Character.GV3ToV3(rot);
+        character.m_BodyRotation = Character.GV3ToV3(rot);
       }
     }
 
-
-    //TODO: I'm going to avoid this for now, but there is a functional issue with this code,
-    // I am interpretting events 1 past how they should be interpreted.
-    // aka I should handle messages like, last update said they were moving forward, this update says they are stopping, move forward for the time difference.
-    // as of now I'm doing it, they said forward, move forward for the time since the last message, which is just wrong, but I have other things I have to get done before fixing this.
     void PhysicsUpdate(float DeltaTime)
     {
-      var lastframe = new Timestamp { };
       foreach (var input in m_Inputs)
       {
         TryAddCharacterFromInput(input);
 
-        float clientDeltaTime = 0.0f;
+        var character = m_Characters[input.Name];
+        character.m_TimeSinceLastUpdate = 0;
 
-        var character = m_Characters[input.Id.Name];
         if (character.m_TimeOfLastUpdate == -1) //first update sent
-        {
-          character.m_TimeOfLastUpdate = input.SentTime.Nanos; //TODO: move to constants, also swap out the timestamp class for just raw miliseconds since epoc 
-          character.m_TimeSinceLastUpdate = 0;
-          continue;
-        }
+          character.m_TimeOfLastUpdate = input.SentTime.Nanos;
         else
         {
+          float clientDeltaTime = 0.0f;
           clientDeltaTime = (input.SentTime.Nanos - character.m_TimeOfLastUpdate) / 1000000;
-          lastframe = input.SentTime;
-          character.m_TimeOfLastUpdate = input.SentTime.Nanos; //TODO: effeciency
-          character.m_TimeSinceLastUpdate = 0;
+          character.m_TimeOfLastUpdate = input.SentTime.Nanos;
           character.Update(input, clientDeltaTime);
         }
+
+        character.ServerUpdatePositionUpdate();
       }
 
-      //foreach (var input in m_Inputs)
-      //  Console.WriteLine(input);
-
-      if (m_Characters.Count > 0)
-        Console.WriteLine("Online:");
-      foreach (var character in m_Characters)
-        Console.WriteLine($"{character.Value.m_Name}");
-
       BroadcastWorldUpdate();
+
+      PrintPhysicsUpdateDebug();
     }
 
     // Sends a world update to all connected clients
     void BroadcastWorldUpdate()
     {
-      WorldUpdate worldUpdate = new WorldUpdate();
+      ServerUpdates worldUpdate = new ServerUpdates();
       foreach (var character in m_Characters)
-        worldUpdate.Updates.Add(character.Value.ToEntityUpdate());
+      {
+        worldUpdate.Updates.Add(character.Value.GetServerUpdate());
+        character.Value.ServerUpdateReset();
+      }
 
       m_ClientManager.QueueWorldUpdate(worldUpdate);
     }
@@ -163,6 +151,14 @@ namespace MMOPPPServer
         m_ClientManager.Stop();
         m_ServerRunning = false;
       }
+    }
+
+    public void PrintPhysicsUpdateDebug()
+    {
+      if (m_Characters.Count > 0)
+        Console.WriteLine("Online:");
+      foreach (var character in m_Characters)
+        Console.WriteLine($"{character.Value.m_Name}");
     }
   }
 }
