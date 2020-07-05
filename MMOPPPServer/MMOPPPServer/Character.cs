@@ -76,7 +76,11 @@ namespace MMOPPPServer
 
     public void Update(ClientInput Input, float DeltaTime)
     {
+      if (DeltaTime < 0.0f) //TODO: still not sure why this happens
+        return;
+
       m_MoveInputs = GV3ToV3(Input.Inputs.PlayerMoveInputs);
+      m_BodyRotation = GV3ToV3(Input.Inputs.EulerBodyRotation);
       m_CameraRotation = GV3ToV3(Input.Inputs.EulerCameraRotation);
 
       ServerUpdateAppendInputs();
@@ -91,6 +95,8 @@ namespace MMOPPPServer
 
       m_MoveInputs = V3.Multiply(m_MoveInputs, Constants.CharacterMoveSpeed * DeltaTime);
       m_Location = m_Location + m_MoveInputs;
+
+      ServerUpdatePositionUpdate();
     }
 
     // Helper

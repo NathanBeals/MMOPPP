@@ -28,7 +28,7 @@ public class TCPConnection : MonoBehaviour
   Camera m_Camera;
 
   // Inputs
-  PlayerInputActions2 m_InputActions;
+  PlayerInputActions2  m_InputActions; //TODO: get rid of original, it's lived long enough
   bool m_Strafe = false;
   bool m_Sprint = false;
   Vector2 m_MovementInput;
@@ -64,22 +64,24 @@ public class TCPConnection : MonoBehaviour
   {
     m_TestClient.QueueInput(MMOPPPClient.PackInput(m_Character,
       m_MovementInput,
+      m_Character.gameObject.transform.rotation.eulerAngles,
       m_Camera.gameObject.transform.rotation.eulerAngles,
       m_Strafe,
       m_Sprint));
 
-    var wUpdate = m_TestClient.PopWorldUpdate();
-    if (wUpdate != null)
-      WorldServerSync.s_Instance.QueueNewUpdate(wUpdate);
+    var serverUpdate = m_TestClient.PopServerUpdate();
+    if (serverUpdate != null)
+      WorldServerSync.s_Instance.QueueNewUpdate(serverUpdate);
   }
 
+  //TODO: why, besides copying code, is this in a nested class?
   class MMOPPPClient
   {
     public bool m_ThreadsShouldExit = false;
-    public List<Packet<PlayerInput>> m_QueuedPackets = new List<Packet<PlayerInput>>();
+    public List<Packet<ClientInput>> m_QueuedPackets = new List<Packet<ClientInput>>();
     TcpClient m_ServerConnection = new TcpClient();
     List<Byte> m_QueuedData = new List<Byte>();
-    List<WorldUpdate> m_WorldUpdates = new List<WorldUpdate>();
+    List<ServerUpdates> m_ServerUpdates = new List<ServerUpdates>();
 
     public void Connect(string ServerAddress = MMOPPPLibrary.Constants.ServerPublicAddress, Int32 Port = MMOPPPLibrary.Constants.ServerPort)
     {
@@ -113,11 +115,11 @@ public class TCPConnection : MonoBehaviour
       }
     }
 
-    public void QueueInput(PlayerInput Input) 
+    public void QueueInput(ClientInput Input) 
     {
       lock (m_QueuedPackets)
       {
-        m_QueuedPackets.Add(new Packet<PlayerInput>(Input));
+        m_QueuedPackets.Add(new Packet<ClientInput>(Input));
       }
     }
 
@@ -134,16 +136,17 @@ public class TCPConnection : MonoBehaviour
       }
     }
 
-    public static PlayerInput PackInput(Character Character, Vector2 MoveInput, UnityEngine.Vector3 Rotation, bool Strafe, bool Spring)
+    public static ClientInput PackInput(Character Character, Vector2 MoveInput, UnityEngine.Vector3 BodyRotation, UnityEngine.Vector3 CameraRotation, bool Strafe, bool Spring)
     {
-      PlayerInput input = new PlayerInput();
-      input.Id = new Identifier { Name = Character.m_ID, Tags = "Default" };
-      input.MoveInput = new EntityInput
+      ClientInput input = new ClientInput();
+      input.Name = Character.m_ID;
+      input.Inputs = new Google.Protobuf.MMOPPP.Messages.Input
       {
         Strafe = Strafe,
         Sprint = Spring,
-        EulerRotation = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = Rotation.x, Y = Rotation.y, Z = Rotation.z },
-        DirectionInputs = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = MoveInput.x, Y = 0.0f, Z = MoveInput.y }
+        PlayerMoveInputs = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = MoveInput.x, Y = 0.0f, Z = MoveInput.y },
+        EulerBodyRotation = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = BodyRotation.x, Y = BodyRotation.y, Z = BodyRotation.z },
+        EulerCameraRotation = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = CameraRotation.x, Y = CameraRotation.y, Z = CameraRotation.z }
       };
       DateTimeOffset now = DateTime.UtcNow;
       input.SentTime = new Timestamp { Seconds = (now.Ticks / 10000000) - 11644473600L, Nanos = (int)(now.Ticks % 10000000) * 100 };
@@ -232,11 +235,11 @@ public class TCPConnection : MonoBehaviour
                 data.AddRange(buffer.SubArray(0, messageSize));
 
                 // Parse the message bytes and add it to the inputs list
-                lock (m_WorldUpdates)
+                lock (m_ServerUpdates)
                 {
                   try
                   {
-                    m_WorldUpdates.Add(WorldUpdate.Parser.ParseFrom(data.ToArray()));
+                    m_ServerUpdates.Add(ServerUpdates.Parser.ParseFrom(data.ToArray()));
                   }
                   catch (Exception e) // If the input fails just clear the entire stream
                   {
@@ -253,7 +256,7 @@ public class TCPConnection : MonoBehaviour
                 recievingState = ERecievingState.Frame;
 
                 //Debbuging
-                Console.WriteLine($"World Updated {WorldUpdate.Parser.ParseFrom(data.ToArray()).ToString()}");
+                Console.WriteLine($"World Updated {ServerUpdates.Parser.ParseFrom(data.ToArray()).ToString()}");
               }
               else // If the remaining data is smaller than the message size, push it onto the data to be parsed later
               {
@@ -266,15 +269,15 @@ public class TCPConnection : MonoBehaviour
       }
     }
 
-    public WorldUpdate PopWorldUpdate()
+    public ServerUpdates PopServerUpdate()
     {
-      WorldUpdate frontUpdate = null;
-      lock (m_WorldUpdates)
+      ServerUpdates frontUpdate = null;
+      lock (m_ServerUpdates)
       {
-        if (m_WorldUpdates.Count != 0)
+        if (m_ServerUpdates.Count != 0)
         {
-          frontUpdate = m_WorldUpdates[0];
-          m_WorldUpdates.RemoveAt(0);
+          frontUpdate = m_ServerUpdates[0];
+          m_ServerUpdates.RemoveAt(0);
         }
       }
       return frontUpdate;

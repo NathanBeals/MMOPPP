@@ -19,23 +19,22 @@ public class WorldServerSync : MonoBehaviour
   public GameObject m_PlayerPlaceholder;
   public bool m_DisplayLocalPlayerStamps = false;
 
-  WorldUpdate m_QueuedWorldUpdate = null;
+  ServerUpdates m_QueuedServerUpdates = null;
   Queue<List<CharacterDownlinkData>> m_DataFromServer = new Queue<List<CharacterDownlinkData>>();
 
-  public void QueueNewUpdate(WorldUpdate Update)
+  public void QueueNewUpdate(ServerUpdates Update)
   {
-    m_QueuedWorldUpdate = Update;
+    m_QueuedServerUpdates = Update;
     Debug.Log(Update.ToString());
   }
 
-  // What will store the results from the server, TODO: likely to be replaced by the constructed Json stuff
+  //HACK: rework for new messages
   public struct CharacterDownlinkData
   {
-    public string m_Name; // TODO: consider replacing with ID instead of name
+    public string m_Name;
     public V3 m_Location; // Location in worldspace
     public V3 m_Rotation; // Direction of the body
 
-    // TODO: use these for client side interpolation
     public V3 m_MovementInput;
     public V3 m_CameraRotation; // Direction of the body
   }
@@ -70,7 +69,6 @@ public class WorldServerSync : MonoBehaviour
     m_DataFromServer.Dequeue();
   }
 
-  //TODO: add banding mechanism
   void UpdateCharacter(Character UpdateCharacter, CharacterDownlinkData Data)
   {
     var cGameObjTrans = UpdateCharacter.gameObject.transform;
@@ -81,15 +79,19 @@ public class WorldServerSync : MonoBehaviour
 
   private void Update()
   {
-    if (m_QueuedWorldUpdate != null)
+    if (m_QueuedServerUpdates != null)
     {
-      foreach (var entity in m_QueuedWorldUpdate.Updates)
+      foreach (var entity in m_QueuedServerUpdates.Updates)
       {
         var localCharacter = CharacterManager.GetLocalCharacter();
-        if (entity.Id.Name == localCharacter.m_ID)
+        if (entity.Name == localCharacter.m_ID)
         {
-          localCharacter.gameObject.transform.position = new V3(entity.Position.X, entity.Position.Y + localCharacter.m_CharacterHalfHeight, entity.Position.Z);
-          //TODO: smoothing
+          StopAllCoroutines();
+          StartCoroutine(ReconcilePosition(localCharacter.gameObject,
+            localCharacter.gameObject.transform.position,
+            new V3(entity.Location.X, entity.Location.Y + localCharacter.m_CharacterHalfHeight, entity.Location.Z),
+            MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
+
           if (m_DisplayLocalPlayerStamps)
             CreatePlayerStamp(entity);
         }
@@ -99,7 +101,7 @@ public class WorldServerSync : MonoBehaviour
         }
       }
 
-      m_QueuedWorldUpdate = null;
+      m_QueuedServerUpdates = null;
     }
   }
 
@@ -120,14 +122,30 @@ public class WorldServerSync : MonoBehaviour
     SyncTransformData();
   }
 
-  public void CreatePlayerStamp(EntityUpdate Update)
+  public void CreatePlayerStamp(ServerUpdate Update)
   {
     var newStamp = Instantiate(m_PlayerPlaceholder,
-    new V3(Update.Position.X, Update.Position.Y, Update.Position.Z),
-    Quaternion.Euler(0.0f, Update.PredictiveInputs.EulerRotation.Y, 0.0f));
+    new V3(Update.Location.X, Update.Location.Y, Update.Location.Z),
+    Quaternion.Euler(0.0f, Update.PastInputs[Update.PastInputs.Count - 1].EulerBodyRotation.Y, 0.0f));
 
-    newStamp.GetComponentInChildren<TextMeshPro>()?.SetText(Update.Id.Name);
+    newStamp.GetComponentInChildren<TextMeshPro>()?.SetText(Update.Name);
 
     Destroy(newStamp, 1);
+  }
+
+  IEnumerator ReconcilePosition(GameObject Body, V3 OldPosition, V3 NewPosition, float Duration)
+  {
+    V3 difference = NewPosition - OldPosition;
+    float elapsedTime = 0;
+    V3 differencePerFrame = difference * Time.fixedDeltaTime / Duration;
+
+    do
+    {
+      yield return new WaitForFixedUpdate();
+      elapsedTime += Time.fixedDeltaTime;
+      Body.transform.position += differencePerFrame;
+    } while (elapsedTime < Duration);
+
+    yield return null;
   }
 }

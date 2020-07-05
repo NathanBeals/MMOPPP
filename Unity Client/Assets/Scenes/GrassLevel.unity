@@ -1077,6 +1077,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6925404855685663600, guid: 0f2dab31cd773bc409c95aed034e1f06,
         type: 3}
+    - target: {fileID: 3703235200911278377, guid: f8d1287a32ecdbf4d8798574bac073aa,
+        type: 3}
+      propertyPath: m_DisplayLocalPlayerStamps
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8d1287a32ecdbf4d8798574bac073aa, type: 3}
 --- !u!1001 &8718185981520311800

@@ -25,7 +25,7 @@ namespace MMOPPPServer
     List<ClientInput> m_Inputs = new List<ClientInput>();
     Dictionary<string, Character> m_Characters = new Dictionary<string, Character>();
 
-    float m_ServerTickRate = 100; //Miliseconds
+    float m_ServerTickRate = Constants.ServerTickRate; //Miliseconds
     float m_TimeSinceLastTick = 0;
 
     bool m_ServerRunning = false;
@@ -112,8 +112,6 @@ namespace MMOPPPServer
           character.m_TimeOfLastUpdate = input.SentTime.Nanos;
           character.Update(input, clientDeltaTime);
         }
-
-        character.ServerUpdatePositionUpdate();
       }
 
       BroadcastWorldUpdate();
