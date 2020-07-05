@@ -29,7 +29,7 @@ namespace AIClient
     List<Byte> m_QueuedData = new List<Byte>();
     bool m_ThreadsShouldExit = false; // Hack, never set
 
-    List<WorldUpdate> m_WorldUpdates = new List<WorldUpdate>();
+    List<ServerUpdates> m_WorldUpdates = new List<ServerUpdates>();
     Thread m_MessageHandlingThread;
 
     enum ERecievingState
@@ -115,7 +115,7 @@ namespace AIClient
                 //// Parse the message bytes and add it to the inputs list
                 lock (m_WorldUpdates)
                 {
-                  m_WorldUpdates.Add(WorldUpdate.Parser.ParseFrom(data.ToArray()));
+                  m_WorldUpdates.Add(ServerUpdates.Parser.ParseFrom(data.ToArray()));
                 }
 
                 // Remove message from buffer
@@ -126,7 +126,7 @@ namespace AIClient
                 recievingState = ERecievingState.Frame;
 
                 //Debbuging
-                Console.WriteLine($"World Updated {WorldUpdate.Parser.ParseFrom(data.ToArray()).ToString()}");
+                Console.WriteLine($"World Updated {ServerUpdates.Parser.ParseFrom(data.ToArray()).ToString()}");
               }
               else // If the remaining data is smaller than the message size, push it onto the data to be parsed later
               {
@@ -174,9 +174,11 @@ namespace AIClient
     public void SendQueuedPackets(NetworkStream stream)
     {
       //Debug code, making a packet
-      PlayerInput testInput = CreatePlayerInput("Nate");
-      Packet<PlayerInput> packet = new Packet<PlayerInput>(testInput);
-      Console.WriteLine("Packet is this size: {0}", testInput.CalculateSize()); //TODO: remove
+      ClientInput testInput = CreatePlayerInput("Nate");
+      Packet<ClientInput> packet = new Packet<ClientInput>(testInput);
+
+      //Debug
+      Console.WriteLine("Packet is this size: {0}", testInput.CalculateSize());
 
       while (true)
       {
@@ -188,16 +190,17 @@ namespace AIClient
       }
     }
 
-    public PlayerInput CreatePlayerInput(string Name)
+    public ClientInput CreatePlayerInput(string Name)
     {
-      PlayerInput testInput = new PlayerInput();
-      testInput.Id = new Identifier { Name = Name, Tags = "Default" };
-      testInput.MoveInput = new EntityInput
+      ClientInput testInput = new ClientInput();
+      testInput.Name = Name;
+      testInput.Inputs = new Input
       {
         Strafe = false,
         Sprint = false,
-        EulerRotation = new Vector3 { X = 0.0f, Y = 0.0f, Z = 0.0f },
-        DirectionInputs = new Vector3 { X = 0.0f, Y = 0.0f, Z = 0.0f }
+        PlayerMoveInputs = new Vector3 { X = 0.0f, Y = 0.0f, Z = 0.0f },
+        EulerBodyRotation = new Vector3 { X = 0.0f, Y = 0.0f, Z = 0.0f },
+        EulerCameraRotation = new Vector3 { X = 0.0f, Y = 0.0f, Z = 0.0f }
       };
       DateTimeOffset now = DateTime.UtcNow;
       testInput.SentTime = new Timestamp { Seconds = (now.Ticks / 10000000) - 11644473600L, Nanos = (int)(now.Ticks % 10000000) * 100 };
