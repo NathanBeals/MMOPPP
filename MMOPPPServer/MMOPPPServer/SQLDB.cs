@@ -77,7 +77,6 @@ namespace MMOPPPServer
             }
         }
 
-        //TODO: possible bug when characters are disconnected
         public void LoadCharacterData(string Name, out V3 Location, out V3 Rotation)
         {
             Location = new V3 { };
@@ -95,7 +94,7 @@ namespace MMOPPPServer
             {
                 while (reader.Read())
                 {
-                    Location.X = reader.GetFloat(1); //TODO: constants
+                    Location.X = reader.GetFloat(1);
                     Location.Y = reader.GetFloat(2);
                     Location.Z = reader.GetFloat(3);
 
@@ -121,7 +120,7 @@ namespace MMOPPPServer
                 RotationZ REAL,
                 PRIMARY KEY(Name)
                 );";
-            command.ExecuteReader();
+            command.ExecuteNonQuery();
         }
     }
 
