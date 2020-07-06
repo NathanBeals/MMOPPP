@@ -331,11 +331,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c789670a80b704eba4dfebed94a111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  header: 'Full Version Features:'
-  comment: "- Generic Action Interaction System\n- Advanced StepOffset & GroundSnaper\n-
-    Climb Ladder \n- Health & Stamina With UI\n- Footstep System\n- Ragdoll System
-    \n- Slide Slopes\n- Powerful Events\n- Debug Window\n- Crouch\n- Roll\n- And
-    much more..."
+  header: COMMENT
+  comment: 
   inEdit: 0
 --- !u!95 &1840471326490918410
 Animator:
@@ -374,29 +371,29 @@ MonoBehaviour:
   sprintOnlyFree: 1
   locomotionType: 0
   freeSpeed:
-    movementSmooth: 20
+    movementSmooth: 6
     animationSmooth: 0.2
-    rotationSpeed: 30
+    rotationSpeed: 16
     walkByDefault: 0
     rotateWithCamera: 0
-    walkSpeed: 5
-    runningSpeed: 5
-    sprintSpeed: 5
+    walkSpeed: 2
+    runningSpeed: 4
+    sprintSpeed: 6
   strafeSpeed:
-    movementSmooth: 20
+    movementSmooth: 6
     animationSmooth: 0.2
-    rotationSpeed: 30
+    rotationSpeed: 16
     walkByDefault: 0
-    rotateWithCamera: 1
-    walkSpeed: 5
-    runningSpeed: 5
-    sprintSpeed: 5
+    rotateWithCamera: 0
+    walkSpeed: 2
+    runningSpeed: 4
+    sprintSpeed: 6
   jumpWithRigidbodyForce: 0
   jumpAndRotate: 1
   jumpTimer: 0.3
   jumpHeight: 4
   airSpeed: 5
-  airSmooth: 0
+  airSmooth: 6
   extraGravity: -10
   limitFallVelocity: -15
   groundLayer:
@@ -404,7 +401,7 @@ MonoBehaviour:
     m_Bits: 1
   groundMinDistance: 0.25
   groundMaxDistance: 0.5
-  slopeLimit: 45
+  slopeLimit: 75
 --- !u!114 &1840471326490918408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -463,7 +460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Local: 0
-  m_ID: dilbert
+  m_ID: 
   m_CharacterHalfHeight: 0.5
 --- !u!1 &1840471326531610991
 GameObject:
