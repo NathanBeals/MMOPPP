@@ -88,45 +88,57 @@ public class WorldServerSync : MonoBehaviour
         if (entity.BodyRotation == null || entity.Location == null)
           continue;
 
-        var localCharacter = CharacterManager.GetLocalCharacter();
-        if (localCharacter != null && entity.Name == localCharacter.m_ID) // Local Player Character
-        {
-         localCharacter.StopAllCoroutines();
-         localCharacter.StartCoroutine(ReconcilePosition(localCharacter.gameObject,
-            localCharacter.gameObject.transform.position,
-            new V3(entity.Location.X, entity.Location.Y + localCharacter.m_CharacterHalfHeight, entity.Location.Z),
-            MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
+        if (UpdateLPC(entity))
+          continue;
 
-          if (m_DisplayLocalPlayerStamps)
-            CreatePlayerStamp(entity);
-        }
-        else// Remote Player Character
-        {
-          Character foundCharacter = null;
-          CharacterManager.GetCharacters().TryGetValue(entity.Name, out foundCharacter);
-          if (foundCharacter)
-          {
-            foundCharacter.StopAllCoroutines();
-            foundCharacter.StartCoroutine(ReconcilePosition(foundCharacter.gameObject,
-              foundCharacter.gameObject.transform.position,
-              new V3(entity.Location.X, entity.Location.Y + localCharacter.m_CharacterHalfHeight, entity.Location.Z),
-              MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
-            foundCharacter.transform.eulerAngles = new V3(entity.BodyRotation.X, entity.BodyRotation.Y, entity.BodyRotation.Z);
-          }
-          else
-          {
-            GameObject newCharacterBody = Instantiate(m_PlayerPrefab);
-            newCharacterBody.transform.position = new V3(entity.Location.X, entity.Location.Y + localCharacter.m_CharacterHalfHeight, entity.Location.Z);
-            newCharacterBody.transform.eulerAngles = new V3(entity.BodyRotation.X, entity.BodyRotation.Y, entity.BodyRotation.Z);
-            var newCharacter = newCharacterBody.GetComponent<Character>();
-            newCharacter.m_ID = entity.Name;
-            CharacterManager.AddCharacter(newCharacter);
-          }
-        }
+        if (UpdateRPC(entity))
+          continue;
       }
 
       m_QueuedServerUpdates = null;
     }
+  }
+
+  bool UpdateLPC(ServerUpdate entity)
+  {
+    var localCharacter = CharacterManager.GetLocalCharacter();
+
+    if (localCharacter == null || entity.Name != localCharacter.m_ID)
+      return false;
+
+    localCharacter.StopAllCoroutines();
+    localCharacter.StartCoroutine(ReconcilePosition(localCharacter.gameObject,
+       localCharacter.gameObject.transform.position,
+       new V3(entity.Location.X, entity.Location.Y + localCharacter.m_CharacterHalfHeight, entity.Location.Z),
+       MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
+
+    if (m_DisplayLocalPlayerStamps)
+      CreatePlayerStamp(entity);
+
+    return true;
+  }
+
+  bool UpdateRPC(ServerUpdate entity)
+  {
+    Character character = null;
+    CharacterManager.GetCharacters().TryGetValue(entity.Name, out character);
+
+    if (!character)
+    {
+      GameObject newCharacterBody = Instantiate(m_PlayerPrefab);
+      character = newCharacterBody.GetComponent<Character>();
+      character.m_ID = entity.Name;
+      CharacterManager.AddCharacter(character);
+    }
+
+    character.StopAllCoroutines();
+    character.StartCoroutine(ReconcilePosition(character.gameObject,
+      character.gameObject.transform.position,
+      new V3(entity.Location.X, entity.Location.Y + character.m_CharacterHalfHeight, entity.Location.Z),
+      MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
+    character.transform.eulerAngles = new V3(entity.BodyRotation.X, entity.BodyRotation.Y, entity.BodyRotation.Z);
+
+    return true;
   }
 
   public void Awake()
