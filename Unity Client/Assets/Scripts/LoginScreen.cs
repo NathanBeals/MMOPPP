@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 public class LoginScreen : MonoBehaviour
 {
-    [SerializeField] TMPro.TMP_InputField m_UserNameField;
+    [SerializeField] TMPro.TMP_InputField m_UserNameField = null;
     [SerializeField] UnityEngine.UI.Button m_LoginButton;
 
     public void AttemptLogin()

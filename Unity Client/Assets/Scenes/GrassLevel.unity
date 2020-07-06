@@ -413,49 +413,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18dd189af2d8e69479d66adf727f2f16, type: 3}
---- !u!1 &998108002
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 998108004}
-  - component: {fileID: 998108003}
-  m_Layer: 0
-  m_Name: MessageTest
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &998108003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 998108002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3041d33366e85ef4dbf2b49454b8daaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &998108004
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 998108002}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.3506744, y: -5.261765, z: -7.0338984}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1064939738
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,7 +454,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1302235996
 GameObject:
@@ -1064,23 +1021,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3703235200911278377, guid: f8d1287a32ecdbf4d8798574bac073aa,
-        type: 3}
-      propertyPath: PlayerPlaceholder
-      value: 
-      objectReference: {fileID: 6925404855685663600, guid: 0f2dab31cd773bc409c95aed034e1f06,
-        type: 3}
-    - target: {fileID: 3703235200911278377, guid: f8d1287a32ecdbf4d8798574bac073aa,
-        type: 3}
-      propertyPath: m_PlayerPlaceholder
-      value: 
-      objectReference: {fileID: 6925404855685663600, guid: 0f2dab31cd773bc409c95aed034e1f06,
-        type: 3}
-    - target: {fileID: 3703235200911278377, guid: f8d1287a32ecdbf4d8798574bac073aa,
-        type: 3}
-      propertyPath: m_DisplayLocalPlayerStamps
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8d1287a32ecdbf4d8798574bac073aa, type: 3}

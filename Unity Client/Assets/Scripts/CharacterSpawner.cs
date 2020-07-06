@@ -7,7 +7,7 @@ public class CharacterSpawner : MonoBehaviour
 {
     public static CharacterSpawner s_Instance;
 
-    [SerializeField] GameObject m_CharacterPrefab;
+    [SerializeField] GameObject m_CharacterPrefab = null;
 
     static public void SpawnCharacter(string Name = "Default", bool Player = false, Vector3 Position = new Vector3(), Vector3 Rotation = new Vector3())
     {

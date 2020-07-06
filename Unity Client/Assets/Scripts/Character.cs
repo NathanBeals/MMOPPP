@@ -16,6 +16,7 @@ public class Character : MonoBehaviour
 
   private void Start()
   {
-    CharacterManager.AddCharacter(this);
+    if (m_Local)
+      CharacterManager.AddCharacter(this);
   }
 }

@@ -28,7 +28,7 @@ public class TCPConnection : MonoBehaviour
   Camera m_Camera;
 
   // Inputs
-  PlayerInputActions2  m_InputActions; //TODO: get rid of original, it's lived long enough
+  PlayerInputActions  m_InputActions; //TODO: get rid of original, it's lived long enough
   bool m_Strafe = false;
   bool m_Sprint = false;
   Vector2 m_MovementInput;
@@ -39,7 +39,7 @@ public class TCPConnection : MonoBehaviour
     Cursor.lockState = CursorLockMode.Locked;
     m_Character = GetComponent<Character>();
 
-    m_InputActions = new PlayerInputActions2();
+    m_InputActions = new PlayerInputActions();
     //m_InputActions.PlayerControls.Jump.performed += ctx => JumpInput(); //TODO: add in future
     m_InputActions.PlayerControls.Strafe.started += ctx => { m_Strafe = true; };
     m_InputActions.PlayerControls.Strafe.canceled += ctx => { m_Strafe = false; };
@@ -241,7 +241,7 @@ public class TCPConnection : MonoBehaviour
                   {
                     m_ServerUpdates.Add(ServerUpdates.Parser.ParseFrom(data.ToArray()));
                   }
-                  catch (Exception e) // If the input fails just clear the entire stream
+                  catch (Exception) // If the input fails just clear the entire stream
                   {
                     Console.WriteLine("Malformed world update message.");
                     break;

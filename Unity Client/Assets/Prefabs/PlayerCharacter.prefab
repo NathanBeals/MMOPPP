@@ -464,6 +464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Local: 0
   m_ID: dilbert
+  m_CharacterHalfHeight: 0.5
 --- !u!1 &1840471326531610991
 GameObject:
   m_ObjectHideFlags: 0

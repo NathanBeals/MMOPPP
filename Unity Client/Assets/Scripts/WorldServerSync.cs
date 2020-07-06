@@ -11,16 +11,20 @@ using V3 = UnityEngine.Vector3;
 using GV3 = Google.Protobuf.MMOPPP.Messages.Vector3;
 using UnityEditor;
 using TMPro;
+using UnityEditorInternal;
 
 public class WorldServerSync : MonoBehaviour
 {
   public static WorldServerSync s_Instance;
 
-  public GameObject m_PlayerPlaceholder;
+  public GameObject m_PlayerStamp;
+  public GameObject m_PlayerPrefab;
   public bool m_DisplayLocalPlayerStamps = false;
 
   ServerUpdates m_QueuedServerUpdates = null;
   Queue<List<CharacterDownlinkData>> m_DataFromServer = new Queue<List<CharacterDownlinkData>>();
+
+  public const float mTeleportThreshold = 5.0f; // If the reconcilliation distance is greater than this, just teleport to resolve instead of lerp
 
   public void QueueNewUpdate(ServerUpdates Update)
   {
@@ -83,10 +87,13 @@ public class WorldServerSync : MonoBehaviour
     {
       foreach (var entity in m_QueuedServerUpdates.Updates)
       {
+        if (entity.BodyRotation == null || entity.Location == null)
+          continue;
+
         var localCharacter = CharacterManager.GetLocalCharacter();
-        if (entity.Name == localCharacter.m_ID)
+        if (localCharacter != null && entity.Name == localCharacter.m_ID) // Local Player Character
         {
-          StopAllCoroutines();
+         // StopAllCoroutines(); // This is fuckin it up
           StartCoroutine(ReconcilePosition(localCharacter.gameObject,
             localCharacter.gameObject.transform.position,
             new V3(entity.Location.X, entity.Location.Y + localCharacter.m_CharacterHalfHeight, entity.Location.Z),
@@ -95,9 +102,27 @@ public class WorldServerSync : MonoBehaviour
           if (m_DisplayLocalPlayerStamps)
             CreatePlayerStamp(entity);
         }
-        else
+        else// Remote Player Character
         {
-          CreatePlayerStamp(entity);
+          Character foundCharacter = null;
+          CharacterManager.GetCharacters().TryGetValue(entity.Name, out foundCharacter);
+          if (foundCharacter)
+          {
+            StartCoroutine(ReconcilePosition(foundCharacter.gameObject,
+              foundCharacter.gameObject.transform.position,
+              new V3(entity.Location.X, entity.Location.Y + localCharacter.m_CharacterHalfHeight, entity.Location.Z),
+              MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
+            foundCharacter.transform.eulerAngles = new V3(entity.BodyRotation.X, entity.BodyRotation.Y, entity.BodyRotation.Z);
+          }
+          else
+          {
+            GameObject newCharacterBody = Instantiate(m_PlayerPrefab);
+            newCharacterBody.transform.position = new V3(entity.Location.X, entity.Location.Y + localCharacter.m_CharacterHalfHeight, entity.Location.Z);
+            newCharacterBody.transform.eulerAngles = new V3(entity.BodyRotation.X, entity.BodyRotation.Y, entity.BodyRotation.Z);
+            var newCharacter = newCharacterBody.GetComponent<Character>();
+            newCharacter.m_ID = entity.Name;
+            CharacterManager.AddCharacter(newCharacter);
+          }
         }
       }
 
@@ -124,7 +149,7 @@ public class WorldServerSync : MonoBehaviour
 
   public void CreatePlayerStamp(ServerUpdate Update)
   {
-    var newStamp = Instantiate(m_PlayerPlaceholder,
+    var newStamp = Instantiate(m_PlayerStamp,
     new V3(Update.Location.X, Update.Location.Y, Update.Location.Z),
     Quaternion.Euler(0.0f, Update.PastInputs[Update.PastInputs.Count - 1].EulerBodyRotation.Y, 0.0f));
 
@@ -136,6 +161,13 @@ public class WorldServerSync : MonoBehaviour
   IEnumerator ReconcilePosition(GameObject Body, V3 OldPosition, V3 NewPosition, float Duration)
   {
     V3 difference = NewPosition - OldPosition;
+
+    if (difference.magnitude > mTeleportThreshold) // For extremes just teleport //TODO: make this a constant
+    {
+      Body.transform.position = NewPosition;
+      yield break;
+    }
+
     float elapsedTime = 0;
     V3 differencePerFrame = difference * Time.fixedDeltaTime / Duration;
 

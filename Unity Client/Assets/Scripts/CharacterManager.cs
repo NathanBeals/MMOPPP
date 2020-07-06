@@ -12,7 +12,7 @@ public class CharacterManager : MonoBehaviour
 
   public static void AddCharacter(Character NewCharacter)
   {
-    if (s_Instance.m_Characters.ContainsKey(NewCharacter.m_ID))
+    if (!s_Instance.m_Characters.ContainsKey(NewCharacter.m_ID))
       s_Instance.m_Characters.Add(NewCharacter.m_ID, NewCharacter);
   }
 
@@ -54,8 +54,8 @@ public class CharacterManager : MonoBehaviour
     ResetCharacterList();
   }
 
-  public void OnLevelWasLoaded(int level)
-  {
-    ResetCharacterList();
-  }
+  //public void OnLevelWasLoaded(int level)
+  //{
+  //  ResetCharacterList();
+  //}
 }

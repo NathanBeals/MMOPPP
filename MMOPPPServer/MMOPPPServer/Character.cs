@@ -74,6 +74,11 @@ namespace MMOPPPServer
       m_ServerUpdate.Location = V3ToGV3(m_Location);
     }
 
+    public void ServerUpdateBodyRotationUpdate()
+    {
+      m_ServerUpdate.BodyRotation = V3ToGV3(m_BodyRotation);
+    }
+
     public void Update(ClientInput Input, float DeltaTime)
     {
       if (DeltaTime < 0.0f) //TODO: still not sure why this happens
@@ -97,6 +102,7 @@ namespace MMOPPPServer
       m_Location = m_Location + m_MoveInputs;
 
       ServerUpdatePositionUpdate();
+      ServerUpdateBodyRotationUpdate();
     }
 
     // Helper

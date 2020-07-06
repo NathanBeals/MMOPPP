@@ -12,7 +12,7 @@ public class DebugKeys : MonoBehaviour
     [SerializeField] List<WorldServerSync.CharacterDownlinkData> m_CharacterData = new List<WorldServerSync.CharacterDownlinkData>();
 
     // Inputs
-    PlayerInputActions2 inputActions;
+    PlayerInputActions inputActions;
 
     void ExitGame()
     {
@@ -57,7 +57,7 @@ public class DebugKeys : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
 
-        inputActions = new PlayerInputActions2();
+        inputActions = new PlayerInputActions();
         inputActions.DebugControls.ExitGame.performed += ctx => ExitGame();
         inputActions.DebugControls.SpawnRandomCharacter.performed += ctx => SpawnRandomCharacter();
         inputActions.DebugControls.SaveWorldState.performed += ctx => SaveWorldState();
