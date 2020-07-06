@@ -241,9 +241,9 @@ public class TCPConnection : MonoBehaviour
                   {
                     m_ServerUpdates.Add(ServerUpdates.Parser.ParseFrom(data.ToArray()));
                   }
-                  catch (Exception) // If the input fails just clear the entire stream
+                  catch (Exception e) // If the input fails just clear the entire stream
                   {
-                    Console.WriteLine("Malformed world update message.");
+                    Console.WriteLine(e);
                     break;
                   }
                 }
