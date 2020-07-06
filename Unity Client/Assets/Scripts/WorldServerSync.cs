@@ -10,6 +10,7 @@ using UnityEngine.PlayerLoop;
 using V3 = UnityEngine.Vector3;
 using GV3 = Google.Protobuf.MMOPPP.Messages.Vector3;
 using TMPro;
+using System.Linq;
 
 public class WorldServerSync : MonoBehaviour
 {
@@ -137,6 +138,9 @@ public class WorldServerSync : MonoBehaviour
       new V3(entity.Location.X, entity.Location.Y + character.m_CharacterHalfHeight, entity.Location.Z),
       MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
     character.transform.eulerAngles = new V3(entity.BodyRotation.X, entity.BodyRotation.Y, entity.BodyRotation.Z);
+
+    //TODO: working here
+   // character.GetInputPlaybackManager()?.UpdateReplayInputs(entity.PastInputs.ToList());
 
     return true;
   }

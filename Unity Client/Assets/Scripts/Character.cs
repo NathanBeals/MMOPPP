@@ -8,6 +8,8 @@ public class Character : MonoBehaviour
   [SerializeField] public string m_ID;
   [SerializeField] public float m_CharacterHalfHeight = .5f;
 
+  private InputPlaybackManager m_PlaybackManager;
+
   private void Awake()
   {
     if (m_Local)
@@ -18,5 +20,12 @@ public class Character : MonoBehaviour
   {
     if (m_Local)
       CharacterManager.AddCharacter(this);
+
+    m_PlaybackManager = GetComponent<InputPlaybackManager>();
+  }
+
+  public InputPlaybackManager GetInputPlaybackManager()
+  {
+    return m_PlaybackManager;
   }
 }

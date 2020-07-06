@@ -296,6 +296,7 @@ GameObject:
   - component: {fileID: 1840471326490918415}
   - component: {fileID: 1840471326490918414}
   - component: {fileID: 7308506430632767801}
+  - component: {fileID: 5341484392233216416}
   m_Layer: 8
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -417,6 +418,13 @@ MonoBehaviour:
   cc: {fileID: 0}
   tpCamera: {fileID: 0}
   cameraMain: {fileID: 0}
+  m_Strafe: 0
+  m_Sprint: 0
+  m_MovementInput: {x: 0, y: 0}
+  m_MouseInput: {x: 0, y: 0}
+  m_FalseCamera: {fileID: 0}
+  m_CameraDisplayPrefab: {fileID: 6785775483456534270, guid: d9faf6a96388df4429a6a9f40acdd99d,
+    type: 3}
 --- !u!54 &1840471326490918415
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -462,6 +470,18 @@ MonoBehaviour:
   m_Local: 0
   m_ID: 
   m_CharacterHalfHeight: 0.5
+--- !u!114 &5341484392233216416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840471326490918413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f038300670973bb44bac3c6ea1d392a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1840471326531610991
 GameObject:
   m_ObjectHideFlags: 0

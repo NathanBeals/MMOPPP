@@ -55,7 +55,7 @@ namespace MMOPPPServer
       m_ServerUpdate.Name = m_Name;
     }
 
-    public void ServerUpdateAppendInputs()
+    public void ServerUpdateAppendInputs(ClientInput PastInput)
     {
       var tempInput = new Input
       {
@@ -63,7 +63,8 @@ namespace MMOPPPServer
         Sprint = false,
         PlayerMoveInputs = V3ToGV3(m_MoveInputs),
         EulerBodyRotation = V3ToGV3(m_BodyRotation),
-        EulerCameraRotation = V3ToGV3(m_CameraRotation)
+        EulerCameraRotation = V3ToGV3(m_CameraRotation),
+        SentTime = PastInput.Input.SentTime
       };
 
       m_ServerUpdate.PastInputs.Add(tempInput);
@@ -88,7 +89,7 @@ namespace MMOPPPServer
       m_BodyRotation = GV3ToV3(Input.Input.EulerBodyRotation);
       m_CameraRotation = GV3ToV3(Input.Input.EulerCameraRotation);
 
-      ServerUpdateAppendInputs();
+      ServerUpdateAppendInputs(Input);
 
       //forward * rotation * move input
       var forward = m_MoveInputs.Z;

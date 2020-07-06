@@ -53,9 +53,4 @@ public class CharacterManager : MonoBehaviour
   {
     ResetCharacterList();
   }
-
-  //public void OnLevelWasLoaded(int level)
-  //{
-  //  ResetCharacterList();
-  //}
 }

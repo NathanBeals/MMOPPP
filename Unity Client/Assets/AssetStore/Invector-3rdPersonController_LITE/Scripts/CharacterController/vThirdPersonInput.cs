@@ -12,12 +12,14 @@ namespace Invector.vCharacterController
     [HideInInspector] public vThirdPersonCamera tpCamera;
     [HideInInspector] public Camera cameraMain;
 
-    // Inputs
+    // Inputs (Public to allow access by the InputPlaybackManager)
     PlayerInputActions m_InputActions;
-    bool m_Strafe = false;
-    bool m_Sprint = false;
-    Vector2 m_MovementInput;
-    Vector2 m_MouseInput;
+    public bool m_Strafe = false;
+    public bool m_Sprint = false;
+    public Vector2 m_MovementInput;
+    public Vector2 m_MouseInput;
+    public GameObject m_FalseCamera;
+    public GameObject m_CameraDisplayPrefab;
 
     #endregion
 
@@ -44,6 +46,8 @@ namespace Invector.vCharacterController
       InitilizeController();
       if (m_Character.m_Local)
         InitializeTpCamera();
+
+      m_FalseCamera = Instantiate(m_CameraDisplayPrefab);
     }
 
     protected virtual void FixedUpdate()
@@ -92,7 +96,11 @@ namespace Invector.vCharacterController
     protected virtual void InputHandle()
     {
       MoveInput();
-      CameraInput();
+      if (m_Character.m_Local)
+        CameraInput();
+      else
+        RPCCameraInput();
+
       SprintInput();
       StrafeInput();
     }
@@ -101,6 +109,11 @@ namespace Invector.vCharacterController
     {
       cc.input.x = m_MovementInput.x;
       cc.input.z = m_MovementInput.y;
+    }
+
+    protected virtual void RPCCameraInput()
+    {
+      cc.UpdateMoveDirection(m_FalseCamera.transform);
     }
 
     protected virtual void CameraInput()
@@ -160,12 +173,14 @@ namespace Invector.vCharacterController
     // Also needed for inputs
     private void OnEnable()
     {
-      m_InputActions.Enable();
+      if (m_Character.m_Local)
+        m_InputActions.Enable();
     }
 
     private void OnDisable()
     {
-      m_InputActions.Disable();
+      if (m_Character.m_Local)
+        m_InputActions.Disable();
     }
   }
 }
