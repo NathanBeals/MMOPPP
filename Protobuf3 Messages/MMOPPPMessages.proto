@@ -20,6 +20,8 @@ message Input
     Vector3 euler_camera_rotation = 5;
     bool strafe = 6;
     bool sprint = 7;
+
+    google.protobuf.Timestamp sent_time = 15;
 }
 
 // -- Full Messages --
@@ -42,7 +44,5 @@ message ServerUpdates
 message ClientInput
 {
     string name = 1;
-    Input inputs = 2;
-
-    google.protobuf.Timestamp sent_time = 15;
+    Input input = 2;
 }

@@ -358,6 +358,7 @@ class Input PROTOBUF_FINAL :
     kPlayerMoveInputsFieldNumber = 3,
     kEulerBodyRotationFieldNumber = 4,
     kEulerCameraRotationFieldNumber = 5,
+    kSentTimeFieldNumber = 15,
     kStrafeFieldNumber = 6,
     kSprintFieldNumber = 7,
   };
@@ -415,6 +416,24 @@ class Input PROTOBUF_FINAL :
       ::MMOPPP::Vector3* euler_camera_rotation);
   ::MMOPPP::Vector3* unsafe_arena_release_euler_camera_rotation();
 
+  // .google.protobuf.Timestamp sent_time = 15;
+  bool has_sent_time() const;
+  private:
+  bool _internal_has_sent_time() const;
+  public:
+  void clear_sent_time();
+  const PROTOBUF_NAMESPACE_ID::Timestamp& sent_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* release_sent_time();
+  PROTOBUF_NAMESPACE_ID::Timestamp* mutable_sent_time();
+  void set_allocated_sent_time(PROTOBUF_NAMESPACE_ID::Timestamp* sent_time);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Timestamp& _internal_sent_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_sent_time();
+  public:
+  void unsafe_arena_set_allocated_sent_time(
+      PROTOBUF_NAMESPACE_ID::Timestamp* sent_time);
+  PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_sent_time();
+
   // bool strafe = 6;
   void clear_strafe();
   bool strafe() const;
@@ -443,6 +462,7 @@ class Input PROTOBUF_FINAL :
   ::MMOPPP::Vector3* player_move_inputs_;
   ::MMOPPP::Vector3* euler_body_rotation_;
   ::MMOPPP::Vector3* euler_camera_rotation_;
+  PROTOBUF_NAMESPACE_ID::Timestamp* sent_time_;
   bool strafe_;
   bool sprint_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -923,8 +943,7 @@ class ClientInput PROTOBUF_FINAL :
 
   enum : int {
     kNameFieldNumber = 1,
-    kInputsFieldNumber = 2,
-    kSentTimeFieldNumber = 15,
+    kInputFieldNumber = 2,
   };
   // string name = 1;
   void clear_name();
@@ -951,41 +970,23 @@ class ClientInput PROTOBUF_FINAL :
   std::string* _internal_mutable_name();
   public:
 
-  // .MMOPPP.Input inputs = 2;
-  bool has_inputs() const;
+  // .MMOPPP.Input input = 2;
+  bool has_input() const;
   private:
-  bool _internal_has_inputs() const;
+  bool _internal_has_input() const;
   public:
-  void clear_inputs();
-  const ::MMOPPP::Input& inputs() const;
-  ::MMOPPP::Input* release_inputs();
-  ::MMOPPP::Input* mutable_inputs();
-  void set_allocated_inputs(::MMOPPP::Input* inputs);
+  void clear_input();
+  const ::MMOPPP::Input& input() const;
+  ::MMOPPP::Input* release_input();
+  ::MMOPPP::Input* mutable_input();
+  void set_allocated_input(::MMOPPP::Input* input);
   private:
-  const ::MMOPPP::Input& _internal_inputs() const;
-  ::MMOPPP::Input* _internal_mutable_inputs();
+  const ::MMOPPP::Input& _internal_input() const;
+  ::MMOPPP::Input* _internal_mutable_input();
   public:
-  void unsafe_arena_set_allocated_inputs(
-      ::MMOPPP::Input* inputs);
-  ::MMOPPP::Input* unsafe_arena_release_inputs();
-
-  // .google.protobuf.Timestamp sent_time = 15;
-  bool has_sent_time() const;
-  private:
-  bool _internal_has_sent_time() const;
-  public:
-  void clear_sent_time();
-  const PROTOBUF_NAMESPACE_ID::Timestamp& sent_time() const;
-  PROTOBUF_NAMESPACE_ID::Timestamp* release_sent_time();
-  PROTOBUF_NAMESPACE_ID::Timestamp* mutable_sent_time();
-  void set_allocated_sent_time(PROTOBUF_NAMESPACE_ID::Timestamp* sent_time);
-  private:
-  const PROTOBUF_NAMESPACE_ID::Timestamp& _internal_sent_time() const;
-  PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_sent_time();
-  public:
-  void unsafe_arena_set_allocated_sent_time(
-      PROTOBUF_NAMESPACE_ID::Timestamp* sent_time);
-  PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_sent_time();
+  void unsafe_arena_set_allocated_input(
+      ::MMOPPP::Input* input);
+  ::MMOPPP::Input* unsafe_arena_release_input();
 
   // @@protoc_insertion_point(class_scope:MMOPPP.ClientInput)
  private:
@@ -995,8 +996,7 @@ class ClientInput PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
-  ::MMOPPP::Input* inputs_;
-  PROTOBUF_NAMESPACE_ID::Timestamp* sent_time_;
+  ::MMOPPP::Input* input_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_MMOPPPMessages_2eproto;
 };
@@ -1356,6 +1356,81 @@ inline void Input::_internal_set_sprint(bool value) {
 inline void Input::set_sprint(bool value) {
   _internal_set_sprint(value);
   // @@protoc_insertion_point(field_set:MMOPPP.Input.sprint)
+}
+
+// .google.protobuf.Timestamp sent_time = 15;
+inline bool Input::_internal_has_sent_time() const {
+  return this != internal_default_instance() && sent_time_ != nullptr;
+}
+inline bool Input::has_sent_time() const {
+  return _internal_has_sent_time();
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& Input::_internal_sent_time() const {
+  const PROTOBUF_NAMESPACE_ID::Timestamp* p = sent_time_;
+  return p != nullptr ? *p : *reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp*>(
+      &PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& Input::sent_time() const {
+  // @@protoc_insertion_point(field_get:MMOPPP.Input.sent_time)
+  return _internal_sent_time();
+}
+inline void Input::unsafe_arena_set_allocated_sent_time(
+    PROTOBUF_NAMESPACE_ID::Timestamp* sent_time) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(sent_time_);
+  }
+  sent_time_ = sent_time;
+  if (sent_time) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:MMOPPP.Input.sent_time)
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* Input::release_sent_time() {
+  auto temp = unsafe_arena_release_sent_time();
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* Input::unsafe_arena_release_sent_time() {
+  // @@protoc_insertion_point(field_release:MMOPPP.Input.sent_time)
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = sent_time_;
+  sent_time_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* Input::_internal_mutable_sent_time() {
+  
+  if (sent_time_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Timestamp>(GetArena());
+    sent_time_ = p;
+  }
+  return sent_time_;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* Input::mutable_sent_time() {
+  // @@protoc_insertion_point(field_mutable:MMOPPP.Input.sent_time)
+  return _internal_mutable_sent_time();
+}
+inline void Input::set_allocated_sent_time(PROTOBUF_NAMESPACE_ID::Timestamp* sent_time) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(sent_time_);
+  }
+  if (sent_time) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(sent_time)->GetArena();
+    if (message_arena != submessage_arena) {
+      sent_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, sent_time, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  sent_time_ = sent_time;
+  // @@protoc_insertion_point(field_set_allocated:MMOPPP.Input.sent_time)
 }
 
 // -------------------------------------------------------------------
@@ -1772,160 +1847,85 @@ inline void ClientInput::unsafe_arena_set_allocated_name(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:MMOPPP.ClientInput.name)
 }
 
-// .MMOPPP.Input inputs = 2;
-inline bool ClientInput::_internal_has_inputs() const {
-  return this != internal_default_instance() && inputs_ != nullptr;
+// .MMOPPP.Input input = 2;
+inline bool ClientInput::_internal_has_input() const {
+  return this != internal_default_instance() && input_ != nullptr;
 }
-inline bool ClientInput::has_inputs() const {
-  return _internal_has_inputs();
+inline bool ClientInput::has_input() const {
+  return _internal_has_input();
 }
-inline void ClientInput::clear_inputs() {
-  if (GetArena() == nullptr && inputs_ != nullptr) {
-    delete inputs_;
+inline void ClientInput::clear_input() {
+  if (GetArena() == nullptr && input_ != nullptr) {
+    delete input_;
   }
-  inputs_ = nullptr;
+  input_ = nullptr;
 }
-inline const ::MMOPPP::Input& ClientInput::_internal_inputs() const {
-  const ::MMOPPP::Input* p = inputs_;
+inline const ::MMOPPP::Input& ClientInput::_internal_input() const {
+  const ::MMOPPP::Input* p = input_;
   return p != nullptr ? *p : *reinterpret_cast<const ::MMOPPP::Input*>(
       &::MMOPPP::_Input_default_instance_);
 }
-inline const ::MMOPPP::Input& ClientInput::inputs() const {
-  // @@protoc_insertion_point(field_get:MMOPPP.ClientInput.inputs)
-  return _internal_inputs();
+inline const ::MMOPPP::Input& ClientInput::input() const {
+  // @@protoc_insertion_point(field_get:MMOPPP.ClientInput.input)
+  return _internal_input();
 }
-inline void ClientInput::unsafe_arena_set_allocated_inputs(
-    ::MMOPPP::Input* inputs) {
+inline void ClientInput::unsafe_arena_set_allocated_input(
+    ::MMOPPP::Input* input) {
   if (GetArena() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(inputs_);
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(input_);
   }
-  inputs_ = inputs;
-  if (inputs) {
+  input_ = input;
+  if (input) {
     
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:MMOPPP.ClientInput.inputs)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:MMOPPP.ClientInput.input)
 }
-inline ::MMOPPP::Input* ClientInput::release_inputs() {
-  auto temp = unsafe_arena_release_inputs();
+inline ::MMOPPP::Input* ClientInput::release_input() {
+  auto temp = unsafe_arena_release_input();
   if (GetArena() != nullptr) {
     temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
   }
   return temp;
 }
-inline ::MMOPPP::Input* ClientInput::unsafe_arena_release_inputs() {
-  // @@protoc_insertion_point(field_release:MMOPPP.ClientInput.inputs)
+inline ::MMOPPP::Input* ClientInput::unsafe_arena_release_input() {
+  // @@protoc_insertion_point(field_release:MMOPPP.ClientInput.input)
   
-  ::MMOPPP::Input* temp = inputs_;
-  inputs_ = nullptr;
+  ::MMOPPP::Input* temp = input_;
+  input_ = nullptr;
   return temp;
 }
-inline ::MMOPPP::Input* ClientInput::_internal_mutable_inputs() {
+inline ::MMOPPP::Input* ClientInput::_internal_mutable_input() {
   
-  if (inputs_ == nullptr) {
+  if (input_ == nullptr) {
     auto* p = CreateMaybeMessage<::MMOPPP::Input>(GetArena());
-    inputs_ = p;
+    input_ = p;
   }
-  return inputs_;
+  return input_;
 }
-inline ::MMOPPP::Input* ClientInput::mutable_inputs() {
-  // @@protoc_insertion_point(field_mutable:MMOPPP.ClientInput.inputs)
-  return _internal_mutable_inputs();
+inline ::MMOPPP::Input* ClientInput::mutable_input() {
+  // @@protoc_insertion_point(field_mutable:MMOPPP.ClientInput.input)
+  return _internal_mutable_input();
 }
-inline void ClientInput::set_allocated_inputs(::MMOPPP::Input* inputs) {
+inline void ClientInput::set_allocated_input(::MMOPPP::Input* input) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   if (message_arena == nullptr) {
-    delete inputs_;
+    delete input_;
   }
-  if (inputs) {
+  if (input) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(inputs);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(input);
     if (message_arena != submessage_arena) {
-      inputs = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, inputs, submessage_arena);
+      input = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, input, submessage_arena);
     }
     
   } else {
     
   }
-  inputs_ = inputs;
-  // @@protoc_insertion_point(field_set_allocated:MMOPPP.ClientInput.inputs)
-}
-
-// .google.protobuf.Timestamp sent_time = 15;
-inline bool ClientInput::_internal_has_sent_time() const {
-  return this != internal_default_instance() && sent_time_ != nullptr;
-}
-inline bool ClientInput::has_sent_time() const {
-  return _internal_has_sent_time();
-}
-inline const PROTOBUF_NAMESPACE_ID::Timestamp& ClientInput::_internal_sent_time() const {
-  const PROTOBUF_NAMESPACE_ID::Timestamp* p = sent_time_;
-  return p != nullptr ? *p : *reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp*>(
-      &PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
-}
-inline const PROTOBUF_NAMESPACE_ID::Timestamp& ClientInput::sent_time() const {
-  // @@protoc_insertion_point(field_get:MMOPPP.ClientInput.sent_time)
-  return _internal_sent_time();
-}
-inline void ClientInput::unsafe_arena_set_allocated_sent_time(
-    PROTOBUF_NAMESPACE_ID::Timestamp* sent_time) {
-  if (GetArena() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(sent_time_);
-  }
-  sent_time_ = sent_time;
-  if (sent_time) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:MMOPPP.ClientInput.sent_time)
-}
-inline PROTOBUF_NAMESPACE_ID::Timestamp* ClientInput::release_sent_time() {
-  auto temp = unsafe_arena_release_sent_time();
-  if (GetArena() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-  return temp;
-}
-inline PROTOBUF_NAMESPACE_ID::Timestamp* ClientInput::unsafe_arena_release_sent_time() {
-  // @@protoc_insertion_point(field_release:MMOPPP.ClientInput.sent_time)
-  
-  PROTOBUF_NAMESPACE_ID::Timestamp* temp = sent_time_;
-  sent_time_ = nullptr;
-  return temp;
-}
-inline PROTOBUF_NAMESPACE_ID::Timestamp* ClientInput::_internal_mutable_sent_time() {
-  
-  if (sent_time_ == nullptr) {
-    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Timestamp>(GetArena());
-    sent_time_ = p;
-  }
-  return sent_time_;
-}
-inline PROTOBUF_NAMESPACE_ID::Timestamp* ClientInput::mutable_sent_time() {
-  // @@protoc_insertion_point(field_mutable:MMOPPP.ClientInput.sent_time)
-  return _internal_mutable_sent_time();
-}
-inline void ClientInput::set_allocated_sent_time(PROTOBUF_NAMESPACE_ID::Timestamp* sent_time) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(sent_time_);
-  }
-  if (sent_time) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(sent_time)->GetArena();
-    if (message_arena != submessage_arena) {
-      sent_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, sent_time, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  sent_time_ = sent_time;
-  // @@protoc_insertion_point(field_set_allocated:MMOPPP.ClientInput.sent_time)
+  input_ = input;
+  // @@protoc_insertion_point(field_set_allocated:MMOPPP.ClientInput.input)
 }
 
 #ifdef __GNUC__

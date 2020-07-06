@@ -84,9 +84,9 @@ namespace MMOPPPServer
       if (DeltaTime < 0.0f) //TODO: still not sure why this happens
         return;
 
-      m_MoveInputs = GV3ToV3(Input.Inputs.PlayerMoveInputs);
-      m_BodyRotation = GV3ToV3(Input.Inputs.EulerBodyRotation);
-      m_CameraRotation = GV3ToV3(Input.Inputs.EulerCameraRotation);
+      m_MoveInputs = GV3ToV3(Input.Input.PlayerMoveInputs);
+      m_BodyRotation = GV3ToV3(Input.Input.EulerBodyRotation);
+      m_CameraRotation = GV3ToV3(Input.Input.EulerCameraRotation);
 
       ServerUpdateAppendInputs();
 

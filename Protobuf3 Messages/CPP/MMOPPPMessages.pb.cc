@@ -14,7 +14,7 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
-extern PROTOBUF_INTERNAL_EXPORT_MMOPPPMessages_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_Input_MMOPPPMessages_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_MMOPPPMessages_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_Input_MMOPPPMessages_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_MMOPPPMessages_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_ServerUpdate_MMOPPPMessages_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_MMOPPPMessages_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Vector3_MMOPPPMessages_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_google_2fprotobuf_2ftimestamp_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Timestamp_google_2fprotobuf_2ftimestamp_2eproto;
@@ -51,10 +51,9 @@ static void InitDefaultsscc_info_ClientInput_MMOPPPMessages_2eproto() {
   ::MMOPPP::ClientInput::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_ClientInput_MMOPPPMessages_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_ClientInput_MMOPPPMessages_2eproto}, {
-      &scc_info_Input_MMOPPPMessages_2eproto.base,
-      &scc_info_Timestamp_google_2fprotobuf_2ftimestamp_2eproto.base,}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_ClientInput_MMOPPPMessages_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_ClientInput_MMOPPPMessages_2eproto}, {
+      &scc_info_Input_MMOPPPMessages_2eproto.base,}};
 
 static void InitDefaultsscc_info_Input_MMOPPPMessages_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -67,9 +66,10 @@ static void InitDefaultsscc_info_Input_MMOPPPMessages_2eproto() {
   ::MMOPPP::Input::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_Input_MMOPPPMessages_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_Input_MMOPPPMessages_2eproto}, {
-      &scc_info_Vector3_MMOPPPMessages_2eproto.base,}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_Input_MMOPPPMessages_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_Input_MMOPPPMessages_2eproto}, {
+      &scc_info_Vector3_MMOPPPMessages_2eproto.base,
+      &scc_info_Timestamp_google_2fprotobuf_2ftimestamp_2eproto.base,}};
 
 static void InitDefaultsscc_info_ServerUpdate_MMOPPPMessages_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -139,6 +139,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_MMOPPPMessages_2eproto::offset
   PROTOBUF_FIELD_OFFSET(::MMOPPP::Input, euler_camera_rotation_),
   PROTOBUF_FIELD_OFFSET(::MMOPPP::Input, strafe_),
   PROTOBUF_FIELD_OFFSET(::MMOPPP::Input, sprint_),
+  PROTOBUF_FIELD_OFFSET(::MMOPPP::Input, sent_time_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::MMOPPP::ServerUpdate, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -160,15 +161,14 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_MMOPPPMessages_2eproto::offset
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::MMOPPP::ClientInput, name_),
-  PROTOBUF_FIELD_OFFSET(::MMOPPP::ClientInput, inputs_),
-  PROTOBUF_FIELD_OFFSET(::MMOPPP::ClientInput, sent_time_),
+  PROTOBUF_FIELD_OFFSET(::MMOPPP::ClientInput, input_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::MMOPPP::Vector3)},
   { 8, -1, sizeof(::MMOPPP::Input)},
-  { 18, -1, sizeof(::MMOPPP::ServerUpdate)},
-  { 27, -1, sizeof(::MMOPPP::ServerUpdates)},
-  { 33, -1, sizeof(::MMOPPP::ClientInput)},
+  { 19, -1, sizeof(::MMOPPP::ServerUpdate)},
+  { 28, -1, sizeof(::MMOPPP::ServerUpdates)},
+  { 34, -1, sizeof(::MMOPPP::ClientInput)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -182,20 +182,20 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 const char descriptor_table_protodef_MMOPPPMessages_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\024MMOPPPMessages.proto\022\006MMOPPP\032\037google/p"
   "rotobuf/timestamp.proto\"*\n\007Vector3\022\t\n\001x\030"
-  "\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002\"\262\001\n\005Input\022+\n"
+  "\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002\"\341\001\n\005Input\022+\n"
   "\022player_move_inputs\030\003 \001(\0132\017.MMOPPP.Vecto"
   "r3\022,\n\023euler_body_rotation\030\004 \001(\0132\017.MMOPPP"
   ".Vector3\022.\n\025euler_camera_rotation\030\005 \001(\0132"
   "\017.MMOPPP.Vector3\022\016\n\006strafe\030\006 \001(\010\022\016\n\006spri"
-  "nt\030\007 \001(\010\"\213\001\n\014ServerUpdate\022\014\n\004name\030\001 \001(\t\022"
-  "\"\n\013past_inputs\030\002 \003(\0132\r.MMOPPP.Input\022!\n\010l"
-  "ocation\030\003 \001(\0132\017.MMOPPP.Vector3\022&\n\rbody_r"
-  "otation\030\004 \001(\0132\017.MMOPPP.Vector3\"6\n\rServer"
-  "Updates\022%\n\007updates\030\001 \003(\0132\024.MMOPPP.Server"
-  "Update\"i\n\013ClientInput\022\014\n\004name\030\001 \001(\t\022\035\n\006i"
-  "nputs\030\002 \001(\0132\r.MMOPPP.Input\022-\n\tsent_time\030"
-  "\017 \001(\0132\032.google.protobuf.TimestampB\"\252\002\037Go"
-  "ogle.Protobuf.MMOPPP.Messagesb\006proto3"
+  "nt\030\007 \001(\010\022-\n\tsent_time\030\017 \001(\0132\032.google.pro"
+  "tobuf.Timestamp\"\213\001\n\014ServerUpdate\022\014\n\004name"
+  "\030\001 \001(\t\022\"\n\013past_inputs\030\002 \003(\0132\r.MMOPPP.Inp"
+  "ut\022!\n\010location\030\003 \001(\0132\017.MMOPPP.Vector3\022&\n"
+  "\rbody_rotation\030\004 \001(\0132\017.MMOPPP.Vector3\"6\n"
+  "\rServerUpdates\022%\n\007updates\030\001 \003(\0132\024.MMOPPP"
+  ".ServerUpdate\"9\n\013ClientInput\022\014\n\004name\030\001 \001"
+  "(\t\022\034\n\005input\030\002 \001(\0132\r.MMOPPP.InputB\"\252\002\037Goo"
+  "gle.Protobuf.MMOPPP.Messagesb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_MMOPPPMessages_2eproto_deps[1] = {
   &::descriptor_table_google_2fprotobuf_2ftimestamp_2eproto,
@@ -209,7 +209,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_MMO
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_MMOPPPMessages_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_MMOPPPMessages_2eproto = {
-  false, false, descriptor_table_protodef_MMOPPPMessages_2eproto, "MMOPPPMessages.proto", 637,
+  false, false, descriptor_table_protodef_MMOPPPMessages_2eproto, "MMOPPPMessages.proto", 636,
   &descriptor_table_MMOPPPMessages_2eproto_once, descriptor_table_MMOPPPMessages_2eproto_sccs, descriptor_table_MMOPPPMessages_2eproto_deps, 5, 1,
   schemas, file_default_instances, TableStruct_MMOPPPMessages_2eproto::offsets,
   file_level_metadata_MMOPPPMessages_2eproto, 5, file_level_enum_descriptors_MMOPPPMessages_2eproto, file_level_service_descriptors_MMOPPPMessages_2eproto,
@@ -476,12 +476,15 @@ void Input::InitAsDefaultInstance() {
       ::MMOPPP::Vector3::internal_default_instance());
   ::MMOPPP::_Input_default_instance_._instance.get_mutable()->euler_camera_rotation_ = const_cast< ::MMOPPP::Vector3*>(
       ::MMOPPP::Vector3::internal_default_instance());
+  ::MMOPPP::_Input_default_instance_._instance.get_mutable()->sent_time_ = const_cast< PROTOBUF_NAMESPACE_ID::Timestamp*>(
+      PROTOBUF_NAMESPACE_ID::Timestamp::internal_default_instance());
 }
 class Input::_Internal {
  public:
   static const ::MMOPPP::Vector3& player_move_inputs(const Input* msg);
   static const ::MMOPPP::Vector3& euler_body_rotation(const Input* msg);
   static const ::MMOPPP::Vector3& euler_camera_rotation(const Input* msg);
+  static const PROTOBUF_NAMESPACE_ID::Timestamp& sent_time(const Input* msg);
 };
 
 const ::MMOPPP::Vector3&
@@ -495,6 +498,16 @@ Input::_Internal::euler_body_rotation(const Input* msg) {
 const ::MMOPPP::Vector3&
 Input::_Internal::euler_camera_rotation(const Input* msg) {
   return *msg->euler_camera_rotation_;
+}
+const PROTOBUF_NAMESPACE_ID::Timestamp&
+Input::_Internal::sent_time(const Input* msg) {
+  return *msg->sent_time_;
+}
+void Input::clear_sent_time() {
+  if (GetArena() == nullptr && sent_time_ != nullptr) {
+    delete sent_time_;
+  }
+  sent_time_ = nullptr;
 }
 Input::Input(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
@@ -520,6 +533,11 @@ Input::Input(const Input& from)
   } else {
     euler_camera_rotation_ = nullptr;
   }
+  if (from._internal_has_sent_time()) {
+    sent_time_ = new PROTOBUF_NAMESPACE_ID::Timestamp(*from.sent_time_);
+  } else {
+    sent_time_ = nullptr;
+  }
   ::memcpy(&strafe_, &from.strafe_,
     static_cast<size_t>(reinterpret_cast<char*>(&sprint_) -
     reinterpret_cast<char*>(&strafe_)) + sizeof(sprint_));
@@ -544,6 +562,7 @@ void Input::SharedDtor() {
   if (this != internal_default_instance()) delete player_move_inputs_;
   if (this != internal_default_instance()) delete euler_body_rotation_;
   if (this != internal_default_instance()) delete euler_camera_rotation_;
+  if (this != internal_default_instance()) delete sent_time_;
 }
 
 void Input::ArenaDtor(void* object) {
@@ -579,6 +598,10 @@ void Input::Clear() {
     delete euler_camera_rotation_;
   }
   euler_camera_rotation_ = nullptr;
+  if (GetArena() == nullptr && sent_time_ != nullptr) {
+    delete sent_time_;
+  }
+  sent_time_ = nullptr;
   ::memset(&strafe_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&sprint_) -
       reinterpret_cast<char*>(&strafe_)) + sizeof(sprint_));
@@ -625,6 +648,13 @@ const char* Input::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
           sprint_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .google.protobuf.Timestamp sent_time = 15;
+      case 15:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 122)) {
+          ptr = ctx->ParseMessage(_internal_mutable_sent_time(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -692,6 +722,14 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(7, this->_internal_sprint(), target);
   }
 
+  // .google.protobuf.Timestamp sent_time = 15;
+  if (this->has_sent_time()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        15, _Internal::sent_time(this), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -727,6 +765,13 @@ size_t Input::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *euler_camera_rotation_);
+  }
+
+  // .google.protobuf.Timestamp sent_time = 15;
+  if (this->has_sent_time()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *sent_time_);
   }
 
   // bool strafe = 6;
@@ -778,6 +823,9 @@ void Input::MergeFrom(const Input& from) {
   }
   if (from.has_euler_camera_rotation()) {
     _internal_mutable_euler_camera_rotation()->::MMOPPP::Vector3::MergeFrom(from._internal_euler_camera_rotation());
+  }
+  if (from.has_sent_time()) {
+    _internal_mutable_sent_time()->PROTOBUF_NAMESPACE_ID::Timestamp::MergeFrom(from._internal_sent_time());
   }
   if (from.strafe() != 0) {
     _internal_set_strafe(from._internal_strafe());
@@ -1361,30 +1409,17 @@ void ServerUpdates::InternalSwap(ServerUpdates* other) {
 // ===================================================================
 
 void ClientInput::InitAsDefaultInstance() {
-  ::MMOPPP::_ClientInput_default_instance_._instance.get_mutable()->inputs_ = const_cast< ::MMOPPP::Input*>(
+  ::MMOPPP::_ClientInput_default_instance_._instance.get_mutable()->input_ = const_cast< ::MMOPPP::Input*>(
       ::MMOPPP::Input::internal_default_instance());
-  ::MMOPPP::_ClientInput_default_instance_._instance.get_mutable()->sent_time_ = const_cast< PROTOBUF_NAMESPACE_ID::Timestamp*>(
-      PROTOBUF_NAMESPACE_ID::Timestamp::internal_default_instance());
 }
 class ClientInput::_Internal {
  public:
-  static const ::MMOPPP::Input& inputs(const ClientInput* msg);
-  static const PROTOBUF_NAMESPACE_ID::Timestamp& sent_time(const ClientInput* msg);
+  static const ::MMOPPP::Input& input(const ClientInput* msg);
 };
 
 const ::MMOPPP::Input&
-ClientInput::_Internal::inputs(const ClientInput* msg) {
-  return *msg->inputs_;
-}
-const PROTOBUF_NAMESPACE_ID::Timestamp&
-ClientInput::_Internal::sent_time(const ClientInput* msg) {
-  return *msg->sent_time_;
-}
-void ClientInput::clear_sent_time() {
-  if (GetArena() == nullptr && sent_time_ != nullptr) {
-    delete sent_time_;
-  }
-  sent_time_ = nullptr;
+ClientInput::_Internal::input(const ClientInput* msg) {
+  return *msg->input_;
 }
 ClientInput::ClientInput(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
@@ -1400,15 +1435,10 @@ ClientInput::ClientInput(const ClientInput& from)
     name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
       GetArena());
   }
-  if (from._internal_has_inputs()) {
-    inputs_ = new ::MMOPPP::Input(*from.inputs_);
+  if (from._internal_has_input()) {
+    input_ = new ::MMOPPP::Input(*from.input_);
   } else {
-    inputs_ = nullptr;
-  }
-  if (from._internal_has_sent_time()) {
-    sent_time_ = new PROTOBUF_NAMESPACE_ID::Timestamp(*from.sent_time_);
-  } else {
-    sent_time_ = nullptr;
+    input_ = nullptr;
   }
   // @@protoc_insertion_point(copy_constructor:MMOPPP.ClientInput)
 }
@@ -1416,9 +1446,7 @@ ClientInput::ClientInput(const ClientInput& from)
 void ClientInput::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_ClientInput_MMOPPPMessages_2eproto.base);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  ::memset(&inputs_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&sent_time_) -
-      reinterpret_cast<char*>(&inputs_)) + sizeof(sent_time_));
+  input_ = nullptr;
 }
 
 ClientInput::~ClientInput() {
@@ -1430,8 +1458,7 @@ ClientInput::~ClientInput() {
 void ClientInput::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete inputs_;
-  if (this != internal_default_instance()) delete sent_time_;
+  if (this != internal_default_instance()) delete input_;
 }
 
 void ClientInput::ArenaDtor(void* object) {
@@ -1456,14 +1483,10 @@ void ClientInput::Clear() {
   (void) cached_has_bits;
 
   name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  if (GetArena() == nullptr && inputs_ != nullptr) {
-    delete inputs_;
+  if (GetArena() == nullptr && input_ != nullptr) {
+    delete input_;
   }
-  inputs_ = nullptr;
-  if (GetArena() == nullptr && sent_time_ != nullptr) {
-    delete sent_time_;
-  }
-  sent_time_ = nullptr;
+  input_ = nullptr;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1484,17 +1507,10 @@ const char* ClientInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .MMOPPP.Input inputs = 2;
+      // .MMOPPP.Input input = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_inputs(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // .google.protobuf.Timestamp sent_time = 15;
-      case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 122)) {
-          ptr = ctx->ParseMessage(_internal_mutable_sent_time(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_input(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1536,20 +1552,12 @@ failure:
         1, this->_internal_name(), target);
   }
 
-  // .MMOPPP.Input inputs = 2;
-  if (this->has_inputs()) {
+  // .MMOPPP.Input input = 2;
+  if (this->has_input()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        2, _Internal::inputs(this), target, stream);
-  }
-
-  // .google.protobuf.Timestamp sent_time = 15;
-  if (this->has_sent_time()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        15, _Internal::sent_time(this), target, stream);
+        2, _Internal::input(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1575,18 +1583,11 @@ size_t ClientInput::ByteSizeLong() const {
         this->_internal_name());
   }
 
-  // .MMOPPP.Input inputs = 2;
-  if (this->has_inputs()) {
+  // .MMOPPP.Input input = 2;
+  if (this->has_input()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *inputs_);
-  }
-
-  // .google.protobuf.Timestamp sent_time = 15;
-  if (this->has_sent_time()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *sent_time_);
+        *input_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1623,11 +1624,8 @@ void ClientInput::MergeFrom(const ClientInput& from) {
   if (from.name().size() > 0) {
     _internal_set_name(from._internal_name());
   }
-  if (from.has_inputs()) {
-    _internal_mutable_inputs()->::MMOPPP::Input::MergeFrom(from._internal_inputs());
-  }
-  if (from.has_sent_time()) {
-    _internal_mutable_sent_time()->PROTOBUF_NAMESPACE_ID::Timestamp::MergeFrom(from._internal_sent_time());
+  if (from.has_input()) {
+    _internal_mutable_input()->::MMOPPP::Input::MergeFrom(from._internal_input());
   }
 }
 
@@ -1653,12 +1651,7 @@ void ClientInput::InternalSwap(ClientInput* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ClientInput, sent_time_)
-      + sizeof(ClientInput::sent_time_)
-      - PROTOBUF_FIELD_OFFSET(ClientInput, inputs_)>(
-          reinterpret_cast<char*>(&inputs_),
-          reinterpret_cast<char*>(&other->inputs_));
+  swap(input_, other->input_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ClientInput::GetMetadata() const {

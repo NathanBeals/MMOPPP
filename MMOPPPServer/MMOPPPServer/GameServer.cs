@@ -104,12 +104,12 @@ namespace MMOPPPServer
         character.m_TimeSinceLastUpdate = 0;
 
         if (character.m_TimeOfLastUpdate == -1) //first update sent
-          character.m_TimeOfLastUpdate = input.SentTime.Nanos;
+          character.m_TimeOfLastUpdate = input.Input.SentTime.Nanos;
         else
         {
           float clientDeltaTime = 0.0f;
-          clientDeltaTime = (input.SentTime.Nanos - character.m_TimeOfLastUpdate) / 1000000;
-          character.m_TimeOfLastUpdate = input.SentTime.Nanos;
+          clientDeltaTime = (input.Input.SentTime.Nanos - character.m_TimeOfLastUpdate) / 1000000;
+          character.m_TimeOfLastUpdate = input.Input.SentTime.Nanos;
           character.Update(input, clientDeltaTime);
         }
       }

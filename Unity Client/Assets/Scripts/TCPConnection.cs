@@ -140,16 +140,15 @@ public class TCPConnection : MonoBehaviour
     {
       ClientInput input = new ClientInput();
       input.Name = Character.m_ID;
-      input.Inputs = new Google.Protobuf.MMOPPP.Messages.Input
+      input.Input = new Google.Protobuf.MMOPPP.Messages.Input
       {
         Strafe = Strafe,
         Sprint = Spring,
         PlayerMoveInputs = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = MoveInput.x, Y = 0.0f, Z = MoveInput.y },
         EulerBodyRotation = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = BodyRotation.x, Y = BodyRotation.y, Z = BodyRotation.z },
-        EulerCameraRotation = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = CameraRotation.x, Y = CameraRotation.y, Z = CameraRotation.z }
-      };
-      DateTimeOffset now = DateTime.UtcNow;
-      input.SentTime = new Timestamp { Seconds = (now.Ticks / 10000000) - 11644473600L, Nanos = (int)(now.Ticks % 10000000) * 100 };
+        EulerCameraRotation = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = CameraRotation.x, Y = CameraRotation.y, Z = CameraRotation.z },
+        SentTime = new Timestamp { Seconds = (DateTime.UtcNow.Ticks / 10000000) - 11644473600L, Nanos = (int)(DateTime.UtcNow.Ticks % 10000000) * 100 }
+    };
 
       return input;
     }

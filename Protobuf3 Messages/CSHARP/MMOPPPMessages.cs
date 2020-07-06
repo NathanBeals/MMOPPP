@@ -26,27 +26,27 @@ namespace Google.Protobuf.MMOPPP.Messages {
           string.Concat(
             "ChRNTU9QUFBNZXNzYWdlcy5wcm90bxIGTU1PUFBQGh9nb29nbGUvcHJvdG9i",
             "dWYvdGltZXN0YW1wLnByb3RvIioKB1ZlY3RvcjMSCQoBeBgBIAEoAhIJCgF5",
-            "GAIgASgCEgkKAXoYAyABKAIisgEKBUlucHV0EisKEnBsYXllcl9tb3ZlX2lu",
+            "GAIgASgCEgkKAXoYAyABKAIi4QEKBUlucHV0EisKEnBsYXllcl9tb3ZlX2lu",
             "cHV0cxgDIAEoCzIPLk1NT1BQUC5WZWN0b3IzEiwKE2V1bGVyX2JvZHlfcm90",
             "YXRpb24YBCABKAsyDy5NTU9QUFAuVmVjdG9yMxIuChVldWxlcl9jYW1lcmFf",
             "cm90YXRpb24YBSABKAsyDy5NTU9QUFAuVmVjdG9yMxIOCgZzdHJhZmUYBiAB",
-            "KAgSDgoGc3ByaW50GAcgASgIIosBCgxTZXJ2ZXJVcGRhdGUSDAoEbmFtZRgB",
-            "IAEoCRIiCgtwYXN0X2lucHV0cxgCIAMoCzINLk1NT1BQUC5JbnB1dBIhCghs",
-            "b2NhdGlvbhgDIAEoCzIPLk1NT1BQUC5WZWN0b3IzEiYKDWJvZHlfcm90YXRp",
-            "b24YBCABKAsyDy5NTU9QUFAuVmVjdG9yMyI2Cg1TZXJ2ZXJVcGRhdGVzEiUK",
-            "B3VwZGF0ZXMYASADKAsyFC5NTU9QUFAuU2VydmVyVXBkYXRlImkKC0NsaWVu",
-            "dElucHV0EgwKBG5hbWUYASABKAkSHQoGaW5wdXRzGAIgASgLMg0uTU1PUFBQ",
-            "LklucHV0Ei0KCXNlbnRfdGltZRgPIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5U",
-            "aW1lc3RhbXBCIqoCH0dvb2dsZS5Qcm90b2J1Zi5NTU9QUFAuTWVzc2FnZXNi",
-            "BnByb3RvMw=="));
+            "KAgSDgoGc3ByaW50GAcgASgIEi0KCXNlbnRfdGltZRgPIAEoCzIaLmdvb2ds",
+            "ZS5wcm90b2J1Zi5UaW1lc3RhbXAiiwEKDFNlcnZlclVwZGF0ZRIMCgRuYW1l",
+            "GAEgASgJEiIKC3Bhc3RfaW5wdXRzGAIgAygLMg0uTU1PUFBQLklucHV0EiEK",
+            "CGxvY2F0aW9uGAMgASgLMg8uTU1PUFBQLlZlY3RvcjMSJgoNYm9keV9yb3Rh",
+            "dGlvbhgEIAEoCzIPLk1NT1BQUC5WZWN0b3IzIjYKDVNlcnZlclVwZGF0ZXMS",
+            "JQoHdXBkYXRlcxgBIAMoCzIULk1NT1BQUC5TZXJ2ZXJVcGRhdGUiOQoLQ2xp",
+            "ZW50SW5wdXQSDAoEbmFtZRgBIAEoCRIcCgVpbnB1dBgCIAEoCzINLk1NT1BQ",
+            "UC5JbnB1dEIiqgIfR29vZ2xlLlByb3RvYnVmLk1NT1BQUC5NZXNzYWdlc2IG",
+            "cHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.MMOPPP.Messages.Vector3), global::Google.Protobuf.MMOPPP.Messages.Vector3.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.MMOPPP.Messages.Input), global::Google.Protobuf.MMOPPP.Messages.Input.Parser, new[]{ "PlayerMoveInputs", "EulerBodyRotation", "EulerCameraRotation", "Strafe", "Sprint" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.MMOPPP.Messages.Input), global::Google.Protobuf.MMOPPP.Messages.Input.Parser, new[]{ "PlayerMoveInputs", "EulerBodyRotation", "EulerCameraRotation", "Strafe", "Sprint", "SentTime" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.MMOPPP.Messages.ServerUpdate), global::Google.Protobuf.MMOPPP.Messages.ServerUpdate.Parser, new[]{ "Name", "PastInputs", "Location", "BodyRotation" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.MMOPPP.Messages.ServerUpdates), global::Google.Protobuf.MMOPPP.Messages.ServerUpdates.Parser, new[]{ "Updates" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.MMOPPP.Messages.ClientInput), global::Google.Protobuf.MMOPPP.Messages.ClientInput.Parser, new[]{ "Name", "Inputs", "SentTime" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.MMOPPP.Messages.ClientInput), global::Google.Protobuf.MMOPPP.Messages.ClientInput.Parser, new[]{ "Name", "Input" }, null, null, null, null)
           }));
     }
     #endregion
@@ -280,6 +280,7 @@ namespace Google.Protobuf.MMOPPP.Messages {
       eulerCameraRotation_ = other.eulerCameraRotation_ != null ? other.eulerCameraRotation_.Clone() : null;
       strafe_ = other.strafe_;
       sprint_ = other.sprint_;
+      sentTime_ = other.sentTime_ != null ? other.sentTime_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -343,6 +344,17 @@ namespace Google.Protobuf.MMOPPP.Messages {
       }
     }
 
+    /// <summary>Field number for the "sent_time" field.</summary>
+    public const int SentTimeFieldNumber = 15;
+    private global::Google.Protobuf.WellKnownTypes.Timestamp sentTime_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Google.Protobuf.WellKnownTypes.Timestamp SentTime {
+      get { return sentTime_; }
+      set {
+        sentTime_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as Input);
@@ -361,6 +373,7 @@ namespace Google.Protobuf.MMOPPP.Messages {
       if (!object.Equals(EulerCameraRotation, other.EulerCameraRotation)) return false;
       if (Strafe != other.Strafe) return false;
       if (Sprint != other.Sprint) return false;
+      if (!object.Equals(SentTime, other.SentTime)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -372,6 +385,7 @@ namespace Google.Protobuf.MMOPPP.Messages {
       if (eulerCameraRotation_ != null) hash ^= EulerCameraRotation.GetHashCode();
       if (Strafe != false) hash ^= Strafe.GetHashCode();
       if (Sprint != false) hash ^= Sprint.GetHashCode();
+      if (sentTime_ != null) hash ^= SentTime.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -405,6 +419,10 @@ namespace Google.Protobuf.MMOPPP.Messages {
         output.WriteRawTag(56);
         output.WriteBool(Sprint);
       }
+      if (sentTime_ != null) {
+        output.WriteRawTag(122);
+        output.WriteMessage(SentTime);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -427,6 +445,9 @@ namespace Google.Protobuf.MMOPPP.Messages {
       }
       if (Sprint != false) {
         size += 1 + 1;
+      }
+      if (sentTime_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(SentTime);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -462,6 +483,12 @@ namespace Google.Protobuf.MMOPPP.Messages {
       }
       if (other.Sprint != false) {
         Sprint = other.Sprint;
+      }
+      if (other.sentTime_ != null) {
+        if (sentTime_ == null) {
+          SentTime = new global::Google.Protobuf.WellKnownTypes.Timestamp();
+        }
+        SentTime.MergeFrom(other.SentTime);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -501,6 +528,13 @@ namespace Google.Protobuf.MMOPPP.Messages {
           }
           case 56: {
             Sprint = input.ReadBool();
+            break;
+          }
+          case 122: {
+            if (sentTime_ == null) {
+              SentTime = new global::Google.Protobuf.WellKnownTypes.Timestamp();
+            }
+            input.ReadMessage(SentTime);
             break;
           }
         }
@@ -879,8 +913,7 @@ namespace Google.Protobuf.MMOPPP.Messages {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public ClientInput(ClientInput other) : this() {
       name_ = other.name_;
-      inputs_ = other.inputs_ != null ? other.inputs_.Clone() : null;
-      sentTime_ = other.sentTime_ != null ? other.sentTime_.Clone() : null;
+      input_ = other.input_ != null ? other.input_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -900,25 +933,14 @@ namespace Google.Protobuf.MMOPPP.Messages {
       }
     }
 
-    /// <summary>Field number for the "inputs" field.</summary>
-    public const int InputsFieldNumber = 2;
-    private global::Google.Protobuf.MMOPPP.Messages.Input inputs_;
+    /// <summary>Field number for the "input" field.</summary>
+    public const int InputFieldNumber = 2;
+    private global::Google.Protobuf.MMOPPP.Messages.Input input_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Google.Protobuf.MMOPPP.Messages.Input Inputs {
-      get { return inputs_; }
+    public global::Google.Protobuf.MMOPPP.Messages.Input Input {
+      get { return input_; }
       set {
-        inputs_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "sent_time" field.</summary>
-    public const int SentTimeFieldNumber = 15;
-    private global::Google.Protobuf.WellKnownTypes.Timestamp sentTime_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Google.Protobuf.WellKnownTypes.Timestamp SentTime {
-      get { return sentTime_; }
-      set {
-        sentTime_ = value;
+        input_ = value;
       }
     }
 
@@ -936,8 +958,7 @@ namespace Google.Protobuf.MMOPPP.Messages {
         return true;
       }
       if (Name != other.Name) return false;
-      if (!object.Equals(Inputs, other.Inputs)) return false;
-      if (!object.Equals(SentTime, other.SentTime)) return false;
+      if (!object.Equals(Input, other.Input)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -945,8 +966,7 @@ namespace Google.Protobuf.MMOPPP.Messages {
     public override int GetHashCode() {
       int hash = 1;
       if (Name.Length != 0) hash ^= Name.GetHashCode();
-      if (inputs_ != null) hash ^= Inputs.GetHashCode();
-      if (sentTime_ != null) hash ^= SentTime.GetHashCode();
+      if (input_ != null) hash ^= Input.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -964,13 +984,9 @@ namespace Google.Protobuf.MMOPPP.Messages {
         output.WriteRawTag(10);
         output.WriteString(Name);
       }
-      if (inputs_ != null) {
+      if (input_ != null) {
         output.WriteRawTag(18);
-        output.WriteMessage(Inputs);
-      }
-      if (sentTime_ != null) {
-        output.WriteRawTag(122);
-        output.WriteMessage(SentTime);
+        output.WriteMessage(Input);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -983,11 +999,8 @@ namespace Google.Protobuf.MMOPPP.Messages {
       if (Name.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
       }
-      if (inputs_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Inputs);
-      }
-      if (sentTime_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(SentTime);
+      if (input_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Input);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1003,17 +1016,11 @@ namespace Google.Protobuf.MMOPPP.Messages {
       if (other.Name.Length != 0) {
         Name = other.Name;
       }
-      if (other.inputs_ != null) {
-        if (inputs_ == null) {
-          Inputs = new global::Google.Protobuf.MMOPPP.Messages.Input();
+      if (other.input_ != null) {
+        if (input_ == null) {
+          Input = new global::Google.Protobuf.MMOPPP.Messages.Input();
         }
-        Inputs.MergeFrom(other.Inputs);
-      }
-      if (other.sentTime_ != null) {
-        if (sentTime_ == null) {
-          SentTime = new global::Google.Protobuf.WellKnownTypes.Timestamp();
-        }
-        SentTime.MergeFrom(other.SentTime);
+        Input.MergeFrom(other.Input);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1031,17 +1038,10 @@ namespace Google.Protobuf.MMOPPP.Messages {
             break;
           }
           case 18: {
-            if (inputs_ == null) {
-              Inputs = new global::Google.Protobuf.MMOPPP.Messages.Input();
+            if (input_ == null) {
+              Input = new global::Google.Protobuf.MMOPPP.Messages.Input();
             }
-            input.ReadMessage(Inputs);
-            break;
-          }
-          case 122: {
-            if (sentTime_ == null) {
-              SentTime = new global::Google.Protobuf.WellKnownTypes.Timestamp();
-            }
-            input.ReadMessage(SentTime);
+            input.ReadMessage(Input);
             break;
           }
         }
