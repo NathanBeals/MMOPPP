@@ -9,9 +9,7 @@ using UnityEngine.PlayerLoop;
 
 using V3 = UnityEngine.Vector3;
 using GV3 = Google.Protobuf.MMOPPP.Messages.Vector3;
-using UnityEditor;
 using TMPro;
-using UnityEditorInternal;
 
 public class WorldServerSync : MonoBehaviour
 {
@@ -93,8 +91,8 @@ public class WorldServerSync : MonoBehaviour
         var localCharacter = CharacterManager.GetLocalCharacter();
         if (localCharacter != null && entity.Name == localCharacter.m_ID) // Local Player Character
         {
-         // StopAllCoroutines(); // This is fuckin it up
-          StartCoroutine(ReconcilePosition(localCharacter.gameObject,
+         localCharacter.StopAllCoroutines();
+         localCharacter.StartCoroutine(ReconcilePosition(localCharacter.gameObject,
             localCharacter.gameObject.transform.position,
             new V3(entity.Location.X, entity.Location.Y + localCharacter.m_CharacterHalfHeight, entity.Location.Z),
             MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
@@ -108,7 +106,8 @@ public class WorldServerSync : MonoBehaviour
           CharacterManager.GetCharacters().TryGetValue(entity.Name, out foundCharacter);
           if (foundCharacter)
           {
-            StartCoroutine(ReconcilePosition(foundCharacter.gameObject,
+            foundCharacter.StopAllCoroutines();
+            foundCharacter.StartCoroutine(ReconcilePosition(foundCharacter.gameObject,
               foundCharacter.gameObject.transform.position,
               new V3(entity.Location.X, entity.Location.Y + localCharacter.m_CharacterHalfHeight, entity.Location.Z),
               MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
