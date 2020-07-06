@@ -98,7 +98,7 @@ public class TCPConnection : MonoBehaviour
         while (!m_ThreadsShouldExit)
         {
           SendQueuedPackets(stream);
-          Debug.Log("I'm Alive");
+          //Debug.Log("I'm Alive");
           Thread.Sleep(m_UpdateTickRateMS);
         }
 
@@ -185,8 +185,9 @@ public class TCPConnection : MonoBehaviour
         dataAvailable = client.Available;
         stream.Read(buffer, queuedData.Count, Math.Min(dataAvailable, Constants.TCPBufferSize - queuedData.Count));
       }
-      catch (System.IO.IOException) //TODO: look up client dc error
+      catch (System.IO.IOException e) //TODO: look up client dc error
       {
+        Debug.Log(e);
         return;
       }
       Array.Copy(queuedData.ToArray(), buffer, queuedData.Count);
@@ -242,6 +243,12 @@ public class TCPConnection : MonoBehaviour
                   }
                   catch (Exception e) // If the input fails just clear the entire stream
                   {
+                    var tempbuffer = new byte[Constants.TCPBufferSize];
+                    while (client.GetStream().DataAvailable)
+                      client.GetStream().Read(tempbuffer, 0, tempbuffer.Length);
+                    dataAvailable = 0;
+
+                    Console.WriteLine("Malformed server message.");
                     Console.WriteLine(e);
                     break;
                   }
