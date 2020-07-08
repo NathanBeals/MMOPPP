@@ -46,10 +46,7 @@ namespace MMOPPPLibrary
 
     public void SendPacket(NetworkStream Stream)
     {
-      var packet = ToByteArray();
-      Stream.Write(ToByteArray(), 0, packet.Length);
-      if (packet.Length != m_PacketSize)
-        Console.WriteLine("???????????????????????????????????");
+      Stream.Write(ToByteArray(), 0, m_PacketSize);
     }
 
     public static void SendPacketBatch(NetworkStream Stream, List<Packet<T>> Messages)

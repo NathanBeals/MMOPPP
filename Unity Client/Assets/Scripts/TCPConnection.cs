@@ -81,7 +81,7 @@ public class TCPConnection : MonoBehaviour
   class MMOPPPClient
   {
     public bool m_ThreadsShouldExit = false;
-    public List<PacketIt<ClientInput>> m_QueuedPacketIts = new List<PacketIt<ClientInput>>();
+    public List<Packet<ClientInput>> m_QueuedPackets = new List<Packet<ClientInput>>();
     TcpClient m_ServerConnection = new TcpClient();
     List<Byte> m_QueuedData = new List<Byte>();
     List<ServerUpdates> m_ServerUpdates = new List<ServerUpdates>();
@@ -100,7 +100,7 @@ public class TCPConnection : MonoBehaviour
 
         while (!m_ThreadsShouldExit)
         {
-          SendQueuedPacketIts(stream);
+          SendQueuedPackets(stream);
         }
 
         stream.Close();
@@ -118,21 +118,18 @@ public class TCPConnection : MonoBehaviour
 
     public void QueueInput(ClientInput Input) 
     {
-      lock (m_QueuedPacketIts)
+      lock (m_QueuedPackets)
       {
-        m_QueuedPacketIts.Add(new PacketIt<ClientInput>(Input));
+        m_QueuedPackets.Add(new Packet<ClientInput>(Input));
       }
     }
 
-    public void SendQueuedPacketIts(NetworkStream Stream)
+    public void SendQueuedPackets(NetworkStream Stream)
     {
-      lock (m_QueuedPacketIts)
+      lock (m_QueuedPackets)
       {
-        foreach (var PacketIt in m_QueuedPacketIts)
-          PacketIt.SendPacket(Stream);
-
-        //PacketIt<ClientInput>.SendPacketItBatch(Stream, m_QueuedPacketIts);
-        m_QueuedPacketIts.Clear();
+        Packet<ClientInput>.SendPacketBatch(Stream, m_QueuedPackets);
+        m_QueuedPackets.Clear();
       }
     }
 
@@ -165,7 +162,7 @@ public class TCPConnection : MonoBehaviour
         catch (Exception e) // If the input fails just clear the entire stream
         {
           ClientConnection.GetStream().FlushAsync();
-          Debug.Log("bad world update");
+          Debug.Log(e);
         }
       }
 
@@ -176,7 +173,7 @@ public class TCPConnection : MonoBehaviour
     {
       Thread.Sleep(StartDelay);
       while (!m_ThreadsShouldExit)
-        BingBongBip.HandleMessage(m_ServerConnection, m_QueuedData, ParseServerUpdates);
+        MMOPPPLibrary.ProtobufTCPMessageHandler.HandleMessage(m_ServerConnection, m_QueuedData, ParseServerUpdates);
     }
 
     public ServerUpdates PopServerUpdate()

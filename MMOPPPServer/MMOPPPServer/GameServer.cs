@@ -58,7 +58,7 @@ namespace MMOPPPServer
           SaveCharacters();
 
           //Console.WriteLine("Tick");
-          m_ClientManager.DebugClientCount();
+          //m_ClientManager.DebugClientCount();
           //m_ClientManager.DebugThreadsUp();
         }
 

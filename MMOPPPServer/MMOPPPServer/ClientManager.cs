@@ -22,27 +22,6 @@ namespace MMOPPPServer
 {
   class ClientManager
   {
-    //debug
-    int mRunningUpdates = 0;
-
-    bool MHTUp = false;
-    bool CHTUp = false;
-    bool BHTUp = false;
-
-    public void DebugThreadsUp()
-    {
-      Console.WriteLine($"MHT {MHTUp}, CHT {CHTUp}, BHT {BHTUp}");
-
-      MHTUp = false;
-      CHTUp = false;
-      BHTUp = false;
-    }
-
-    public void DebugClientCount()
-    {
-      Console.WriteLine($"{m_Clients.Count()}");
-    }
-
     Thread m_MessageHandlingThread;
     Thread m_ConnectionHandlingThread;
     Thread m_BroadcastHandlingThread;
@@ -100,7 +79,6 @@ namespace MMOPPPServer
       {
         while (!m_ThreadsShouldExit)
         {
-          CHTUp = true;
           TcpClient client = m_TCPListener.AcceptTcpClient();
           client.ReceiveBufferSize = Constants.TCPBufferSize;
 
@@ -133,7 +111,6 @@ namespace MMOPPPServer
     {
       while (!m_ThreadsShouldExit)
       {
-        MHTUp = true;
         lock (m_Clients)
         {
           for (int i = 0; i < m_Clients.Count; ++i)
@@ -154,9 +131,6 @@ namespace MMOPPPServer
     {
       lock (m_Inputs)
       {
-        mRunningUpdates++; //Debuggins
-        Console.WriteLine(mRunningUpdates);
-
         try
         {
           m_Inputs.Add(ClientInput.Parser.ParseFrom(RawBytes.ToArray()));
@@ -165,8 +139,7 @@ namespace MMOPPPServer
         catch (Exception e) // If the input fails just clear the entire stream
         {
           ClientConnection.GetStream().FlushAsync();
-          Console.WriteLine("bad input");
-          //Console.WriteLine(e);
+          Console.WriteLine(e);
         }
       }
 
@@ -185,7 +158,6 @@ namespace MMOPPPServer
     {
       while (true)
       {
-        BHTUp = true;
         lock (WorldUpdateLock)
         {
           if (m_QueuedServerUpdates != null)
@@ -199,8 +171,9 @@ namespace MMOPPPServer
                 {
                   packet.SendPacket(client.GetStream());
                 }
-                catch(Exception e) {
-                  Console.WriteLine("Server Update Refused");
+                catch(Exception e) 
+                {
+                  Console.WriteLine(e);
                 }
               }
             }

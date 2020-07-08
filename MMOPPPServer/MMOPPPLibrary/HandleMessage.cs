@@ -44,11 +44,12 @@ namespace MMOPPPLibrary
         dataAvailable = client.Available;
         stream.Read(buffer, queuedData.Count, Math.Min(dataAvailable, Constants.TCPBufferSize - queuedData.Count));
       }
-      catch (System.IO.IOException) //TODO: look up client dc error
+      catch (System.IO.IOException e) //TODO: look up client dc error
       {
-        // Debug error message
+        Console.WriteLine(e);
         return;
       }
+
       Array.Copy(queuedData.ToArray(), buffer, queuedData.Count);
       queuedData.Clear();
 
