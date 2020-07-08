@@ -24,7 +24,6 @@ namespace MMOPPPLibrary
       m_MessageSize = Message.CalculateSize();
     }
 
-    // TODO: efficiency
     Byte[] ToByteArray()
     {
       byte[] sizeInBytes = BitConverter.GetBytes(m_MessageSize);

@@ -56,8 +56,6 @@ public class WorldServerSync : MonoBehaviour
 
     foreach (var characterData in updateData)
     {
-      // If the character does not exist locally, spawn it
-      // HACK: slows the main loop
       if (!CharacterManager.GetCharacters().ContainsKey(characterData.m_Name) || CharacterManager.GetCharacters()[characterData.m_Name] == null)
       {
         CharacterManager.GetCharacters().Remove(characterData.m_Name);
@@ -84,6 +82,8 @@ public class WorldServerSync : MonoBehaviour
   {
     if (m_QueuedServerUpdates != null)
     {
+      Debug.Log("Server DownLink Up");
+
       foreach (var entity in m_QueuedServerUpdates.Updates)
       {
         if (entity.BodyRotation == null || entity.Location == null)
