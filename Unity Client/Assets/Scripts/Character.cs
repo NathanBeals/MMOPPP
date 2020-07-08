@@ -28,9 +28,4 @@ public class Character : MonoBehaviour
   {
     return m_PlaybackManager;
   }
-
-  public void ApplyUpdate()
-  {
-
-  }
 }

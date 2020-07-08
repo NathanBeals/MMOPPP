@@ -196,6 +196,30 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ReturnToTitle"",
+                    ""type"": ""Button"",
+                    ""id"": ""11e638ab-0152-474b-983f-82870ced40e2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""IncrementLag"",
+                    ""type"": ""Button"",
+                    ""id"": ""7fff154e-98cb-46f7-80f1-d335338814b1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""DecrementLag"",
+                    ""type"": ""Button"",
+                    ""id"": ""3f67f117-3164-4476-a261-4c2d57c09641"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -242,6 +266,39 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""action"": ""ExitGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""be8e9be5-b2b3-4d53-8545-5c9894b5fb47"",
+                    ""path"": ""<Keyboard>/numpad9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ReturnToTitle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4f09ba21-55e0-47e3-9b43-013e4e484ed7"",
+                    ""path"": ""<Keyboard>/numpadPlus"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""IncrementLag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b691d257-8f23-4f3d-94db-503404fbc275"",
+                    ""path"": ""<Keyboard>/numpadMinus"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DecrementLag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -261,6 +318,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         m_DebugControls_LoadWorldState = m_DebugControls.FindAction("LoadWorldState", throwIfNotFound: true);
         m_DebugControls_SpawnRandomCharacter = m_DebugControls.FindAction("SpawnRandomCharacter", throwIfNotFound: true);
         m_DebugControls_ExitGame = m_DebugControls.FindAction("ExitGame", throwIfNotFound: true);
+        m_DebugControls_ReturnToTitle = m_DebugControls.FindAction("ReturnToTitle", throwIfNotFound: true);
+        m_DebugControls_IncrementLag = m_DebugControls.FindAction("IncrementLag", throwIfNotFound: true);
+        m_DebugControls_DecrementLag = m_DebugControls.FindAction("DecrementLag", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -379,6 +439,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_DebugControls_LoadWorldState;
     private readonly InputAction m_DebugControls_SpawnRandomCharacter;
     private readonly InputAction m_DebugControls_ExitGame;
+    private readonly InputAction m_DebugControls_ReturnToTitle;
+    private readonly InputAction m_DebugControls_IncrementLag;
+    private readonly InputAction m_DebugControls_DecrementLag;
     public struct DebugControlsActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -387,6 +450,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         public InputAction @LoadWorldState => m_Wrapper.m_DebugControls_LoadWorldState;
         public InputAction @SpawnRandomCharacter => m_Wrapper.m_DebugControls_SpawnRandomCharacter;
         public InputAction @ExitGame => m_Wrapper.m_DebugControls_ExitGame;
+        public InputAction @ReturnToTitle => m_Wrapper.m_DebugControls_ReturnToTitle;
+        public InputAction @IncrementLag => m_Wrapper.m_DebugControls_IncrementLag;
+        public InputAction @DecrementLag => m_Wrapper.m_DebugControls_DecrementLag;
         public InputActionMap Get() { return m_Wrapper.m_DebugControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -408,6 +474,15 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @ExitGame.started -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnExitGame;
                 @ExitGame.performed -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnExitGame;
                 @ExitGame.canceled -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnExitGame;
+                @ReturnToTitle.started -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnReturnToTitle;
+                @ReturnToTitle.performed -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnReturnToTitle;
+                @ReturnToTitle.canceled -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnReturnToTitle;
+                @IncrementLag.started -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnIncrementLag;
+                @IncrementLag.performed -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnIncrementLag;
+                @IncrementLag.canceled -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnIncrementLag;
+                @DecrementLag.started -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnDecrementLag;
+                @DecrementLag.performed -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnDecrementLag;
+                @DecrementLag.canceled -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnDecrementLag;
             }
             m_Wrapper.m_DebugControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -424,6 +499,15 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @ExitGame.started += instance.OnExitGame;
                 @ExitGame.performed += instance.OnExitGame;
                 @ExitGame.canceled += instance.OnExitGame;
+                @ReturnToTitle.started += instance.OnReturnToTitle;
+                @ReturnToTitle.performed += instance.OnReturnToTitle;
+                @ReturnToTitle.canceled += instance.OnReturnToTitle;
+                @IncrementLag.started += instance.OnIncrementLag;
+                @IncrementLag.performed += instance.OnIncrementLag;
+                @IncrementLag.canceled += instance.OnIncrementLag;
+                @DecrementLag.started += instance.OnDecrementLag;
+                @DecrementLag.performed += instance.OnDecrementLag;
+                @DecrementLag.canceled += instance.OnDecrementLag;
             }
         }
     }
@@ -442,5 +526,8 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         void OnLoadWorldState(InputAction.CallbackContext context);
         void OnSpawnRandomCharacter(InputAction.CallbackContext context);
         void OnExitGame(InputAction.CallbackContext context);
+        void OnReturnToTitle(InputAction.CallbackContext context);
+        void OnIncrementLag(InputAction.CallbackContext context);
+        void OnDecrementLag(InputAction.CallbackContext context);
     }
 }

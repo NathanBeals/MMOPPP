@@ -330,6 +330,58 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 165707401, guid: ddaa4112aeeb586499f9514683ff2472, type: 3}
+      propertyPath: m_ActionsAsset
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 584e6095fd78c5a42b95a7eca1475daa,
+        type: 3}
+    - target: {fileID: 165707401, guid: ddaa4112aeeb586499f9514683ff2472, type: 3}
+      propertyPath: m_PointAction
+      value: 
+      objectReference: {fileID: -7986301748866037737, guid: 584e6095fd78c5a42b95a7eca1475daa,
+        type: 3}
+    - target: {fileID: 165707401, guid: ddaa4112aeeb586499f9514683ff2472, type: 3}
+      propertyPath: m_MoveAction
+      value: 
+      objectReference: {fileID: 9002400318670291817, guid: 584e6095fd78c5a42b95a7eca1475daa,
+        type: 3}
+    - target: {fileID: 165707401, guid: ddaa4112aeeb586499f9514683ff2472, type: 3}
+      propertyPath: m_SubmitAction
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 165707401, guid: ddaa4112aeeb586499f9514683ff2472, type: 3}
+      propertyPath: m_CancelAction
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 165707401, guid: ddaa4112aeeb586499f9514683ff2472, type: 3}
+      propertyPath: m_LeftClickAction
+      value: 
+      objectReference: {fileID: 5476364344865503497, guid: 584e6095fd78c5a42b95a7eca1475daa,
+        type: 3}
+    - target: {fileID: 165707401, guid: ddaa4112aeeb586499f9514683ff2472, type: 3}
+      propertyPath: m_MiddleClickAction
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 165707401, guid: ddaa4112aeeb586499f9514683ff2472, type: 3}
+      propertyPath: m_RightClickAction
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 165707401, guid: ddaa4112aeeb586499f9514683ff2472, type: 3}
+      propertyPath: m_ScrollWheelAction
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 165707401, guid: ddaa4112aeeb586499f9514683ff2472, type: 3}
+      propertyPath: m_TrackedDevicePositionAction
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 165707401, guid: ddaa4112aeeb586499f9514683ff2472, type: 3}
+      propertyPath: m_TrackedDeviceOrientationAction
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 165707402, guid: ddaa4112aeeb586499f9514683ff2472, type: 3}
+      propertyPath: m_FirstSelected
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 749985777, guid: ddaa4112aeeb586499f9514683ff2472, type: 3}
       propertyPath: m_LoginButton
       value: 

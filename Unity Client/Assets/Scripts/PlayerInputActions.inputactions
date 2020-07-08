@@ -1,5 +1,5 @@
 {
-    "name": "PlayerInputActions2",
+    "name": "PlayerInputActions",
     "maps": [
         {
             "name": "PlayerControls",
@@ -183,6 +183,30 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "ReturnToTitle",
+                    "type": "Button",
+                    "id": "11e638ab-0152-474b-983f-82870ced40e2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "IncrementLag",
+                    "type": "Button",
+                    "id": "7fff154e-98cb-46f7-80f1-d335338814b1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "DecrementLag",
+                    "type": "Button",
+                    "id": "3f67f117-3164-4476-a261-4c2d57c09641",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -227,6 +251,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "ExitGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "be8e9be5-b2b3-4d53-8545-5c9894b5fb47",
+                    "path": "<Keyboard>/numpad9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReturnToTitle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4f09ba21-55e0-47e3-9b43-013e4e484ed7",
+                    "path": "<Keyboard>/numpadPlus",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "IncrementLag",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b691d257-8f23-4f3d-94db-503404fbc275",
+                    "path": "<Keyboard>/numpadMinus",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DecrementLag",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
