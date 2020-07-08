@@ -16,6 +16,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Transactions;
+using System.Runtime.CompilerServices;
 
 namespace MMOPPPServer
 {
@@ -32,6 +33,11 @@ namespace MMOPPPServer
       MHTUp = false;
       CHTUp = false;
       BHTUp = false;
+    }
+
+    public void DebugClientCount()
+    {
+      Console.WriteLine($"{m_Clients.Count()}");
     }
 
     Thread m_MessageHandlingThread;

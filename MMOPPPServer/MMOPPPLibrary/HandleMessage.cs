@@ -78,7 +78,7 @@ namespace MMOPPPLibrary
           dataAvailable -= messageSize + Constants.HeaderSize;
         }
 
-        if (dataAvailable < messageSize + Constants.HeaderSize) // If the remaining data is smaller than the message size, push it onto the data to be parsed later
+        if (dataAvailable != 0 && dataAvailable < messageSize + Constants.HeaderSize) // If the remaining data is smaller than the message size, push it onto the data to be parsed later
         {
           queuedData.AddRange(buffer.SubArray(0, dataAvailable));
           break;
