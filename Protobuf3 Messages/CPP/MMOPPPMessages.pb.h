@@ -358,7 +358,7 @@ class Input PROTOBUF_FINAL :
     kPlayerMoveInputsFieldNumber = 3,
     kEulerBodyRotationFieldNumber = 4,
     kEulerCameraRotationFieldNumber = 5,
-    kSentTimeFieldNumber = 15,
+    kSentTimeFieldNumber = 8,
     kStrafeFieldNumber = 6,
     kSprintFieldNumber = 7,
   };
@@ -416,7 +416,7 @@ class Input PROTOBUF_FINAL :
       ::MMOPPP::Vector3* euler_camera_rotation);
   ::MMOPPP::Vector3* unsafe_arena_release_euler_camera_rotation();
 
-  // .google.protobuf.Timestamp sent_time = 15;
+  // .google.protobuf.Timestamp sent_time = 8;
   bool has_sent_time() const;
   private:
   bool _internal_has_sent_time() const;
@@ -1358,7 +1358,7 @@ inline void Input::set_sprint(bool value) {
   // @@protoc_insertion_point(field_set:MMOPPP.Input.sprint)
 }
 
-// .google.protobuf.Timestamp sent_time = 15;
+// .google.protobuf.Timestamp sent_time = 8;
 inline bool Input::_internal_has_sent_time() const {
   return this != internal_default_instance() && sent_time_ != nullptr;
 }

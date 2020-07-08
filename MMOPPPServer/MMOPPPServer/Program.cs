@@ -42,8 +42,6 @@ namespace MMOPPP
             server.Stop();
         }
 
-        Thread.Sleep(10); //I really don't know
-
         server.WorldUpdate(deltaTime / 10000.0f);
 
         stopWatch.Stop();

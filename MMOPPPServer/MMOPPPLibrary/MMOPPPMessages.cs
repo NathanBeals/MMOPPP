@@ -30,7 +30,7 @@ namespace Google.Protobuf.MMOPPP.Messages {
             "cHV0cxgDIAEoCzIPLk1NT1BQUC5WZWN0b3IzEiwKE2V1bGVyX2JvZHlfcm90",
             "YXRpb24YBCABKAsyDy5NTU9QUFAuVmVjdG9yMxIuChVldWxlcl9jYW1lcmFf",
             "cm90YXRpb24YBSABKAsyDy5NTU9QUFAuVmVjdG9yMxIOCgZzdHJhZmUYBiAB",
-            "KAgSDgoGc3ByaW50GAcgASgIEi0KCXNlbnRfdGltZRgPIAEoCzIaLmdvb2ds",
+            "KAgSDgoGc3ByaW50GAcgASgIEi0KCXNlbnRfdGltZRgIIAEoCzIaLmdvb2ds",
             "ZS5wcm90b2J1Zi5UaW1lc3RhbXAiiwEKDFNlcnZlclVwZGF0ZRIMCgRuYW1l",
             "GAEgASgJEiIKC3Bhc3RfaW5wdXRzGAIgAygLMg0uTU1PUFBQLklucHV0EiEK",
             "CGxvY2F0aW9uGAMgASgLMg8uTU1PUFBQLlZlY3RvcjMSJgoNYm9keV9yb3Rh",
@@ -345,7 +345,7 @@ namespace Google.Protobuf.MMOPPP.Messages {
     }
 
     /// <summary>Field number for the "sent_time" field.</summary>
-    public const int SentTimeFieldNumber = 15;
+    public const int SentTimeFieldNumber = 8;
     private global::Google.Protobuf.WellKnownTypes.Timestamp sentTime_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Google.Protobuf.WellKnownTypes.Timestamp SentTime {
@@ -420,7 +420,7 @@ namespace Google.Protobuf.MMOPPP.Messages {
         output.WriteBool(Sprint);
       }
       if (sentTime_ != null) {
-        output.WriteRawTag(122);
+        output.WriteRawTag(66);
         output.WriteMessage(SentTime);
       }
       if (_unknownFields != null) {
@@ -530,7 +530,7 @@ namespace Google.Protobuf.MMOPPP.Messages {
             Sprint = input.ReadBool();
             break;
           }
-          case 122: {
+          case 66: {
             if (sentTime_ == null) {
               SentTime = new global::Google.Protobuf.WellKnownTypes.Timestamp();
             }

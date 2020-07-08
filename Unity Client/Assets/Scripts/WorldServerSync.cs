@@ -21,7 +21,6 @@ public class WorldServerSync : MonoBehaviour
   public bool m_DisplayLocalPlayerStamps = false;
 
   ServerUpdates m_QueuedServerUpdates = null;
-  Queue<List<CharacterDownlinkData>> m_DataFromServer = new Queue<List<CharacterDownlinkData>>();
 
   public const float mTeleportThreshold = 5.0f; // If the reconcilliation distance is greater than this, just teleport to resolve instead of lerp
 
@@ -42,34 +41,6 @@ public class WorldServerSync : MonoBehaviour
     public V3 m_CameraRotation; // Direction of the body
   }
 
-  public static void QueueNewUpdateData(List<CharacterDownlinkData> Data)
-  {
-    s_Instance.m_DataFromServer.Enqueue(Data);
-  }
-
-  void SyncTransformData()
-  {
-    if (m_DataFromServer.Count <= 0)
-      return;
-
-    var updateData = m_DataFromServer.Peek();
-
-    foreach (var characterData in updateData)
-    {
-      if (!CharacterManager.GetCharacters().ContainsKey(characterData.m_Name) || CharacterManager.GetCharacters()[characterData.m_Name] == null)
-      {
-        CharacterManager.GetCharacters().Remove(characterData.m_Name);
-        CharacterSpawner.SpawnCharacter(characterData.m_Name);
-      }
-
-      Character test = CharacterManager.GetCharacters()[characterData.m_Name];
-
-      UpdateCharacter(test, characterData);
-    }
-
-    m_DataFromServer.Dequeue();
-  }
-
   void UpdateCharacter(Character UpdateCharacter, CharacterDownlinkData Data)
   {
     var cGameObjTrans = UpdateCharacter.gameObject.transform;
@@ -78,7 +49,7 @@ public class WorldServerSync : MonoBehaviour
     cGameObjTrans.rotation = Quaternion.Euler(Data.m_Rotation);
   }
 
-  private void Update()
+  private void FixedUpdate()
   {
     if (m_QueuedServerUpdates != null)
     {
@@ -156,12 +127,6 @@ public class WorldServerSync : MonoBehaviour
     }
     else if (s_Instance != this)
       Destroy(gameObject);
-  }
-
-  public void FixedUpdate()
-  {
-    //TODO: convert to an attempt to sync, axing on a try lock
-    SyncTransformData();
   }
 
   public void CreatePlayerStamp(ServerUpdate Update)

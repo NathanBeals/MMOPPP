@@ -46,7 +46,10 @@ namespace MMOPPPLibrary
 
     public void SendPacket(NetworkStream Stream)
     {
-      Stream.WriteAsync(ToByteArray(), 0, m_PacketSize);
+      var packet = ToByteArray();
+      Stream.Write(ToByteArray(), 0, packet.Length);
+      if (packet.Length != m_PacketSize)
+        Console.WriteLine("???????????????????????????????????");
     }
 
     public static void SendPacketBatch(NetworkStream Stream, List<Packet<T>> Messages)
@@ -55,7 +58,7 @@ namespace MMOPPPLibrary
       foreach (var message in Messages)
         batch.AddRange(message.ToByteArray());
 
-      Stream.WriteAsync(batch.ToArray(), 0, batch.Count());
+      Stream.Write(batch.ToArray(), 0, batch.Count());
     }
   }
 }

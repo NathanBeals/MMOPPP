@@ -187,7 +187,7 @@ const char descriptor_table_protodef_MMOPPPMessages_2eproto[] PROTOBUF_SECTION_V
   "r3\022,\n\023euler_body_rotation\030\004 \001(\0132\017.MMOPPP"
   ".Vector3\022.\n\025euler_camera_rotation\030\005 \001(\0132"
   "\017.MMOPPP.Vector3\022\016\n\006strafe\030\006 \001(\010\022\016\n\006spri"
-  "nt\030\007 \001(\010\022-\n\tsent_time\030\017 \001(\0132\032.google.pro"
+  "nt\030\007 \001(\010\022-\n\tsent_time\030\010 \001(\0132\032.google.pro"
   "tobuf.Timestamp\"\213\001\n\014ServerUpdate\022\014\n\004name"
   "\030\001 \001(\t\022\"\n\013past_inputs\030\002 \003(\0132\r.MMOPPP.Inp"
   "ut\022!\n\010location\030\003 \001(\0132\017.MMOPPP.Vector3\022&\n"
@@ -651,9 +651,9 @@ const char* Input::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .google.protobuf.Timestamp sent_time = 15;
-      case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 122)) {
+      // .google.protobuf.Timestamp sent_time = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 66)) {
           ptr = ctx->ParseMessage(_internal_mutable_sent_time(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
@@ -722,12 +722,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(7, this->_internal_sprint(), target);
   }
 
-  // .google.protobuf.Timestamp sent_time = 15;
+  // .google.protobuf.Timestamp sent_time = 8;
   if (this->has_sent_time()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        15, _Internal::sent_time(this), target, stream);
+        8, _Internal::sent_time(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -767,7 +767,7 @@ size_t Input::ByteSizeLong() const {
         *euler_camera_rotation_);
   }
 
-  // .google.protobuf.Timestamp sent_time = 15;
+  // .google.protobuf.Timestamp sent_time = 8;
   if (this->has_sent_time()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(

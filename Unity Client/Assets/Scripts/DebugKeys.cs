@@ -31,28 +31,6 @@ public class DebugKeys : MonoBehaviour
             CharacterSpawner.SpawnCharacter(random.Next(1, 100000).ToString(), false, new Vector3(random.Next(-50, 50), 1.5f, random.Next(-50, 50)));
     }
 
-    void SaveWorldState()
-    {
-        m_CharacterData.Clear();
-
-        foreach (var character in CharacterManager.GetCharacters())
-        {
-            if (character.Value == null)
-                continue;
-
-            var saveData = new WorldServerSync.CharacterDownlinkData();
-            saveData.m_Name = character.Value.m_ID;
-            saveData.m_Location = character.Value.gameObject.transform.position;
-            saveData.m_Rotation = character.Value.gameObject.transform.rotation.eulerAngles;
-            m_CharacterData.Add(saveData);
-        }
-    }
-
-    void LoadWorldState()
-    {
-        WorldServerSync.QueueNewUpdateData(m_CharacterData);
-    }
-
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -60,8 +38,6 @@ public class DebugKeys : MonoBehaviour
         inputActions = new PlayerInputActions();
         inputActions.DebugControls.ExitGame.performed += ctx => ExitGame();
         inputActions.DebugControls.SpawnRandomCharacter.performed += ctx => SpawnRandomCharacter();
-        inputActions.DebugControls.SaveWorldState.performed += ctx => SaveWorldState();
-        inputActions.DebugControls.LoadWorldState.performed += ctx => LoadWorldState();
     }
 
     private void OnEnable()

@@ -17,11 +17,13 @@ using System.Threading;
 
 public class TCPConnection : MonoBehaviour
 {
+  // Debugging
+  List<Byte> mRunningBuffer = new List<byte>();
+
   // Threads
   Thread m_SendingInputsThread;
   Thread m_RecievingInputsThread;
   MMOPPPClient m_TestClient;
-  static int m_UpdateTickRateMS = 100;
 
   // Related Components
   Character m_Character;
@@ -60,8 +62,9 @@ public class TCPConnection : MonoBehaviour
       Debug.Log("No camera in scene");
   }
 
-  public void Update()
+  public void FixedUpdate()
   {
+    Debug.Log("Queue Inputs");
     m_TestClient.QueueInput(MMOPPPClient.PackInput(m_Character,
       m_MovementInput,
       m_Character.gameObject.transform.rotation.eulerAngles,
@@ -78,7 +81,7 @@ public class TCPConnection : MonoBehaviour
   class MMOPPPClient
   {
     public bool m_ThreadsShouldExit = false;
-    public List<Packet<ClientInput>> m_QueuedPackets = new List<Packet<ClientInput>>();
+    public List<PacketIt<ClientInput>> m_QueuedPacketIts = new List<PacketIt<ClientInput>>();
     TcpClient m_ServerConnection = new TcpClient();
     List<Byte> m_QueuedData = new List<Byte>();
     List<ServerUpdates> m_ServerUpdates = new List<ServerUpdates>();
@@ -97,8 +100,7 @@ public class TCPConnection : MonoBehaviour
 
         while (!m_ThreadsShouldExit)
         {
-          SendQueuedPackets(stream);
-          Thread.Sleep(m_UpdateTickRateMS);
+          SendQueuedPacketIts(stream);
         }
 
         stream.Close();
@@ -116,21 +118,21 @@ public class TCPConnection : MonoBehaviour
 
     public void QueueInput(ClientInput Input) 
     {
-      lock (m_QueuedPackets)
+      lock (m_QueuedPacketIts)
       {
-        m_QueuedPackets.Add(new Packet<ClientInput>(Input));
+        m_QueuedPacketIts.Add(new PacketIt<ClientInput>(Input));
       }
     }
 
-    public void SendQueuedPackets(NetworkStream Stream)
+    public void SendQueuedPacketIts(NetworkStream Stream)
     {
-      lock (m_QueuedPackets)
+      lock (m_QueuedPacketIts)
       {
-        foreach (var packet in m_QueuedPackets)
-          packet.SendPacket(Stream);
+        foreach (var PacketIt in m_QueuedPacketIts)
+          PacketIt.SendPacket(Stream);
 
-        //Packet<ClientInput>.SendPacketBatch(Stream, m_QueuedPackets);
-        m_QueuedPackets.Clear();
+        //PacketIt<ClientInput>.SendPacketItBatch(Stream, m_QueuedPacketIts);
+        m_QueuedPacketIts.Clear();
       }
     }
 
@@ -162,12 +164,8 @@ public class TCPConnection : MonoBehaviour
         }
         catch (Exception e) // If the input fails just clear the entire stream
         {
-          var buffer = new byte[Constants.TCPBufferSize];
-          var stream = ClientConnection.GetStream();
-          while (stream.DataAvailable)
-            stream.Read(buffer, 0, buffer.Length);
-
-          Console.WriteLine(e);
+          ClientConnection.GetStream().FlushAsync();
+          Debug.Log("bad world update");
         }
       }
 
@@ -178,7 +176,7 @@ public class TCPConnection : MonoBehaviour
     {
       Thread.Sleep(StartDelay);
       while (!m_ThreadsShouldExit)
-        MMOPPPLibrary.ProtobufTCPMessageHandler.HandleMessage(m_ServerConnection, m_QueuedData, ParseServerUpdates);
+        BingBongBip.HandleMessage(m_ServerConnection, m_QueuedData, ParseServerUpdates);
     }
 
     public ServerUpdates PopServerUpdate()

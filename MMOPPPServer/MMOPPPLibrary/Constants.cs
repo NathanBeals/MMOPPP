@@ -17,8 +17,8 @@ namespace MMOPPPLibrary
     public const Int32 HeaderChecksumSize = 4;
     public const Int32 HeaderChecksumValue = 0x7FFFFFFF;
     public const Int32 ServerTickRate = 100; // Miliseconds
-    public const Int32 TCPBufferSize = (int)((ServerTickRate / 1000.0f) * 1000000); //10mb per second (very intensive)
-    public const float TimeToDC = 100000.0f; // Miliseconds
+    public const Int32 TCPBufferSize = (int)((ServerTickRate / 1000.0f) * 100000); //10mb per second (very intensive)
+    public const float TimeToDC = 00000.0f; // Miliseconds
     public const float CharacterMoveSpeed = 8.0f / 1000;
   }
 

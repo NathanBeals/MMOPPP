@@ -76,6 +76,8 @@ namespace MMOPPPLibrary
           // Increment the head
           dataHead += messageSize + Constants.HeaderSize;
           dataAvailable -= messageSize + Constants.HeaderSize;
+
+          continue;
         }
 
         if (dataAvailable != 0 && dataAvailable < messageSize + Constants.HeaderSize) // If the remaining data is smaller than the message size, push it onto the data to be parsed later

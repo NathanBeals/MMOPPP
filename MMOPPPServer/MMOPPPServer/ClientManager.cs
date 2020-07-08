@@ -22,6 +22,9 @@ namespace MMOPPPServer
 {
   class ClientManager
   {
+    //debug
+    int mRunningUpdates = 0;
+
     bool MHTUp = false;
     bool CHTUp = false;
     bool BHTUp = false;
@@ -130,8 +133,6 @@ namespace MMOPPPServer
     {
       while (!m_ThreadsShouldExit)
       {
-        Thread.Sleep(10); //HACK: stalling the threads might help
-
         MHTUp = true;
         lock (m_Clients)
         {
@@ -153,6 +154,9 @@ namespace MMOPPPServer
     {
       lock (m_Inputs)
       {
+        mRunningUpdates++; //Debuggins
+        Console.WriteLine(mRunningUpdates);
+
         try
         {
           m_Inputs.Add(ClientInput.Parser.ParseFrom(RawBytes.ToArray()));
@@ -160,12 +164,9 @@ namespace MMOPPPServer
         }
         catch (Exception e) // If the input fails just clear the entire stream
         {
-          var buffer = new byte[Constants.TCPBufferSize];
-          var stream = ClientConnection.GetStream();
-          while (stream.DataAvailable)
-            stream.Read(buffer, 0, buffer.Length);
-
-          Console.WriteLine(e);
+          ClientConnection.GetStream().FlushAsync();
+          Console.WriteLine("bad input");
+          //Console.WriteLine(e);
         }
       }
 
@@ -184,8 +185,6 @@ namespace MMOPPPServer
     {
       while (true)
       {
-        Thread.Sleep(10); //HACK: stalling the threads might help
-
         BHTUp = true;
         lock (WorldUpdateLock)
         {
