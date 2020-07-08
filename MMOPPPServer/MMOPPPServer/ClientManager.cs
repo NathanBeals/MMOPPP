@@ -130,6 +130,8 @@ namespace MMOPPPServer
     {
       while (!m_ThreadsShouldExit)
       {
+        Thread.Sleep(10); //HACK: stalling the threads might help
+
         MHTUp = true;
         lock (m_Clients)
         {
@@ -182,6 +184,8 @@ namespace MMOPPPServer
     {
       while (true)
       {
+        Thread.Sleep(10); //HACK: stalling the threads might help
+
         BHTUp = true;
         lock (WorldUpdateLock)
         {

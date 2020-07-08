@@ -126,7 +126,10 @@ public class TCPConnection : MonoBehaviour
     {
       lock (m_QueuedPackets)
       {
-        Packet<ClientInput>.SendPacketBatch(Stream, m_QueuedPackets);
+        foreach (var packet in m_QueuedPackets)
+          packet.SendPacket(Stream);
+
+        //Packet<ClientInput>.SendPacketBatch(Stream, m_QueuedPackets);
         m_QueuedPackets.Clear();
       }
     }
@@ -159,6 +162,11 @@ public class TCPConnection : MonoBehaviour
         }
         catch (Exception e) // If the input fails just clear the entire stream
         {
+          var buffer = new byte[Constants.TCPBufferSize];
+          var stream = ClientConnection.GetStream();
+          while (stream.DataAvailable)
+            stream.Read(buffer, 0, buffer.Length);
+
           Console.WriteLine(e);
         }
       }

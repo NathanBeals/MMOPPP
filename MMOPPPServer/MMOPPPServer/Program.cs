@@ -17,38 +17,40 @@ using MMOPPPServer;
 
 namespace MMOPPP
 {
-    class Program
+  class Program
+  {
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+      var stopWatch = new Stopwatch();
+      GameServer server = new GameServer();
+      bool bExit = false;
+      server.Start();
+
+      long deltaTime;
+      while (!bExit)
+      {
+        deltaTime = stopWatch.ElapsedTicks;
+        stopWatch.Restart();
+
+        if (Console.KeyAvailable) // HACK: these don't work consistently, the faster the tick the less they work
         {
-            var stopWatch = new Stopwatch();
-            GameServer server = new GameServer();
-            bool bExit = false;
+          if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+            bExit = true;
+          if (Console.ReadKey(true).Key == ConsoleKey.S)
             server.Start();
-
-            long deltaTime;
-            while (!bExit)
-            {
-                deltaTime = stopWatch.ElapsedTicks;
-                stopWatch.Restart();
-
-                if (Console.KeyAvailable) // HACK: these don't work consistently, the faster the tick the less they work
-                {
-                    if (Console.ReadKey(true).Key == ConsoleKey.Escape)
-                        bExit = true;
-                    if (Console.ReadKey(true).Key == ConsoleKey.S)
-                        server.Start();
-                    if (Console.ReadKey(true).Key == ConsoleKey.H)
-                        server.Stop();
-                }
-
-                server.WorldUpdate(deltaTime / 10000.0f);
-
-                stopWatch.Stop();
-            }
-
+          if (Console.ReadKey(true).Key == ConsoleKey.H)
             server.Stop();
-            
         }
+
+        Thread.Sleep(10); //I really don't know
+
+        server.WorldUpdate(deltaTime / 10000.0f);
+
+        stopWatch.Stop();
+      }
+
+      server.Stop();
+
     }
+  }
 }
