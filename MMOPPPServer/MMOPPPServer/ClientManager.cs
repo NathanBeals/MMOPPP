@@ -130,7 +130,7 @@ namespace MMOPPPServer
           for (int i = 0; i < m_Clients.Count; ++i)
           {
             if (m_Clients[i].Connected && m_Clients[i].Available != 0)
-              HandleMessage(i);
+              MMOPPPLibrary.ProtobufTCPMessageHandler.HandleMessage(m_Clients[i], m_QueuedData[i], ParseClientUpdate);
           }
 
           var count = m_Clients.Count();
@@ -141,112 +141,27 @@ namespace MMOPPPServer
       }
     }
 
-    void HandleMessage(int ClientIndex)
+    public bool ParseClientUpdate(List<Byte> RawBytes, TcpClient ClientConnection)
     {
-      var client = m_Clients[ClientIndex];
-      var queuedData = m_QueuedData[ClientIndex];
-
-      Int32 messageSize = 0;
-      byte[] buffer = new byte[Constants.TCPBufferSize];
-      byte[] testBuffer = new byte[Constants.TCPBufferSize]; // TODO: remove after testing
-      byte[] lengthData = new byte[Constants.HeaderSize];
-      ERecievingState recievingState = ERecievingState.Frame;
-      int dataAvailable = 0;
-
-      try // Make sure to catch if the client is DCed in here
+      lock (m_Inputs)
       {
-        NetworkStream stream = client.GetStream();
-        dataAvailable = client.Available;
-        stream.Read(buffer, queuedData.Count, Math.Min(dataAvailable, Constants.TCPBufferSize - queuedData.Count));
-      }
-      catch (System.IO.IOException) //TODO: look up client dc error
-      {
-        return;
-      }
-      Array.Copy(queuedData.ToArray(), buffer, queuedData.Count);
-      queuedData.Clear();
-
-      Array.Copy(buffer, testBuffer, buffer.Length); //TODO: remove after testing
-
-      bool dataNotComplete = false;
-      while (!m_ThreadsShouldExit && !dataNotComplete)
-      {
-        //Normal Exit, data source exhausted
-        if (dataAvailable == 0)
-          break;
-
-        switch (recievingState)
+        try
         {
-          case ERecievingState.Frame:
-            {
-              if (dataAvailable > Constants.HeaderSize)
-              {
-                // Get size of message from header
-                Array.Copy(buffer, lengthData, Constants.HeaderSize);
-                if (Constants.SystemIsLittleEndian != Constants.MessageIsLittleEndian)
-                  lengthData.Reverse();
-                messageSize = BitConverter.ToInt32(lengthData);
+          m_Inputs.Add(ClientInput.Parser.ParseFrom(RawBytes.ToArray()));
+          return true;
+        }
+        catch (Exception e) // If the input fails just clear the entire stream
+        {
+          var buffer = new byte[Constants.TCPBufferSize];
+          var stream = ClientConnection.GetStream();
+          while (stream.DataAvailable)
+            stream.Read(buffer, 0, buffer.Length);
 
-                recievingState = ERecievingState.Message;
-              }
-              else // If the remaining data is smaller than the header size, push it onto the data to be parsed later
-              {
-                m_QueuedData[ClientIndex].AddRange(buffer.SubArray(0, dataAvailable));
-                dataNotComplete = true;
-              }
-            }
-            break;
-
-          case ERecievingState.Message:
-            {
-              if (dataAvailable >= messageSize + Constants.HeaderSize)
-              {
-                // Remove header from buffer
-                Array.Copy(buffer, Constants.HeaderSize, buffer, 0, buffer.Length - Constants.HeaderSize); //TODO: this is also really slow
-                dataAvailable -= Constants.HeaderSize;
-
-                // Put the message bytes into a data object
-                List<byte> data = new List<byte>();
-                data.AddRange(buffer.SubArray(0, messageSize));
-
-                // Parse the message bytes and add it to the inputs list
-                lock (m_Inputs)
-                {
-                  //HACK: only for testing, needs to be resolved
-                  try
-                  {
-                    m_Inputs.Add(ClientInput.Parser.ParseFrom(data.ToArray()));
-                  }
-                  catch(Exception e) // If the input fails just clear the entire stream
-                  {
-                    // Data failed to parse, clear client
-                    var tempbuffer = new byte[Constants.TCPBufferSize];
-                    while (m_Clients[ClientIndex].GetStream().DataAvailable)
-                      m_Clients[ClientIndex].GetStream().Read(tempbuffer, 0, tempbuffer.Length);
-                    dataAvailable = 0;
-
-                    Console.WriteLine("Malformed input message.");
-                    break;
-                  }
-                }
-
-                // Remove message from buffer
-                Array.Copy(buffer, messageSize, buffer, 0, buffer.Length - messageSize);
-
-                dataAvailable -= messageSize;
-                messageSize = 0;
-                recievingState = ERecievingState.Frame;
-                //Console.WriteLine(handledmessages); //TODO : remove after testing
-              }
-              else // If the remaining data is smaller than the message size, push it onto the data to be parsed later
-              {
-                m_QueuedData[ClientIndex].AddRange(buffer.SubArray(0, dataAvailable));
-                dataNotComplete = true;
-              }
-            }
-            break;
+          Console.WriteLine(e);
         }
       }
+
+      return false;
     }
 
     public void QueueWorldUpdate(ServerUpdates Update)
