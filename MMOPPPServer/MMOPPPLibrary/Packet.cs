@@ -8,6 +8,8 @@ using Google.Protobuf.WellKnownTypes;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.IO;
 
 namespace MMOPPPLibrary
 {
@@ -42,9 +44,18 @@ namespace MMOPPPLibrary
       return packetInBytes;
     }
 
-    public void SendPacket(NetworkStream stream)
+    public void SendPacket(NetworkStream Stream)
     {
-      stream.Write(ToByteArray(), 0, m_PacketSize);
+      Stream.WriteAsync(ToByteArray(), 0, m_PacketSize);
+    }
+
+    public static void SendPacketBatch(NetworkStream Stream, List<Packet<T>> Messages)
+    {
+      List<Byte> batch = new List<byte>();
+      foreach (var message in Messages)
+        batch.AddRange(message.ToByteArray());
+
+      Stream.WriteAsync(batch.ToArray(), 0, batch.Count());
     }
   }
 }

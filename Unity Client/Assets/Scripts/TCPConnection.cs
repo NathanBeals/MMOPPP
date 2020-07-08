@@ -98,7 +98,6 @@ public class TCPConnection : MonoBehaviour
         while (!m_ThreadsShouldExit)
         {
           SendQueuedPackets(stream);
-          //Debug.Log("I'm Alive");
           Thread.Sleep(m_UpdateTickRateMS);
         }
 
@@ -127,11 +126,7 @@ public class TCPConnection : MonoBehaviour
     {
       lock (m_QueuedPackets)
       {
-        foreach (var packet in m_QueuedPackets)
-        {
-          packet.SendPacket(Stream);
-        }
-
+        Packet<ClientInput>.SendPacketBatch(Stream, m_QueuedPackets);
         m_QueuedPackets.Clear();
       }
     }
