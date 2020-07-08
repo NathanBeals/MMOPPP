@@ -204,7 +204,7 @@ public class TCPConnection : MonoBehaviour
         {
           case ERecievingState.Frame:
             {
-              if (dataAvailable > Constants.HeaderSize)
+              if (dataAvailable >= Constants.HeaderSize)
               {
                 // Get size of message from header
                 Array.Copy(buffer, lengthData, Constants.HeaderSize);
@@ -297,7 +297,7 @@ public class TCPConnection : MonoBehaviour
     m_TestClient.m_ThreadsShouldExit = false;
     m_SendingInputsThread = new Thread(() => m_TestClient.Connect());
     m_SendingInputsThread.Start();
-    m_RecievingInputsThread = new Thread(() => m_TestClient.HandleMessages(2000)); // HACK: fixes single player lag bug
+    m_RecievingInputsThread = new Thread(() => m_TestClient.HandleMessages(1000)); // HACK: fixes single player lag bug
     m_RecievingInputsThread.Start();
 
     m_InputActions.Enable();
