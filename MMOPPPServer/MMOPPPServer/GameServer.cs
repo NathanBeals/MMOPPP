@@ -57,7 +57,8 @@ namespace MMOPPPServer
           PhysicsUpdate(m_ServerTickRate);
           SaveCharacters();
 
-          Console.WriteLine("Tick");
+          //Console.WriteLine("Tick");
+          m_ClientManager.DebugThreadsUp();
         }
 
         m_Inputs.Clear();
@@ -154,9 +155,11 @@ namespace MMOPPPServer
     public void PrintPhysicsUpdateDebug()
     {
       if (m_Characters.Count > 0)
-        Console.WriteLine("Online:");
+        Console.Write("Online:");
       foreach (var character in m_Characters)
-        Console.WriteLine($"{character.Value.m_Name}");
+        Console.Write($" {character.Value.m_Name}, ");
+      if (m_Characters.Count > 0)
+        Console.WriteLine("");
     }
   }
 }

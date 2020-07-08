@@ -15,11 +15,25 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
+using System.Transactions;
 
 namespace MMOPPPServer
 {
   class ClientManager
   {
+    bool MHTUp = false;
+    bool CHTUp = false;
+    bool BHTUp = false;
+
+    public void DebugThreadsUp()
+    {
+      Console.WriteLine($"MHT {MHTUp}, CHT {CHTUp}, BHT {BHTUp}");
+
+      MHTUp = false;
+      CHTUp = false;
+      BHTUp = false;
+    }
+
     Thread m_MessageHandlingThread;
     Thread m_ConnectionHandlingThread;
     Thread m_BroadcastHandlingThread;
@@ -77,6 +91,7 @@ namespace MMOPPPServer
       {
         while (!m_ThreadsShouldExit)
         {
+          CHTUp = true;
           TcpClient client = m_TCPListener.AcceptTcpClient();
           client.ReceiveBufferSize = Constants.TCPBufferSize;
 
@@ -109,6 +124,7 @@ namespace MMOPPPServer
     {
       while (!m_ThreadsShouldExit)
       {
+        MHTUp = true;
         lock (m_Clients)
         {
           for (int i = 0; i < m_Clients.Count; ++i)
@@ -245,6 +261,7 @@ namespace MMOPPPServer
     {
       while (true)
       {
+        BHTUp = true;
         lock (WorldUpdateLock)
         {
           if (m_QueuedServerUpdates != null)
