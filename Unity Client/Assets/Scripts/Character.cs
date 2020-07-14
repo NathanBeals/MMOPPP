@@ -81,27 +81,6 @@ public class Character : MonoBehaviour
     Debug.Log(" sum " + sumOfMovements);
   }
 
-  // HACK: overrides the character controller
-  public void PlayInput(ClientInput LPCInput, float DeltaTime)
-  {
-    float timeOfLastUpdate = m_LocalInputs[0].Input.SentTime.Nanos;
-
-    var moveInputs = GV3ToV3(LPCInput.Input.PlayerMoveInputs);
-    var bodyRotation = GV3ToV3(LPCInput.Input.EulerBodyRotation);
-    var cameraRotation = GV3ToV3(LPCInput.Input.EulerCameraRotation);
-
-    //forward * rotation * move input
-    var forward = moveInputs.z;
-    var right = moveInputs.x;
-    moveInputs.z = Mathf.Cos(cameraRotation.y * (float)Mathf.PI / 180.0f) * forward;
-    moveInputs.x = Mathf.Sin(cameraRotation.y * (float)Mathf.PI / 180.0f) * forward;
-    moveInputs.z += Mathf.Cos((cameraRotation.y + 90) * (float)Mathf.PI / 180.0f) * right;
-    moveInputs.x += Mathf.Sin((cameraRotation.y + 90) * (float)Mathf.PI / 180.0f) * right;
-
-    moveInputs = moveInputs * MMOPPPLibrary.Constants.CharacterMoveSpeed * DeltaTime * 1000;
-    transform.position = transform.position + moveInputs;
-  }
-
   public void ResetLocalInputs()
   {
     m_LocalInputs.Clear();
@@ -112,7 +91,7 @@ public class Character : MonoBehaviour
     m_ServerPosition = new V3(Update.Location.X, Update.Location.Y + m_CharacterHalfHeight, Update.Location.Z);
     m_LastServerInputTimestamp = Update.PastInputs.Last().SentTime;
 
-    m_LocalInputs.RemoveAll((ClientInput a) => { return a.Input.SentTime.Nanos <= m_LastServerInputTimestamp.Nanos; });
+    m_LocalInputs.RemoveAll((ClientInput a) => { return a.Input.SentTime <= m_LastServerInputTimestamp; });
   }
 
   // Helpers
