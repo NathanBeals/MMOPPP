@@ -49,7 +49,7 @@ public class WorldServerSync : MonoBehaviour
     cGameObjTrans.rotation = Quaternion.Euler(Data.m_Rotation);
   }
 
-  private void FixedUpdate()
+  private void Update()
   {
     if (m_QueuedServerUpdates != null)
     {
@@ -78,11 +78,18 @@ public class WorldServerSync : MonoBehaviour
     if (localCharacter == null || entity.Name != localCharacter.m_ID)
       return false;
 
-    localCharacter.StopAllCoroutines();
-    localCharacter.StartCoroutine(ReconcilePosition(localCharacter.gameObject,
-       localCharacter.gameObject.transform.position,
-       new V3(entity.Location.X, entity.Location.Y + localCharacter.m_CharacterHalfHeight, entity.Location.Z),
-       MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
+    // TODO: no longer happening the same way
+    //localCharacter.StopAllCoroutines();
+    //localCharacter.StartCoroutine(ReconcilePosition(localCharacter.gameObject,
+    //   localCharacter.gameObject.transform.position,
+    //   new V3(entity.Location.X, entity.Location.Y + localCharacter.m_CharacterHalfHeight, entity.Location.Z),
+    //   MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
+
+    // TODO: these should be moved into worldserversync
+    // TODO: move the character to the correct position, then add the local local inputs
+    //localCharacter.transform.position = new V3(entity.Location.X, entity.Location.Y + localCharacter.m_CharacterHalfHeight, entity.Location.Z);
+    //localCharacter.ApplyLocalInputs();
+    localCharacter.ResetLocalInputs();
 
     if (m_DisplayLocalPlayerStamps)
       CreatePlayerStamp(entity);

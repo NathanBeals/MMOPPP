@@ -186,15 +186,19 @@ public class TCPConnection : MonoBehaviour
       Debug.Log("No camera in scene");
   }
 
-  public void FixedUpdate()
+  public void Update()
   {
     Debug.Log("Queue Inputs");
-    QueueInput(PackInput(m_Character,
+    var packedInput = PackInput(m_Character,
       m_MovementInput,
       m_Character.gameObject.transform.rotation.eulerAngles,
       m_Camera.gameObject.transform.rotation.eulerAngles,
       m_Strafe,
-      m_Sprint));
+      m_Sprint);
+
+    QueueInput(packedInput);
+    m_Character.RecordLocalInput(packedInput);
+    m_Character.PlayInput(packedInput, Time.deltaTime);
 
     var serverUpdate = PopServerUpdate();
     if (serverUpdate != null)

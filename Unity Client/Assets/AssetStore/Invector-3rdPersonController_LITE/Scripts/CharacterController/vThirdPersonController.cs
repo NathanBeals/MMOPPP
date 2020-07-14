@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+//HACK: I commented out the move inputs
 namespace Invector.vCharacterController
 {
     public class vThirdPersonController : vThirdPersonAnimator
@@ -8,14 +9,14 @@ namespace Invector.vCharacterController
         {
             if (!this.enabled) return;
 
-            if (inputSmooth == Vector3.zero && animator != null)
-            {
-                transform.position = animator.rootPosition;
-                transform.rotation = animator.rootRotation;
-            }
+            //if (inputSmooth == Vector3.zero && animator != null)
+            //{
+            //    transform.position = animator.rootPosition;
+            //    transform.rotation = animator.rootRotation;
+            //}
 
-            if (useRootMotion)
-                MoveCharacter(moveDirection);
+            //if (useRootMotion)
+            //    MoveCharacter(moveDirection);
         }
 
         public virtual void ControlLocomotionType()
@@ -24,18 +25,18 @@ namespace Invector.vCharacterController
 
             if (locomotionType.Equals(LocomotionType.FreeWithStrafe) && !isStrafing || locomotionType.Equals(LocomotionType.OnlyFree))
             {
-                SetControllerMoveSpeed(freeSpeed);
+               // SetControllerMoveSpeed(freeSpeed);
                 SetAnimatorMoveSpeed(freeSpeed);
             }
             else if (locomotionType.Equals(LocomotionType.OnlyStrafe) || locomotionType.Equals(LocomotionType.FreeWithStrafe) && isStrafing)
             {
                 isStrafing = true;
-                SetControllerMoveSpeed(strafeSpeed);
+               // SetControllerMoveSpeed(strafeSpeed);
                 SetAnimatorMoveSpeed(strafeSpeed);
             }
 
-            if (!useRootMotion)
-                MoveCharacter(moveDirection);
+            //if (!useRootMotion)
+            //    MoveCharacter(moveDirection);
         }
 
         public virtual void ControlRotationType()

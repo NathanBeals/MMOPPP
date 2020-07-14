@@ -50,9 +50,6 @@ public class InputPlaybackManager : MonoBehaviour
 
   private void ProcessInput()
   {
-    //if (m_CurrentInput != null)
-    //  Debug.Log(m_CurrentInput);
-
     if (m_CurrentInput == null)
       return;
 
