@@ -6,6 +6,8 @@ using UnityEngine;
 using V3 = UnityEngine.Vector3;
 using GV3 = Google.Protobuf.MMOPPP.Messages.Vector3;
 using TMPro.Examples;
+using System;
+using System.Linq;
 
 public class Character : MonoBehaviour
 {
@@ -15,6 +17,8 @@ public class Character : MonoBehaviour
 
   private InputPlaybackManager m_PlaybackManager; // (Used for RPC Positions and animations)
   private List<ClientInput> m_LocalInputs = new List<ClientInput>(); // Inputs stored between server updates (Used for LPC positions)
+  private UnityEngine.Vector3 m_ServerPosition;
+  private Google.Protobuf.WellKnownTypes.Timestamp m_LastServerInputTimestamp;
 
   private void Awake()
   {
@@ -48,14 +52,15 @@ public class Character : MonoBehaviour
       return;
 
     float timeOfLastUpdate = m_LocalInputs[0].Input.SentTime.Nanos;
+    V3 sumOfMovements = new V3();
 
     foreach (var input in m_LocalInputs)
     {
-      float deltaTime =(input.Input.SentTime.Nanos - timeOfLastUpdate) / 1000000; //HACK: math issue, the first input will be ignored and all deltatimes will be offset by 1
+      float deltaTime = ((input.Input.SentTime.Nanos - timeOfLastUpdate) / 1000000) / 1000; //HACK: math issue, the first input will be ignored and all deltatimes will be offset by 1
       timeOfLastUpdate = input.Input.SentTime.Nanos;
 
-      if (deltaTime < 0.0f)
-        return;
+      if (deltaTime <= 0.0f)
+        continue;
 
       var moveInputs = GV3ToV3(input.Input.PlayerMoveInputs);
       var bodyRotation = GV3ToV3(input.Input.EulerBodyRotation);
@@ -69,13 +74,11 @@ public class Character : MonoBehaviour
       moveInputs.z += Mathf.Cos((cameraRotation.y + 90) * (float)Mathf.PI / 180.0f) * right;
       moveInputs.x += Mathf.Sin((cameraRotation.y + 90) * (float)Mathf.PI / 180.0f) * right;
 
-      moveInputs = moveInputs * MMOPPPLibrary.Constants.CharacterMoveSpeed * deltaTime;
-      transform.position = transform.position + moveInputs;
-      
-      //TODO: rotation
-      //ServerUpdatePositionUpdate();
-      //ServerUpdateBodyRotationUpdate();
+      moveInputs = moveInputs * MMOPPPLibrary.Constants.CharacterMoveSpeed * deltaTime * 1000;
+      sumOfMovements+= moveInputs;
     }
+    transform.position = m_ServerPosition + sumOfMovements;
+    Debug.Log(" sum " + sumOfMovements);
   }
 
   // HACK: overrides the character controller
@@ -97,15 +100,19 @@ public class Character : MonoBehaviour
 
     moveInputs = moveInputs * MMOPPPLibrary.Constants.CharacterMoveSpeed * DeltaTime * 1000;
     transform.position = transform.position + moveInputs;
-
-    //TODO: rotation
-    //ServerUpdatePositionUpdate();
-    //ServerUpdateBodyRotationUpdate();
   }
 
   public void ResetLocalInputs()
   {
     m_LocalInputs.Clear();
+  }
+
+  public void ServerUpdate(ServerUpdate Update)
+  {
+    m_ServerPosition = new V3(Update.Location.X, Update.Location.Y + m_CharacterHalfHeight, Update.Location.Z);
+    m_LastServerInputTimestamp = Update.PastInputs.Last().SentTime;
+
+    m_LocalInputs.RemoveAll((ClientInput a) => { return a.Input.SentTime.Nanos <= m_LastServerInputTimestamp.Nanos; });
   }
 
   // Helpers
@@ -118,5 +125,11 @@ public class Character : MonoBehaviour
   public static V3 GV3ToV3(GV3 VInput)
   {
     return new V3(VInput.X, VInput.Y, VInput.Z);
+  }
+
+  public void Update()
+  {
+    if (m_Local)
+      ApplyLocalInputs();
   }
 }

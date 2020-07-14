@@ -79,9 +79,11 @@ public class WorldServerSync : MonoBehaviour
 
     // TODO: these should be moved into worldserversync
     // TODO: move the character to the correct position, then add the local local inputs
-    localCharacter.transform.position = new V3(entity.Location.X, entity.Location.Y + localCharacter.m_CharacterHalfHeight, entity.Location.Z);
-    localCharacter.ApplyLocalInputs();
-    localCharacter.ResetLocalInputs();
+    //localCharacter.transform.position = new V3(entity.Location.X, entity.Location.Y + localCharacter.m_CharacterHalfHeight, entity.Location.Z);
+
+    localCharacter.ServerUpdate(entity);
+    //localCharacter.ApplyLocalInputs();
+    //localCharacter.ResetLocalInputs();
 
     if (m_DisplayLocalPlayerStamps)
       CreatePlayerStamp(entity);

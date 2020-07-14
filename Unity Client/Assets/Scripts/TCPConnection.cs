@@ -202,7 +202,6 @@ public class TCPConnection : MonoBehaviour
 
     QueueInput(packedInput);
     m_Character.RecordLocalInput(packedInput);
-    m_Character.PlayInput(packedInput, Time.deltaTime);
 
     var serverUpdate = PopServerUpdate();
     if (serverUpdate != null)
