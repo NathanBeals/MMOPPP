@@ -711,6 +711,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 3489641369519073020, guid: 1d3260f3660059d43a1990f12f1aef3b,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7308506430632767801, guid: 1d3260f3660059d43a1990f12f1aef3b,
         type: 3}
       propertyPath: Local

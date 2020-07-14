@@ -27,7 +27,6 @@ public class WorldServerSync : MonoBehaviour
   public void QueueNewUpdate(ServerUpdates Update)
   {
     m_QueuedServerUpdates = Update;
-    //Debug.Log(Update.ToString());
   }
 
   //HACK: rework for new messages
@@ -47,16 +46,29 @@ public class WorldServerSync : MonoBehaviour
     {
       Debug.Log("Server DownLink Up");
 
+      var characters = new List<Character>(CharacterManager.GetCharacters().Values);
+
       foreach (var entity in m_QueuedServerUpdates.Updates)
       {
         if (entity.BodyRotation == null || entity.Location == null)
           continue;
+
+        characters.RemoveAll((Character a) => { return a.m_ID == entity.Name; });// Remove disconnects //HACK: slow
 
         if (UpdateLPC(entity))
           continue;
 
         if (UpdateRPC(entity))
           continue;
+      }
+
+      foreach (var character in characters) // Disables the character after one frame, deletes it after 2
+      {
+        if (character != CharacterManager.GetLocalCharacter())
+        {
+          CharacterManager.RemoveCharacter(character);
+          Destroy(character.gameObject);
+        }
       }
 
       m_QueuedServerUpdates = null;
@@ -70,20 +82,14 @@ public class WorldServerSync : MonoBehaviour
     if (localCharacter == null || entity.Name != localCharacter.m_ID)
       return false;
 
-    // TODO: no longer happening the same way
+    // TODO: should be embedded into the server update of local character
     //localCharacter.StopAllCoroutines();
     //localCharacter.StartCoroutine(ReconcilePosition(localCharacter.gameObject,
     //   localCharacter.gameObject.transform.position,
     //   new V3(entity.Location.X, entity.Location.Y + localCharacter.m_CharacterHalfHeight, entity.Location.Z),
     //   MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
 
-    // TODO: these should be moved into worldserversync
-    // TODO: move the character to the correct position, then add the local local inputs
-    //localCharacter.transform.position = new V3(entity.Location.X, entity.Location.Y + localCharacter.m_CharacterHalfHeight, entity.Location.Z);
-
     localCharacter.ServerUpdate(entity);
-    //localCharacter.ApplyLocalInputs();
-    //localCharacter.ResetLocalInputs();
 
     if (m_DisplayLocalPlayerStamps)
       CreatePlayerStamp(entity);
@@ -111,9 +117,6 @@ public class WorldServerSync : MonoBehaviour
       MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
     character.transform.eulerAngles = new V3(entity.BodyRotation.X, entity.BodyRotation.Y, entity.BodyRotation.Z); // TODO: remove, calculated locally by input replay
 
-    Debug.Log(entity.Name + " : " + entity.Location);
-
-    //TODO: working here
     character.GetInputPlaybackManager()?.UpdateReplayInputs(entity.PastInputs.ToList());
 
     return true;

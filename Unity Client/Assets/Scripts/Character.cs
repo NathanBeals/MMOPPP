@@ -9,6 +9,8 @@ using TMPro.Examples;
 using System;
 using System.Linq;
 using Invector.vCharacterController;
+using TMPro;
+using System.ComponentModel;
 
 public class Character : MonoBehaviour
 {
@@ -20,6 +22,9 @@ public class Character : MonoBehaviour
   private List<ClientInput> m_LocalInputs = new List<ClientInput>(); // Inputs stored between server updates (Used for LPC positions)
   private UnityEngine.Vector3 m_ServerPosition;
   private Google.Protobuf.WellKnownTypes.Timestamp m_LastServerInputTimestamp;
+
+  // UI 
+  public TMPro.TextMeshPro DisplayName;
 
   private void Awake()
   {
@@ -114,5 +119,12 @@ public class Character : MonoBehaviour
   {
     if (m_Local)
       ApplyLocalInputs();
+
+    // HACK: slow
+    V3 camPos = new V3(Camera.main.transform.position.x, 0, Camera.main.transform.position.z);
+    V3 textPos = new V3(DisplayName.transform.position.x, 0, DisplayName.transform.position.z);
+    V3 relativePos = textPos - camPos;
+    DisplayName.transform.rotation = Quaternion.LookRotation(relativePos, V3.up);
+    DisplayName.text = m_ID;
   }
 }
