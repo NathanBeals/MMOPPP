@@ -8,6 +8,7 @@ using GV3 = Google.Protobuf.MMOPPP.Messages.Vector3;
 using TMPro.Examples;
 using System;
 using System.Linq;
+using Invector.vCharacterController;
 
 public class Character : MonoBehaviour
 {
@@ -29,7 +30,10 @@ public class Character : MonoBehaviour
   private void Start()
   {
     if (m_Local)
+    {
       CharacterManager.AddCharacter(this);
+      GetComponentInChildren<vThirdPersonController>().m_ExternallyOverridingMovements = true;
+    }
 
     m_PlaybackManager = GetComponent<InputPlaybackManager>();
   }
