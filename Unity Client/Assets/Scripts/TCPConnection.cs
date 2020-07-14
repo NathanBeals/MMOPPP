@@ -17,6 +17,7 @@ using System.Threading;
 using TMPro;
 
 //TODO: cleanup
+//TODO: this is doing double duty for client inputs and server updates but the server synce code is external (client updates should be external too)
 
 public class TCPConnection : MonoBehaviour
 {
@@ -78,8 +79,11 @@ public class TCPConnection : MonoBehaviour
   {
     lock (m_QueuedPackets)
     {
+      int size = m_QueuedPackets.Count;
       Packet<ClientInput>.SendPacketBatch(Stream, m_QueuedPackets);
       m_QueuedPackets.Clear();
+      if (m_Character != null && m_QueuedPackets.Count > 0) // Can't do this here
+        m_QueuedPackets.Add(new Packet<ClientInput>(CreateTimeStampPacket()));
     }
   }
 
@@ -211,5 +215,25 @@ public class TCPConnection : MonoBehaviour
 
     lock (m_QueuedPackets)
       m_QueuedPackets.Add(new Packet<ClientInput>(Input));
+  }
+
+  // This creates a packet out of only timestam
+  // This is pushed to the fron of every new packet queue to allow the server to use only timestamps to calculate delta times
+  // It essentaily exists to be ignored, but because it delivers a timestamp, the deltatime (new update time - prev update time) can be calculated properly for other packets
+  public ClientInput CreateTimeStampPacket()
+  {
+    ClientInput input = new ClientInput();
+    input.Name = m_Character.m_ID;
+    input.Input = new Google.Protobuf.MMOPPP.Messages.Input
+    {
+      Strafe = false,
+      Sprint = false,
+      PlayerMoveInputs = new Google.Protobuf.MMOPPP.Messages.Vector3 { X =  0, Y = 0, Z = 0 },
+      EulerBodyRotation = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = 0, Y = 0, Z = 0 },
+      EulerCameraRotation = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = 0, Y = 0, Z = 0 },
+      SentTime = new Timestamp { Seconds = (DateTime.UtcNow.Ticks / 10000000) - 11644473600L, Nanos = (int)(DateTime.UtcNow.Ticks % 10000000) * 100 }
+    };
+
+    return input;
   }
 }

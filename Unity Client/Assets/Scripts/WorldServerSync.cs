@@ -41,14 +41,6 @@ public class WorldServerSync : MonoBehaviour
     public V3 m_CameraRotation; // Direction of the body
   }
 
-  void UpdateCharacter(Character UpdateCharacter, CharacterDownlinkData Data)
-  {
-    var cGameObjTrans = UpdateCharacter.gameObject.transform;
-
-    cGameObjTrans.position = Data.m_Location;
-    cGameObjTrans.rotation = Quaternion.Euler(Data.m_Rotation);
-  }
-
   private void Update()
   {
     if (m_QueuedServerUpdates != null)
@@ -87,8 +79,8 @@ public class WorldServerSync : MonoBehaviour
 
     // TODO: these should be moved into worldserversync
     // TODO: move the character to the correct position, then add the local local inputs
-    //localCharacter.transform.position = new V3(entity.Location.X, entity.Location.Y + localCharacter.m_CharacterHalfHeight, entity.Location.Z);
-    //localCharacter.ApplyLocalInputs();
+    localCharacter.transform.position = new V3(entity.Location.X, entity.Location.Y + localCharacter.m_CharacterHalfHeight, entity.Location.Z);
+    localCharacter.ApplyLocalInputs();
     localCharacter.ResetLocalInputs();
 
     if (m_DisplayLocalPlayerStamps)
@@ -115,7 +107,7 @@ public class WorldServerSync : MonoBehaviour
       character.gameObject.transform.position,
       new V3(entity.Location.X, entity.Location.Y + character.m_CharacterHalfHeight, entity.Location.Z),
       MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
-    character.transform.eulerAngles = new V3(entity.BodyRotation.X, entity.BodyRotation.Y, entity.BodyRotation.Z);
+    //character.transform.eulerAngles = new V3(entity.BodyRotation.X, entity.BodyRotation.Y, entity.BodyRotation.Z); // TODO: remove, calculated locally by input replay
 
     Debug.Log(entity.Name + " : " + entity.Location);
 
