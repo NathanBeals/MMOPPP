@@ -13,6 +13,7 @@ namespace MMOPPPLibrary
   {
     public delegate void OnPositionCalculated(SNV3 Position);
 
+    // TODO: merge with apply single input
     public static void ApplyInputs(List<ClientInput> Inputs, SNV3 CurrentPosition, OnPositionCalculated ReconciliationFunction)
     {
       if (Inputs.Count == 0)
@@ -46,6 +47,33 @@ namespace MMOPPPLibrary
         moveInputs = moveInputs * MMOPPPLibrary.Constants.CharacterMoveSpeed * deltaTime;
         sumOfMovements += moveInputs;
       }
+
+      CurrentPosition = CurrentPosition + sumOfMovements;
+      ReconciliationFunction(CurrentPosition);
+    }
+
+    public static void ApplySingleInput(Google.Protobuf.MMOPPP.Messages.Input Input, SNV3 CurrentPosition, float DeltaTime, OnPositionCalculated ReconciliationFunction)
+    {
+      if (DeltaTime <= 0.0f)
+        return;
+
+      var sumOfMovements = new SNV3();
+      var moveInputs = GV3ToSNV3(Input.PlayerMoveInputs);
+      var bodyRotation = GV3ToSNV3(Input.EulerBodyRotation);
+      var cameraRotation = GV3ToSNV3(Input.EulerCameraRotation);
+
+      //forward * rotation * move input
+      var forward = moveInputs.Z;
+      var right = moveInputs.X;
+
+      // Hack: I can't seem to use MathF here for some reason? I'm using it in MMOPPPServer.
+      moveInputs.Z = (float)Math.Cos(cameraRotation.Y * (float)Math.PI / 180.0f) * forward;
+      moveInputs.X = (float)Math.Sin(cameraRotation.Y * (float)Math.PI / 180.0f) * forward;
+      moveInputs.Z += (float)Math.Cos((cameraRotation.Y + 90) * (float)Math.PI / 180.0f) * right;
+      moveInputs.X += (float)Math.Sin((cameraRotation.Y + 90) * (float)Math.PI / 180.0f) * right;
+
+      moveInputs = moveInputs * MMOPPPLibrary.Constants.CharacterMoveSpeed * DeltaTime;
+      sumOfMovements += moveInputs;
 
       CurrentPosition = CurrentPosition + sumOfMovements;
       ReconciliationFunction(CurrentPosition);
