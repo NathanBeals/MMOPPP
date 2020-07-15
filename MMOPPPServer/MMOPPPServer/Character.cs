@@ -12,6 +12,7 @@ namespace MMOPPPServer
 {
   using V3 = System.Numerics.Vector3;
   using GV3 = Google.Protobuf.MMOPPP.Messages.Vector3;
+  using CCHelper = MMOPPPLibrary.CharacterController;
 
   class Character
   {
@@ -85,9 +86,9 @@ namespace MMOPPPServer
       if (DeltaTime < 0.0f) //TODO: still not sure why this happens
         return;
 
-      m_MoveInputs = GV3ToV3(Input.Input.PlayerMoveInputs);
-      m_BodyRotation = GV3ToV3(Input.Input.EulerBodyRotation);
-      m_CameraRotation = GV3ToV3(Input.Input.EulerCameraRotation);
+      m_MoveInputs = CCHelper.GV3ToSNV3(Input.Input.PlayerMoveInputs);
+      m_BodyRotation = CCHelper.GV3ToSNV3(Input.Input.EulerBodyRotation);
+      m_CameraRotation = CCHelper.GV3ToSNV3(Input.Input.EulerCameraRotation);
 
       ServerUpdateAppendInputs(Input);
 
@@ -104,17 +105,6 @@ namespace MMOPPPServer
 
       ServerUpdatePositionUpdate();
       ServerUpdateBodyRotationUpdate();
-    }
-
-    // Helper
-    public static GV3 V3ToGV3(V3 VInput)
-    {
-      return new GV3 { X = VInput.X, Y = VInput.Y, Z = VInput.Z };
-    }
-
-    public static V3 GV3ToV3(GV3 VInput)
-    {
-      return new V3 { X = VInput.X, Y = VInput.Y, Z = VInput.Z };
     }
   }
 }

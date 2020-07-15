@@ -87,7 +87,6 @@ public class Character : MonoBehaviour
       sumOfMovements+= moveInputs;
     }
     transform.position = m_ServerPosition + sumOfMovements;
-    Debug.Log(" sum " + sumOfMovements);
   }
 
   public void ResetLocalInputs()
