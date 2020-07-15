@@ -62,9 +62,9 @@ namespace MMOPPPServer
       {
         Strafe = false,
         Sprint = false,
-        PlayerMoveInputs = V3ToGV3(m_MoveInputs),
-        EulerBodyRotation = V3ToGV3(m_BodyRotation),
-        EulerCameraRotation = V3ToGV3(m_CameraRotation),
+        PlayerMoveInputs = CCHelper.V3ToGV3(m_MoveInputs),
+        EulerBodyRotation = CCHelper.V3ToGV3(m_BodyRotation),
+        EulerCameraRotation = CCHelper.V3ToGV3(m_CameraRotation),
         SentTime = PastInput.Input.SentTime
       };
 
@@ -73,12 +73,12 @@ namespace MMOPPPServer
 
     public void ServerUpdatePositionUpdate()
     {
-      m_ServerUpdate.Location = V3ToGV3(m_Location);
+      m_ServerUpdate.Location = CCHelper.V3ToGV3(m_Location);
     }
 
     public void ServerUpdateBodyRotationUpdate()
     {
-      m_ServerUpdate.BodyRotation = V3ToGV3(m_BodyRotation);
+      m_ServerUpdate.BodyRotation = CCHelper.V3ToGV3(m_BodyRotation);
     }
 
     public void Update(ClientInput Input, float DeltaTime)

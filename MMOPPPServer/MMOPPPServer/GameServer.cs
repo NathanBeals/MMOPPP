@@ -17,6 +17,7 @@ namespace MMOPPPServer
 {
   using V3 = System.Numerics.Vector3;
   using GV3 = Google.Protobuf.MMOPPP.Messages.Vector3;
+  using CCHelper = MMOPPPLibrary.CharacterController;
 
   class GameServer
   {
@@ -79,7 +80,7 @@ namespace MMOPPPServer
     void SaveCharacters()
     {
       foreach (var pair in m_Characters)
-        m_Database.SaveCharacterData(pair.Value.m_Name, Character.V3ToGV3(pair.Value.m_Location), Character.V3ToGV3(pair.Value.m_CameraRotation));
+        m_Database.SaveCharacterData(pair.Value.m_Name, CCHelper.V3ToGV3(pair.Value.m_Location), CCHelper.V3ToGV3(pair.Value.m_CameraRotation));
     }
 
     // The first time an input is found for a new character, load that characters position
@@ -91,8 +92,8 @@ namespace MMOPPPServer
         m_Characters[Input.Name] = character;
         GV3 loc, rot;
         m_Database.LoadCharacterData(Input.Name, out loc, out rot);
-        character.m_Location = Character.GV3ToV3(loc);
-        character.m_BodyRotation = Character.GV3ToV3(rot);
+        character.m_Location = CCHelper.GV3ToSNV3(loc);
+        character.m_BodyRotation = CCHelper.GV3ToSNV3(rot);
       }
     }
 

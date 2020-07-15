@@ -53,40 +53,20 @@ public class Character : MonoBehaviour
     m_LocalInputs.Add(LocalInput);
   }
 
-  // HACK: should use the same, the exact same, calculations as the server
-  // TODO: instead of copying the code pack it into a function in the library
   public void ApplyLocalInputs()
   {
     if (m_LocalInputs.Count < 1)
       return;
 
-    float timeOfLastUpdate = m_LocalInputs[0].Input.SentTime.Nanos;
-    V3 sumOfMovements = new V3();
+    MMOPPPLibrary.CharacterController.ApplyInputs(
+      m_LocalInputs, 
+      new System.Numerics.Vector3(m_ServerPosition.x, m_ServerPosition.y, m_ServerPosition.z),
+      OnPositionCalculated);
+  }
 
-    foreach (var input in m_LocalInputs)
-    {
-      float deltaTime = ((input.Input.SentTime.Nanos - timeOfLastUpdate) / 1000000) / 1000; //HACK: math issue, the first input will be ignored and all deltatimes will be offset by 1
-      timeOfLastUpdate = input.Input.SentTime.Nanos;
-
-      if (deltaTime <= 0.0f)
-        continue;
-
-      var moveInputs = GV3ToV3(input.Input.PlayerMoveInputs);
-      var bodyRotation = GV3ToV3(input.Input.EulerBodyRotation);
-      var cameraRotation = GV3ToV3(input.Input.EulerCameraRotation);
-
-      //forward * rotation * move input
-      var forward = moveInputs.z;
-      var right = moveInputs.x;
-      moveInputs.z = Mathf.Cos(cameraRotation.y * (float)Mathf.PI / 180.0f) * forward;
-      moveInputs.x = Mathf.Sin(cameraRotation.y * (float)Mathf.PI / 180.0f) * forward;
-      moveInputs.z += Mathf.Cos((cameraRotation.y + 90) * (float)Mathf.PI / 180.0f) * right;
-      moveInputs.x += Mathf.Sin((cameraRotation.y + 90) * (float)Mathf.PI / 180.0f) * right;
-
-      moveInputs = moveInputs * MMOPPPLibrary.Constants.CharacterMoveSpeed * deltaTime * 1000;
-      sumOfMovements+= moveInputs;
-    }
-    transform.position = m_ServerPosition + sumOfMovements;
+  public void OnPositionCalculated(System.Numerics.Vector3 CurrentPosition)
+  {
+    transform.position = new V3(CurrentPosition.X, CurrentPosition.Y + m_CharacterHalfHeight, CurrentPosition.Z);
   }
 
   public void ResetLocalInputs()
@@ -96,7 +76,7 @@ public class Character : MonoBehaviour
 
   public void ServerUpdate(ServerUpdate Update)
   {
-    m_ServerPosition = new V3(Update.Location.X, Update.Location.Y + m_CharacterHalfHeight, Update.Location.Z);
+    m_ServerPosition = new V3(Update.Location.X, Update.Location.Y, Update.Location.Z);
     m_LastServerInputTimestamp = Update.PastInputs.Last().SentTime;
 
     m_LocalInputs.RemoveAll((ClientInput a) => { return a.Input.SentTime <= m_LastServerInputTimestamp; });

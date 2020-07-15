@@ -23,7 +23,7 @@ namespace MMOPPPLibrary
 
       foreach (var input in Inputs)
       {
-        float deltaTime = ((input.Input.SentTime.Nanos - timeOfLastUpdate) / 1000000) / 1000; //HACK: math issue, the first input will be ignored and all deltatimes will be offset by 1
+        float deltaTime = ((input.Input.SentTime.Nanos - timeOfLastUpdate) / 1000000); //HACK: math issue, the first input will be ignored and all deltatimes will be offset by 1
         timeOfLastUpdate = input.Input.SentTime.Nanos;
 
         if (deltaTime <= 0.0f)
@@ -43,7 +43,7 @@ namespace MMOPPPLibrary
         moveInputs.Z += (float)Math.Cos((cameraRotation.Y + 90) * (float)Math.PI / 180.0f) * right;
         moveInputs.X += (float)Math.Sin((cameraRotation.Y + 90) * (float)Math.PI / 180.0f) * right;
 
-        moveInputs = moveInputs * MMOPPPLibrary.Constants.CharacterMoveSpeed * deltaTime * 1000;
+        moveInputs = moveInputs * MMOPPPLibrary.Constants.CharacterMoveSpeed * deltaTime;
         sumOfMovements += moveInputs;
       }
 
