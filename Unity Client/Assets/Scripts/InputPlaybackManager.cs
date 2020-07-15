@@ -12,7 +12,7 @@ public class InputPlaybackManager : MonoBehaviour
   Stack<GInput> m_Inputs = new Stack<GInput>();
   GInput m_CurrentInput;
   float m_LocalDeltaTime = 0; // Miliseconds
-  float m_BaseTime = 0; // Miliseconds
+  ulong m_BaseTime = 0; // Miliseconds
   UnityEngine.Vector3 m_OldServerLocation = UnityEngine.Vector3.zero;
   UnityEngine.Vector3 m_OldServerRotation = UnityEngine.Vector3.zero;
 
@@ -41,7 +41,7 @@ public class InputPlaybackManager : MonoBehaviour
 
     var timeSinceUpdate = (m_Inputs.Peek().SentTime - m_BaseTime);
 
-    if (m_Inputs.Count != 0 && timeSinceUpdate < m_LocalDeltaTime)
+    if (m_Inputs.Count != 0 && timeSinceUpdate / 1000 < m_LocalDeltaTime)
     {
       timeSinceUpdate = (m_Inputs.Peek().SentTime - m_BaseTime);
       if (m_CurrentInput != null)

@@ -114,14 +114,15 @@ public class WorldServerSync : MonoBehaviour
     if (PBM)
     {
       character.StopAllCoroutines();
-      character.StartCoroutine(ReconcilePosition(character.gameObject,
-        character.gameObject.transform.position,
-        PBM.GetOldServerLocation(),
-        MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
-      character.StartCoroutine(ReconcileRotation(character.gameObject,
-        character.gameObject.transform.rotation.eulerAngles,
-        PBM.GetOldServerRotation(),
-        MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
+      //character.StartCoroutine(ReconcilePosition(character.gameObject,
+      //  character.gameObject.transform.position,
+      //  PBM.GetOldServerLocation(),
+      //  MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
+      //character.StartCoroutine(ReconcileRotation(character.gameObject,
+      //  character.gameObject.transform.rotation.eulerAngles,
+      //  PBM.GetOldServerRotation(),
+      //  MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
+      character.gameObject.transform.SetPositionAndRotation(PBM.GetOldServerLocation(), Quaternion.Euler(PBM.GetOldServerRotation()));
       PBM.SetOldServerLocation(new V3(entity.Location.X, entity.Location.Y + character.m_CharacterHalfHeight, entity.Location.Z));
       PBM.SetOldServerRotation(new V3(entity.BodyRotation.X, entity.BodyRotation.Y, entity.BodyRotation.Z));
       character.GetInputPlaybackManager().UpdateReplayInputs(entity.PastInputs.ToList());
