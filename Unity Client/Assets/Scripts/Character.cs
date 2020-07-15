@@ -35,12 +35,10 @@ public class Character : MonoBehaviour
   private void Start()
   {
     if (m_Local)
-    {
       CharacterManager.AddCharacter(this);
-      GetComponentInChildren<vThirdPersonController>().m_ExternallyOverridingMovements = true;
-    }
 
     m_PlaybackManager = GetComponent<InputPlaybackManager>();
+    GetComponentInChildren<vThirdPersonController>().m_ExternallyOverridingMovements = true;
   }
 
   public InputPlaybackManager GetInputPlaybackManager()
@@ -83,7 +81,6 @@ public class Character : MonoBehaviour
   }
 
   // Helpers
-  // Hack: Shared Code / very similar code to the server character
   public static GV3 V3ToGV3(V3 VInput)
   {
     return new GV3 { X = VInput.x, Y = VInput.y, Z = VInput.z };
@@ -99,6 +96,11 @@ public class Character : MonoBehaviour
     if (m_Local)
       ApplyLocalInputs();
 
+    UpdateUI();
+  }
+
+  public void UpdateUI()
+  {
     // HACK: slow
     V3 camPos = new V3(Camera.main.transform.position.x, 0, Camera.main.transform.position.z);
     V3 textPos = new V3(DisplayName.transform.position.x, 0, DisplayName.transform.position.z);

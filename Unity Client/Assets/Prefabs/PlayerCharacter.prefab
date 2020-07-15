@@ -404,7 +404,7 @@ MonoBehaviour:
   groundMinDistance: 0.25
   groundMaxDistance: 0.5
   slopeLimit: 75
-  m_ExternallyOverridingMovements: 0
+  m_ExternallyOverridingMovements: 1
 --- !u!114 &1840471326490918408
 MonoBehaviour:
   m_ObjectHideFlags: 0

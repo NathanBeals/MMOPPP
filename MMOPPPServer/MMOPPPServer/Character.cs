@@ -81,27 +81,40 @@ namespace MMOPPPServer
       m_ServerUpdate.BodyRotation = CCHelper.V3ToGV3(m_BodyRotation);
     }
 
-    public void Update(ClientInput Input, float DeltaTime)
+    public void Update(List<ClientInput> Inputs)
     {
-      if (DeltaTime < 0.0f) //TODO: still not sure why this happens
+      if (Inputs.Count == 0)
         return;
 
-      m_MoveInputs = CCHelper.GV3ToSNV3(Input.Input.PlayerMoveInputs);
-      m_BodyRotation = CCHelper.GV3ToSNV3(Input.Input.EulerBodyRotation);
-      m_CameraRotation = CCHelper.GV3ToSNV3(Input.Input.EulerCameraRotation);
+      foreach (var input in Inputs)
+      {
+        m_MoveInputs = CCHelper.GV3ToSNV3(input.Input.PlayerMoveInputs);
+        m_BodyRotation = CCHelper.GV3ToSNV3(input.Input.EulerBodyRotation);
+        m_CameraRotation = CCHelper.GV3ToSNV3(input.Input.EulerCameraRotation);
+        ServerUpdateAppendInputs(input);
+      }
 
-      ServerUpdateAppendInputs(Input);
+      ////forward * rotation * move input
+      //var forward = m_MoveInputs.Z;
+      //var right = m_MoveInputs.X;
+      //m_MoveInputs.Z = MathF.Cos(m_CameraRotation.Y * (float)Math.PI / 180.0f) * forward;
+      //m_MoveInputs.X = MathF.Sin(m_CameraRotation.Y * (float)Math.PI / 180.0f) * forward;
+      //m_MoveInputs.Z += MathF.Cos((m_CameraRotation.Y + 90) * (float)Math.PI / 180.0f) * right;
+      //m_MoveInputs.X += MathF.Sin((m_CameraRotation.Y + 90) * (float)Math.PI / 180.0f) * right;
 
-      //forward * rotation * move input
-      var forward = m_MoveInputs.Z;
-      var right = m_MoveInputs.X;
-      m_MoveInputs.Z = MathF.Cos(m_CameraRotation.Y * (float)Math.PI / 180.0f) * forward;
-      m_MoveInputs.X = MathF.Sin(m_CameraRotation.Y * (float)Math.PI / 180.0f) * forward;
-      m_MoveInputs.Z += MathF.Cos((m_CameraRotation.Y + 90) * (float)Math.PI / 180.0f) * right;
-      m_MoveInputs.X += MathF.Sin((m_CameraRotation.Y + 90) * (float)Math.PI / 180.0f) * right;
+      //m_MoveInputs = V3.Multiply(m_MoveInputs, Constants.CharacterMoveSpeed * DeltaTime);
+      //m_Location = m_Location + m_MoveInputs;
 
-      m_MoveInputs = V3.Multiply(m_MoveInputs, Constants.CharacterMoveSpeed * DeltaTime);
-      m_Location = m_Location + m_MoveInputs;
+      m_BodyRotation = CCHelper.GV3ToSNV3(Inputs[^1].Input.EulerBodyRotation);
+      MMOPPPLibrary.CharacterController.ApplyInputs(
+        Inputs,
+        m_Location,
+        OnPositionCalculated);
+    }
+
+    public void OnPositionCalculated(System.Numerics.Vector3 CurrentPosition)
+    {
+      m_Location = new V3(CurrentPosition.X, CurrentPosition.Y, CurrentPosition.Z);
 
       ServerUpdatePositionUpdate();
       ServerUpdateBodyRotationUpdate();

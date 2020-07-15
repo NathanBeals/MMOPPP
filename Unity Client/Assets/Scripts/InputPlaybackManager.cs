@@ -11,6 +11,8 @@ public class InputPlaybackManager : MonoBehaviour
   GInput m_CurrentInput;
   float m_LocalDeltaTime = 0; // Seconds
   float m_BaseTime = 0; // Seconds
+  Google.Protobuf.WellKnownTypes.Timestamp m_LastUpdateHandled = null;
+
 
   vThirdPersonInput m_InputSystem;
 
@@ -28,11 +30,6 @@ public class InputPlaybackManager : MonoBehaviour
     m_BaseTime = m_Inputs.Peek().SentTime.Nanos / 1000000000;
   }
 
-  // Starting at the first update's timestamp,
-  // if the local deltatime exceedes the top items timestamp - startingtimestamp,
-  // then the input is popped and set as the current input, and will continue until
-  // the next input occures.
-  // TODO: rewrite
   private void Update()
   {
     ProcessInput();
@@ -53,7 +50,30 @@ public class InputPlaybackManager : MonoBehaviour
     if (m_CurrentInput == null)
       return;
 
+    if (m_LastUpdateHandled == null)
+      m_LastUpdateHandled = m_CurrentInput.SentTime;
+
+    ApplySingleInput();
+
     m_InputSystem.m_MovementInput = new Vector2(m_CurrentInput.PlayerMoveInputs.X, m_CurrentInput.PlayerMoveInputs.Z);
     m_InputSystem.m_FalseCamera.transform.eulerAngles = new Vector3(m_CurrentInput.EulerCameraRotation.X, m_CurrentInput.EulerCameraRotation.Y, m_CurrentInput.EulerCameraRotation.Z);
   }
+
+  void ApplySingleInput()
+  {
+    var timeStampInput = m_CurrentInput;
+    timeStampInput.SentTime = m_LastUpdateHandled;
+
+    MMOPPPLibrary.CharacterController.ApplyInputs(
+      new List<Google.Protobuf.MMOPPP.Messages.ClientInput> { timeStampInput, m_CurrentInput },
+      new System.Numerics.Vector3(m_ServerPosition.x, m_ServerPosition.y, m_ServerPosition.z),
+      OnPositionCalculated);
+  }
+
+  public void OnPositionCalculated(System.Numerics.Vector3 CurrentPosition)
+  {
+    transform.position = new Vector3(CurrentPosition.X, CurrentPosition.Y, CurrentPosition.Z);
+  }
+
+  public void
 }
