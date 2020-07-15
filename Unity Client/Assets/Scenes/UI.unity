@@ -241,15 +241,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2791788059349422852, guid: ddaa4112aeeb586499f9514683ff2472,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2791788059349422852, guid: ddaa4112aeeb586499f9514683ff2472,
+        type: 3}
+      propertyPath: m_firstOverflowCharacterIndex
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2795936184393548233, guid: ddaa4112aeeb586499f9514683ff2472,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4713624637837548289, guid: ddaa4112aeeb586499f9514683ff2472,
+    - target: {fileID: 2795936184393548233, guid: ddaa4112aeeb586499f9514683ff2472,
         type: 3}
       propertyPath: m_Text
-      value: Rando Calrissian
+      value: Randy
       objectReference: {fileID: 0}
     - target: {fileID: 7115251919993774611, guid: ddaa4112aeeb586499f9514683ff2472,
         type: 3}
