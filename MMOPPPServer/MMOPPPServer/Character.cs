@@ -94,17 +94,6 @@ namespace MMOPPPServer
         ServerUpdateAppendInputs(input);
       }
 
-      ////forward * rotation * move input
-      //var forward = m_MoveInputs.Z;
-      //var right = m_MoveInputs.X;
-      //m_MoveInputs.Z = MathF.Cos(m_CameraRotation.Y * (float)Math.PI / 180.0f) * forward;
-      //m_MoveInputs.X = MathF.Sin(m_CameraRotation.Y * (float)Math.PI / 180.0f) * forward;
-      //m_MoveInputs.Z += MathF.Cos((m_CameraRotation.Y + 90) * (float)Math.PI / 180.0f) * right;
-      //m_MoveInputs.X += MathF.Sin((m_CameraRotation.Y + 90) * (float)Math.PI / 180.0f) * right;
-
-      //m_MoveInputs = V3.Multiply(m_MoveInputs, Constants.CharacterMoveSpeed * DeltaTime);
-      //m_Location = m_Location + m_MoveInputs;
-
       m_BodyRotation = CCHelper.GV3ToSNV3(Inputs[^1].Input.EulerBodyRotation);
       MMOPPPLibrary.CharacterController.ApplyInputs(
         Inputs,

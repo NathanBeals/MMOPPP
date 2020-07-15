@@ -27,8 +27,8 @@ public class InputPlaybackManager : MonoBehaviour
       return;
 
     m_Inputs = new Stack<GInput>(Inputs);
-    m_BaseTime = m_Inputs.Peek().SentTime.Nanos / 1000000;
-    m_LastInputTime = m_Inputs.Peek().SentTime.Nanos / 1000000;
+    m_BaseTime = m_Inputs.Peek().SentTime;
+    m_LastInputTime = m_Inputs.Peek().SentTime;
   }
 
   private void Update()
@@ -36,26 +36,26 @@ public class InputPlaybackManager : MonoBehaviour
     if (m_Inputs.Count == 0)
       return;
 
-    float toptime = m_Inputs.Peek().SentTime.Nanos / 1000000 - m_BaseTime;
+    float toptime = m_Inputs.Peek().SentTime - m_BaseTime;
 
-    if (toptime / 1000.0f < m_LocalDeltaTime)
+    if (toptime / 1000 < m_LocalDeltaTime)
     {
-      if (m_CurrentInput != null)
-      {
-        MMOPPPLibrary.CharacterController.ApplySingleInput(
-          m_CurrentInput,
-          new System.Numerics.Vector3(transform.position.x, transform.position.y, transform.position.z),
-           ((m_CurrentInput.SentTime.Nanos / 1000000) - m_LastInputTime) /*Time.deltaTime * 1000*/, // Seconds
-          OnPositionCalculated);
+      //if (m_CurrentInput != null)
+      //{
+      //  MMOPPPLibrary.CharacterController.ApplySingleInput(
+      //    m_CurrentInput,
+      //    new System.Numerics.Vector3(transform.position.x, transform.position.y, transform.position.z),
+      //     ((m_CurrentInput.SentTime.Nanos / 1000000) - m_LastInputTime) /*Time.deltaTime * 1000*/, // Seconds
+      //    OnPositionCalculated);
 
-        m_LastInputTime = m_CurrentInput.SentTime.Nanos / 1000000;
-      }
+      //  m_LastInputTime = m_CurrentInput.SentTime.Nanos / 1000000;
+      //}
       m_CurrentInput = m_Inputs.Pop();
     }
 
     UpdateAnimationController();
 
-    m_LocalDeltaTime += Time.deltaTime * 1000;
+    m_LocalDeltaTime += Time.deltaTime;
   }
 
   private void UpdateAnimationController()

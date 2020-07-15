@@ -99,24 +99,6 @@ namespace MMOPPPServer
 
     void PhysicsUpdate(float DeltaTime)
     {
-      //foreach (var input in m_Inputs)
-      //{
-      //  TryAddCharacterFromInput(input);
-
-      //  var character = m_Characters[input.Name];
-      //  character.m_TimeSinceLastUpdate = 0;
-
-      //  if (character.m_TimeOfLastUpdate == -1) //first update sent
-      //    character.m_TimeOfLastUpdate = input.Input.SentTime.Nanos;
-      //  else
-      //  {
-      //    float clientDeltaTime = 0.0f;
-      //    clientDeltaTime = (input.Input.SentTime.Nanos - character.m_TimeOfLastUpdate) / 1000000;
-      //    character.m_TimeOfLastUpdate = input.Input.SentTime.Nanos;
-      //    character.Update(input, clientDeltaTime);
-      //  }
-      //}
-
       var inputGroups = m_Inputs.GroupBy(x => x.Name);
 
       foreach (var characterInputs in inputGroups)

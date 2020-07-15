@@ -98,7 +98,7 @@ public class TCPConnection : MonoBehaviour
       PlayerMoveInputs = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = MoveInput.x, Y = 0.0f, Z = MoveInput.y },
       EulerBodyRotation = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = BodyRotation.x, Y = BodyRotation.y, Z = BodyRotation.z },
       EulerCameraRotation = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = CameraRotation.x, Y = CameraRotation.y, Z = CameraRotation.z },
-      SentTime = new Timestamp { Seconds = (DateTime.UtcNow.Ticks / 10000000) - 11644473600L, Nanos = (int)(DateTime.UtcNow.Ticks % 10000000) * 100 }
+      SentTime = (ulong)DateTime.UtcNow.Ticks / 10000
     };
 
     return input;
@@ -230,7 +230,7 @@ public class TCPConnection : MonoBehaviour
       PlayerMoveInputs = new Google.Protobuf.MMOPPP.Messages.Vector3 { X =  0, Y = 0, Z = 0 },
       EulerBodyRotation = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = 0, Y = 0, Z = 0 },
       EulerCameraRotation = new Google.Protobuf.MMOPPP.Messages.Vector3 { X = 0, Y = 0, Z = 0 },
-      SentTime = new Timestamp { Seconds = (DateTime.UtcNow.Ticks / 10000000) - 11644473600L, Nanos = (int)(DateTime.UtcNow.Ticks % 10000000) * 100 }
+      SentTime = (ulong)DateTime.UtcNow.Ticks / 10000
     };
 
     return input;

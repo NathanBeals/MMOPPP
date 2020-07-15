@@ -21,7 +21,7 @@ public class Character : MonoBehaviour
   private InputPlaybackManager m_PlaybackManager; // (Used for RPC Positions and animations)
   private List<ClientInput> m_LocalInputs = new List<ClientInput>(); // Inputs stored between server updates (Used for LPC positions)
   private UnityEngine.Vector3 m_ServerPosition;
-  private Google.Protobuf.WellKnownTypes.Timestamp m_LastServerInputTimestamp;
+  private ulong m_LastServerInputTimestamp;
 
   // UI 
   public TMPro.TextMeshPro DisplayName;

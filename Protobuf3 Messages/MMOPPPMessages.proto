@@ -21,7 +21,7 @@ message Input
     bool strafe = 6;
     bool sprint = 7;
 
-    google.protobuf.Timestamp sent_time = 8;
+    uint64 sent_time = 8; // Miliseconds since epoc
 }
 
 // -- Full Messages --

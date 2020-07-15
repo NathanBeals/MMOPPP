@@ -201,7 +201,7 @@ namespace AIClient
         PlayerMoveInputs = new Vector3 { X = 0.0f, Y = 0.0f, Z = 0.0f },
         EulerBodyRotation = new Vector3 { X = 0.0f, Y = 0.0f, Z = 0.0f },
         EulerCameraRotation = new Vector3 { X = 0.0f, Y = 0.0f, Z = 0.0f },
-        SentTime = new Timestamp { Seconds = (DateTime.UtcNow.Ticks / 10000000) - 11644473600L, Nanos = (int)(DateTime.UtcNow.Ticks % 10000000) * 100 }
+        SentTime = (ulong)DateTime.UtcNow.Ticks / 10000
       };
 
       return testInput;

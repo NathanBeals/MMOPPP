@@ -26,19 +26,18 @@ namespace Google.Protobuf.MMOPPP.Messages {
           string.Concat(
             "ChRNTU9QUFBNZXNzYWdlcy5wcm90bxIGTU1PUFBQGh9nb29nbGUvcHJvdG9i",
             "dWYvdGltZXN0YW1wLnByb3RvIioKB1ZlY3RvcjMSCQoBeBgBIAEoAhIJCgF5",
-            "GAIgASgCEgkKAXoYAyABKAIi4QEKBUlucHV0EisKEnBsYXllcl9tb3ZlX2lu",
+            "GAIgASgCEgkKAXoYAyABKAIixQEKBUlucHV0EisKEnBsYXllcl9tb3ZlX2lu",
             "cHV0cxgDIAEoCzIPLk1NT1BQUC5WZWN0b3IzEiwKE2V1bGVyX2JvZHlfcm90",
             "YXRpb24YBCABKAsyDy5NTU9QUFAuVmVjdG9yMxIuChVldWxlcl9jYW1lcmFf",
             "cm90YXRpb24YBSABKAsyDy5NTU9QUFAuVmVjdG9yMxIOCgZzdHJhZmUYBiAB",
-            "KAgSDgoGc3ByaW50GAcgASgIEi0KCXNlbnRfdGltZRgIIAEoCzIaLmdvb2ds",
-            "ZS5wcm90b2J1Zi5UaW1lc3RhbXAiiwEKDFNlcnZlclVwZGF0ZRIMCgRuYW1l",
-            "GAEgASgJEiIKC3Bhc3RfaW5wdXRzGAIgAygLMg0uTU1PUFBQLklucHV0EiEK",
-            "CGxvY2F0aW9uGAMgASgLMg8uTU1PUFBQLlZlY3RvcjMSJgoNYm9keV9yb3Rh",
-            "dGlvbhgEIAEoCzIPLk1NT1BQUC5WZWN0b3IzIjYKDVNlcnZlclVwZGF0ZXMS",
-            "JQoHdXBkYXRlcxgBIAMoCzIULk1NT1BQUC5TZXJ2ZXJVcGRhdGUiOQoLQ2xp",
-            "ZW50SW5wdXQSDAoEbmFtZRgBIAEoCRIcCgVpbnB1dBgCIAEoCzINLk1NT1BQ",
-            "UC5JbnB1dEIiqgIfR29vZ2xlLlByb3RvYnVmLk1NT1BQUC5NZXNzYWdlc2IG",
-            "cHJvdG8z"));
+            "KAgSDgoGc3ByaW50GAcgASgIEhEKCXNlbnRfdGltZRgIIAEoBCKLAQoMU2Vy",
+            "dmVyVXBkYXRlEgwKBG5hbWUYASABKAkSIgoLcGFzdF9pbnB1dHMYAiADKAsy",
+            "DS5NTU9QUFAuSW5wdXQSIQoIbG9jYXRpb24YAyABKAsyDy5NTU9QUFAuVmVj",
+            "dG9yMxImCg1ib2R5X3JvdGF0aW9uGAQgASgLMg8uTU1PUFBQLlZlY3RvcjMi",
+            "NgoNU2VydmVyVXBkYXRlcxIlCgd1cGRhdGVzGAEgAygLMhQuTU1PUFBQLlNl",
+            "cnZlclVwZGF0ZSI5CgtDbGllbnRJbnB1dBIMCgRuYW1lGAEgASgJEhwKBWlu",
+            "cHV0GAIgASgLMg0uTU1PUFBQLklucHV0QiKqAh9Hb29nbGUuUHJvdG9idWYu",
+            "TU1PUFBQLk1lc3NhZ2VzYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -280,7 +279,7 @@ namespace Google.Protobuf.MMOPPP.Messages {
       eulerCameraRotation_ = other.eulerCameraRotation_ != null ? other.eulerCameraRotation_.Clone() : null;
       strafe_ = other.strafe_;
       sprint_ = other.sprint_;
-      sentTime_ = other.sentTime_ != null ? other.sentTime_.Clone() : null;
+      sentTime_ = other.sentTime_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -346,9 +345,12 @@ namespace Google.Protobuf.MMOPPP.Messages {
 
     /// <summary>Field number for the "sent_time" field.</summary>
     public const int SentTimeFieldNumber = 8;
-    private global::Google.Protobuf.WellKnownTypes.Timestamp sentTime_;
+    private ulong sentTime_;
+    /// <summary>
+    /// Miliseconds since epoc
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Google.Protobuf.WellKnownTypes.Timestamp SentTime {
+    public ulong SentTime {
       get { return sentTime_; }
       set {
         sentTime_ = value;
@@ -373,7 +375,7 @@ namespace Google.Protobuf.MMOPPP.Messages {
       if (!object.Equals(EulerCameraRotation, other.EulerCameraRotation)) return false;
       if (Strafe != other.Strafe) return false;
       if (Sprint != other.Sprint) return false;
-      if (!object.Equals(SentTime, other.SentTime)) return false;
+      if (SentTime != other.SentTime) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -385,7 +387,7 @@ namespace Google.Protobuf.MMOPPP.Messages {
       if (eulerCameraRotation_ != null) hash ^= EulerCameraRotation.GetHashCode();
       if (Strafe != false) hash ^= Strafe.GetHashCode();
       if (Sprint != false) hash ^= Sprint.GetHashCode();
-      if (sentTime_ != null) hash ^= SentTime.GetHashCode();
+      if (SentTime != 0UL) hash ^= SentTime.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -419,9 +421,9 @@ namespace Google.Protobuf.MMOPPP.Messages {
         output.WriteRawTag(56);
         output.WriteBool(Sprint);
       }
-      if (sentTime_ != null) {
-        output.WriteRawTag(66);
-        output.WriteMessage(SentTime);
+      if (SentTime != 0UL) {
+        output.WriteRawTag(64);
+        output.WriteUInt64(SentTime);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -446,8 +448,8 @@ namespace Google.Protobuf.MMOPPP.Messages {
       if (Sprint != false) {
         size += 1 + 1;
       }
-      if (sentTime_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(SentTime);
+      if (SentTime != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(SentTime);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -484,11 +486,8 @@ namespace Google.Protobuf.MMOPPP.Messages {
       if (other.Sprint != false) {
         Sprint = other.Sprint;
       }
-      if (other.sentTime_ != null) {
-        if (sentTime_ == null) {
-          SentTime = new global::Google.Protobuf.WellKnownTypes.Timestamp();
-        }
-        SentTime.MergeFrom(other.SentTime);
+      if (other.SentTime != 0UL) {
+        SentTime = other.SentTime;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -530,11 +529,8 @@ namespace Google.Protobuf.MMOPPP.Messages {
             Sprint = input.ReadBool();
             break;
           }
-          case 66: {
-            if (sentTime_ == null) {
-              SentTime = new global::Google.Protobuf.WellKnownTypes.Timestamp();
-            }
-            input.ReadMessage(SentTime);
+          case 64: {
+            SentTime = input.ReadUInt64();
             break;
           }
         }

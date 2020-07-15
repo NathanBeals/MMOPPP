@@ -17,7 +17,7 @@ namespace MMOPPPLibrary
     public const Int32 ServerTickRate = 1000; // Miliseconds
     public const Int32 TCPBufferSize = (int)((ServerTickRate / 1000.0f) * 100000); //10mb per second (very intensive)
     public const float TimeToDC = 3000.0f; // Miliseconds
-    public const float CharacterMoveSpeed = 8.0f / 1000;
+    public const float CharacterMoveSpeed = 8.0f;
   }
 
   public static class Extensions // From https://www.techiedelight.com/get-subarray-of-array-csharp/
