@@ -46,6 +46,9 @@ public class TCPConnection : MonoBehaviour
   // Lag
   public float m_ArtificialLag = 0;
 
+  // Repeated Packets
+  ClientInput m_LastClientInput = null;
+
   public void SendingInputs(string ServerAddress = MMOPPPLibrary.Constants.ServerPublicAddress, Int32 Port = MMOPPPLibrary.Constants.ServerPort)
   {
     try
@@ -188,11 +191,13 @@ public class TCPConnection : MonoBehaviour
     m_Camera = GameObject.FindObjectOfType<Camera>();
     if (m_Camera == null)
       Debug.Log("No camera in scene");
+
+    StartCoroutine(ClientInputHeartbeat());
   }
 
   public void Update()
   {
-    Debug.Log("Queue Inputs");
+    Debug.Log("Attempt Queue Input");
     var packedInput = PackInput(m_Character,
       m_MovementInput,
       m_Character.gameObject.transform.rotation.eulerAngles,
@@ -201,11 +206,32 @@ public class TCPConnection : MonoBehaviour
       m_Sprint);
 
     QueueInput(packedInput);
+
+    //if (!CheckRepeatClientInput(packedInput))
+    //{
+    //  Debug.Log("Queue Input");
+    //  QueueInput(packedInput);
+    //  m_LastClientInput = packedInput;
+    //}
     m_Character.RecordLocalInput(packedInput);
 
     var serverUpdate = PopServerUpdate();
     if (serverUpdate != null)
       WorldServerSync.s_Instance.QueueNewUpdate(serverUpdate);
+  }
+
+  // If the next clientinput is the same (excluding the timestamp) just ignore it
+  bool CheckRepeatClientInput(ClientInput newInput)
+  {
+    if (m_LastClientInput == null)
+      return false;
+
+    return (newInput.Name == m_LastClientInput.Name
+      && newInput.Input.PlayerMoveInputs.ToString() == m_LastClientInput.Input.PlayerMoveInputs.ToString()
+      && newInput.Input.EulerBodyRotation.ToString() == m_LastClientInput.Input.EulerBodyRotation.ToString()
+      && newInput.Input.EulerCameraRotation.ToString() == m_LastClientInput.Input.EulerCameraRotation.ToString()
+      && newInput.Input.Strafe == m_LastClientInput.Input.Strafe
+      && newInput.Input.Sprint == m_LastClientInput.Input.Sprint);
   }
 
   IEnumerator SendPacketsLagged(ClientInput Input)
@@ -234,5 +260,16 @@ public class TCPConnection : MonoBehaviour
     };
 
     return input;
+  }
+
+  // Resets the duplicate input condition slightly before a client would be disconnected for no inputs
+  IEnumerator ClientInputHeartbeat()
+  {
+    //while(true)
+    //{
+    //  yield return new WaitForSeconds(.1f);
+    //  m_LastClientInput = null;
+    //}
+    yield break;
   }
 }
