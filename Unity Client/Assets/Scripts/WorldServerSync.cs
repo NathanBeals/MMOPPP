@@ -112,13 +112,24 @@ public class WorldServerSync : MonoBehaviour
 
     //character.StopAllCoroutines();
     //character.StartCoroutine(ReconcilePosition(character.gameObject,
-    //  character.gameObject.transform.position,
+    //  character.gameObject.transform.position, 
     //  new V3(entity.Location.X, entity.Location.Y + character.m_CharacterHalfHeight, entity.Location.Z),
     //  MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
-   // character.transform.position = new V3(entity.Location.X, entity.Location.Y + character.m_CharacterHalfHeight, entity.Location.Z);
+    // TODO: I actually want one position in the past?
+    //character.transform.position = new V3(entity.Location.X, entity.Location.Y + character.m_CharacterHalfHeight, entity.Location.Z);
     //character.transform.eulerAngles = new V3(entity.BodyRotation.X, entity.BodyRotation.Y, entity.BodyRotation.Z); // TODO: remove, calculated locally by input replay
 
-    character.GetInputPlaybackManager()?.UpdateReplayInputs(entity.PastInputs.ToList());
+    var PBM = character.GetInputPlaybackManager();
+    if (PBM)
+    {
+      character.StopAllCoroutines();
+      character.StartCoroutine(ReconcilePosition(character.gameObject,
+        character.gameObject.transform.position,
+        PBM.GetOldServerLocation(),
+        MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
+      PBM.SetOldServerLocation(new V3(entity.Location.X, entity.Location.Y + character.m_CharacterHalfHeight, entity.Location.Z));
+      character.GetInputPlaybackManager().UpdateReplayInputs(entity.PastInputs.ToList());
+    }
 
     return true;
   }

@@ -2,6 +2,7 @@
 using Invector.vCharacterController;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 using GInput = Google.Protobuf.MMOPPP.Messages.Input;
@@ -12,7 +13,7 @@ public class InputPlaybackManager : MonoBehaviour
   GInput m_CurrentInput;
   float m_LocalDeltaTime = 0; // Miliseconds
   float m_BaseTime = 0; // Miliseconds
-  float m_LastInputTime = 0; // Miliseconds
+  UnityEngine.Vector3 m_OldServerLocation = UnityEngine.Vector3.zero;
 
   vThirdPersonInput m_InputSystem;
 
@@ -26,9 +27,10 @@ public class InputPlaybackManager : MonoBehaviour
     if (Inputs.Count == 0)
       return;
 
+    m_Inputs.Clear();
+    Inputs.Reverse();
     m_Inputs = new Stack<GInput>(Inputs);
     m_BaseTime = m_Inputs.Peek().SentTime;
-    m_LastInputTime = m_Inputs.Peek().SentTime;
   }
 
   private void Update()
@@ -36,20 +38,21 @@ public class InputPlaybackManager : MonoBehaviour
     if (m_Inputs.Count == 0)
       return;
 
-    float toptime = m_Inputs.Peek().SentTime - m_BaseTime;
+    var timeSinceUpdate = (m_Inputs.Peek().SentTime - m_BaseTime);
 
-    if (toptime / 1000 < m_LocalDeltaTime)
+    if (m_Inputs.Count != 0 && timeSinceUpdate < m_LocalDeltaTime)
     {
-      //if (m_CurrentInput != null)
-      //{
-      //  MMOPPPLibrary.CharacterController.ApplySingleInput(
-      //    m_CurrentInput,
-      //    new System.Numerics.Vector3(transform.position.x, transform.position.y, transform.position.z),
-      //     ((m_CurrentInput.SentTime.Nanos / 1000000) - m_LastInputTime) /*Time.deltaTime * 1000*/, // Seconds
-      //    OnPositionCalculated);
+      timeSinceUpdate = (m_Inputs.Peek().SentTime - m_BaseTime);
+      if (m_CurrentInput != null)
+      {
+        var deltaTime = (m_Inputs.Peek().SentTime - m_CurrentInput.SentTime);
+        MMOPPPLibrary.CharacterController.ApplySingleInput(
+          m_CurrentInput,
+          new System.Numerics.Vector3(transform.position.x, transform.position.y, transform.position.z),
+          deltaTime, // miliseconds
+          OnPositionCalculated);
+      }
 
-      //  m_LastInputTime = m_CurrentInput.SentTime.Nanos / 1000000;
-      //}
       m_CurrentInput = m_Inputs.Pop();
     }
 
@@ -71,4 +74,14 @@ public class InputPlaybackManager : MonoBehaviour
   {
     transform.position =  new UnityEngine.Vector3(CurrentPosition.X, CurrentPosition.Y, CurrentPosition.Z);
   }
+
+  public UnityEngine.Vector3 GetOldServerLocation()
+  {
+    return m_OldServerLocation;
+  }
+  public void SetOldServerLocation(UnityEngine.Vector3 Location)
+  {
+    m_OldServerLocation = Location;
+  }
+
 }
