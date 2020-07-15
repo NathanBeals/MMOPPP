@@ -14,6 +14,7 @@ public class InputPlaybackManager : MonoBehaviour
   float m_LocalDeltaTime = 0; // Miliseconds
   float m_BaseTime = 0; // Miliseconds
   UnityEngine.Vector3 m_OldServerLocation = UnityEngine.Vector3.zero;
+  UnityEngine.Vector3 m_OldServerRotation = UnityEngine.Vector3.zero;
 
   vThirdPersonInput m_InputSystem;
 
@@ -82,6 +83,14 @@ public class InputPlaybackManager : MonoBehaviour
   public void SetOldServerLocation(UnityEngine.Vector3 Location)
   {
     m_OldServerLocation = Location;
+  }
+  public UnityEngine.Vector3 GetOldServerRotation()
+  {
+    return m_OldServerRotation;
+  }
+  public void SetOldServerRotation(UnityEngine.Vector3 Location)
+  {
+    m_OldServerRotation = Location;
   }
 
 }

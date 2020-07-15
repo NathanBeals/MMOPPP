@@ -110,15 +110,6 @@ public class WorldServerSync : MonoBehaviour
       CharacterManager.AddCharacter(character);
     }
 
-    //character.StopAllCoroutines();
-    //character.StartCoroutine(ReconcilePosition(character.gameObject,
-    //  character.gameObject.transform.position, 
-    //  new V3(entity.Location.X, entity.Location.Y + character.m_CharacterHalfHeight, entity.Location.Z),
-    //  MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
-    // TODO: I actually want one position in the past?
-    //character.transform.position = new V3(entity.Location.X, entity.Location.Y + character.m_CharacterHalfHeight, entity.Location.Z);
-    //character.transform.eulerAngles = new V3(entity.BodyRotation.X, entity.BodyRotation.Y, entity.BodyRotation.Z); // TODO: remove, calculated locally by input replay
-
     var PBM = character.GetInputPlaybackManager();
     if (PBM)
     {
@@ -127,7 +118,12 @@ public class WorldServerSync : MonoBehaviour
         character.gameObject.transform.position,
         PBM.GetOldServerLocation(),
         MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
+      character.StartCoroutine(ReconcileRotation(character.gameObject,
+        character.gameObject.transform.rotation.eulerAngles,
+        PBM.GetOldServerRotation(),
+        MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
       PBM.SetOldServerLocation(new V3(entity.Location.X, entity.Location.Y + character.m_CharacterHalfHeight, entity.Location.Z));
+      PBM.SetOldServerRotation(new V3(entity.BodyRotation.X, entity.BodyRotation.Y, entity.BodyRotation.Z));
       character.GetInputPlaybackManager().UpdateReplayInputs(entity.PastInputs.ToList());
     }
 
@@ -174,6 +170,23 @@ public class WorldServerSync : MonoBehaviour
       yield return new WaitForFixedUpdate();
       elapsedTime += Time.fixedDeltaTime;
       Body.transform.position += differencePerFrame;
+    } while (elapsedTime < Duration);
+
+    yield return null;
+  }
+
+  IEnumerator ReconcileRotation(GameObject Body, V3 OldRotation, V3 NewRotation, float Duration)
+  {
+    V3 difference = NewRotation - OldRotation;
+
+    float elapsedTime = 0;
+    V3 differencePerFrame = difference * Time.fixedDeltaTime / Duration;
+
+    do
+    {
+      yield return new WaitForFixedUpdate();
+      elapsedTime += Time.fixedDeltaTime;
+      Body.transform.Rotate(differencePerFrame);
     } while (elapsedTime < Duration);
 
     yield return null;
