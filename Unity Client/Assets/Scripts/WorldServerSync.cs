@@ -115,8 +115,8 @@ public class WorldServerSync : MonoBehaviour
     //  character.gameObject.transform.position,
     //  new V3(entity.Location.X, entity.Location.Y + character.m_CharacterHalfHeight, entity.Location.Z),
     //  MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
-    character.transform.position = new V3(entity.Location.X, entity.Location.Y, entity.Location.Z);
-    character.transform.eulerAngles = new V3(entity.BodyRotation.X, entity.BodyRotation.Y, entity.BodyRotation.Z); // TODO: remove, calculated locally by input replay
+   // character.transform.position = new V3(entity.Location.X, entity.Location.Y + character.m_CharacterHalfHeight, entity.Location.Z);
+    //character.transform.eulerAngles = new V3(entity.BodyRotation.X, entity.BodyRotation.Y, entity.BodyRotation.Z); // TODO: remove, calculated locally by input replay
 
     character.GetInputPlaybackManager()?.UpdateReplayInputs(entity.PastInputs.ToList());
 

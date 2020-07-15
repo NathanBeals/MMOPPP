@@ -38,19 +38,18 @@ public class InputPlaybackManager : MonoBehaviour
 
     float toptime = m_Inputs.Peek().SentTime.Nanos / 1000000 - m_BaseTime;
 
-    if (toptime < m_LocalDeltaTime)
+    if (toptime / 1000.0f < m_LocalDeltaTime)
     {
       if (m_CurrentInput != null)
       {
-        var deltaTime = m_CurrentInput.SentTime.Nanos / 1000000 - m_LastInputTime;
-
         MMOPPPLibrary.CharacterController.ApplySingleInput(
           m_CurrentInput,
           new System.Numerics.Vector3(transform.position.x, transform.position.y, transform.position.z),
-          deltaTime,
+           ((m_CurrentInput.SentTime.Nanos / 1000000) - m_LastInputTime) /*Time.deltaTime * 1000*/, // Seconds
           OnPositionCalculated);
-      }
 
+        m_LastInputTime = m_CurrentInput.SentTime.Nanos / 1000000;
+      }
       m_CurrentInput = m_Inputs.Pop();
     }
 

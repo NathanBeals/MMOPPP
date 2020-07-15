@@ -54,7 +54,7 @@ namespace MMOPPPLibrary
 
     public static void ApplySingleInput(Google.Protobuf.MMOPPP.Messages.Input Input, SNV3 CurrentPosition, float DeltaTime, OnPositionCalculated ReconciliationFunction)
     {
-      if (DeltaTime <= 0.0f)
+      if (DeltaTime <= 0.0f || Input == null)
         return;
 
       var sumOfMovements = new SNV3();
