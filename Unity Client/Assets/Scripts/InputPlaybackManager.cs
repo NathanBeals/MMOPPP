@@ -74,12 +74,12 @@ public class InputPlaybackManager : MonoBehaviour
         delay, // miliseconds
         OnPositionCalculated);
 
-        m_CurrentInput = m_Inputs.Dequeue();
+        if (m_Inputs.Count > 1) // Continue with the last action if all actions finished
+          m_CurrentInput = m_Inputs.Dequeue();
       }
       else
         m_CurrentInput = m_Inputs.Dequeue();
     }
-
   }
 
   private void UpdateAnimationController()
