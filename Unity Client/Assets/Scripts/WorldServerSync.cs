@@ -116,13 +116,13 @@ public class WorldServerSync : MonoBehaviour
     {
       character.StopAllCoroutines();
 
-      if ((character.gameObject.transform.position - PBM.GetOldServerLocation()).magnitude > 5.0f)
-      {
-        character.StartCoroutine(ReconcilePosition(character.gameObject,
-          character.gameObject.transform.position,
-          PBM.GetOldServerLocation(),
-          MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
-      }
+      //if ((character.gameObject.transform.position - PBM.GetOldServerLocation()).magnitude > 5.0f)
+      //{
+      character.StartCoroutine(ReconcilePosition(character.gameObject,
+        character.gameObject.transform.position,
+        PBM.GetOldServerLocation(),
+        MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
+      //}
       character.StartCoroutine(ReconcileRotation(character.gameObject,
         character.gameObject.transform.rotation.eulerAngles,
         PBM.GetOldServerRotation(),
