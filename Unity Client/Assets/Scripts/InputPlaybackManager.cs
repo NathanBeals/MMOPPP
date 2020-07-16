@@ -20,6 +20,8 @@ public class InputPlaybackManager : MonoBehaviour
 
   // Debug
   float faultTime = 0;
+  float start = 0;
+  float end = 0;
 
   public void Start()
   {
@@ -41,25 +43,45 @@ public class InputPlaybackManager : MonoBehaviour
       m_BaseTime = m_Inputs.Peek().SentTime;
 
     StartCoroutine(PlaybackInputs());
+   // start = Time.realtimeSinceStartup;
+
+    if (Inputs.Count != 0)
+      Debug.Log("Time To: " + ((Inputs[Inputs.Count - 1].SentTime - Inputs[0].SentTime) / 1000.0f));
     //Debug.Log("delay" + (Time.realtimeSinceStartup - faultTime)); //WORKING HERE: TODO: .1 seconds delay (no input) local, almost .5 seconds delay (no input) remote
   }
 
   IEnumerator PlaybackInputs()
   {
+    float uniformWaitTime = ((MMOPPPLibrary.Constants.ServerTickRate - 50.0f) / m_Inputs.Count) / 1000.0f;
+    start = Time.realtimeSinceStartup;
+    float timespent = 0;
     while (m_Inputs.Count != 0)
     {
+      float startUpdate = Time.realtimeSinceStartup;
       if (m_CurrentInput != null)
       {
-        var delay = m_Inputs.Peek().SentTime - m_CurrentInput.SentTime;
-        yield return new WaitForSeconds(delay / 1000);
+        yield return new WaitForSecondsRealtime(uniformWaitTime - (Time.realtimeSinceStartup- startUpdate));
 
+        var delay = m_Inputs.Peek().SentTime - m_CurrentInput.SentTime;
         MMOPPPLibrary.CharacterController.ApplySingleInput(
         m_CurrentInput,
         new System.Numerics.Vector3(transform.position.x, transform.position.y, transform.position.z),
         delay, // miliseconds
         OnPositionCalculated);
 
-        m_CurrentInput = m_Inputs.Dequeue();
+        if (m_Inputs.Count != 1)
+          m_CurrentInput = m_Inputs.Dequeue();
+
+        // Debug
+        if (m_Inputs.Count == 1)
+        {
+          Debug.Log("Time Spent Real: " + ((Time.realtimeSinceStartup - start) * 1000));
+          Debug.Log("Time Spent: " + timespent);
+          yield break;
+        }
+
+        //var ddiv = delay / 1000.0f;
+        timespent += delay;
       }
       else
         m_CurrentInput = m_Inputs.Dequeue();
@@ -72,53 +94,6 @@ public class InputPlaybackManager : MonoBehaviour
   {
     if (m_Inputs.Count == 0)
       return;
-
-    //var timeSinceUpdate = (m_Inputs.Peek().SentTime - m_BaseTime);
-
-    //if (m_Inputs.Count != 0 && timeSinceUpdate / 1000 < m_LocalDeltaTime)
-    //{
-    //  timeSinceUpdate = (m_Inputs.Peek().SentTime - m_BaseTime);
-    //  if (m_CurrentInput != null)
-    //  {
-    //    var deltaTime = (m_Inputs.Peek().SentTime - m_CurrentInput.SentTime);
-    //    MMOPPPLibrary.CharacterController.ApplySingleInput(
-    //      m_CurrentInput,
-    //      new System.Numerics.Vector3(transform.position.x, transform.position.y, transform.position.z),
-    //      deltaTime, // miliseconds
-    //      OnPositionCalculated);
-    //  }
-
-    //  m_CurrentInput = m_Inputs.Pop();
-    //}
-
-    //if (m_Inputs.Peek().SentTime - m_BaseTime > m_LocalDeltaTime * 1000)
-    //{
-    //  if (m_CurrentInput != null)
-    //  {
-    //    MMOPPPLibrary.CharacterController.ApplySingleInput(
-    //      m_CurrentInput,
-    //      new System.Numerics.Vector3(transform.position.x, transform.position.y, transform.position.z),
-    //      (m_Inputs.Peek().SentTime - m_CurrentInput.SentTime), // miliseconds
-    //      OnPositionCalculated);
-    //  }
-
-    //  m_CurrentInput = m_Inputs.Pop();
-    //}
-
-    //if (m_Inputs.Count > 0)
-    //{
-    //  m_CurrentInput = m_Inputs.Dequeue();
-    //  if (m_Inputs.Count > 0)
-    //  {
-    //    MMOPPPLibrary.CharacterController.ApplySingleInput(
-    //      m_CurrentInput,
-    //      new System.Numerics.Vector3(transform.position.x, transform.position.y, transform.position.z),
-    //      (m_Inputs.Peek().SentTime - m_CurrentInput.SentTime), // miliseconds
-    //      OnPositionCalculated);
-    //  }
-
-    //  faultTime = Time.realtimeSinceStartup;
-    //}
 
     UpdateAnimationController();
 
