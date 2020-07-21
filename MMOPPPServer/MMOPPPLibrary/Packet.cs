@@ -57,5 +57,10 @@ namespace MMOPPPLibrary
 
       Stream.Write(batch.ToArray(), 0, batch.Count());
     }
+
+    public Int32 GetPacketSize()
+    {
+      return m_MessageSize + 4;
+    }
   }
 }

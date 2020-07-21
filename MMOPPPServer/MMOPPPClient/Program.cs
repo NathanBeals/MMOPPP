@@ -11,6 +11,8 @@ using MMOPPPLibrary;
 using System.IO;
 using System.Collections.Generic;
 using System.Threading;
+using System.Net.Http.Headers;
+using System.Diagnostics;
 
 namespace AIClient
 {
@@ -25,6 +27,13 @@ namespace AIClient
 
   class MMOPPPClient
   {
+    static List<string> s_ClientNames = new List<string>()
+  {
+    "Dingus",
+    "Bingus",
+    "Singus"
+    };
+
     TcpClient m_ServerConnection = new TcpClient();
     List<Byte> m_QueuedData = new List<Byte>();
     bool m_ThreadsShouldExit = false; // Hack, never set
@@ -153,10 +162,13 @@ namespace AIClient
         m_MessageHandlingThread = new Thread(HandleMessages);
         m_MessageHandlingThread.Start();
 
-        SendQueuedPackets(stream);
+        m_ServerConnection.ReceiveBufferSize = 2000;
+        //SendQueuedPackets(stream);
 
-        Console.WriteLine("Press enter to exit");
-        Console.ReadLine();
+        //Console.WriteLine("Press enter to exit");
+        //Console.ReadLine();
+
+        GameLoop(stream);
 
         stream.Close(); // TODO: shouldn't close here, after one message, this whole block should loop and wait for input
         m_ServerConnection.Close();
@@ -205,6 +217,30 @@ namespace AIClient
       };
 
       return testInput;
+    }
+
+    public void GameLoop(NetworkStream SendStream)
+    {
+      while (true)
+      {
+        List<Packet<ClientInput>> inputs = new List<Packet<ClientInput>>();
+        for (int x = 0; x < 17; ++x)
+        {
+          foreach (var name in s_ClientNames)
+          {
+            var input = new Packet<ClientInput>(CreatePlayerInput(name));
+            inputs.Add(input);
+            input.SendPacket(SendStream);
+          }
+        }
+
+        int sum = 0;
+        foreach (var packet in inputs)
+          sum += packet.GetPacketSize();
+
+        Console.WriteLine("!!! Size: " + sum + " !!!");
+        Thread.Sleep(MMOPPPLibrary.Constants.ServerTickRate);
+      }
     }
   }
 }
