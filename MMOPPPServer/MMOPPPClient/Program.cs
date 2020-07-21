@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Net.Http.Headers;
 using System.Diagnostics;
+using System.Data;
 
 namespace AIClient
 {
@@ -231,21 +232,27 @@ namespace AIClient
       return testInput;
     }
 
-    static int s_InputsPerCharacter = 60;
+    static ulong s_InputsPerCharacter = 12;
     public void GameLoop(NetworkStream SendStream)
     {
+      float rot = 0;
       while (true)
       {
         List<Packet<ClientInput>> inputs = new List<Packet<ClientInput>>();
-        for (int x = 0; x < 1; ++x)
+        ulong sendtime = ((ulong)DateTime.UtcNow.Ticks / 10000);
+        foreach (var name in s_ClientNames)
         {
-          foreach (var name in s_ClientNames)
+          for (ulong x = 0; x < s_InputsPerCharacter; ++x)
           {
-            var input = new Packet<ClientInput>(CreatePlayerInput(name));
-            inputs.Add(input);
-            input.SendPacket(SendStream);
-            Thread.Sleep(1);
+            var playerInput = CreatePlayerInput(name);
+            playerInput.Input.SentTime = sendtime + 17 * x;
+            playerInput.Input.PlayerMoveInputs = new Vector3 { X = 0.0f, Y = 0.0f, Z = 1.0f };
+            playerInput.Input.EulerCameraRotation = new Vector3 { X = 0.0f, Y = rot, Z = 0.0f };
+            var newPacket = new Packet<ClientInput>(playerInput);
+            inputs.Add(newPacket);
+            newPacket.SendPacket(SendStream);
           }
+          Thread.Sleep(1); //MTU split
         }
 
         int sum = 0;
@@ -254,6 +261,10 @@ namespace AIClient
 
         Console.WriteLine("!!! Size: " + sum + " !!!");
         Thread.Sleep(MMOPPPLibrary.Constants.ServerTickRate);
+
+        rot += 10;
+        if (rot > 360)
+          rot = 0;
       }
     }
   }

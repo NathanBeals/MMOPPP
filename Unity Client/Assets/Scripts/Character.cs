@@ -26,6 +26,8 @@ public class Character : MonoBehaviour
   // UI 
   public TMPro.TextMeshPro DisplayName;
 
+  public float TimeSinceLastUpdate { get; set; } = 0.0f;
+
   private void Awake()
   {
     if (m_Local)

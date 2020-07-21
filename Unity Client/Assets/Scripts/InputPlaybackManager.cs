@@ -31,7 +31,7 @@ public class InputPlaybackManager : MonoBehaviour
 
   public void UpdateReplayInputs(List<GInput> Inputs)
   {
-    if (Inputs.Count == 0 || m_Inputs.Count == 0)
+    if (Inputs.Count == 0)
       return;
 
     if (m_Inputs.Count > 0)
@@ -42,6 +42,9 @@ public class InputPlaybackManager : MonoBehaviour
     foreach (var x in Inputs)
       m_Inputs.Enqueue(x);
     m_LocalDeltaTime = 0;
+
+    if (m_Inputs.Count == 0)
+      return;
 
     uniformWaitTime = ((MMOPPPLibrary.Constants.ServerTickRate) / m_Inputs.Count) / 1000.0f;
 

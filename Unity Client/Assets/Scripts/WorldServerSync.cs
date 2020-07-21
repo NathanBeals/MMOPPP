@@ -65,11 +65,9 @@ public class WorldServerSync : MonoBehaviour
 
       foreach (var character in characters) // Disables the character after one frame, deletes it after 2
       {
-        if (character != CharacterManager.GetLocalCharacter())
-        {
-          CharacterManager.RemoveCharacter(character);
+        character.TimeSinceLastUpdate += Time.deltaTime * 1000.0f;
+        if (character != CharacterManager.GetLocalCharacter() && character.TimeSinceLastUpdate > MMOPPPLibrary.Constants.TimeToDC)
           Destroy(character.gameObject);
-        }
       }
 
       m_QueuedServerUpdates = null;
