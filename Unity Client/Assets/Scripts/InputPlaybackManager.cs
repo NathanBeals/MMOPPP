@@ -31,7 +31,7 @@ public class InputPlaybackManager : MonoBehaviour
 
   public void UpdateReplayInputs(List<GInput> Inputs)
   {
-    if (Inputs.Count == 0)
+    if (Inputs.Count == 0 || m_Inputs.Count == 0)
       return;
 
     if (m_Inputs.Count > 0)
