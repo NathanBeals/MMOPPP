@@ -25,7 +25,7 @@ namespace MMOPPPLibrary
     public Packet(T Message)
     {
       m_Message = new T();
-      m_Message = Message; //HACK: I'm not sure if this is copying or not
+      m_Message = Message;
       m_MessageSize = Message.CalculateSize();
     }
 
@@ -47,28 +47,9 @@ namespace MMOPPPLibrary
       return packetInBytes;
     }
 
-    //static int MTUSize = 1000;
     public void SendPacket(NetworkStream Stream)
     {
-      //Stream.Write(ToByteArray(), 0, m_PacketSize);
-      //var byteArray = ToByteArray();
-
-      //if (byteArray.Length > MTUSize)
-      //{
-      //  List<byte> runningByteArray = new List<byte>(byteArray);
-
-      //  Console.WriteLine("Forcing Split");
-
-      //  while (runningByteArray.Count > 0) //HACK: slow
-      //  {
-      //    List<byte> subArray = new List<byte>(runningByteArray.Take(MTUSize));
-      //    Stream.Write(subArray.ToArray(), 0, subArray.Count);
-      //    runningByteArray.RemoveRange(0, Math.Min(MTUSize, subArray.Count));
-      //    Thread.Sleep(1);
-      //  }
-      //}
-      //else
-        Stream.Write(ToByteArray(), 0, m_PacketSize);
+      Stream.Write(ToByteArray(), 0, m_PacketSize);
     }
 
     public static void SendPacketBatch(NetworkStream Stream, List<Packet<T>> Messages)

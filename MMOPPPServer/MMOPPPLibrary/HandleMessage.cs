@@ -44,13 +44,14 @@ namespace MMOPPPLibrary
         dataAvailable = client.Available;
         stream.Read(buffer, queuedData.Count, Math.Min(dataAvailable, Constants.TCPBufferSize - queuedData.Count));
       }
-      catch (System.IO.IOException e) //TODO: look up client dc error
+      catch (System.IO.IOException e)
       {
         Console.WriteLine(e);
         return;
       }
 
       Array.Copy(queuedData.ToArray(), buffer, queuedData.Count);
+      queuedData.Clear();
 
       while (dataAvailable != 0)
       {
@@ -86,8 +87,6 @@ namespace MMOPPPLibrary
           break;
         }
       }
-
-      queuedData.Clear();
     }
   }
 }

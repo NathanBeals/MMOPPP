@@ -48,7 +48,7 @@ namespace AIClient
       while (!m_ThreadsShouldExit)
       {
         HandleMessage(m_ServerConnection);
-        Thread.Sleep(5);
+        //Thread.Sleep(5);
       }
     }
 
@@ -219,7 +219,7 @@ namespace AIClient
     }
 
     // HACK: yeah this is the roughest code in the whole project and that says something
-    static ulong s_InputsPerCharacter = 30;
+    static ulong s_InputsPerCharacter = 12;
     public void GameLoop(NetworkStream SendStream)
     {
       float rot = 0;
@@ -251,8 +251,10 @@ namespace AIClient
             var newPacket = new Packet<ClientInput>(playerInput);
             inputs.Add(newPacket);
             newPacket.SendPacket(SendStream);
+
+            //if (x % 3 == 0) //MTU split
+            //  Thread.Sleep(1);
           }
-          //Thread.Sleep(10); //MTU split
         }
 
         int sum = 0;
