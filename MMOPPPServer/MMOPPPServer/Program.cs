@@ -43,6 +43,7 @@ namespace MMOPPP
         }
 
         server.WorldUpdate(deltaTime / 10000.0f);
+        Thread.Sleep(1);
 
         stopWatch.Stop();
       }

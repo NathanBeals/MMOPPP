@@ -124,6 +124,7 @@ namespace MMOPPPServer
           for (int i = 0; i < count - m_Clients.Count; ++i)
             Console.WriteLine("Disconnected");
         }
+        //Thread.Sleep(1);
       }
     }
 
@@ -149,6 +150,7 @@ namespace MMOPPPServer
     public void QueueWorldUpdate(ServerUpdates Update)
     {
       lock (WorldUpdateLock)
+      
       {
         m_QueuedServerUpdates = Update;
       }
@@ -179,6 +181,7 @@ namespace MMOPPPServer
             }
             m_QueuedServerUpdates = null;
           }
+          //Thread.Sleep(1);
         }
       }
     }

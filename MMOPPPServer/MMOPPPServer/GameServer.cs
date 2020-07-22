@@ -109,7 +109,7 @@ namespace MMOPPPServer
 
       BroadcastWorldUpdate();
 
-      //PrintPhysicsUpdateDebug();
+      PrintPhysicsUpdateDebug();
     }
 
     // Sends a world update to all connected clients

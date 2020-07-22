@@ -121,10 +121,11 @@ public class WorldServerSync : MonoBehaviour
         PBM.GetOldServerLocation(),
         MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
       //}
-      character.StartCoroutine(ReconcileRotation(character.gameObject,
-        character.gameObject.transform.rotation.eulerAngles,
-        PBM.GetOldServerRotation(),
-        MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
+      //character.StartCoroutine(ReconcileRotation(character.gameObject, //TODO: needs to be fixed for the rotation at the (360 is mark), they're doing that fully rotating because not quaternion thing
+      //  character.gameObject.transform.rotation.eulerAngles,
+      //  PBM.GetOldServerRotation(),
+      //  MMOPPPLibrary.Constants.ServerTickRate / 1000.0f));
+      character.gameObject.transform.rotation = Quaternion.Euler(PBM.GetOldServerRotation());
       //character.gameObject.transform.SetPositionAndRotation(PBM.GetOldServerLocation(), Quaternion.Euler(PBM.GetOldServerRotation()));
       PBM.SetOldServerLocation(new V3(entity.Location.X, entity.Location.Y + character.m_CharacterHalfHeight, entity.Location.Z));
       PBM.SetOldServerRotation(new V3(entity.BodyRotation.X, entity.BodyRotation.Y, entity.BodyRotation.Z));

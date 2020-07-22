@@ -28,24 +28,24 @@ namespace AIClient
 
   class MMOPPPClient
   {
-    static List<string> s_ClientNames = new List<string>()
-  {
-    "bot1",
-    "bot2",
-    "bot3",
-    "bot4",
-    "bot5",
-    "bot6",
-    "bot7",
-    "bot8",
-    "bot9",
-    "bot10",
-    "bot11",
-    "bot12",
-    "bot13",
-    "bot14",
-    "bot15"
-    };
+    static List<string> s_ClientNames = new List<string>();
+  //{
+  //  "bot1",
+  //  "bot2",
+  //  "bot3",
+  //  "bot4",
+  //  "bot5",
+  //  "bot6",
+  //  "bot7",
+  //  "bot8",
+  //  "bot9",
+  //  "bot10",
+  //  "bot11",
+  //  "bot12",
+  //  "bot13",
+  //  "bot14",
+  //  "bot15"
+  //  };
 
     TcpClient m_ServerConnection = new TcpClient();
     List<Byte> m_QueuedData = new List<Byte>();
@@ -65,11 +65,16 @@ namespace AIClient
       while (!m_ThreadsShouldExit)
       {
         HandleMessage(m_ServerConnection);
+        Thread.Sleep(5);
       }
     }
 
     public void HandleMessage(TcpClient Client)
     {
+      //HACK: yeah I don't care about the return values anymore
+      Client.GetStream().Flush();
+      return;
+
       var client = Client;
       var queuedData = m_QueuedData;
       if (client.Available == 0)
@@ -148,7 +153,7 @@ namespace AIClient
                 recievingState = ERecievingState.Frame;
 
                 //Debbuging
-                Console.WriteLine($"World Updated {ServerUpdates.Parser.ParseFrom(data.ToArray()).ToString()}");
+               // Console.WriteLine($"World Updated {ServerUpdates.Parser.ParseFrom(data.ToArray()).ToString()}");
               }
               else // If the remaining data is smaller than the message size, push it onto the data to be parsed later
               {
@@ -162,6 +167,8 @@ namespace AIClient
 
     public void Connect(string ServerAddress = MMOPPPLibrary.Constants.ServerPublicAddress, Int32 Port = MMOPPPLibrary.Constants.ServerPort)
     {
+      s_ClientNames.Add(Console.ReadLine());
+
       try
       {
         IPAddress[] addresslist = Dns.GetHostAddresses(MMOPPPLibrary.Constants.ServerPublicAddress);
@@ -232,6 +239,7 @@ namespace AIClient
       return testInput;
     }
 
+    // HACK: yeah this is the roughest code in the whole project and that says something
     static ulong s_InputsPerCharacter = 12;
     public void GameLoop(NetworkStream SendStream)
     {
@@ -244,15 +252,28 @@ namespace AIClient
         {
           for (ulong x = 0; x < s_InputsPerCharacter; ++x)
           {
+            if (x == 0)
+            {
+              var timestampinput = CreatePlayerInput(name);
+              timestampinput.Input.SentTime = sendtime;
+              timestampinput.Input.PlayerMoveInputs = new Vector3 { X = 0.0f, Y = 0.0f, Z = 1.0f };
+              timestampinput.Input.EulerBodyRotation = new Vector3 { X = 0.0f, Y = rot, Z = 0.0f };
+              timestampinput.Input.EulerCameraRotation = new Vector3 { X = 0.0f, Y = rot, Z = 0.0f };
+              var timestamppacket = new Packet<ClientInput>(timestampinput);
+              inputs.Add(timestamppacket);
+              timestamppacket.SendPacket(SendStream);
+            }
+
             var playerInput = CreatePlayerInput(name);
-            playerInput.Input.SentTime = sendtime + 17 * x;
+            playerInput.Input.SentTime = sendtime + (ulong)(16.66667 * (x + 1));
             playerInput.Input.PlayerMoveInputs = new Vector3 { X = 0.0f, Y = 0.0f, Z = 1.0f };
+            playerInput.Input.EulerBodyRotation = new Vector3 { X = 0.0f, Y = rot, Z = 0.0f };
             playerInput.Input.EulerCameraRotation = new Vector3 { X = 0.0f, Y = rot, Z = 0.0f };
             var newPacket = new Packet<ClientInput>(playerInput);
             inputs.Add(newPacket);
             newPacket.SendPacket(SendStream);
           }
-          Thread.Sleep(1); //MTU split
+          //Thread.Sleep(10); //MTU split
         }
 
         int sum = 0;
@@ -262,7 +283,7 @@ namespace AIClient
         Console.WriteLine("!!! Size: " + sum + " !!!");
         Thread.Sleep(MMOPPPLibrary.Constants.ServerTickRate);
 
-        rot += 10;
+        rot += 20;
         if (rot > 360)
           rot = 0;
       }

@@ -50,23 +50,7 @@ namespace MMOPPPLibrary
     public void SendPacket(NetworkStream Stream)
     {
       var byteArray = ToByteArray();
-
-      //if (byteArray.Length > MTUSize)
-      //{
-      //  List<byte> runningByteArray = new List<byte>(byteArray);
-
-      //  Console.WriteLine("Forcing Split");
-
-      //  while (runningByteArray.Count > 0)
-      //  {
-      //    List<byte> subArray = new List<byte>(runningByteArray.Take(MTUSize));
-      //    Stream.Write(subArray.ToArray(), 0, subArray.Count);
-      //    runningByteArray.RemoveRange(0, Math.Min(MTUSize, subArray.Count));
-      //    Thread.Sleep(1);
-      //  }
-      //}
-      //else
-        Stream.Write(ToByteArray(), 0, m_PacketSize);
+      Stream.Write(ToByteArray(), 0, m_PacketSize);
     }
 
     public static void SendPacketBatch(NetworkStream Stream, List<Packet<T>> Messages)
