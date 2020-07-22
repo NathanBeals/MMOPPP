@@ -51,7 +51,6 @@ namespace MMOPPPLibrary
       }
 
       Array.Copy(queuedData.ToArray(), buffer, queuedData.Count);
-      queuedData.Clear();
 
       while (dataAvailable != 0)
       {
@@ -87,6 +86,8 @@ namespace MMOPPPLibrary
           break;
         }
       }
+
+      queuedData.Clear();
     }
   }
 }

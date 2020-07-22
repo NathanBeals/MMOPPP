@@ -91,14 +91,9 @@ namespace MMOPPPServer
           Console.WriteLine("Connected!");
         }
       }
-      catch (SocketException e)
+      catch (Exception e)
       {
-        if (e.SocketErrorCode == SocketError.Interrupted)
-        {
-          // Normal escape on server close
-        }
-        else
-          Console.WriteLine("SocketException: {0}", e);
+          Console.WriteLine("Exception: {0}", e);
       }
       finally
       {
@@ -124,7 +119,6 @@ namespace MMOPPPServer
           for (int i = 0; i < count - m_Clients.Count; ++i)
             Console.WriteLine("Disconnected");
         }
-        //Thread.Sleep(1);
       }
     }
 
@@ -150,7 +144,6 @@ namespace MMOPPPServer
     public void QueueWorldUpdate(ServerUpdates Update)
     {
       lock (WorldUpdateLock)
-      
       {
         m_QueuedServerUpdates = Update;
       }
@@ -162,28 +155,32 @@ namespace MMOPPPServer
       {
         lock (WorldUpdateLock)
         {
-          if (m_QueuedServerUpdates != null)
+          lock (m_Clients)
           {
-            lock (m_Clients)
-            {
-              foreach (var client in m_Clients)
-              {
-                Packet<ServerUpdates> packet = new Packet<ServerUpdates>(m_QueuedServerUpdates);
-                try
-                {
-                  packet.SendPacket(client.GetStream());
-                }
-                catch(Exception e) 
-                {
-                  Console.WriteLine(e);
-                }
-              }
-            }
-            m_QueuedServerUpdates = null;
+            BroadcaseWorldUpdateLocked();
           }
-          //Thread.Sleep(1);
         }
       }
+    }
+
+    private void BroadcaseWorldUpdateLocked()
+    {
+      if (m_QueuedServerUpdates == null)
+        return;
+
+      foreach (var client in m_Clients)
+      {
+        Packet<ServerUpdates> packet = new Packet<ServerUpdates>(m_QueuedServerUpdates);
+        try
+        {
+          packet.SendPacket(client.GetStream());
+        }
+        catch (Exception e)
+        {
+          Console.WriteLine(e);
+        }
+      }
+      m_QueuedServerUpdates = null;
     }
 
     public void Start()
@@ -191,12 +188,15 @@ namespace MMOPPPServer
       m_ThreadsShouldExit = false;
 
       m_ConnectionHandlingThread = new Thread(HandleConnections);
+      m_ConnectionHandlingThread.Name = "Connection Handling";
       m_ConnectionHandlingThread.Start();
 
       m_MessageHandlingThread = new Thread(HandleMessages);
+      m_MessageHandlingThread.Name = "Message Handling";
       m_MessageHandlingThread.Start();
 
       m_BroadcastHandlingThread = new Thread(BroadcastWorldUpdate);
+      m_BroadcastHandlingThread.Name = "Broadcasting";
       m_BroadcastHandlingThread.Start();
     }
 

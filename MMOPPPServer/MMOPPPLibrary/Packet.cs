@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Drawing;
 
 namespace MMOPPPLibrary
 {
@@ -46,11 +47,28 @@ namespace MMOPPPLibrary
       return packetInBytes;
     }
 
-    int MTUSize = 1000; // Closer to 1474
+    //static int MTUSize = 1000;
     public void SendPacket(NetworkStream Stream)
     {
-      var byteArray = ToByteArray();
-      Stream.Write(ToByteArray(), 0, m_PacketSize);
+      //Stream.Write(ToByteArray(), 0, m_PacketSize);
+      //var byteArray = ToByteArray();
+
+      //if (byteArray.Length > MTUSize)
+      //{
+      //  List<byte> runningByteArray = new List<byte>(byteArray);
+
+      //  Console.WriteLine("Forcing Split");
+
+      //  while (runningByteArray.Count > 0) //HACK: slow
+      //  {
+      //    List<byte> subArray = new List<byte>(runningByteArray.Take(MTUSize));
+      //    Stream.Write(subArray.ToArray(), 0, subArray.Count);
+      //    runningByteArray.RemoveRange(0, Math.Min(MTUSize, subArray.Count));
+      //    Thread.Sleep(1);
+      //  }
+      //}
+      //else
+        Stream.Write(ToByteArray(), 0, m_PacketSize);
     }
 
     public static void SendPacketBatch(NetworkStream Stream, List<Packet<T>> Messages)

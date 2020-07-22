@@ -12,6 +12,7 @@ using MMOPPPLibrary;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MMOPPPServer
 {
@@ -49,7 +50,7 @@ namespace MMOPPPServer
         m_TimeSinceLastTick += DeltaTime;
         if (m_TimeSinceLastTick > m_ServerTickRate)
         {
-          m_TimeSinceLastTick -= m_ServerTickRate;
+          m_TimeSinceLastTick = 0;//-= m_ServerTickRate;
 
           m_Inputs = m_ClientManager.GetInputs(); // Blocking Call
           m_ClientManager.ClearInputs(); // Also a blocking Call //TODO: combine in one function so there's no chance of dropping inputs
@@ -122,6 +123,7 @@ namespace MMOPPPServer
         character.Value.ServerUpdateReset();
       }
 
+      //Task.Run(() => m_ClientManager.QueueWorldUpdate(worldUpdate));
       m_ClientManager.QueueWorldUpdate(worldUpdate);
     }
 

@@ -29,23 +29,6 @@ namespace AIClient
   class MMOPPPClient
   {
     static List<string> s_ClientNames = new List<string>();
-  //{
-  //  "bot1",
-  //  "bot2",
-  //  "bot3",
-  //  "bot4",
-  //  "bot5",
-  //  "bot6",
-  //  "bot7",
-  //  "bot8",
-  //  "bot9",
-  //  "bot10",
-  //  "bot11",
-  //  "bot12",
-  //  "bot13",
-  //  "bot14",
-  //  "bot15"
-  //  };
 
     TcpClient m_ServerConnection = new TcpClient();
     List<Byte> m_QueuedData = new List<Byte>();
@@ -71,10 +54,6 @@ namespace AIClient
 
     public void HandleMessage(TcpClient Client)
     {
-      //HACK: yeah I don't care about the return values anymore
-      Client.GetStream().Flush();
-      return;
-
       var client = Client;
       var queuedData = m_QueuedData;
       if (client.Available == 0)
@@ -240,7 +219,7 @@ namespace AIClient
     }
 
     // HACK: yeah this is the roughest code in the whole project and that says something
-    static ulong s_InputsPerCharacter = 12;
+    static ulong s_InputsPerCharacter = 30;
     public void GameLoop(NetworkStream SendStream)
     {
       float rot = 0;
