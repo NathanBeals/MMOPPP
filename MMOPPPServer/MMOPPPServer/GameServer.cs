@@ -123,8 +123,8 @@ namespace MMOPPPServer
         character.Value.ServerUpdateReset();
       }
 
-      //Task.Run(() => m_ClientManager.QueueWorldUpdate(worldUpdate));
-      m_ClientManager.QueueWorldUpdate(worldUpdate);
+      Task.Run(() => m_ClientManager.QueueWorldUpdate(worldUpdate));
+      //m_ClientManager.QueueWorldUpdate(worldUpdate);
     }
 
     public void Start()

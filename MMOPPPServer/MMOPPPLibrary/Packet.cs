@@ -33,7 +33,7 @@ namespace MMOPPPLibrary
     {
       byte[] sizeInBytes = BitConverter.GetBytes(m_MessageSize);
       // INFO: protobuf handles the endianess of it's messages, only the size needs to be swapped.
-      if (Constants.MessageIsLittleEndian != Constants.SystemIsLittleEndian)
+      if (Constants.MessageIsLittleEndian != Constants.SystemIsLittleEndian) 
         sizeInBytes.Reverse();
 
       byte[] messageInBytes = m_Message.ToByteArray();

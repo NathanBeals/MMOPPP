@@ -48,7 +48,7 @@ namespace AIClient
       while (!m_ThreadsShouldExit)
       {
         HandleMessage(m_ServerConnection);
-        //Thread.Sleep(5);
+        Thread.Sleep(5);
       }
     }
 
@@ -251,9 +251,6 @@ namespace AIClient
             var newPacket = new Packet<ClientInput>(playerInput);
             inputs.Add(newPacket);
             newPacket.SendPacket(SendStream);
-
-            //if (x % 3 == 0) //MTU split
-            //  Thread.Sleep(1);
           }
         }
 
@@ -261,12 +258,12 @@ namespace AIClient
         foreach (var packet in inputs)
           sum += packet.GetPacketSize();
 
-        Console.WriteLine("!!! Size: " + sum + " !!!");
-        Thread.Sleep(MMOPPPLibrary.Constants.ServerTickRate);
-
         rot += 20;
         if (rot > 360)
           rot = 0;
+
+        Console.WriteLine("!!! Size: " + sum + " !!!");
+        Thread.Sleep(MMOPPPLibrary.Constants.ServerTickRate);
       }
     }
   }
