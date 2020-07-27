@@ -207,6 +207,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "ToggleMouseLock",
+                    "type": "Button",
+                    "id": "de4510f5-14c8-4f58-bc32-6d2fdd05c971",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -284,6 +292,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "DecrementLag",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "489da433-9ca5-4879-83e9-60ade233e032",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleMouseLock",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

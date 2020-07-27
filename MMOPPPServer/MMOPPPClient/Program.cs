@@ -241,6 +241,8 @@ namespace AIClient
               var timestamppacket = new Packet<ClientInput>(timestampinput);
               inputs.Add(timestamppacket);
               timestamppacket.SendPacket(SendStream);
+
+              Thread.Sleep(1);
             }
 
             var playerInput = CreatePlayerInput(name);
@@ -251,6 +253,8 @@ namespace AIClient
             var newPacket = new Packet<ClientInput>(playerInput);
             inputs.Add(newPacket);
             newPacket.SendPacket(SendStream);
+
+            Thread.Sleep(1);
           }
         }
 

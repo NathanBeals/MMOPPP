@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 using System.Linq;
 using UnityEngine.SceneManagement;
 using JetBrains.Annotations;
+using UnityEngine;
 
 public class DebugKeys : MonoBehaviour
 {
@@ -48,6 +49,7 @@ public class DebugKeys : MonoBehaviour
     inputActions.DebugControls.ReturnToTitle.performed += ctx => ReturnToTitle();
     inputActions.DebugControls.IncrementLag.performed += ctx => ModifyLag(.1f);
     inputActions.DebugControls.DecrementLag.performed += ctx => ModifyLag(-.1f);
+    inputActions.DebugControls.ToggleMouseLock.performed += ctx => ToggleMouseLock();
   }
 
   private void ModifyLag(float value)
@@ -66,5 +68,15 @@ public class DebugKeys : MonoBehaviour
   private void OnDisable()
   {
     inputActions.Disable();
+  }
+
+  private void ToggleMouseLock()
+  {
+    if (UnityEngine.Cursor.lockState == CursorLockMode.Locked)
+      UnityEngine.Cursor.lockState = CursorLockMode.None;
+    else
+      UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+
+    UnityEngine.Cursor.visible = UnityEngine.Cursor.lockState != CursorLockMode.Locked;
   }
 }

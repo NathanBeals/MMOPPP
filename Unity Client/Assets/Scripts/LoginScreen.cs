@@ -14,6 +14,13 @@ public class LoginScreen : MonoBehaviour
   public void OnEnable()
   {
     UnityEngine.Cursor.lockState = CursorLockMode.None;
+    UnityEngine.Cursor.visible = true;
+  }
+
+  public void OnDisble()
+  {
+    UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+    UnityEngine.Cursor.visible = false;
   }
 
   public void AttemptLogin()

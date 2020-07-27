@@ -220,6 +220,14 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ToggleMouseLock"",
+                    ""type"": ""Button"",
+                    ""id"": ""de4510f5-14c8-4f58-bc32-6d2fdd05c971"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -299,6 +307,17 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""action"": ""DecrementLag"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""489da433-9ca5-4879-83e9-60ade233e032"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleMouseLock"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -321,6 +340,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         m_DebugControls_ReturnToTitle = m_DebugControls.FindAction("ReturnToTitle", throwIfNotFound: true);
         m_DebugControls_IncrementLag = m_DebugControls.FindAction("IncrementLag", throwIfNotFound: true);
         m_DebugControls_DecrementLag = m_DebugControls.FindAction("DecrementLag", throwIfNotFound: true);
+        m_DebugControls_ToggleMouseLock = m_DebugControls.FindAction("ToggleMouseLock", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -442,6 +462,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_DebugControls_ReturnToTitle;
     private readonly InputAction m_DebugControls_IncrementLag;
     private readonly InputAction m_DebugControls_DecrementLag;
+    private readonly InputAction m_DebugControls_ToggleMouseLock;
     public struct DebugControlsActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -453,6 +474,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         public InputAction @ReturnToTitle => m_Wrapper.m_DebugControls_ReturnToTitle;
         public InputAction @IncrementLag => m_Wrapper.m_DebugControls_IncrementLag;
         public InputAction @DecrementLag => m_Wrapper.m_DebugControls_DecrementLag;
+        public InputAction @ToggleMouseLock => m_Wrapper.m_DebugControls_ToggleMouseLock;
         public InputActionMap Get() { return m_Wrapper.m_DebugControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -483,6 +505,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @DecrementLag.started -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnDecrementLag;
                 @DecrementLag.performed -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnDecrementLag;
                 @DecrementLag.canceled -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnDecrementLag;
+                @ToggleMouseLock.started -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnToggleMouseLock;
+                @ToggleMouseLock.performed -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnToggleMouseLock;
+                @ToggleMouseLock.canceled -= m_Wrapper.m_DebugControlsActionsCallbackInterface.OnToggleMouseLock;
             }
             m_Wrapper.m_DebugControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -508,6 +533,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @DecrementLag.started += instance.OnDecrementLag;
                 @DecrementLag.performed += instance.OnDecrementLag;
                 @DecrementLag.canceled += instance.OnDecrementLag;
+                @ToggleMouseLock.started += instance.OnToggleMouseLock;
+                @ToggleMouseLock.performed += instance.OnToggleMouseLock;
+                @ToggleMouseLock.canceled += instance.OnToggleMouseLock;
             }
         }
     }
@@ -529,5 +557,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         void OnReturnToTitle(InputAction.CallbackContext context);
         void OnIncrementLag(InputAction.CallbackContext context);
         void OnDecrementLag(InputAction.CallbackContext context);
+        void OnToggleMouseLock(InputAction.CallbackContext context);
     }
 }

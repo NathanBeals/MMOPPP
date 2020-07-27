@@ -25,7 +25,7 @@ namespace Invector.vCharacterController
 
     private void Awake()
     {
-      Cursor.lockState = CursorLockMode.Locked;
+      //Cursor.lockState = CursorLockMode.Locked;
       m_Character = GetComponent<Character>();
 
       if (m_Character.m_Local)

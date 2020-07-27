@@ -259,7 +259,7 @@ PrefabInstance:
     - target: {fileID: 2795936184393548233, guid: ddaa4112aeeb586499f9514683ff2472,
         type: 3}
       propertyPath: m_Text
-      value: Randy
+      value: name
       objectReference: {fileID: 0}
     - target: {fileID: 7115251919993774611, guid: ddaa4112aeeb586499f9514683ff2472,
         type: 3}
