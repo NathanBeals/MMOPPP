@@ -12,12 +12,14 @@ using System.Net.NetworkInformation;
 using System.IO;
 using MMOPPPLibrary;
 using System.Threading;
+using System.Runtime.CompilerServices;
+using System.Diagnostics;
 
 namespace MMOPPPLibrary
 {
   public class ProtobufTCPMessageHandler
   {
-    public delegate bool ParseFunction(List<Byte> RawBytes, TcpClient ClientConnection);
+    public delegate bool ParseFunction(List<Byte> RawBytes);
 
     enum ERecievingState
     {
@@ -25,33 +27,19 @@ namespace MMOPPPLibrary
       Message
     }
 
-    static public void HandleMessage(TcpClient Client, List<Byte> QueuedData, ParseFunction DataParser) // HACK: duplicated code, see client manager in server code
+    static public void HandleMessage(UdpClient Client, ParseFunction DataParser)
     {
-      var client = Client;
-      var queuedData = QueuedData;
-      if (client.Available == 0)
+      if (Client.Available == 0)
         return;
 
+      var client = Client;
       Int32 messageSize = 0;
       byte[] buffer = new byte[Constants.TCPBufferSize];
       byte[] lengthData = new byte[Constants.HeaderSize];
       int dataAvailable;
       int dataHead = 0;
 
-      try // Make sure to catch if the client is DCed in here
-      {
-        NetworkStream stream = client.GetStream();
-        dataAvailable = client.Available;
-        stream.Read(buffer, queuedData.Count, Math.Min(dataAvailable, Constants.TCPBufferSize - queuedData.Count));
-      }
-      catch (System.IO.IOException e)
-      {
-        Console.WriteLine(e);
-        return;
-      }
-
-      Array.Copy(queuedData.ToArray(), buffer, queuedData.Count);
-      queuedData.Clear();
+      dataAvailable = client.Available;
 
       while (dataAvailable != 0)
       {
@@ -71,7 +59,7 @@ namespace MMOPPPLibrary
           data.AddRange(buffer.SubArray(dataHead + Constants.HeaderSize, messageSize));
 
           // Parse the message bytes and add it to the inputs list
-          if (!DataParser(data, Client))
+          if (!DataParser(data))
             break;
 
           // Increment the head
@@ -83,7 +71,7 @@ namespace MMOPPPLibrary
 
         if (dataAvailable != 0 && dataAvailable < messageSize + Constants.HeaderSize) // If the remaining data is smaller than the message size, push it onto the data to be parsed later
         {
-          queuedData.AddRange(buffer.SubArray(0, dataAvailable));
+          Debug.Assert(true);
           break;
         }
       }

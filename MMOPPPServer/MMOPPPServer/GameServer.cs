@@ -59,7 +59,7 @@ namespace MMOPPPServer
           PhysicsUpdate(m_ServerTickRate);
           SaveCharacters();
 
-          //Console.WriteLine("Tick");
+          Console.WriteLine("Tick");
           //m_ClientManager.DebugClientCount();
           //m_ClientManager.DebugThreadsUp();
         }
@@ -124,7 +124,6 @@ namespace MMOPPPServer
       }
 
       Task.Run(() => m_ClientManager.QueueWorldUpdate(worldUpdate));
-      //m_ClientManager.QueueWorldUpdate(worldUpdate);
     }
 
     public void Start()

@@ -32,18 +32,8 @@ namespace MMOPPP
         deltaTime = stopWatch.ElapsedTicks;
         stopWatch.Restart();
 
-        //if (Console.KeyAvailable) // HACK: these don't work consistently, the faster the tick the less they work
-        //{
-        //  if (Console.ReadKey(true).Key == ConsoleKey.Escape)
-        //    bExit = true;
-        //  if (Console.ReadKey(true).Key == ConsoleKey.S)
-        //    server.Start();
-        //  if (Console.ReadKey(true).Key == ConsoleKey.H)
-        //    server.Stop();
-        //}
-
         server.WorldUpdate(deltaTime / 10000.0f);
-        Thread.Sleep(10);
+        Thread.Sleep(10); //TODO: remove?
 
         stopWatch.Stop();
       }
