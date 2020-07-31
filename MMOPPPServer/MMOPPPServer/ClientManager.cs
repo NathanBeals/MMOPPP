@@ -76,16 +76,10 @@ namespace MMOPPPServer
         {
             while (!m_ThreadsShouldExit)
             {
-                IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0); // Allows recieving from any port
-                Byte[] recieved = m_UDPClientIncoming.Receive(ref RemoteIpEndPoint);
-                if (recieved.Length > 0)
-                    Console.WriteLine("success");
                 while (m_UDPClientIncoming.Available != 0)
                 {
-                    Byte[] recieved = m_UDPClientIncoming.Receive(ref RemoteIpEndPoint); // TODO: recieve async
                     MMOPPPLibrary.ProtobufTCPMessageHandler.HandleMessage(m_UDPClientIncoming, ParseClientUpdate);
-
-                    // Handle Message
+                    Console.WriteLine("Inputs Recieved");
                 }
             }
         }

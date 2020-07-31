@@ -28,7 +28,7 @@ namespace AIClient
         public void InitGameLoop()
         {
             s_ClientNames.Add(Console.ReadLine());
-            m_UDPClient.Connect(MMOPPPLibrary.Constants.ServerPublicAddress, 6969);
+            m_UDPClient.Connect("127.0.0.1", 6969); // actual host not working
 
             Console.WriteLine("Server Connection Successful");
 
