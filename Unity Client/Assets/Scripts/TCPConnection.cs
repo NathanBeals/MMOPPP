@@ -19,57 +19,6 @@ using TMPro;
 //TODO: cleanup
 //TODO: this is doing double duty for client inputs and server updates but the server synce code is external (client updates should be external too)
 
-
-namespace fugit
-{
-    public class ProtobufTCPMessageHandler
-    {
-        public delegate bool ParseFunction(List<Byte> RawBytes, IPEndPoint Sender);
-
-        enum ERecievingState
-        {
-            Frame,
-            Message
-        }
-
-        //TODO: can be refactored more, the packet size is almost unimportant now
-        static public void HandleMessage(UdpClient Client, ParseFunction DataParser)
-        {
-            if (Client.Available == 0)
-                return;
-
-            IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
-
-            byte[] lengthData = new byte[Constants.HeaderSize];
-            int dataAvailable = Client.Available;
-            int messageSize;
-
-            while (dataAvailable != 0)
-            {
-                byte[] buffer = Client.Receive(ref RemoteIpEndPoint);
-
-                // Get size of message from header
-                Array.Copy(buffer, 0, lengthData, 0, Constants.HeaderSize);
-                if (Constants.SystemIsLittleEndian != Constants.MessageIsLittleEndian)
-                    lengthData.Reverse();
-                messageSize = BitConverter.ToInt32(lengthData, 0);
-                if (messageSize > dataAvailable - Constants.HeaderSize)
-                    throw new System.Exception("UDP Datagram incomplete");
-
-                // Put the message bytes into a data object
-                List<byte> data = new List<byte>();
-                data.AddRange(buffer.SubArray(Constants.HeaderSize, messageSize));
-
-                // Parse the message bytes and add it to the inputs list
-                if (!DataParser(data, RemoteIpEndPoint))
-                    break;
-
-                dataAvailable -= messageSize + Constants.HeaderSize;
-            }
-        }
-    }
-}
-
 public class TCPConnection : MonoBehaviour //TODO: rename to udp connecton, or something else
 {
     // Threads
@@ -110,7 +59,7 @@ public class TCPConnection : MonoBehaviour //TODO: rename to udp connecton, or s
         m_UDPToServer = new UdpClient(m_RandomUpPort);
         m_UDPToServer.Connect("192.168.0.105"/*addresslist[0].ToString()*/, MMOPPPLibrary.Constants.ServerPort);
 
-        m_UDPFromServer = new UdpClient(23423);
+        m_UDPFromServer = new UdpClient(m_RandomUpPort + 1);
         //m_UDPToServer.Connect("192.168.0.105"/*addresslist[0].ToString()*/, m_RandomUpPort);
     }
 
@@ -185,8 +134,7 @@ public class TCPConnection : MonoBehaviour //TODO: rename to udp connecton, or s
         Thread.Sleep(StartDelay);
         while (!m_ThreadsShouldExit)
         {
-           // MMOPPPLibrary.ProtobufTCPMessageHandler.HandleMessage(m_UDPFromServer, ParseServerUpdates);
-           fugit.ProtobufTCPMessageHandler.HandleMessage(m_UDPFromServer, ParseServerUpdates);
+           MMOPPPLibrary.ProtobufTCPMessageHandler.HandleMessage(m_UDPFromServer, ParseServerUpdates);
             Thread.Sleep(100);
         }
     }
