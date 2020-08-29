@@ -133,15 +133,11 @@ namespace MMOPPPServer
         {
             if (m_QueuedServerUpdates == null)
                 return;
-            //Packet<ServerUpdates> packet = new Packet<ServerUpdates>();
-            ServerUpdates greg = new ServerUpdates();
-            ServerUpdate a = new ServerUpdate();
-            a.Name = "gerg";
-            greg.Updates.Add(a);
-            Packet<ServerUpdates> packet = new Packet<ServerUpdates>(greg/*m_QueuedServerUpdates*/);
+
+            Packet<ServerUpdates> packet = new Packet<ServerUpdates>(m_QueuedServerUpdates);
             foreach (var connectionInfo in m_Clients)
             {
-                packet.SendPacketUDP(m_UDPClientOutgoing, new IPEndPoint(connectionInfo.Address, connectionInfo.Port + 1)); //instead just use set 3333?
+                packet.SendPacketUDP(m_UDPClientOutgoing, new IPEndPoint(connectionInfo.Address, connectionInfo.Port + 1));
             }
 
             m_QueuedServerUpdates = null;
