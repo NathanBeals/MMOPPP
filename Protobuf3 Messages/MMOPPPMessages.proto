@@ -1,8 +1,6 @@
 syntax = "proto3";
 package MMOPPP;
 
-import "google/protobuf/timestamp.proto";
-
 option csharp_namespace = "Google.Protobuf.MMOPPP.Messages"; // Changes the namespace for c# generated code
 
 // -- Helper Messages --

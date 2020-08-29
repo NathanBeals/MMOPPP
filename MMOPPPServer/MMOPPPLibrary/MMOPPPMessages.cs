@@ -24,22 +24,21 @@ namespace Google.Protobuf.MMOPPP.Messages {
     static MMOPPPMessagesReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChRNTU9QUFBNZXNzYWdlcy5wcm90bxIGTU1PUFBQGh9nb29nbGUvcHJvdG9i",
-            "dWYvdGltZXN0YW1wLnByb3RvIioKB1ZlY3RvcjMSCQoBeBgBIAEoAhIJCgF5",
-            "GAIgASgCEgkKAXoYAyABKAIixQEKBUlucHV0EisKEnBsYXllcl9tb3ZlX2lu",
-            "cHV0cxgDIAEoCzIPLk1NT1BQUC5WZWN0b3IzEiwKE2V1bGVyX2JvZHlfcm90",
-            "YXRpb24YBCABKAsyDy5NTU9QUFAuVmVjdG9yMxIuChVldWxlcl9jYW1lcmFf",
-            "cm90YXRpb24YBSABKAsyDy5NTU9QUFAuVmVjdG9yMxIOCgZzdHJhZmUYBiAB",
-            "KAgSDgoGc3ByaW50GAcgASgIEhEKCXNlbnRfdGltZRgIIAEoBCKLAQoMU2Vy",
-            "dmVyVXBkYXRlEgwKBG5hbWUYASABKAkSIgoLcGFzdF9pbnB1dHMYAiADKAsy",
-            "DS5NTU9QUFAuSW5wdXQSIQoIbG9jYXRpb24YAyABKAsyDy5NTU9QUFAuVmVj",
-            "dG9yMxImCg1ib2R5X3JvdGF0aW9uGAQgASgLMg8uTU1PUFBQLlZlY3RvcjMi",
-            "NgoNU2VydmVyVXBkYXRlcxIlCgd1cGRhdGVzGAEgAygLMhQuTU1PUFBQLlNl",
-            "cnZlclVwZGF0ZSI5CgtDbGllbnRJbnB1dBIMCgRuYW1lGAEgASgJEhwKBWlu",
-            "cHV0GAIgASgLMg0uTU1PUFBQLklucHV0QiKqAh9Hb29nbGUuUHJvdG9idWYu",
-            "TU1PUFBQLk1lc3NhZ2VzYgZwcm90bzM="));
+            "ChRNTU9QUFBNZXNzYWdlcy5wcm90bxIGTU1PUFBQIioKB1ZlY3RvcjMSCQoB",
+            "eBgBIAEoAhIJCgF5GAIgASgCEgkKAXoYAyABKAIixQEKBUlucHV0EisKEnBs",
+            "YXllcl9tb3ZlX2lucHV0cxgDIAEoCzIPLk1NT1BQUC5WZWN0b3IzEiwKE2V1",
+            "bGVyX2JvZHlfcm90YXRpb24YBCABKAsyDy5NTU9QUFAuVmVjdG9yMxIuChVl",
+            "dWxlcl9jYW1lcmFfcm90YXRpb24YBSABKAsyDy5NTU9QUFAuVmVjdG9yMxIO",
+            "CgZzdHJhZmUYBiABKAgSDgoGc3ByaW50GAcgASgIEhEKCXNlbnRfdGltZRgI",
+            "IAEoBCKLAQoMU2VydmVyVXBkYXRlEgwKBG5hbWUYASABKAkSIgoLcGFzdF9p",
+            "bnB1dHMYAiADKAsyDS5NTU9QUFAuSW5wdXQSIQoIbG9jYXRpb24YAyABKAsy",
+            "Dy5NTU9QUFAuVmVjdG9yMxImCg1ib2R5X3JvdGF0aW9uGAQgASgLMg8uTU1P",
+            "UFBQLlZlY3RvcjMiNgoNU2VydmVyVXBkYXRlcxIlCgd1cGRhdGVzGAEgAygL",
+            "MhQuTU1PUFBQLlNlcnZlclVwZGF0ZSI5CgtDbGllbnRJbnB1dBIMCgRuYW1l",
+            "GAEgASgJEhwKBWlucHV0GAIgASgLMg0uTU1PUFBQLklucHV0QiKqAh9Hb29n",
+            "bGUuUHJvdG9idWYuTU1PUFBQLk1lc3NhZ2VzYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
+          new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.MMOPPP.Messages.Vector3), global::Google.Protobuf.MMOPPP.Messages.Vector3.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.MMOPPP.Messages.Input), global::Google.Protobuf.MMOPPP.Messages.Input.Parser, new[]{ "PlayerMoveInputs", "EulerBodyRotation", "EulerCameraRotation", "Strafe", "Sprint", "SentTime" }, null, null, null, null),

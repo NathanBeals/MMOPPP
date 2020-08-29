@@ -178,25 +178,23 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_MMOPPPMessages_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\024MMOPPPMessages.proto\022\006MMOPPP\032\037google/p"
-  "rotobuf/timestamp.proto\"*\n\007Vector3\022\t\n\001x\030"
-  "\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002\"\305\001\n\005Input\022+\n"
-  "\022player_move_inputs\030\003 \001(\0132\017.MMOPPP.Vecto"
-  "r3\022,\n\023euler_body_rotation\030\004 \001(\0132\017.MMOPPP"
-  ".Vector3\022.\n\025euler_camera_rotation\030\005 \001(\0132"
-  "\017.MMOPPP.Vector3\022\016\n\006strafe\030\006 \001(\010\022\016\n\006spri"
-  "nt\030\007 \001(\010\022\021\n\tsent_time\030\010 \001(\004\"\213\001\n\014ServerUp"
-  "date\022\014\n\004name\030\001 \001(\t\022\"\n\013past_inputs\030\002 \003(\0132"
-  "\r.MMOPPP.Input\022!\n\010location\030\003 \001(\0132\017.MMOPP"
-  "P.Vector3\022&\n\rbody_rotation\030\004 \001(\0132\017.MMOPP"
-  "P.Vector3\"6\n\rServerUpdates\022%\n\007updates\030\001 "
-  "\003(\0132\024.MMOPPP.ServerUpdate\"9\n\013ClientInput"
-  "\022\014\n\004name\030\001 \001(\t\022\034\n\005input\030\002 \001(\0132\r.MMOPPP.I"
-  "nputB\"\252\002\037Google.Protobuf.MMOPPP.Messages"
-  "b\006proto3"
+  "\n\024MMOPPPMessages.proto\022\006MMOPPP\"*\n\007Vector"
+  "3\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002\"\305\001\n\005I"
+  "nput\022+\n\022player_move_inputs\030\003 \001(\0132\017.MMOPP"
+  "P.Vector3\022,\n\023euler_body_rotation\030\004 \001(\0132\017"
+  ".MMOPPP.Vector3\022.\n\025euler_camera_rotation"
+  "\030\005 \001(\0132\017.MMOPPP.Vector3\022\016\n\006strafe\030\006 \001(\010\022"
+  "\016\n\006sprint\030\007 \001(\010\022\021\n\tsent_time\030\010 \001(\004\"\213\001\n\014S"
+  "erverUpdate\022\014\n\004name\030\001 \001(\t\022\"\n\013past_inputs"
+  "\030\002 \003(\0132\r.MMOPPP.Input\022!\n\010location\030\003 \001(\0132"
+  "\017.MMOPPP.Vector3\022&\n\rbody_rotation\030\004 \001(\0132"
+  "\017.MMOPPP.Vector3\"6\n\rServerUpdates\022%\n\007upd"
+  "ates\030\001 \003(\0132\024.MMOPPP.ServerUpdate\"9\n\013Clie"
+  "ntInput\022\014\n\004name\030\001 \001(\t\022\034\n\005input\030\002 \001(\0132\r.M"
+  "MOPPP.InputB\"\252\002\037Google.Protobuf.MMOPPP.M"
+  "essagesb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_MMOPPPMessages_2eproto_deps[1] = {
-  &::descriptor_table_google_2fprotobuf_2ftimestamp_2eproto,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_MMOPPPMessages_2eproto_sccs[5] = {
   &scc_info_ClientInput_MMOPPPMessages_2eproto.base,
@@ -207,8 +205,8 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_MMO
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_MMOPPPMessages_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_MMOPPPMessages_2eproto = {
-  false, false, descriptor_table_protodef_MMOPPPMessages_2eproto, "MMOPPPMessages.proto", 608,
-  &descriptor_table_MMOPPPMessages_2eproto_once, descriptor_table_MMOPPPMessages_2eproto_sccs, descriptor_table_MMOPPPMessages_2eproto_deps, 5, 1,
+  false, false, descriptor_table_protodef_MMOPPPMessages_2eproto, "MMOPPPMessages.proto", 575,
+  &descriptor_table_MMOPPPMessages_2eproto_once, descriptor_table_MMOPPPMessages_2eproto_sccs, descriptor_table_MMOPPPMessages_2eproto_deps, 5, 0,
   schemas, file_default_instances, TableStruct_MMOPPPMessages_2eproto::offsets,
   file_level_metadata_MMOPPPMessages_2eproto, 5, file_level_enum_descriptors_MMOPPPMessages_2eproto, file_level_service_descriptors_MMOPPPMessages_2eproto,
 };

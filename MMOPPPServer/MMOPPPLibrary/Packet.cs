@@ -57,6 +57,11 @@ namespace MMOPPPLibrary
             Client.Send(ToByteArray(), m_PacketSize);
         }
 
+        public void SendPacketUDP(UdpClient Client, IPEndPoint Target)
+        {
+            Client.Send(ToByteArray(), m_PacketSize, Target);
+        }
+
         public static void SendPacketBatch(NetworkStream Stream, List<Packet<T>> Messages)
         {
             List<Byte> batch = new List<byte>();

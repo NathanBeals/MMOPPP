@@ -14,12 +14,13 @@ using MMOPPPLibrary;
 using System.Threading;
 using System.Runtime.CompilerServices;
 using System.Diagnostics;
+using System.Net.Http.Headers;
 
 namespace MMOPPPLibrary
 {
     public class ProtobufTCPMessageHandler
     {
-        public delegate bool ParseFunction(List<Byte> RawBytes);
+        public delegate bool ParseFunction(List<Byte> RawBytes, IPEndPoint Sender);
 
         enum ERecievingState
         {
@@ -33,7 +34,7 @@ namespace MMOPPPLibrary
             if (Client.Available == 0)
                 return;
 
-            IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0); // Allows recieving from any port
+            IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
             
             byte[] lengthData = new byte[Constants.HeaderSize];
             int dataAvailable = Client.Available;
@@ -56,7 +57,7 @@ namespace MMOPPPLibrary
                 data.AddRange(buffer.SubArray(Constants.HeaderSize, messageSize));
 
                 // Parse the message bytes and add it to the inputs list
-                if (!DataParser(data))
+                if (!DataParser(data, RemoteIpEndPoint))
                     break;
 
                 dataAvailable -= messageSize + Constants.HeaderSize;

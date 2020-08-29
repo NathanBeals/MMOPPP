@@ -27,13 +27,12 @@ namespace MMOPPPServer
         Thread m_BroadcastHandlingThread;
         bool m_ThreadsShouldExit = false;
 
-        List<TcpClient> m_Clients = new List<TcpClient>();
-        List<List<Byte>> m_QueuedData = new List<List<byte>>();
         List<ClientInput> m_Inputs = new List<ClientInput>();
 
         TcpListener m_TCPListener = null;
-        List<UdpClient> m_UDPClientsOutgoing = new List<UdpClient>(); // Need to record IP addresses in addition to the udp down port (for systems sharing ip addresses)
         UdpClient m_UDPClientIncoming = null;
+        UdpClient m_UDPClientOutgoing = null;
+        List<IPEndPoint> m_Clients = new List<IPEndPoint>();
 
         object WorldUpdateLock = new object();
         ServerUpdates m_QueuedServerUpdates = null;
@@ -84,12 +83,18 @@ namespace MMOPPPServer
             }
         }
 
-        public bool ParseClientUpdate(List<Byte> RawBytes)
+        public bool ParseClientUpdate(List<Byte> RawBytes, IPEndPoint Sender)
         {
             lock (m_Inputs)
             {
                 try
                 {
+                    lock (m_Clients)
+                    {
+                        if (!m_Clients.Contains(Sender)) // HACK: costly depending on connections
+                            m_Clients.Add(Sender);
+                    }
+
                     m_Inputs.Add(ClientInput.Parser.ParseFrom(RawBytes.ToArray()));
                     return true;
                 }
@@ -128,10 +133,16 @@ namespace MMOPPPServer
         {
             if (m_QueuedServerUpdates == null)
                 return;
-
-            // TODO: for each connection
-            Packet<ServerUpdates> packet = new Packet<ServerUpdates>(m_QueuedServerUpdates);
-            packet.SendPacketUDP(m_UDPClientsOutgoing[0]); //TODO: establish connection to remote 
+            //Packet<ServerUpdates> packet = new Packet<ServerUpdates>();
+            ServerUpdates greg = new ServerUpdates();
+            ServerUpdate a = new ServerUpdate();
+            a.Name = "gerg";
+            greg.Updates.Add(a);
+            Packet<ServerUpdates> packet = new Packet<ServerUpdates>(greg/*m_QueuedServerUpdates*/);
+            foreach (var connectionInfo in m_Clients)
+            {
+                packet.SendPacketUDP(m_UDPClientOutgoing, new IPEndPoint(connectionInfo.Address, connectionInfo.Port + 1)); //instead just use set 3333?
+            }
 
             m_QueuedServerUpdates = null;
         }
@@ -141,9 +152,7 @@ namespace MMOPPPServer
             m_ThreadsShouldExit = false;
 
             m_UDPClientIncoming = new UdpClient(MMOPPPLibrary.Constants.ServerPort);
-
-            m_UDPClientsOutgoing.Add(new UdpClient()); //Also get the address of the incoming connection
-            m_UDPClientsOutgoing[0].Connect("127.0.0.1", MMOPPPLibrary.Constants.TempClientPort);
+            m_UDPClientOutgoing = new UdpClient(MMOPPPLibrary.Constants.ServerPort + 1);
 
             m_MessageHandlingThread = new Thread(HandleMessages);
             m_MessageHandlingThread.Name = "Message Handling";
@@ -156,13 +165,6 @@ namespace MMOPPPServer
 
         public void Stop()
         {
-            lock (m_Clients)
-            {
-                foreach (var client in m_Clients)
-                    client.Close();
-                m_Clients.Clear();
-            }
-
             if (m_TCPListener != null)
             {
                 m_TCPListener.Stop();
