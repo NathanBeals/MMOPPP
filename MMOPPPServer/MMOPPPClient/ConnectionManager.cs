@@ -36,7 +36,7 @@ namespace AIClient
             if (addresslist.Length == 0)
                 throw new SocketException();
 
-            m_UDPClientUp.Connect("192.168.0.105", 6969); // actual host address not working again, just use my local ip for now
+            m_UDPClientUp.Connect(addresslist[0].ToString(), 6969); // actual host address not working again, just use my local ip for now
             Console.WriteLine("Server Connection Successful");
 
             m_UDPClientDown = new UdpClient(port + 1);
