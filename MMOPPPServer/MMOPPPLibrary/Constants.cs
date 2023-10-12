@@ -11,7 +11,7 @@ namespace MMOPPPLibrary
         public static readonly bool MessageIsLittleEndian = true; // Little Endian
         public static readonly bool SystemIsLittleEndian = BitConverter.IsLittleEndian;
         public const string ServerLocalAddress = "0.0.0.0";
-        public const string ServerPublicAddress = "natelovespizza.ddns.net";
+        public const string ServerPublicAddress = "natelovesbread.ddns.net";
         public const Int32 ServerPort = 6969;
         public const Int32 HeaderSize = 4;
         public const Int32 ServerTickRate = 200; // Miliseconds
